@@ -32,6 +32,11 @@ export const dictionary = {
     toggleTheme: "Toggle theme",
     openMenu: "Open menu",
     closeMenu: "Close menu",
+    notFound: {
+      heading: "Page not found",
+      body: "The page you're looking for doesn't exist or may have moved.",
+      backHome: "Back to home",
+    },
   },
   es: {
     nav: { about: "Sobre mí", projects: "Proyectos", skills: "Habilidades", contact: "Contacto" },
@@ -64,6 +69,11 @@ export const dictionary = {
     toggleTheme: "Cambiar tema",
     openMenu: "Abrir menú",
     closeMenu: "Cerrar menú",
+    notFound: {
+      heading: "Página no encontrada",
+      body: "La página que buscas no existe o pudo haberse movido.",
+      backHome: "Volver al inicio",
+    },
   },
 } satisfies Record<Locale, unknown>;
 
