@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
+import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { LanguageToggle } from "@/components/ui/LanguageToggle";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
@@ -13,6 +14,7 @@ const NAV_IDS = ["about", "projects", "skills", "contact"] as const;
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const { locale } = useLanguage();
   const t = dictionary[locale];
   const NAV_ITEMS = [
@@ -69,8 +71,49 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           <LanguageToggle />
           <ThemeToggle />
+          <button
+            type="button"
+            aria-label={mobileOpen ? t.closeMenu : t.openMenu}
+            onClick={() => setMobileOpen((v) => !v)}
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-black/10 hover:bg-black/5 dark:border-white/10 dark:hover:bg-white/5 transition-colors sm:hidden"
+          >
+            {mobileOpen ? <X size={16} /> : <Menu size={16} />}
+          </button>
         </div>
       </nav>
+
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.ul
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="flex flex-col overflow-hidden border-b border-black/5 bg-background/95 backdrop-blur-md px-6 sm:hidden dark:border-white/5"
+          >
+            {NAV_ITEMS.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={`#${item.id}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMobileOpen(false);
+                    window.setTimeout(() => {
+                      document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" });
+                    }, 280);
+                  }}
+                  className={cn(
+                    "block py-3 text-sm transition-colors",
+                    activeId === item.id ? "text-foreground" : "text-foreground/60"
+                  )}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

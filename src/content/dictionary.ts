@@ -30,6 +30,8 @@ export const dictionary = {
     language: "Language",
     scrollDown: "Scroll down",
     toggleTheme: "Toggle theme",
+    openMenu: "Open menu",
+    closeMenu: "Close menu",
   },
   es: {
     nav: { about: "Sobre mí", projects: "Proyectos", skills: "Habilidades", contact: "Contacto" },
@@ -60,6 +62,8 @@ export const dictionary = {
     language: "Idioma",
     scrollDown: "Bajar",
     toggleTheme: "Cambiar tema",
+    openMenu: "Abrir menú",
+    closeMenu: "Cerrar menú",
   },
 } satisfies Record<Locale, unknown>;
 
