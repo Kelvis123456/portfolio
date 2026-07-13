@@ -88,6 +88,7 @@ export const projects: Project[] = [
       { label: { en: "Services", es: "Servicios" }, value: "API + Web + 2 Python microservices" },
     ],
     links: [{ label: PRIVATE_LABEL, href: "mailto:kelvisguerrero03@gmail.com?subject=RentEdge%20repo%20access", icon: "external" }],
+    gallery: ["/images/rentedge/dashboard.png", "/images/rentedge/offices.png", "/images/rentedge/login.png"],
   },
   {
     slug: "monarch",
