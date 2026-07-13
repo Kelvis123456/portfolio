@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://portfolio-kelvis-g.vercel.app"),
   title: `${siteConfig.name} — ${siteConfig.role.en}`,
   description: siteConfig.tagline.en,
+  other: {
+    google: "notranslate",
+  },
 };
 
 const personJsonLd = {
@@ -42,8 +45,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      translate="no"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`notranslate ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <script
