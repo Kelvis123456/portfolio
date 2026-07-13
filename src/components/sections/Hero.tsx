@@ -1,20 +1,18 @@
 "use client";
 
-import { motion, useReducedMotion, useTransform } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { ArrowDown, FolderGit2, Mail } from "lucide-react";
 import { siteConfig } from "@/content/siteConfig";
 import { dictionary } from "@/content/dictionary";
 import { useLanguage, t } from "@/lib/language-context";
 import { staggerContainer, wordReveal } from "@/lib/motion-variants";
-import { useMousePosition } from "@/hooks/useMousePosition";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { LinkedinIcon } from "@/components/ui/LinkedinIcon";
+import { NetworkCanvas } from "@/components/ui/NetworkCanvas";
+import { Terminal } from "@/components/ui/Terminal";
 
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
-  const { x, y } = useMousePosition();
-  const bgX = useTransform(x, (v) => v - 300);
-  const bgY = useTransform(y, (v) => v - 300);
   const { locale } = useLanguage();
   const dict = dictionary[locale];
 
@@ -22,13 +20,11 @@ export function Hero() {
 
   return (
     <section id="top" className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden px-6 pt-20">
-      {!shouldReduceMotion && (
-        <motion.div
-          aria-hidden
-          style={{ x: bgX, y: bgY }}
-          className="pointer-events-none absolute h-[600px] w-[600px] rounded-full bg-gradient-to-br from-violet-500/20 via-sky-500/10 to-transparent blur-3xl"
-        />
-      )}
+      <NetworkCanvas />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(124,138,255,0.08),transparent_70%)]"
+      />
 
       <motion.div
         initial="hidden"
@@ -70,6 +66,10 @@ export function Hero() {
           >
             <Mail size={16} /> {dict.hero.contact}
           </MagneticButton>
+        </motion.div>
+
+        <motion.div variants={wordReveal} className="mt-12 w-full max-w-md">
+          <Terminal />
         </motion.div>
       </motion.div>
 

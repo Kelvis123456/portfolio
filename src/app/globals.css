@@ -9,19 +9,21 @@
   --surface-muted: #f0f1f4;
   --border: #e4e5ea;
   --accent: #6d5bf5;
+  --accent-2: #1f8a5f;
   --accent-foreground: #ffffff;
   --muted-foreground: #6b6d76;
 }
 
 .dark {
-  --background: #0b0c10;
-  --foreground: #f2f2f5;
-  --surface: #14151b;
-  --surface-muted: #191a21;
-  --border: #24252e;
-  --accent: #8b7bff;
-  --accent-foreground: #0b0c10;
-  --muted-foreground: #9497a3;
+  --background: #090a0f;
+  --foreground: #e7e9ef;
+  --surface: #0c0e15;
+  --surface-muted: #10131c;
+  --border: #1e212d;
+  --accent: #7c8aff;
+  --accent-2: #6fe3c9;
+  --accent-foreground: #050608;
+  --muted-foreground: #8b93a8;
 }
 
 @theme inline {
@@ -31,6 +33,7 @@
   --color-surface-muted: var(--surface-muted);
   --color-border: var(--border);
   --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
   --color-accent-foreground: var(--accent-foreground);
   --color-muted-foreground: var(--muted-foreground);
   --font-sans: var(--font-geist-sans);
