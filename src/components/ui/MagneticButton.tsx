@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/cn";
 
 export function MagneticButton({
@@ -19,8 +19,10 @@ export function MagneticButton({
 }) {
   const ref = useRef<HTMLAnchorElement | HTMLButtonElement>(null);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const shouldReduceMotion = useReducedMotion();
 
   function handleMouseMove(e: React.MouseEvent) {
+    if (shouldReduceMotion) return;
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { Section } from "@/components/ui/Section";
 import { skillGroups } from "@/content/skills";
 import { dictionary } from "@/content/dictionary";
@@ -10,6 +10,7 @@ import { staggerContainer, fadeUp } from "@/lib/motion-variants";
 export function Skills() {
   const { locale } = useLanguage();
   const dict = dictionary[locale];
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <Section id="skills">
@@ -28,7 +29,7 @@ export function Skills() {
                 {group.items.map((item) => (
                   <motion.span
                     key={item}
-                    whileHover={{ scale: 1.06, rotate: -2 }}
+                    whileHover={shouldReduceMotion ? undefined : { scale: 1.06, rotate: -2 }}
                     transition={{ type: "spring", stiffness: 300, damping: 15 }}
                     className="rounded-full border border-black/10 px-3 py-1.5 text-sm dark:border-white/10"
                   >

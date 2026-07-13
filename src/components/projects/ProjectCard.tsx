@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import type { Project } from "@/content/projects";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { useLanguage, t } from "@/lib/language-context";
@@ -9,11 +9,12 @@ import { cn } from "@/lib/cn";
 
 export function ProjectCard({ project, large = false }: { project: Project; large?: boolean }) {
   const { locale } = useLanguage();
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <Link href={`/projects/${project.slug}`} className="block h-full">
       <motion.article
-        whileHover={{ y: -6 }}
+        whileHover={shouldReduceMotion ? undefined : { y: -6 }}
         transition={{ type: "spring", stiffness: 300, damping: 22 }}
         className={cn(
           "flex h-full flex-col justify-between rounded-2xl border p-6 transition-shadow hover:shadow-xl hover:shadow-black/5 dark:hover:shadow-black/40",

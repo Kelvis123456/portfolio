@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "motion/react";
+import { motion, useInView, useReducedMotion } from "motion/react";
 import { Section } from "@/components/ui/Section";
 import { siteConfig } from "@/content/siteConfig";
 import { dictionary } from "@/content/dictionary";
@@ -32,6 +32,7 @@ function AnimatedNumber({ value }: { value: number }) {
 export function About() {
   const { locale } = useLanguage();
   const dict = dictionary[locale];
+  const shouldReduceMotion = useReducedMotion();
   const initials = siteConfig.name
     .split(" ")
     .map((n) => n[0])
@@ -44,7 +45,7 @@ export function About() {
           variants={fadeUp}
           className="mx-auto flex h-40 w-40 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500/20 to-sky-500/20 text-3xl font-semibold sm:mx-0"
           style={{ transformStyle: "preserve-3d" }}
-          whileHover={{ rotateX: -6, rotateY: 6, scale: 1.02 }}
+          whileHover={shouldReduceMotion ? undefined : { rotateX: -6, rotateY: 6, scale: 1.02 }}
           transition={{ type: "spring", stiffness: 200, damping: 15 }}
         >
           {initials}
