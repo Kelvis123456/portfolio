@@ -50,7 +50,7 @@ export const dictionary = {
       moreProjects: "Más proyectos",
       backToProjects: "Volver a proyectos",
     },
-    status: { live: "En vivo", inDevelopment: "En desarrollo", concept: "Concepto" },
+    status: { live: "Activo", inDevelopment: "En desarrollo", concept: "Concepto" },
     detail: {
       problem: "Problema",
       solution: "Solución",

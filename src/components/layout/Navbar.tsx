@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
@@ -17,13 +19,16 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { locale } = useLanguage();
   const t = dictionary[locale];
+  const pathname = usePathname();
+  const isHome = pathname === "/";
   const NAV_ITEMS = [
     { id: NAV_IDS[0], label: t.nav.about },
     { id: NAV_IDS[1], label: t.nav.projects },
     { id: NAV_IDS[2], label: t.nav.skills },
     { id: NAV_IDS[3], label: t.nav.contact },
   ];
-  const activeId = useScrollSpy(NAV_IDS as unknown as string[]);
+  const scrollSpyId = useScrollSpy(NAV_IDS as unknown as string[]);
+  const activeId = isHome ? scrollSpyId : null;
 
   useEffect(() => {
     function handleScroll() {
@@ -43,28 +48,40 @@ export function Navbar() {
       )}
     >
       <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-        <a href="#top" className="text-sm font-semibold tracking-tight">
-          Kelvis Guerrero
-        </a>
+        {isHome ? (
+          <a href="#top" className="text-sm font-semibold tracking-tight">
+            Kelvis Guerrero
+          </a>
+        ) : (
+          <Link href="/" className="text-sm font-semibold tracking-tight">
+            Kelvis Guerrero
+          </Link>
+        )}
         <ul className="hidden items-center gap-6 sm:flex">
           {NAV_ITEMS.map((item) => (
             <li key={item.id} className="relative">
-              <a
-                href={`#${item.id}`}
-                className={cn(
-                  "relative text-sm transition-colors",
-                  activeId === item.id ? "text-foreground" : "text-foreground/60 hover:text-foreground"
-                )}
-              >
-                {item.label}
-                {activeId === item.id && (
-                  <motion.span
-                    layoutId="navIndicator"
-                    className="absolute -bottom-1 left-0 right-0 h-px bg-foreground"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-              </a>
+              {isHome ? (
+                <a
+                  href={`#${item.id}`}
+                  className={cn(
+                    "relative text-sm transition-colors",
+                    activeId === item.id ? "text-foreground" : "text-foreground/60 hover:text-foreground"
+                  )}
+                >
+                  {item.label}
+                  {activeId === item.id && (
+                    <motion.span
+                      layoutId="navIndicator"
+                      className="absolute -bottom-1 left-0 right-0 h-px bg-foreground"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </a>
+              ) : (
+                <Link href={`/#${item.id}`} className="relative text-sm text-foreground/60 transition-colors hover:text-foreground">
+                  {item.label}
+                </Link>
+              )}
             </li>
           ))}
         </ul>
@@ -93,22 +110,32 @@ export function Navbar() {
           >
             {NAV_ITEMS.map((item) => (
               <li key={item.id}>
-                <a
-                  href={`#${item.id}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setMobileOpen(false);
-                    window.setTimeout(() => {
-                      document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" });
-                    }, 280);
-                  }}
-                  className={cn(
-                    "block py-3 text-sm transition-colors",
-                    activeId === item.id ? "text-foreground" : "text-foreground/60"
-                  )}
-                >
-                  {item.label}
-                </a>
+                {isHome ? (
+                  <a
+                    href={`#${item.id}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setMobileOpen(false);
+                      window.setTimeout(() => {
+                        document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" });
+                      }, 280);
+                    }}
+                    className={cn(
+                      "block py-3 text-sm transition-colors",
+                      activeId === item.id ? "text-foreground" : "text-foreground/60"
+                    )}
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    href={`/#${item.id}`}
+                    onClick={() => setMobileOpen(false)}
+                    className="block py-3 text-sm text-foreground/60 transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                )}
               </li>
             ))}
           </motion.ul>
