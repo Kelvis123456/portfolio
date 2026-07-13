@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Download, FolderGit2, Mail } from "lucide-react";
+import { Download, FolderGit2 } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { siteConfig } from "@/content/siteConfig";
 import { dictionary } from "@/content/dictionary";
@@ -9,6 +9,7 @@ import { useLanguage } from "@/lib/language-context";
 import { fadeUp } from "@/lib/motion-variants";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { LinkedinIcon } from "@/components/ui/LinkedinIcon";
+import { CopyableEmailButton } from "@/components/ui/CopyableEmailButton";
 
 export function Contact() {
   const { locale } = useLanguage();
@@ -24,9 +25,7 @@ export function Contact() {
           {dict.contact.body}
         </motion.p>
         <motion.div variants={fadeUp} className="mt-8 flex flex-wrap items-center justify-center gap-4">
-          <MagneticButton href={`mailto:${siteConfig.email}`} className="bg-foreground text-background">
-            <Mail size={16} /> {siteConfig.email}
-          </MagneticButton>
+          <CopyableEmailButton label={siteConfig.email} className="bg-foreground text-background" />
           <MagneticButton
             href={siteConfig.github}
             className="border border-border bg-surface"
