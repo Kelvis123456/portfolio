@@ -48,19 +48,19 @@ export function Hero() {
           </MagneticButton>
           <MagneticButton
             href={siteConfig.github}
-            className="border border-border"
+            className="border border-border bg-surface"
           >
             <FolderGit2 size={16} /> {dict.hero.github}
           </MagneticButton>
           <MagneticButton
             href={siteConfig.linkedin}
-            className="border border-border"
+            className="border border-border bg-surface"
           >
             <LinkedinIcon size={16} /> {dict.hero.linkedin}
           </MagneticButton>
           <MagneticButton
             href={`mailto:${siteConfig.email}`}
-            className="border border-border"
+            className="border border-border bg-surface"
           >
             <Mail size={16} /> {dict.hero.contact}
           </MagneticButton>

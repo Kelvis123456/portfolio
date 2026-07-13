@@ -92,7 +92,7 @@ export function Navbar() {
             type="button"
             aria-label={mobileOpen ? t.closeMenu : t.openMenu}
             onClick={() => setMobileOpen((v) => !v)}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-border hover:bg-surface-muted transition-colors sm:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface hover:bg-surface-muted transition-colors sm:hidden"
           >
             {mobileOpen ? <X size={16} /> : <Menu size={16} />}
           </button>

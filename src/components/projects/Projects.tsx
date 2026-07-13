@@ -33,7 +33,7 @@ export function Projects() {
       <div className="mx-auto max-w-5xl px-6">
         <motion.div variants={fadeUp} className="flex flex-wrap items-end justify-between gap-4">
           <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">{dict.projects.heading}</h2>
-          <div className="flex gap-1 rounded-full border border-border p-1">
+          <div className="flex gap-1 rounded-full border border-border bg-surface p-1">
             {FILTERS.map((f) => (
               <button
                 key={f.value}
@@ -85,7 +85,7 @@ export function Projects() {
                 href={item.href}
                 target="_blank"
                 rel="noreferrer"
-                className="group flex flex-col gap-1 rounded-xl border border-border p-4 text-sm transition-colors hover:border-accent/40"
+                className="group flex flex-col gap-1 rounded-xl border border-border bg-surface p-4 text-sm transition-colors hover:border-accent/40"
               >
                 <span className="font-medium group-hover:underline">{item.title}</span>
                 <span className="text-foreground/60">{t(item.description, locale)}</span>

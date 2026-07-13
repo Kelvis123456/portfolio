@@ -31,7 +31,7 @@ export function Skills() {
                     key={item}
                     whileHover={shouldReduceMotion ? undefined : { scale: 1.06, rotate: -2 }}
                     transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                    className="rounded-full border border-border px-3 py-1.5 text-sm hover:border-accent-2/50 transition-colors"
+                    className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm hover:border-accent-2/50 transition-colors"
                   >
                     {item}
                   </motion.span>

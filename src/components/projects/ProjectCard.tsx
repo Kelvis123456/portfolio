@@ -42,7 +42,7 @@ export function ProjectCard({ project, large = false }: { project: Project; larg
         style={shouldReduceMotion ? undefined : { rotateX, rotateY, transformPerspective: 600 }}
         transition={{ type: "spring", stiffness: 300, damping: 22 }}
         className={cn(
-          "flex h-full flex-col justify-between rounded-2xl border p-6 transition-shadow hover:shadow-xl hover:shadow-black/5 dark:hover:shadow-black/40",
+          "flex h-full flex-col justify-between rounded-2xl border bg-surface p-6 transition-shadow hover:shadow-xl hover:shadow-black/5 dark:hover:shadow-black/40",
           project.kind === "game-design"
             ? "border-dashed border-border"
             : "border-border",
