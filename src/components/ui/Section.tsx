@@ -21,7 +21,7 @@ export function Section({
       className={cn("relative w-full py-24 sm:py-32", className)}
       initial={shouldReduceMotion ? "visible" : "hidden"}
       whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
+      viewport={{ once: true, amount: "some" }}
       variants={fadeUp}
     >
       {children}
