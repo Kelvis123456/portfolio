@@ -65,6 +65,7 @@ export const projects: Project[] = [
     tagline: "An RPG progression system built on top of a real fitness app",
     kind: "software",
     status: "live",
+    visibility: "private",
     featured: true,
     stack: ["Flutter", "Riverpod", "Supabase", "PostgreSQL", "go_router"],
     role: "Solo developer",
@@ -84,7 +85,9 @@ export const projects: Project[] = [
       { label: "Lines of Dart", value: "~19,900" },
       { label: "Screens", value: "23" },
     ],
-    links: [{ label: "Source", href: "https://github.com/Kelvis123456/monarch", icon: "github" }],
+    links: [
+      { label: "Private repository — available on request", href: "mailto:kelvisguerrero03@gmail.com?subject=MONARCH%20repo%20access", icon: "external" },
+    ],
     placeholderGallery: true,
   },
   {
