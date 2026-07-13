@@ -1,13 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowLeft, ExternalLink, FolderGit2 } from "lucide-react";
 import type { Project } from "@/content/projects";
 import { StatusBadge } from "@/components/ui/StatusBadge";
+import { Lightbox } from "@/components/ui/Lightbox";
 import { dictionary } from "@/content/dictionary";
 import { useLanguage, t, tList, type Locale } from "@/lib/language-context";
-import { cn } from "@/lib/cn";
 
 function TechnicalCaseStudy({ project, locale }: { project: Project; locale: Locale }) {
   const dict = dictionary[locale];
@@ -68,18 +67,8 @@ function ProjectGallery({ project, locale }: { project: Project; locale: Locale 
   const dict = dictionary[locale];
   if (project.gallery && project.gallery.length > 0) {
     return (
-      <div className={cn("mt-10 grid gap-4", project.gallery.length > 1 ? "sm:grid-cols-2" : "")}>
-        {project.gallery.map((src) => (
-          <div key={src} className="overflow-hidden rounded-2xl border border-black/10 dark:border-white/10">
-            <Image
-              src={src}
-              alt={`${project.title} screenshot`}
-              width={1280}
-              height={800}
-              className="h-auto w-full object-cover"
-            />
-          </div>
-        ))}
+      <div className="mt-10">
+        <Lightbox images={project.gallery} alt={`${project.title} screenshot`} />
       </div>
     );
   }

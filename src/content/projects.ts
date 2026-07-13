@@ -133,7 +133,7 @@ export const projects: Project[] = [
       { label: { en: "Screens", es: "Pantallas" }, value: "23" },
     ],
     links: [{ label: PRIVATE_LABEL, href: "mailto:kelvisguerrero03@gmail.com?subject=MONARCH%20repo%20access", icon: "external" }],
-    placeholderGallery: true,
+    gallery: ["/images/monarch/splash.png", "/images/monarch/onboarding1.png", "/images/monarch/onboarding2.png"],
   },
   {
     slug: "recetas-app",
