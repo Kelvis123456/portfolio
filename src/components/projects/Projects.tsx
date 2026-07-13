@@ -1,13 +1,13 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { Section } from "@/components/ui/Section";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { projects, otherWork, type ProjectKind } from "@/content/projects";
 import { dictionary } from "@/content/dictionary";
 import { useLanguage, t } from "@/lib/language-context";
-import { staggerContainer, fadeUp } from "@/lib/motion-variants";
+import { fadeUp } from "@/lib/motion-variants";
 import { cn } from "@/lib/cn";
 
 export function Projects() {
@@ -56,21 +56,22 @@ export function Projects() {
           </div>
         </motion.div>
 
-        <motion.div
-          layout
-          variants={staggerContainer(0.08)}
-          className="mt-10 grid gap-5 sm:grid-cols-2"
-        >
-          {filtered.map((project) => (
-            <motion.div
-              layout
-              key={project.slug}
-              variants={fadeUp}
-              className={project === flagship ? "sm:col-span-2" : ""}
-            >
-              <ProjectCard project={project} large={project === flagship} />
-            </motion.div>
-          ))}
+        <motion.div className="mt-10 grid gap-5 sm:grid-cols-2">
+          <AnimatePresence mode="popLayout" initial={false}>
+            {filtered.map((project, index) => (
+              <motion.div
+                layout
+                key={project.slug}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -16 }}
+                transition={{ duration: 0.25, delay: index * 0.04 }}
+                className={project === flagship ? "sm:col-span-2" : ""}
+              >
+                <ProjectCard project={project} large={project === flagship} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </motion.div>
 
         <motion.div variants={fadeUp} className="mt-16">
