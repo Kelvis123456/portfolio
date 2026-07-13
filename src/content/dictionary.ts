@@ -38,6 +38,12 @@ export const dictionary = {
       body: "The page you're looking for doesn't exist or may have moved.",
       backHome: "Back to home",
     },
+    errorPage: {
+      eyebrow: "Something went wrong",
+      heading: "An unexpected error occurred",
+      body: "Sorry about that — you can try again, or head back to the homepage.",
+      retry: "Try again",
+    },
   },
   es: {
     nav: { about: "Sobre mí", projects: "Proyectos", skills: "Habilidades", contact: "Contacto" },
@@ -75,6 +81,12 @@ export const dictionary = {
       heading: "Página no encontrada",
       body: "La página que buscas no existe o pudo haberse movido.",
       backHome: "Volver al inicio",
+    },
+    errorPage: {
+      eyebrow: "Algo salió mal",
+      heading: "Ocurrió un error inesperado",
+      body: "Disculpa el inconveniente — puedes intentar de nuevo, o volver al inicio.",
+      retry: "Intentar de nuevo",
     },
   },
 } satisfies Record<Locale, unknown>;
