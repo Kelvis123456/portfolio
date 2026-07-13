@@ -1,0 +1,94 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import { motion } from "motion/react";
+import { Section } from "@/components/ui/Section";
+import { ProjectCard } from "@/components/projects/ProjectCard";
+import { projects, otherWork, type ProjectKind } from "@/content/projects";
+import { staggerContainer, fadeUp } from "@/lib/motion-variants";
+import { cn } from "@/lib/cn";
+
+const FILTERS: { label: string; value: ProjectKind | "all" }[] = [
+  { label: "All", value: "all" },
+  { label: "Software", value: "software" },
+  { label: "Game Design", value: "game-design" },
+];
+
+export function Projects() {
+  const [filter, setFilter] = useState<ProjectKind | "all">("all");
+
+  const filtered = useMemo(
+    () => projects.filter((p) => filter === "all" || p.kind === filter),
+    [filter]
+  );
+
+  const flagship = filtered.find((p) => p.slug === "rentedge" || p.featured);
+
+  return (
+    <Section id="projects">
+      <div className="mx-auto max-w-5xl px-6">
+        <motion.div variants={fadeUp} className="flex flex-wrap items-end justify-between gap-4">
+          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Projects</h2>
+          <div className="flex gap-1 rounded-full border border-black/10 p-1 dark:border-white/10">
+            {FILTERS.map((f) => (
+              <button
+                key={f.value}
+                onClick={() => setFilter(f.value)}
+                className={cn(
+                  "relative rounded-full px-3 py-1.5 text-sm transition-colors",
+                  filter === f.value ? "text-background" : "text-foreground/70 hover:text-foreground"
+                )}
+              >
+                {filter === f.value && (
+                  <motion.span
+                    layoutId="filterPill"
+                    className="absolute inset-0 rounded-full bg-foreground"
+                    transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10">{f.label}</span>
+              </button>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          layout
+          variants={staggerContainer(0.08)}
+          className="mt-10 grid gap-5 sm:grid-cols-2"
+        >
+          {filtered.map((project) => (
+            <motion.div
+              layout
+              key={project.slug}
+              variants={fadeUp}
+              className={project === flagship ? "sm:col-span-2" : ""}
+            >
+              <ProjectCard project={project} large={project === flagship} />
+            </motion.div>
+          ))}
+        </motion.div>
+
+        <motion.div variants={fadeUp} className="mt-16">
+          <h3 className="text-sm font-medium uppercase tracking-widest text-foreground/50">
+            More projects
+          </h3>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            {otherWork.map((item) => (
+              <a
+                key={item.title}
+                href={item.href}
+                target="_blank"
+                rel="noreferrer"
+                className="group flex flex-col gap-1 rounded-xl border border-black/10 p-4 text-sm transition-colors hover:border-black/20 dark:border-white/10 dark:hover:border-white/25"
+              >
+                <span className="font-medium group-hover:underline">{item.title}</span>
+                <span className="text-foreground/60">{item.description}</span>
+              </a>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </Section>
+  );
+}
