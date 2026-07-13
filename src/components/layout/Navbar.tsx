@@ -43,7 +43,7 @@ export function Navbar() {
       className={cn(
         "fixed top-0 z-50 w-full transition-all duration-300",
         scrolled
-          ? "border-b border-black/5 dark:border-white/5 bg-background/70 backdrop-blur-md"
+          ? "border-b border-border/60 bg-background/70 backdrop-blur-md"
           : "bg-transparent"
       )}
     >
@@ -92,7 +92,7 @@ export function Navbar() {
             type="button"
             aria-label={mobileOpen ? t.closeMenu : t.openMenu}
             onClick={() => setMobileOpen((v) => !v)}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-black/10 hover:bg-black/5 dark:border-white/10 dark:hover:bg-white/5 transition-colors sm:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-border hover:bg-surface-muted transition-colors sm:hidden"
           >
             {mobileOpen ? <X size={16} /> : <Menu size={16} />}
           </button>

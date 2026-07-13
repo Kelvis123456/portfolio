@@ -18,7 +18,7 @@ export function LanguageToggle() {
       type="button"
       aria-label={dictionary[locale].language}
       onClick={() => setLocale(next)}
-      className="relative flex h-9 w-9 items-center justify-center rounded-full border border-black/10 text-xs font-semibold uppercase dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5 transition-colors overflow-hidden"
+      className="relative flex h-9 w-9 items-center justify-center rounded-full border border-border text-xs font-semibold uppercase hover:bg-surface-muted transition-colors overflow-hidden"
     >
       <AnimatePresence mode="wait" initial={false}>
         <motion.span

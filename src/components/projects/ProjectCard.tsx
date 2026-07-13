@@ -44,8 +44,8 @@ export function ProjectCard({ project, large = false }: { project: Project; larg
         className={cn(
           "flex h-full flex-col justify-between rounded-2xl border p-6 transition-shadow hover:shadow-xl hover:shadow-black/5 dark:hover:shadow-black/40",
           project.kind === "game-design"
-            ? "border-dashed border-black/15 dark:border-white/15"
-            : "border-black/10 dark:border-white/10",
+            ? "border-dashed border-border"
+            : "border-border",
           large ? "sm:p-8" : ""
         )}
       >
@@ -63,7 +63,7 @@ export function ProjectCard({ project, large = false }: { project: Project; larg
           {project.stack.slice(0, large ? 6 : 4).map((tech) => (
             <span
               key={tech}
-              className="rounded-full bg-black/5 px-2.5 py-1 text-xs text-foreground/70 dark:bg-white/10"
+              className="rounded-full bg-surface-muted px-2.5 py-1 text-xs text-foreground/70"
             >
               {tech}
             </span>

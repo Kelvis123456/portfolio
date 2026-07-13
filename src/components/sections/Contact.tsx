@@ -29,20 +29,20 @@ export function Contact() {
           </MagneticButton>
           <MagneticButton
             href={siteConfig.github}
-            className="border border-black/10 dark:border-white/15"
+            className="border border-border"
           >
             <FolderGit2 size={16} /> {dict.hero.github}
           </MagneticButton>
           <MagneticButton
             href={siteConfig.linkedin}
-            className="border border-black/10 dark:border-white/15"
+            className="border border-border"
           >
             <LinkedinIcon size={16} /> {dict.hero.linkedin}
           </MagneticButton>
           <MagneticButton
             href={locale === "es" ? "/resume-es.pdf" : "/resume-en.pdf"}
             download={locale === "es" ? "Kelvis-Guerrero-CV.pdf" : "Kelvis-Guerrero-Resume.pdf"}
-            className="border border-black/10 dark:border-white/15"
+            className="border border-border"
           >
             <Download size={16} /> {dict.contact.downloadResume}
           </MagneticButton>

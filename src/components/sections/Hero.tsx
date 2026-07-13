@@ -8,7 +8,6 @@ import { useLanguage, t } from "@/lib/language-context";
 import { staggerContainer, wordReveal } from "@/lib/motion-variants";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { LinkedinIcon } from "@/components/ui/LinkedinIcon";
-import { NetworkCanvas } from "@/components/ui/NetworkCanvas";
 import { Terminal } from "@/components/ui/Terminal";
 
 export function Hero() {
@@ -20,10 +19,9 @@ export function Hero() {
 
   return (
     <section id="top" className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden px-6 pt-20">
-      <NetworkCanvas />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(124,138,255,0.08),transparent_70%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(124,138,255,0.14),transparent_70%)]"
       />
 
       <motion.div
@@ -50,19 +48,19 @@ export function Hero() {
           </MagneticButton>
           <MagneticButton
             href={siteConfig.github}
-            className="border border-black/10 dark:border-white/15"
+            className="border border-border"
           >
             <FolderGit2 size={16} /> {dict.hero.github}
           </MagneticButton>
           <MagneticButton
             href={siteConfig.linkedin}
-            className="border border-black/10 dark:border-white/15"
+            className="border border-border"
           >
             <LinkedinIcon size={16} /> {dict.hero.linkedin}
           </MagneticButton>
           <MagneticButton
             href={`mailto:${siteConfig.email}`}
-            className="border border-black/10 dark:border-white/15"
+            className="border border-border"
           >
             <Mail size={16} /> {dict.hero.contact}
           </MagneticButton>

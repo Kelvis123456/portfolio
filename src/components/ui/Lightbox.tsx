@@ -24,7 +24,7 @@ export function Lightbox({ images, alt }: { images: string[]; alt: string }) {
             key={src}
             type="button"
             onClick={() => setOpenIndex(i)}
-            className="cursor-zoom-in overflow-hidden rounded-2xl border border-black/10 dark:border-white/10"
+            className="cursor-zoom-in overflow-hidden rounded-2xl border border-border"
           >
             <Image src={src} alt={`${alt} ${i + 1}`} width={1280} height={800} className="h-auto w-full object-cover transition-opacity hover:opacity-90" />
           </button>

@@ -49,7 +49,7 @@ function DesignProcessCaseStudy({ project, locale }: { project: Project; locale:
   return (
     <section className="mt-10">
       <h2 className="text-sm font-medium uppercase tracking-widest text-foreground/50">{dict.detail.process}</h2>
-      <ol className="mt-4 space-y-4 border-l border-black/10 pl-6 dark:border-white/10">
+      <ol className="mt-4 space-y-4 border-l border-border pl-6">
         {steps.map((step, i) => (
           <li key={step} className="relative text-foreground/80">
             <span className="absolute -left-[27px] flex h-4 w-4 items-center justify-center rounded-full bg-foreground text-[10px] font-semibold text-background">
@@ -74,7 +74,7 @@ function ProjectGallery({ project, locale }: { project: Project; locale: Locale 
   }
   if (project.placeholderGallery) {
     return (
-      <div className="mt-10 flex h-56 items-center justify-center rounded-2xl border border-dashed border-black/15 bg-black/[0.02] text-sm text-foreground/50 dark:border-white/15 dark:bg-white/[0.02]">
+      <div className="mt-10 flex h-56 items-center justify-center rounded-2xl border border-dashed border-border bg-surface-muted/40 text-sm text-foreground/50">
         {dict.detail.screenshotsComingSoon}
       </div>
     );
@@ -103,14 +103,14 @@ export function ProjectDetail({ project }: { project: Project }) {
 
       <div className="mt-6 flex flex-wrap gap-2">
         {project.stack.map((tech) => (
-          <span key={tech} className="rounded-full bg-black/5 px-3 py-1 text-xs text-foreground/70 dark:bg-white/10">
+          <span key={tech} className="rounded-full bg-surface-muted px-3 py-1 text-xs text-foreground/70">
             {tech}
           </span>
         ))}
       </div>
 
       {project.metrics && (
-        <div className="mt-8 flex flex-wrap gap-8 border-y border-black/10 py-6 dark:border-white/10">
+        <div className="mt-8 flex flex-wrap gap-8 border-y border-border py-6">
           {project.metrics.map((metric) => (
             <div key={metric.label.en}>
               <div className="text-xl font-semibold">{metric.value}</div>
