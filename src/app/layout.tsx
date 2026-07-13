@@ -57,7 +57,7 @@ export default function RootLayout({
         />
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <div className="fixed inset-0 z-0 bg-background" aria-hidden>
-            <NetworkCanvas className="pointer-events-none absolute inset-0 h-full w-full opacity-60" />
+            <NetworkCanvas className="pointer-events-none absolute inset-0 h-full w-full" />
           </div>
           <LanguageProvider>
             <div className="relative z-10 flex min-h-full flex-1 flex-col">{children}</div>
