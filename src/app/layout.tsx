@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "next-themes";
 import { LanguageProvider } from "@/lib/language-context";
 import { siteConfig } from "@/content/siteConfig";
@@ -16,6 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://portfolio-kelvis-g.vercel.app"),
   title: `${siteConfig.name} — ${siteConfig.role.en}`,
   description: siteConfig.tagline.en,
 };
@@ -35,6 +37,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <LanguageProvider>{children}</LanguageProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );

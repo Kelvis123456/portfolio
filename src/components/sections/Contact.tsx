@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { FolderGit2, Mail } from "lucide-react";
+import { Download, FolderGit2, Mail } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { siteConfig } from "@/content/siteConfig";
 import { dictionary } from "@/content/dictionary";
@@ -38,6 +38,13 @@ export function Contact() {
             className="border border-black/10 dark:border-white/15"
           >
             <LinkedinIcon size={16} /> {dict.hero.linkedin}
+          </MagneticButton>
+          <MagneticButton
+            href={locale === "es" ? "/resume-es.pdf" : "/resume-en.pdf"}
+            download={locale === "es" ? "Kelvis-Guerrero-CV.pdf" : "Kelvis-Guerrero-Resume.pdf"}
+            className="border border-black/10 dark:border-white/15"
+          >
+            <Download size={16} /> {dict.contact.downloadResume}
           </MagneticButton>
         </motion.div>
       </div>

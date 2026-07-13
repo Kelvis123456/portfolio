@@ -25,6 +25,7 @@ export const dictionary = {
     contact: {
       heading: "Let's talk",
       body: "Have a project in mind, or just want to say hi? My inbox is open.",
+      downloadResume: "Download resume",
     },
     footer: { github: "GitHub", linkedin: "LinkedIn", email: "Email" },
     language: "Language",
@@ -62,6 +63,7 @@ export const dictionary = {
     contact: {
       heading: "Hablemos",
       body: "¿Tienes un proyecto en mente, o solo quieres saludar? Mi bandeja de entrada está abierta.",
+      downloadResume: "Descargar CV",
     },
     footer: { github: "GitHub", linkedin: "LinkedIn", email: "Correo" },
     language: "Idioma",
