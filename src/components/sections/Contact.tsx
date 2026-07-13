@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import { FolderGit2, Mail } from "lucide-react";
+import { LinkedinIcon } from "@/components/ui/LinkedinIcon";
 import { Section } from "@/components/ui/Section";
 import { siteConfig } from "@/content/siteConfig";
 import { fadeUp } from "@/lib/motion-variants";
@@ -26,6 +27,12 @@ export function Contact() {
             className="border border-black/10 dark:border-white/15"
           >
             <FolderGit2 size={16} /> GitHub
+          </MagneticButton>
+          <MagneticButton
+            href={siteConfig.linkedin}
+            className="border border-black/10 dark:border-white/15"
+          >
+            <LinkedinIcon size={16} /> LinkedIn
           </MagneticButton>
         </motion.div>
       </div>

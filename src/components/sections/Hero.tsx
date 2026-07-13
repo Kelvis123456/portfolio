@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion, useTransform } from "motion/react";
 import { ArrowDown, FolderGit2, Mail } from "lucide-react";
+import { LinkedinIcon } from "@/components/ui/LinkedinIcon";
 import { siteConfig } from "@/content/siteConfig";
 import { staggerContainer, wordReveal } from "@/lib/motion-variants";
 import { useMousePosition } from "@/hooks/useMousePosition";
@@ -56,6 +57,12 @@ export function Hero() {
             className="border border-black/10 dark:border-white/15"
           >
             <FolderGit2 size={16} /> GitHub
+          </MagneticButton>
+          <MagneticButton
+            href={siteConfig.linkedin}
+            className="border border-black/10 dark:border-white/15"
+          >
+            <LinkedinIcon size={16} /> LinkedIn
           </MagneticButton>
           <MagneticButton
             href={`mailto:${siteConfig.email}`}
