@@ -3,14 +3,15 @@
 import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "motion/react";
 import { cn } from "@/lib/cn";
+import { useLanguage, t, type LocalizedText } from "@/lib/language-context";
 
-type LogLine = { label: string; detail: string };
+type LogLine = { label: string; detail: LocalizedText };
 
 const LOG_LINES: LogLine[] = [
-  { label: "rentedge — pricing-engine", detail: "reglas cargadas" },
-  { label: "connect5 — relay", detail: "conexión multijugador estable" },
-  { label: "monarch — supabase", detail: "auth + RLS activos" },
-  { label: "build — next.js", detail: "0 errores, 0 warnings" },
+  { label: "rentedge — pricing-engine", detail: { en: "rules loaded", es: "reglas cargadas" } },
+  { label: "connect5 — relay", detail: { en: "multiplayer connection stable", es: "conexión multijugador estable" } },
+  { label: "monarch — supabase", detail: { en: "auth + RLS active", es: "auth + RLS activos" } },
+  { label: "build — next.js", detail: { en: "0 errors, 0 warnings", es: "0 errores, 0 warnings" } },
 ];
 
 const TYPE_SPEED_MS = 18;
@@ -19,13 +20,14 @@ const LOOP_PAUSE_MS = 2600;
 
 export function Terminal({ className }: { className?: string }) {
   const shouldReduceMotion = useReducedMotion();
+  const { locale } = useLanguage();
   const [typed, setTyped] = useState<string[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (shouldReduceMotion) {
-      setTyped(LOG_LINES.map((l) => `${l.label} — ${l.detail}`));
+      setTyped(LOG_LINES.map((l) => `${l.label} — ${t(l.detail, locale)}`));
       return;
     }
 
@@ -41,7 +43,7 @@ export function Terminal({ className }: { className?: string }) {
     }
 
     function typeChar() {
-      const full = `${LOG_LINES[lineIdx].label} — ${LOG_LINES[lineIdx].detail}`;
+      const full = `${LOG_LINES[lineIdx].label} — ${t(LOG_LINES[lineIdx].detail, locale)}`;
       charIdx++;
       const draft = [...lines, full.slice(0, charIdx)];
       setTyped(draft);
@@ -72,7 +74,7 @@ export function Terminal({ className }: { className?: string }) {
       cancelled = true;
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-  }, [shouldReduceMotion]);
+  }, [shouldReduceMotion, locale]);
 
   return (
     <div
