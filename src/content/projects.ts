@@ -2,6 +2,7 @@ import type { LocalizedText, LocalizedList } from "@/lib/language-context";
 
 export type ProjectStatus = "live" | "in-development" | "concept";
 export type ProjectKind = "software" | "game-design";
+export type ProjectCategory = "software" | "game";
 
 export interface ProjectLink {
   label: LocalizedText;
@@ -19,6 +20,7 @@ export interface Project {
   title: string;
   tagline: LocalizedText;
   kind: ProjectKind;
+  category: ProjectCategory;
   status: ProjectStatus;
   visibility?: "public" | "private";
   featured: boolean;
@@ -50,6 +52,7 @@ export const projects: Project[] = [
       es: "SaaS de pricing y gestión de ingresos para empresas de rent-a-car",
     },
     kind: "software",
+    category: "software",
     status: "in-development",
     visibility: "private",
     featured: true,
@@ -98,6 +101,7 @@ export const projects: Project[] = [
       es: "Un sistema de progresión RPG construido sobre una app de fitness real",
     },
     kind: "software",
+    category: "software",
     status: "live",
     visibility: "private",
     featured: true,
@@ -144,6 +148,7 @@ export const projects: Project[] = [
       es: "Una app web de recetas con una UI rápida y animada",
     },
     kind: "software",
+    category: "software",
     status: "live",
     featured: false,
     stack: ["React 19", "Vite", "TypeScript", "Tailwind CSS v4", "Framer Motion"],
@@ -163,6 +168,7 @@ export const projects: Project[] = [
       es: "Juego de mesa estilo Conecta 4 con multijugador online real",
     },
     kind: "software",
+    category: "game",
     status: "live",
     featured: true,
     stack: ["Unity 6", "C#", "Netcode for GameObjects", "Unity Relay"],
@@ -205,6 +211,7 @@ export const projects: Project[] = [
       es: "Un juego narrativo de detective con un motor real de casos/evidencia",
     },
     kind: "software",
+    category: "game",
     status: "live",
     featured: false,
     stack: ["React 19", "TypeScript", "Vite", "Zustand", "Framer Motion", "Howler", "Vitest"],
@@ -240,6 +247,7 @@ export const projects: Project[] = [
       es: "Un roguelite construido alrededor de ecos de tus propias acciones pasadas",
     },
     kind: "game-design",
+    category: "game",
     status: "concept",
     featured: false,
     stack: ["Unity 2022 LTS", "URP", "C#", "FMOD"],
@@ -278,6 +286,7 @@ export const projects: Project[] = [
       es: "Física de rebote de piedras, hecha para móvil",
     },
     kind: "game-design",
+    category: "game",
     status: "concept",
     featured: false,
     stack: ["Unity 2022.3 LTS", "URP", "C#"],
@@ -313,6 +322,7 @@ export const projects: Project[] = [
       es: "Un physics runner rítmico sobre separarse y unirse",
     },
     kind: "game-design",
+    category: "game",
     status: "concept",
     featured: false,
     stack: ["HTML/CSS/JS prototype", "Mobile (planned)"],

@@ -4,25 +4,25 @@ import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Section } from "@/components/ui/Section";
 import { ProjectCard } from "@/components/projects/ProjectCard";
-import { projects, otherWork, type ProjectKind } from "@/content/projects";
+import { projects, otherWork, type ProjectCategory } from "@/content/projects";
 import { dictionary } from "@/content/dictionary";
 import { useLanguage, t } from "@/lib/language-context";
 import { fadeUp } from "@/lib/motion-variants";
 import { cn } from "@/lib/cn";
 
 export function Projects() {
-  const [filter, setFilter] = useState<ProjectKind | "all">("all");
+  const [filter, setFilter] = useState<ProjectCategory | "all">("all");
   const { locale } = useLanguage();
   const dict = dictionary[locale];
 
-  const FILTERS: { label: string; value: ProjectKind | "all" }[] = [
+  const FILTERS: { label: string; value: ProjectCategory | "all" }[] = [
     { label: dict.projects.filterAll, value: "all" },
     { label: dict.projects.filterSoftware, value: "software" },
-    { label: dict.projects.filterGameDesign, value: "game-design" },
+    { label: dict.projects.filterGameDesign, value: "game" },
   ];
 
   const filtered = useMemo(
-    () => projects.filter((p) => filter === "all" || p.kind === filter),
+    () => projects.filter((p) => filter === "all" || p.category === filter),
     [filter]
   );
 
