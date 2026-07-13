@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowDown, FolderGit2, Mail } from "lucide-react";
+import { ArrowDown, FolderGit2 } from "lucide-react";
 import { siteConfig } from "@/content/siteConfig";
 import { dictionary } from "@/content/dictionary";
 import { useLanguage, t } from "@/lib/language-context";
@@ -9,6 +9,7 @@ import { staggerContainer, wordReveal } from "@/lib/motion-variants";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { LinkedinIcon } from "@/components/ui/LinkedinIcon";
 import { Terminal } from "@/components/ui/Terminal";
+import { CopyableEmailButton } from "@/components/ui/CopyableEmailButton";
 
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
@@ -58,12 +59,7 @@ export function Hero() {
           >
             <LinkedinIcon size={16} /> {dict.hero.linkedin}
           </MagneticButton>
-          <MagneticButton
-            href={`mailto:${siteConfig.email}`}
-            className="border border-border bg-surface"
-          >
-            <Mail size={16} /> {dict.hero.contact}
-          </MagneticButton>
+          <CopyableEmailButton label={dict.hero.contact} className="border border-border bg-surface" />
         </motion.div>
 
         <motion.div variants={wordReveal} className="mt-12 w-full max-w-md">
