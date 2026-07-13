@@ -2,12 +2,15 @@
 
 import { useEffect, useRef } from "react";
 import { useReducedMotion } from "motion/react";
+import { useTheme } from "next-themes";
 
 type Node = { x: number; y: number; vx: number; vy: number };
 
 export function NetworkCanvas({ className }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const shouldReduceMotion = useReducedMotion();
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme !== "light";
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -24,8 +27,11 @@ export function NetworkCanvas({ className }: { className?: string }) {
     const mouse = { x: -9999, y: -9999 };
     let frameId = 0;
 
-    const dotColor = "rgba(124, 138, 255, 0.85)";
-    const lineColor = (alpha: number) => `rgba(124, 138, 255, ${alpha})`;
+    const rgb = isDark ? "124, 138, 255" : "74, 63, 207";
+    const dotAlpha = isDark ? 0.85 : 0.75;
+    const linkAlphaMultiplier = isDark ? 0.28 : 0.4;
+    const dotColor = `rgba(${rgb}, ${dotAlpha})`;
+    const lineColor = (alpha: number) => `rgba(${rgb}, ${alpha})`;
 
     function resize() {
       if (!parent || !canvas) return;
@@ -55,7 +61,7 @@ export function NetworkCanvas({ className }: { className?: string }) {
           const dy = a.y - b.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < linkDist) {
-            ctx.strokeStyle = lineColor((1 - dist / linkDist) * 0.28);
+            ctx.strokeStyle = lineColor((1 - dist / linkDist) * linkAlphaMultiplier);
             ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
@@ -97,7 +103,7 @@ export function NetworkCanvas({ className }: { className?: string }) {
           const dy = a.y - b.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < linkDist) {
-            ctx.strokeStyle = lineColor((1 - dist / linkDist) * 0.28);
+            ctx.strokeStyle = lineColor((1 - dist / linkDist) * linkAlphaMultiplier);
             ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
@@ -127,8 +133,8 @@ export function NetworkCanvas({ className }: { className?: string }) {
 
     resize();
     window.addEventListener("resize", resize);
-    parent.addEventListener("mousemove", handleMouseMove);
-    parent.addEventListener("mouseleave", handleMouseLeave);
+    window.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseleave", handleMouseLeave);
 
     if (shouldReduceMotion) {
       drawStatic();
@@ -138,11 +144,11 @@ export function NetworkCanvas({ className }: { className?: string }) {
 
     return () => {
       window.removeEventListener("resize", resize);
-      parent.removeEventListener("mousemove", handleMouseMove);
-      parent.removeEventListener("mouseleave", handleMouseLeave);
+      window.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseleave", handleMouseLeave);
       if (frameId) cancelAnimationFrame(frameId);
     };
-  }, [shouldReduceMotion]);
+  }, [shouldReduceMotion, isDark]);
 
   return (
     <canvas

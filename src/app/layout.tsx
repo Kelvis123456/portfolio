@@ -55,10 +55,10 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
-        <div className="fixed inset-0 z-0 bg-background" aria-hidden>
-          <NetworkCanvas className="pointer-events-none absolute inset-0 h-full w-full opacity-60" />
-        </div>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <div className="fixed inset-0 z-0 bg-background" aria-hidden>
+            <NetworkCanvas className="pointer-events-none absolute inset-0 h-full w-full opacity-60" />
+          </div>
           <LanguageProvider>
             <div className="relative z-10 flex min-h-full flex-1 flex-col">{children}</div>
           </LanguageProvider>
