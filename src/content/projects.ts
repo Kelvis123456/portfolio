@@ -325,7 +325,7 @@ export const projects: Project[] = [
     category: "game",
     status: "concept",
     featured: false,
-    stack: ["HTML/CSS/JS prototype", "Mobile (planned)"],
+    stack: ["Godot 4 (planned)", "HTML/CSS/JS prototype", "Web Audio API"],
     role: "Game designer / solo studio",
     summary: {
       en: "Two glowing spheres linked by an elastic tether descend an endless vertical pipeline. Hold to split wide, release to snap together — avoid obstacles, graze them for combo, collect Volt Crystals.",
@@ -333,17 +333,22 @@ export const projects: Project[] = [
     },
     process: {
       en: [
-        "Full Game Design Document — core loop, progression via Volt Crystals and daily missions, ethics-first monetization",
-        "Working browser prototype validating the core split/merge tether mechanic before committing to full production",
-        "Roadmap, risk log, and decision log kept throughout design",
+        "Full Game Design Document — core loop, progression via Volt Crystals, ethics-first monetization",
+        "Engine evaluation across 6 stacks; selected Godot 4 for production (low input latency, native 2D shaders, ~12MB builds)",
+        "Working browser vertical slice validating the split/merge tether feel — synthesized audio (SFX + BGM), localStorage persistence, local leaderboard, consistent colorblind support",
+        "Roadmap, risk log, and decision log kept throughout design; Godot production port and QA scoped as next phase",
       ],
       es: [
-        "Game Design Document completo — loop central, progresión vía Volt Crystals y misiones diarias, monetización ética",
-        "Prototipo funcional en navegador validando la mecánica central de separar/unir el tether antes de comprometerse a la producción completa",
-        "Roadmap, registro de riesgos y bitácora de decisiones mantenidos durante todo el diseño",
+        "Game Design Document completo — loop central, progresión vía Volt Crystals, monetización ética",
+        "Evaluación de 6 motores; se eligió Godot 4 para producción (baja latencia de input, shaders 2D nativos, builds de ~12MB)",
+        "Vertical slice jugable en navegador validando la sensación de separar/unir el tether — audio sintetizado (SFX + música), persistencia con localStorage, leaderboard local, soporte colorblind consistente",
+        "Roadmap, registro de riesgos y bitácora de decisiones mantenidos durante todo el diseño; el port a Godot y QA quedan planteados como siguiente fase",
       ],
     },
-    metrics: [{ label: { en: "Prototype", es: "Prototipo" }, value: "Playable in-browser" }],
+    metrics: [
+      { label: { en: "Design docs", es: "Documentos de diseño" }, value: "17 files, ~105KB" },
+      { label: { en: "Prototype", es: "Prototipo" }, value: "Playable in-browser, persistent" },
+    ],
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/neon-tether-game-design", icon: "github" }],
     gallery: ["/images/neon-tether/menu.png", "/images/neon-tether/gameplay.png"],
   },
