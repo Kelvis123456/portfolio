@@ -4,9 +4,12 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import type { Project } from "@/content/projects";
 import { StatusBadge } from "@/components/ui/StatusBadge";
+import { useLanguage, t } from "@/lib/language-context";
 import { cn } from "@/lib/cn";
 
 export function ProjectCard({ project, large = false }: { project: Project; large?: boolean }) {
+  const { locale } = useLanguage();
+
   return (
     <Link href={`/projects/${project.slug}`} className="block h-full">
       <motion.article
@@ -27,7 +30,7 @@ export function ProjectCard({ project, large = false }: { project: Project; larg
             </h3>
             <StatusBadge status={project.status} />
           </div>
-          <p className="mt-2 text-sm text-foreground/70">{project.tagline}</p>
+          <p className="mt-2 text-sm text-foreground/70">{t(project.tagline, locale)}</p>
         </div>
 
         <div className="mt-6 flex flex-wrap gap-2">

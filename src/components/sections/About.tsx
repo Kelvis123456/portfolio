@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "motion/react";
 import { Section } from "@/components/ui/Section";
 import { siteConfig } from "@/content/siteConfig";
+import { dictionary } from "@/content/dictionary";
+import { useLanguage, t } from "@/lib/language-context";
 import { staggerContainer, fadeUp } from "@/lib/motion-variants";
 
 function AnimatedNumber({ value }: { value: number }) {
@@ -28,6 +30,8 @@ function AnimatedNumber({ value }: { value: number }) {
 }
 
 export function About() {
+  const { locale } = useLanguage();
+  const dict = dictionary[locale];
   const initials = siteConfig.name
     .split(" ")
     .map((n) => n[0])
@@ -48,10 +52,10 @@ export function About() {
 
         <div>
           <motion.h2 variants={fadeUp} className="text-2xl font-semibold tracking-tight sm:text-3xl">
-            About
+            {dict.about.heading}
           </motion.h2>
           <motion.p variants={fadeUp} className="mt-4 max-w-xl text-foreground/70">
-            {siteConfig.bio} Based in {siteConfig.location}.
+            {t(siteConfig.bio, locale)} {dict.about.basedIn} {t(siteConfig.location, locale)}.
           </motion.p>
 
           <motion.div
@@ -59,12 +63,12 @@ export function About() {
             className="mt-8 grid grid-cols-3 gap-6 max-w-md"
           >
             {siteConfig.metrics.map((metric) => (
-              <motion.div key={metric.label} variants={fadeUp}>
+              <motion.div key={metric.label.en} variants={fadeUp}>
                 <div className="text-2xl font-semibold tracking-tight sm:text-3xl">
                   <AnimatedNumber value={metric.value} />
-                  {metric.label === "Lines of code (approx.)" && "+"}
+                  {metric.label.en === "Lines of code (approx.)" && "+"}
                 </div>
-                <div className="mt-1 text-xs text-foreground/60">{metric.label}</div>
+                <div className="mt-1 text-xs text-foreground/60">{t(metric.label, locale)}</div>
               </motion.div>
             ))}
           </motion.div>

@@ -5,17 +5,21 @@ import { motion } from "motion/react";
 import { Section } from "@/components/ui/Section";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { projects, otherWork, type ProjectKind } from "@/content/projects";
+import { dictionary } from "@/content/dictionary";
+import { useLanguage, t } from "@/lib/language-context";
 import { staggerContainer, fadeUp } from "@/lib/motion-variants";
 import { cn } from "@/lib/cn";
 
-const FILTERS: { label: string; value: ProjectKind | "all" }[] = [
-  { label: "All", value: "all" },
-  { label: "Software", value: "software" },
-  { label: "Game Design", value: "game-design" },
-];
-
 export function Projects() {
   const [filter, setFilter] = useState<ProjectKind | "all">("all");
+  const { locale } = useLanguage();
+  const dict = dictionary[locale];
+
+  const FILTERS: { label: string; value: ProjectKind | "all" }[] = [
+    { label: dict.projects.filterAll, value: "all" },
+    { label: dict.projects.filterSoftware, value: "software" },
+    { label: dict.projects.filterGameDesign, value: "game-design" },
+  ];
 
   const filtered = useMemo(
     () => projects.filter((p) => filter === "all" || p.kind === filter),
@@ -28,7 +32,7 @@ export function Projects() {
     <Section id="projects">
       <div className="mx-auto max-w-5xl px-6">
         <motion.div variants={fadeUp} className="flex flex-wrap items-end justify-between gap-4">
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Projects</h2>
+          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">{dict.projects.heading}</h2>
           <div className="flex gap-1 rounded-full border border-black/10 p-1 dark:border-white/10">
             {FILTERS.map((f) => (
               <button
@@ -71,7 +75,7 @@ export function Projects() {
 
         <motion.div variants={fadeUp} className="mt-16">
           <h3 className="text-sm font-medium uppercase tracking-widest text-foreground/50">
-            More projects
+            {dict.projects.moreProjects}
           </h3>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             {otherWork.map((item) => (
@@ -83,7 +87,7 @@ export function Projects() {
                 className="group flex flex-col gap-1 rounded-xl border border-black/10 p-4 text-sm transition-colors hover:border-black/20 dark:border-white/10 dark:hover:border-white/25"
               >
                 <span className="font-medium group-hover:underline">{item.title}</span>
-                <span className="text-foreground/60">{item.description}</span>
+                <span className="text-foreground/60">{t(item.description, locale)}</span>
               </a>
             ))}
           </div>

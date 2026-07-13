@@ -12,7 +12,7 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const project = projects.find((p) => p.slug === params.slug);
   if (!project) return {};
-  return { title: `${project.title} — Kelvis Guerrero`, description: project.tagline };
+  return { title: `${project.title} — Kelvis Guerrero`, description: project.tagline.en };
 }
 
 export default function ProjectPage({ params }: { params: { slug: string } }) {

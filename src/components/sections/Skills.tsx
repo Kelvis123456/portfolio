@@ -3,21 +3,26 @@
 import { motion } from "motion/react";
 import { Section } from "@/components/ui/Section";
 import { skillGroups } from "@/content/skills";
+import { dictionary } from "@/content/dictionary";
+import { useLanguage, t } from "@/lib/language-context";
 import { staggerContainer, fadeUp } from "@/lib/motion-variants";
 
 export function Skills() {
+  const { locale } = useLanguage();
+  const dict = dictionary[locale];
+
   return (
     <Section id="skills">
       <div className="mx-auto max-w-5xl px-6">
         <motion.h2 variants={fadeUp} className="text-2xl font-semibold tracking-tight sm:text-3xl">
-          Skills
+          {dict.skills.heading}
         </motion.h2>
 
         <motion.div variants={staggerContainer(0.1)} className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {skillGroups.map((group) => (
-            <motion.div key={group.category} variants={fadeUp}>
+            <motion.div key={group.category.en} variants={fadeUp}>
               <h3 className="text-sm font-medium uppercase tracking-widest text-foreground/50">
-                {group.category}
+                {t(group.category, locale)}
               </h3>
               <div className="mt-3 flex flex-wrap gap-2">
                 {group.items.map((item) => (

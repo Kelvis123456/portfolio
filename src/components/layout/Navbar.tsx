@@ -3,19 +3,25 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { LanguageToggle } from "@/components/ui/LanguageToggle";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
+import { useLanguage } from "@/lib/language-context";
+import { dictionary } from "@/content/dictionary";
 import { cn } from "@/lib/cn";
 
-const NAV_ITEMS = [
-  { id: "about", label: "About" },
-  { id: "projects", label: "Projects" },
-  { id: "skills", label: "Skills" },
-  { id: "contact", label: "Contact" },
-];
+const NAV_IDS = ["about", "projects", "skills", "contact"] as const;
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const activeId = useScrollSpy(NAV_ITEMS.map((item) => item.id));
+  const { locale } = useLanguage();
+  const t = dictionary[locale];
+  const NAV_ITEMS = [
+    { id: NAV_IDS[0], label: t.nav.about },
+    { id: NAV_IDS[1], label: t.nav.projects },
+    { id: NAV_IDS[2], label: t.nav.skills },
+    { id: NAV_IDS[3], label: t.nav.contact },
+  ];
+  const activeId = useScrollSpy(NAV_IDS as unknown as string[]);
 
   useEffect(() => {
     function handleScroll() {
@@ -60,7 +66,10 @@ export function Navbar() {
             </li>
           ))}
         </ul>
-        <ThemeToggle />
+        <div className="flex items-center gap-2">
+          <LanguageToggle />
+          <ThemeToggle />
+        </div>
       </nav>
     </header>
   );
