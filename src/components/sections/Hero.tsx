@@ -48,10 +48,6 @@ export function Hero() {
           ))}
         </h1>
 
-        <motion.p variants={wordReveal} className="mt-6 max-w-xl text-base text-foreground/70 sm:text-lg">
-          {t(siteConfig.bio, locale)}
-        </motion.p>
-
         <motion.div variants={wordReveal} className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <MagneticButton href="#projects" className="bg-foreground text-background">
             {dict.hero.viewProjects}

@@ -18,12 +18,6 @@ export function Footer() {
           <a href={siteConfig.github} target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">
             {dict.footer.github}
           </a>
-          <a href={siteConfig.linkedin} target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">
-            {dict.footer.linkedin}
-          </a>
-          <a href={`mailto:${siteConfig.email}`} className="hover:text-foreground transition-colors">
-            {dict.footer.email}
-          </a>
         </div>
       </div>
     </footer>
