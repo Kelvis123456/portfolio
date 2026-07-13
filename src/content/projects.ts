@@ -32,6 +32,7 @@ export interface Project {
   metrics?: ProjectMetric[];
   links: ProjectLink[];
   placeholderGallery?: boolean;
+  gallery?: string[];
 }
 
 const SOURCE_LABEL: LocalizedText = { en: "Source", es: "Código fuente" };
@@ -151,6 +152,7 @@ export const projects: Project[] = [
       es: "Una app para explorar y buscar recetas, construida para probar React 19 y Tailwind v4 juntos, con Framer Motion en las transiciones.",
     },
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/recetas-app", icon: "github" }],
+    gallery: ["/images/recetas-app/home.png"],
   },
   {
     slug: "connect5",
@@ -192,7 +194,7 @@ export const projects: Project[] = [
     },
     metrics: [{ label: { en: "C# scripts", es: "Scripts C#" }, value: "50" }],
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/connect5", icon: "github" }],
-    placeholderGallery: true,
+    gallery: ["/images/connect5/lobby.png", "/images/connect5/gameplay.png"],
   },
   {
     slug: "detective-game",
@@ -227,7 +229,7 @@ export const projects: Project[] = [
       { label: { en: "Test files", es: "Archivos de test" }, value: "7 (Vitest)" },
     ],
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/detective-game", icon: "github" }],
-    placeholderGallery: true,
+    gallery: ["/images/detective-game/menu.png", "/images/detective-game/crimescene.png"],
   },
   {
     slug: "phase",
@@ -332,7 +334,7 @@ export const projects: Project[] = [
     },
     metrics: [{ label: { en: "Prototype", es: "Prototipo" }, value: "Playable in-browser" }],
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/neon-tether-game-design", icon: "github" }],
-    placeholderGallery: true,
+    gallery: ["/images/neon-tether/menu.png", "/images/neon-tether/gameplay.png"],
   },
 ];
 
