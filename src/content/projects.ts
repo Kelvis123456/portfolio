@@ -56,7 +56,7 @@ export const projects: Project[] = [
     status: "in-development",
     visibility: "private",
     featured: true,
-    stack: ["NestJS", "Next.js", "PostgreSQL", "TimescaleDB", "Redis", "Python", "Prisma", "Turborepo"],
+    stack: ["NestJS", "Next.js", "PostgreSQL", "TimescaleDB", "Redis", "BullMQ", "Python", "Prisma", "Turborepo"],
     role: "Full-stack architect & developer",
     summary: {
       en: "A multi-tenant SaaS platform that automates pricing, competitive intelligence, and revenue management for rent-a-car companies — the kind of system that usually costs six figures to license from an incumbent vendor.",
@@ -77,6 +77,9 @@ export const projects: Project[] = [
         "Multi-tenant JWT/RBAC with tenant isolation enforced in every use case, verified end-to-end (403 on cross-tenant access)",
         "Automated competitive rate intelligence via lightweight adapters that call OTA internal APIs directly instead of browser automation where possible",
         "PostgreSQL + TimescaleDB for pricing/occupancy time series, Redis + BullMQ for repricing events",
+        "Price segmentation by length-of-stay and sales channel, no-show/overbooking risk detection, and deterministic template-based \"why this price changed\" narratives generated from stored rule facts — a $0 alternative to a paid AI pricing assistant",
+        "Multi-country tax/currency support (USD/DOP/MXN) and a general activity/audit log capturing every mutating request via a single global middleware, not per-endpoint instrumentation",
+        "Public OpenAPI/Swagger docs and automated nightly Postgres backups to Cloudflare R2, with the restore cycle itself verified in CI, not just the backup",
       ],
       es: [
         "Monorepo NestJS + Next.js (Turborepo) con una capa de microservicios en Python para scraping y forecasting con ML, aislada por perfil de carga",
@@ -84,10 +87,13 @@ export const projects: Project[] = [
         "Multi-tenancy con JWT/RBAC y aislamiento de tenant forzado en cada caso de uso, verificado de punta a punta (403 en accesos cruzados entre tenants)",
         "Inteligencia competitiva automatizada vía adaptadores ligeros que llaman directamente a las APIs internas de las OTAs en vez de automatización de navegador, cuando es posible",
         "PostgreSQL + TimescaleDB para series de tiempo de precios/ocupación, Redis + BullMQ para eventos de repricing",
+        "Segmentación de precio por duración de estadía y canal de venta, detección de riesgo de no-show/overbooking, y narrativas deterministas basadas en plantillas (\"por qué cambió este precio\") generadas desde los mismos facts de las reglas — una alternativa a $0 frente a un asistente de IA pago",
+        "Soporte multi-país de impuestos/moneda (USD/DOP/MXN) y un log de actividad/auditoría general que captura cada request mutante vía un único middleware global, no instrumentación por endpoint",
+        "Documentación pública OpenAPI/Swagger y backups automáticos nocturnos de Postgres a Cloudflare R2, con el ciclo de restore verificado en CI, no solo el backup",
       ],
     },
     metrics: [
-      { label: { en: "Backend tests", es: "Tests de backend" }, value: "60+ (unit + e2e)" },
+      { label: { en: "Backend tests", es: "Tests de backend" }, value: "700+ (unit + e2e)" },
       { label: { en: "Services", es: "Servicios" }, value: "API + Web + 2 Python microservices" },
     ],
     links: [{ label: PRIVATE_LABEL, href: "mailto:kelvisguerrero03@gmail.com?subject=RentEdge%20repo%20access", icon: "external" }],
