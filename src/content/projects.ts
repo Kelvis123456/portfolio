@@ -80,6 +80,8 @@ export const projects: Project[] = [
         "Price segmentation by length-of-stay and sales channel, no-show/overbooking risk detection, and deterministic template-based \"why this price changed\" narratives generated from stored rule facts — a $0 alternative to a paid AI pricing assistant",
         "Multi-country tax/currency support (USD/DOP/MXN) and a general activity/audit log capturing every mutating request via a single global middleware, not per-endpoint instrumentation",
         "Public OpenAPI/Swagger docs and automated nightly Postgres backups to Cloudflare R2, with the restore cycle itself verified in CI, not just the backup",
+        "Money modeled as exact decimal (not float) end-to-end, with row-level locking around every price mutation so two concurrent repricing events can never silently overwrite each other's result",
+        "An SSRF guard (with real DNS-rebinding resolution, not string matching) blocks outbound tenant webhooks from ever reaching a cloud metadata endpoint or private network range; JWT sessions carry live revocation so deactivating a user actually invalidates their existing token",
       ],
       es: [
         "Monorepo NestJS + Next.js (Turborepo) con una capa de microservicios en Python para scraping y forecasting con ML, aislada por perfil de carga",
@@ -90,10 +92,12 @@ export const projects: Project[] = [
         "Segmentación de precio por duración de estadía y canal de venta, detección de riesgo de no-show/overbooking, y narrativas deterministas basadas en plantillas (\"por qué cambió este precio\") generadas desde los mismos facts de las reglas — una alternativa a $0 frente a un asistente de IA pago",
         "Soporte multi-país de impuestos/moneda (USD/DOP/MXN) y un log de actividad/auditoría general que captura cada request mutante vía un único middleware global, no instrumentación por endpoint",
         "Documentación pública OpenAPI/Swagger y backups automáticos nocturnos de Postgres a Cloudflare R2, con el ciclo de restore verificado en CI, no solo el backup",
+        "Dinero modelado como decimal exacto (no float) de punta a punta, con locking a nivel de fila en cada mutación de precio para que dos eventos de repricing concurrentes nunca se pisen en silencio",
+        "Un guard anti-SSRF (con resolución real de DNS-rebinding, no comparación de strings) impide que un webhook de tenant llegue jamás a un endpoint de metadata de la nube o a un rango de red privada; las sesiones JWT tienen revocación real, así que desactivar un usuario invalida su token en el acto",
       ],
     },
     metrics: [
-      { label: { en: "Backend tests", es: "Tests de backend" }, value: "700+ (unit + e2e)" },
+      { label: { en: "Backend tests", es: "Tests de backend" }, value: "1,050+ (unit + e2e)" },
       { label: { en: "Services", es: "Servicios" }, value: "API + Web + 2 Python microservices" },
     ],
     links: [{ label: PRIVATE_LABEL, href: "mailto:kelvisguerrero03@gmail.com?subject=RentEdge%20repo%20access", icon: "external" }],
