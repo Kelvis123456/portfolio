@@ -13,7 +13,7 @@ export default function AppleIcon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(135deg, #ff5a1f 0%, #ff8a4c 100%)",
+          background: "linear-gradient(135deg, #ff5a1f 0%, #ff7b4d 100%)",
         }}
       >
         <div style={{ fontSize: 90, fontWeight: 700, color: "#fff8f2" }}>KG</div>
