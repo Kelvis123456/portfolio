@@ -1,10 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ProjectCard } from "@/components/projects/ProjectCard";
+import { ProjectListRow } from "@/components/projects/ProjectListRow";
+import { ProjectPreviewPane } from "@/components/projects/ProjectPreviewPane";
 import { projects, otherWork, type ProjectCategory } from "@/content/projects";
 import { dictionary } from "@/content/dictionary";
 import { useLanguage, t } from "@/lib/language-context";
@@ -29,9 +31,19 @@ export function Projects() {
 
   const flagship = filtered.find((p) => p.slug === "rentedge" || p.featured);
 
+  const [activeSlug, setActiveSlug] = useState<string | undefined>(flagship?.slug ?? filtered[0]?.slug);
+  const activeProject = filtered.find((p) => p.slug === activeSlug) ?? flagship ?? filtered[0];
+
+  useEffect(() => {
+    if (!filtered.some((p) => p.slug === activeSlug)) {
+      setActiveSlug(flagship?.slug ?? filtered[0]?.slug);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filtered]);
+
   return (
     <Section id="projects">
-      <div className="mx-auto max-w-5xl px-6">
+      <div className="mx-auto max-w-6xl px-6">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <SectionHeading index="02">{dict.projects.heading}</SectionHeading>
           <motion.div variants={fadeUp} className="flex gap-1 rounded-full border border-border bg-surface p-1">
@@ -66,23 +78,50 @@ export function Projects() {
             {dict.projects.emptyFilter}
           </motion.p>
         ) : (
-          <motion.div className="mt-10 grid gap-5 sm:grid-cols-2">
-            <AnimatePresence mode="popLayout" initial={false}>
-              {filtered.map((project, index) => (
-                <motion.div
-                  layout
-                  key={project.slug}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -16 }}
-                  transition={{ duration: 0.25, delay: index * 0.04 }}
-                  className={project === flagship ? "sm:col-span-2" : ""}
-                >
-                  <ProjectCard project={project} large={project === flagship} />
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
+          <>
+            <motion.div className="mt-10 grid gap-5 sm:grid-cols-2 lg:hidden">
+              <AnimatePresence mode="popLayout" initial={false}>
+                {filtered.map((project, index) => (
+                  <motion.div
+                    layout
+                    key={project.slug}
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -16 }}
+                    transition={{ duration: 0.25, delay: index * 0.04 }}
+                    className={project === flagship ? "sm:col-span-2" : ""}
+                  >
+                    <ProjectCard project={project} large={project === flagship} />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </motion.div>
+
+            <div className="mt-10 hidden gap-10 lg:grid lg:grid-cols-[1fr_560px]">
+              <div className="flex flex-col gap-2">
+                <AnimatePresence mode="popLayout" initial={false}>
+                  {filtered.map((project, index) => (
+                    <motion.div
+                      layout
+                      key={project.slug}
+                      initial={{ opacity: 0, y: 16 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -16 }}
+                      transition={{ duration: 0.25, delay: index * 0.04 }}
+                    >
+                      <ProjectListRow
+                        project={project}
+                        index={index}
+                        active={project.slug === activeProject?.slug}
+                        onActivate={() => setActiveSlug(project.slug)}
+                      />
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </div>
+              <ProjectPreviewPane project={activeProject} />
+            </div>
+          </>
         )}
 
         <motion.div variants={fadeUp} className="mt-16">
