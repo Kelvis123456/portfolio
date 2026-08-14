@@ -27,16 +27,19 @@ export function ProjectListRow({
       onFocus={onActivate}
       className={cn(
         "group flex items-start gap-4 rounded-xl border px-5 py-4 transition-colors",
-        active ? "border-accent/40 bg-surface" : "border-transparent hover:bg-surface"
+        active ? "border-[#c2410c]/40 bg-surface dark:border-[#ff7b4d]/40" : "border-border/60 hover:bg-surface"
       )}
     >
-      <span className="mt-0.5 font-mono text-xs text-foreground/40">{String(index + 1).padStart(2, "0")}</span>
+      <span className="mt-0.5 font-mono text-xs text-foreground/65">{String(index + 1).padStart(2, "0")}</span>
       <div className="min-w-0 flex-1">
         <div className="flex items-center justify-between gap-3">
-          <h3 className="font-display font-semibold tracking-tight">{project.title}</h3>
+          <h3 className="font-display text-lg font-semibold tracking-tight">{project.title}</h3>
           <StatusBadge status={project.status} />
         </div>
         <p className="mt-1 text-sm text-foreground/70">{t(project.tagline, locale)}</p>
+        {project.problem && (
+          <p className="mt-1 line-clamp-1 text-sm text-foreground/60">{t(project.problem, locale)}</p>
+        )}
         <div className="mt-3 flex flex-wrap gap-2">
           {project.stack.slice(0, 4).map((tech) => (
             <span key={tech} className="rounded-full bg-surface-muted px-2.5 py-1 text-xs text-foreground/70">
@@ -49,8 +52,8 @@ export function ProjectListRow({
         aria-hidden
         size={18}
         className={cn(
-          "mt-0.5 shrink-0 text-foreground/30 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5",
-          active && "text-accent"
+          "mt-0.5 shrink-0 text-foreground/65 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5",
+          active && "text-[#c2410c] dark:text-[#ff7b4d]"
         )}
       />
     </Link>
