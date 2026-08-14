@@ -175,6 +175,56 @@ export const projects: Project[] = [
     gallery: ["/images/recetas-app/home.png"],
   },
   {
+    slug: "reservaya",
+    title: "ReservaYa",
+    tagline: {
+      en: "Sports venue booking platform with a hybrid SQL/NoSQL backend",
+      es: "Plataforma de reservas de canchas deportivas con backend híbrido SQL/NoSQL",
+    },
+    kind: "software",
+    category: "software",
+    status: "live",
+    featured: true,
+    stack: ["Node.js", "Express", "PostgreSQL", "Sequelize", "MongoDB", "Mongoose", "React", "Vite", "Tailwind CSS", "Docker"],
+    role: "Full-stack developer",
+    summary: {
+      en: "A court-booking platform (soccer, basketball, tennis) built to demonstrate a deliberate hybrid database architecture — PostgreSQL for data that needs strict integrity, MongoDB for flexible, high-write data — with real overlap-safe booking and a tested REST API, not just a CRUD demo.",
+      es: "Una plataforma de reservas de canchas (fútbol, baloncesto, tenis) construida para demostrar una arquitectura híbrida de bases de datos deliberada — PostgreSQL para los datos que necesitan integridad estricta, MongoDB para datos flexibles y de alta escritura — con reservas realmente a prueba de solapamiento y una API REST probada, no solo un CRUD de ejemplo.",
+    },
+    problem: {
+      en: "Booking systems need strict integrity for schedules and reservations — two people can never book the same court at the same hour — but they also generate flexible, high-volume data like reviews and per-event notifications that don't fit a rigid relational schema.",
+      es: "Los sistemas de reservas necesitan integridad estricta en horarios y reservas — dos personas nunca deben poder reservar la misma cancha a la misma hora — pero también generan datos flexibles y de alto volumen, como reseñas y notificaciones por evento, que no calzan en un schema relacional rígido.",
+    },
+    solution: {
+      en: "PostgreSQL (via Sequelize) models users, venues, weekly schedules, and reservations, with row-level locking inside a transaction so two overlapping bookings can never both succeed. MongoDB (via Mongoose) stores reviews and per-event notifications, whose shape genuinely varies by event type.",
+      es: "PostgreSQL (vía Sequelize) modela usuarios, canchas, horarios semanales y reservas, con bloqueo a nivel de fila dentro de una transacción para que dos reservas que se solapen nunca puedan completarse ambas. MongoDB (vía Mongoose) almacena reseñas y notificaciones por evento, cuya forma realmente varía según el tipo de evento.",
+    },
+    architectureHighlights: {
+      en: [
+        "Booking creation runs inside a Postgres transaction with row-level locks that re-check for time-range overlap right before committing, closing the read/write race window instead of relying on a unique constraint alone",
+        "Availability endpoint derives free/booked hour slots per day directly from the venue's weekly Schedule rows minus its active reservations — no separate cache to keep in sync",
+        "A MongoDB aggregation pipeline computes each venue's average rating and review count on read, merged in-app with the Postgres venue record",
+        "Domain events (reservation created/confirmed/cancelled, review received) write structured notifications into MongoDB, each with a free-form metadata field that differs by event type",
+        "47 backend tests (Vitest + Supertest) against a real Postgres/MongoDB test database, weighted toward negative paths — 401/403/404/409/400 on every route, not just the happy path",
+        "19 frontend tests (Vitest + React Testing Library) covering auth-context edge cases (invalid token, failed login) and role-gated route redirects",
+      ],
+      es: [
+        "La creación de una reserva corre dentro de una transacción de Postgres con bloqueo a nivel de fila que re-verifica el solapamiento de horario justo antes de confirmar, cerrando la ventana de carrera entre leer y escribir en vez de depender solo de una restricción única",
+        "El endpoint de disponibilidad calcula los bloques libres/ocupados de cada día directamente desde el horario semanal de la cancha menos sus reservas activas — sin caché aparte que mantener sincronizado",
+        "Un pipeline de agregación de MongoDB calcula la calificación promedio y el conteo de reseñas de cada cancha al leer, combinado en la app con el registro de la cancha en Postgres",
+        "Los eventos de dominio (reserva creada/confirmada/cancelada, reseña recibida) escriben notificaciones estructuradas en MongoDB, cada una con un campo de metadata libre que cambia según el tipo de evento",
+        "47 tests de backend (Vitest + Supertest) contra una base de datos de prueba real en Postgres/MongoDB, con peso hacia los caminos negativos — 401/403/404/409/400 en cada ruta, no solo el camino feliz",
+        "19 tests de frontend (Vitest + React Testing Library) que cubren casos de borde del contexto de autenticación (token inválido, login fallido) y redirecciones de rutas protegidas por rol",
+      ],
+    },
+    metrics: [
+      { label: { en: "Backend tests", es: "Tests de backend" }, value: "47 (unit + integration)" },
+      { label: { en: "Frontend tests", es: "Tests de frontend" }, value: "19" },
+    ],
+    links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/reservaya", icon: "github" }],
+    gallery: ["/images/reservaya/home.png", "/images/reservaya/venues.png", "/images/reservaya/detail.png"],
+  },
+  {
     slug: "connect5",
     title: "Connect5",
     tagline: {
