@@ -25,11 +25,13 @@ export function ProjectCover({
   project,
   priority = false,
   sizes,
+  quality,
   className,
 }: {
   project: Project;
   priority?: boolean;
   sizes?: string;
+  quality?: number;
   className?: string;
 }) {
   const cover = project.gallery?.[0];
@@ -44,6 +46,7 @@ export function ProjectCover({
           fill
           priority={priority}
           sizes={sizes ?? "(min-width: 640px) 50vw, 100vw"}
+          quality={quality}
           className="object-cover object-top"
         />
       </div>
