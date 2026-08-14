@@ -8,6 +8,9 @@ import { LanguageProvider } from "@/lib/language-context";
 import { CommandPaletteProvider } from "@/lib/command-palette-context";
 import { CommandPalette } from "@/components/ui/CommandPalette";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
+import { Sidebar } from "@/components/layout/Sidebar";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 import { siteConfig } from "@/content/siteConfig";
 import { NetworkCanvas } from "@/components/ui/NetworkCanvas";
 import "./globals.css";
@@ -74,7 +77,12 @@ export default function RootLayout({
             <LanguageProvider>
               <CommandPaletteProvider>
                 <ScrollProgress />
-                <div className="relative z-10 flex min-h-full flex-1 flex-col">{children}</div>
+                <Sidebar />
+                <Navbar />
+                <div className="relative z-10 flex min-h-full flex-1 flex-col lg:pl-80">
+                  {children}
+                  <Footer />
+                </div>
                 <CommandPalette />
               </CommandPaletteProvider>
             </LanguageProvider>
