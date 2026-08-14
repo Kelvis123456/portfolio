@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { AnimatePresence, motion } from "motion/react";
-import { Menu, X } from "lucide-react";
+import { Menu, Search, X } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { LanguageToggle } from "@/components/ui/LanguageToggle";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
 import { useLanguage } from "@/lib/language-context";
+import { useCommandPalette } from "@/lib/command-palette-context";
 import { dictionary } from "@/content/dictionary";
 import { cn } from "@/lib/cn";
 
@@ -18,6 +19,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { locale } = useLanguage();
+  const { setOpen: setPaletteOpen } = useCommandPalette();
   const t = dictionary[locale];
   const pathname = usePathname();
   const isHome = pathname === "/";
@@ -86,6 +88,15 @@ export function Navbar() {
           ))}
         </ul>
         <div className="flex items-center gap-2">
+          <button
+            type="button"
+            aria-label={t.commandPalette.open}
+            onClick={() => setPaletteOpen(true)}
+            className="flex h-9 items-center gap-1.5 rounded-full border border-border bg-surface px-3 text-foreground/60 hover:bg-surface-muted hover:text-foreground transition-colors"
+          >
+            <Search size={14} />
+            <kbd className="hidden text-[10px] font-medium sm:inline">⌘K</kbd>
+          </button>
           <LanguageToggle />
           <ThemeToggle />
           <button
