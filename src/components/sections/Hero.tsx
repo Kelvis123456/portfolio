@@ -16,10 +16,10 @@ export function Hero() {
   const { locale } = useLanguage();
   const dict = dictionary[locale];
 
-  const nameWords = siteConfig.name.split(" ");
+  const words = t(siteConfig.tagline, locale).split(" ");
 
   return (
-    <section id="top" className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden px-6 pt-20">
+    <section id="top" className="relative flex min-h-[90vh] w-full flex-col items-center justify-center overflow-hidden px-6 pt-24 lg:min-h-screen">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(255,138,76,0.16),transparent_70%)]"
@@ -33,26 +33,22 @@ export function Hero() {
       >
         <motion.span
           variants={wordReveal}
-          className="mb-5 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-accent"
+          className="mb-5 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-accent lg:hidden"
         >
           <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
           {t(siteConfig.role, locale)}
         </motion.span>
 
-        <h1 className="w-full text-[clamp(2.75rem,10vw,6.5rem)] font-display font-semibold leading-[1.02] tracking-tight">
-          {nameWords.map((word, i) => (
+        <h1 className="w-full text-balance text-[clamp(2rem,5.5vw,4rem)] font-display font-medium leading-[1.08] tracking-tight">
+          {words.map((word, i) => (
             <span key={i}>
               <motion.span variants={wordReveal} className="inline-block">
                 {word}
               </motion.span>
-              {i < nameWords.length - 1 ? " " : ""}
+              {i < words.length - 1 ? " " : ""}
             </span>
           ))}
         </h1>
-
-        <motion.p variants={wordReveal} className="mt-6 max-w-xl text-balance text-lg text-foreground/70 sm:text-xl">
-          {t(siteConfig.tagline, locale)}
-        </motion.p>
 
         <motion.div variants={wordReveal} className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <MagneticButton href="#projects" className="bg-foreground text-background">

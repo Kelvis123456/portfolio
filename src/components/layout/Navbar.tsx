@@ -51,50 +51,22 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed top-0 z-50 w-full transition-all duration-300",
+        "fixed top-0 z-50 w-full transition-all duration-300 lg:hidden",
         scrolled
           ? "border-b border-border/60 bg-background/70 backdrop-blur-md"
           : "bg-transparent"
       )}
     >
-      <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+      <nav className="mx-auto flex items-center justify-between px-6 py-4">
         {isHome ? (
-          <a href="#top" className="text-sm font-semibold tracking-tight">
+          <a href="#top" className="font-display text-lg font-semibold tracking-tight">
             Kelvis Guerrero
           </a>
         ) : (
-          <Link href="/" className="text-sm font-semibold tracking-tight">
+          <Link href="/" className="font-display text-lg font-semibold tracking-tight">
             Kelvis Guerrero
           </Link>
         )}
-        <ul className="hidden items-center gap-6 sm:flex">
-          {NAV_ITEMS.map((item) => (
-            <li key={item.id} className="relative">
-              {isHome ? (
-                <a
-                  href={`#${item.id}`}
-                  className={cn(
-                    "relative text-sm transition-colors",
-                    activeId === item.id ? "text-foreground" : "text-foreground/60 hover:text-foreground"
-                  )}
-                >
-                  {item.label}
-                  {activeId === item.id && (
-                    <motion.span
-                      layoutId="navIndicator"
-                      className="absolute -bottom-1 left-0 right-0 h-px bg-foreground"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                </a>
-              ) : (
-                <Link href={`/#${item.id}`} className="relative text-sm text-foreground/60 transition-colors hover:text-foreground">
-                  {item.label}
-                </Link>
-              )}
-            </li>
-          ))}
-        </ul>
         <div className="flex items-center gap-2">
           <button
             type="button"
@@ -111,7 +83,7 @@ export function Navbar() {
             type="button"
             aria-label={mobileOpen ? t.closeMenu : t.openMenu}
             onClick={() => setMobileOpen((v) => !v)}
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface hover:bg-surface-muted transition-colors sm:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface hover:bg-surface-muted transition-colors"
           >
             {mobileOpen ? <X size={16} /> : <Menu size={16} />}
           </button>
@@ -125,7 +97,7 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 flex flex-col bg-background sm:hidden"
+            className="fixed inset-0 z-40 flex flex-col bg-background"
           >
             <div className="flex flex-1 flex-col justify-center gap-1 px-8 pb-20">
               {NAV_ITEMS.map((item, i) => (
