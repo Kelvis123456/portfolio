@@ -64,6 +64,9 @@ export function ProjectCard({ project, large = false }: { project: Project; larg
               <StatusBadge status={project.status} />
             </div>
             <p className="mt-2 text-sm text-foreground/70">{t(project.tagline, locale)}</p>
+            {project.problem && (
+              <p className="mt-2 line-clamp-2 text-sm text-foreground/60">{t(project.problem, locale)}</p>
+            )}
           </div>
 
           <div className="mt-6 flex flex-wrap gap-2">
