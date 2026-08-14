@@ -92,7 +92,7 @@ export function Terminal({ className }: { className?: string }) {
       <div className="min-h-[168px] px-3.5 py-4 leading-[1.85] text-foreground/80">
         {typed.map((line, i) => (
           <div key={i} className="whitespace-pre">
-            <span className="text-accent-2">✓</span> {line}
+            <span className="text-accent-2-text">✓</span> {line}
             {!shouldReduceMotion && i === activeIndex && i === typed.length - 1 && (
               <span className="ml-0.5 inline-block h-3 w-1.5 translate-y-0.5 animate-pulse bg-accent" />
             )}

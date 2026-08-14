@@ -230,30 +230,30 @@ export function CommandPalette() {
             className="w-full max-w-lg overflow-hidden rounded-2xl border border-border bg-surface shadow-2xl shadow-black/20 dark:shadow-black/50"
           >
             <div className="flex items-center gap-3 border-b border-border px-4 py-3">
-              <Search size={16} className="shrink-0 text-foreground/40" />
+              <Search size={16} className="shrink-0 text-foreground/65" />
               <input
                 ref={inputRef}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder={dict.commandPalette.placeholder}
-                className="w-full bg-transparent text-sm outline-none placeholder:text-foreground/40"
+                className="w-full bg-transparent text-sm outline-none placeholder:text-foreground/65"
               />
-              <kbd className="hidden shrink-0 rounded border border-border px-1.5 py-0.5 text-[10px] text-foreground/40 sm:block">
+              <kbd className="hidden shrink-0 rounded border border-border px-1.5 py-0.5 text-[10px] text-foreground/65 sm:block">
                 esc
               </kbd>
             </div>
 
             <div className="max-h-[50vh] overflow-y-auto p-2">
               {filtered.length === 0 && (
-                <p className="px-3 py-8 text-center text-sm text-foreground/50">{dict.commandPalette.noResults}</p>
+                <p className="px-3 py-8 text-center text-sm text-foreground/65">{dict.commandPalette.noResults}</p>
               )}
               {groups.map((group) => {
                 const groupItems = filtered.filter((item) => item.group === group.key);
                 if (groupItems.length === 0) return null;
                 return (
                   <div key={group.key} className="mb-2 last:mb-0">
-                    <p className="px-3 py-1.5 text-xs font-medium uppercase tracking-widest text-foreground/40">
+                    <p className="px-3 py-1.5 text-xs font-medium uppercase tracking-widest text-foreground/65">
                       {group.label}
                     </p>
                     {groupItems.map((item) => {
@@ -270,7 +270,7 @@ export function CommandPalette() {
                             index === activeIndex ? "bg-surface-muted text-foreground" : "text-foreground/70"
                           )}
                         >
-                          <Icon size={16} className="shrink-0 text-foreground/50" />
+                          <Icon size={16} className="shrink-0 text-foreground/65" />
                           {item.label}
                         </button>
                       );
@@ -280,7 +280,7 @@ export function CommandPalette() {
               })}
             </div>
 
-            <div className="hidden items-center gap-4 border-t border-border px-4 py-2.5 text-xs text-foreground/40 sm:flex">
+            <div className="hidden items-center gap-4 border-t border-border px-4 py-2.5 text-xs text-foreground/65 sm:flex">
               <span className="flex items-center gap-1.5">
                 <kbd className="rounded border border-border px-1.5 py-0.5">↑</kbd>
                 <kbd className="rounded border border-border px-1.5 py-0.5">↓</kbd>

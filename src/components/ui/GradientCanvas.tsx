@@ -18,6 +18,7 @@ uniform float u_time;
 uniform vec3 u_colorA;
 uniform vec3 u_colorB;
 uniform vec3 u_bg;
+uniform float u_isDark;
 
 void main() {
   vec2 uv = gl_FragCoord.xy / u_resolution.xy;
@@ -39,11 +40,17 @@ void main() {
   float g3 = smoothstep(0.95, 0.0, d3);
 
   vec3 color = u_bg;
-  color = mix(color, u_colorA, g1 * 0.32);
-  color = mix(color, u_colorB, g2 * 0.2);
-  color = mix(color, u_colorA, g3 * 0.14);
+  if (u_isDark > 0.5) {
+    color += u_colorA * g1 * 0.32;
+    color += u_colorB * g2 * 0.2;
+    color += u_colorA * g3 * 0.14;
+  } else {
+    color = mix(color, u_colorA, g1 * 0.32);
+    color = mix(color, u_colorB, g2 * 0.2);
+    color = mix(color, u_colorA, g3 * 0.14);
+  }
 
-  gl_FragColor = vec4(color, 1.0);
+  gl_FragColor = vec4(clamp(color, 0.0, 1.0), 1.0);
 }
 `;
 
@@ -106,15 +113,18 @@ export function GradientCanvas({ className }: { className?: string }) {
     const colorALoc = gl.getUniformLocation(program, "u_colorA");
     const colorBLoc = gl.getUniformLocation(program, "u_colorB");
     const bgLoc = gl.getUniformLocation(program, "u_bg");
+    const isDarkLoc = gl.getUniformLocation(program, "u_isDark");
 
     function readColors() {
       const styles = getComputedStyle(document.documentElement);
       const accent = hexToRgb01(styles.getPropertyValue("--accent") || "#ff5a1f");
       const accent2 = hexToRgb01(styles.getPropertyValue("--accent-2") || "#1f8a5f");
       const bg = hexToRgb01(styles.getPropertyValue("--background") || "#faf8f5");
+      const isDark = document.documentElement.classList.contains("dark");
       gl!.uniform3f(colorALoc, accent[0], accent[1], accent[2]);
       gl!.uniform3f(colorBLoc, accent2[0], accent2[1], accent2[2]);
       gl!.uniform3f(bgLoc, bg[0], bg[1], bg[2]);
+      gl!.uniform1f(isDarkLoc, isDark ? 1 : 0);
     }
 
     let width = 0;
