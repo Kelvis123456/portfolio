@@ -3,7 +3,11 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "next-themes";
+import { ViewTransitions } from "next-view-transitions";
 import { LanguageProvider } from "@/lib/language-context";
+import { CommandPaletteProvider } from "@/lib/command-palette-context";
+import { CommandPalette } from "@/components/ui/CommandPalette";
+import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { siteConfig } from "@/content/siteConfig";
 import { NetworkCanvas } from "@/components/ui/NetworkCanvas";
 import "./globals.css";
@@ -44,28 +48,34 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      translate="no"
-      suppressHydrationWarning
-      className={`notranslate ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col bg-background text-foreground">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
-        />
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <div className="fixed inset-0 z-0 bg-background" aria-hidden>
-            <NetworkCanvas className="pointer-events-none absolute inset-0 h-full w-full" />
-          </div>
-          <LanguageProvider>
-            <div className="relative z-10 flex min-h-full flex-1 flex-col">{children}</div>
-          </LanguageProvider>
-        </ThemeProvider>
-        <Analytics />
-        <SpeedInsights />
-      </body>
-    </html>
+    <ViewTransitions>
+      <html
+        lang="en"
+        translate="no"
+        suppressHydrationWarning
+        className={`notranslate ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      >
+        <body className="min-h-full flex flex-col bg-background text-foreground">
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+          />
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+            <div className="fixed inset-0 z-0 bg-background" aria-hidden>
+              <NetworkCanvas className="pointer-events-none absolute inset-0 h-full w-full" />
+            </div>
+            <LanguageProvider>
+              <CommandPaletteProvider>
+                <ScrollProgress />
+                <div className="relative z-10 flex min-h-full flex-1 flex-col">{children}</div>
+                <CommandPalette />
+              </CommandPaletteProvider>
+            </LanguageProvider>
+          </ThemeProvider>
+          <Analytics />
+          <SpeedInsights />
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }

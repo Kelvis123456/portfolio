@@ -56,23 +56,33 @@ export function Projects() {
           </div>
         </motion.div>
 
-        <motion.div className="mt-10 grid gap-5 sm:grid-cols-2">
-          <AnimatePresence mode="popLayout" initial={false}>
-            {filtered.map((project, index) => (
-              <motion.div
-                layout
-                key={project.slug}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -16 }}
-                transition={{ duration: 0.25, delay: index * 0.04 }}
-                className={project === flagship ? "sm:col-span-2" : ""}
-              >
-                <ProjectCard project={project} large={project === flagship} />
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+        {filtered.length === 0 ? (
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mt-10 rounded-2xl border border-dashed border-border py-12 text-center text-sm text-foreground/50"
+          >
+            {dict.projects.emptyFilter}
+          </motion.p>
+        ) : (
+          <motion.div className="mt-10 grid gap-5 sm:grid-cols-2">
+            <AnimatePresence mode="popLayout" initial={false}>
+              {filtered.map((project, index) => (
+                <motion.div
+                  layout
+                  key={project.slug}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -16 }}
+                  transition={{ duration: 0.25, delay: index * 0.04 }}
+                  className={project === flagship ? "sm:col-span-2" : ""}
+                >
+                  <ProjectCard project={project} large={project === flagship} />
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        )}
 
         <motion.div variants={fadeUp} className="mt-16">
           <h3 className="text-sm font-medium uppercase tracking-widest text-foreground/50">
