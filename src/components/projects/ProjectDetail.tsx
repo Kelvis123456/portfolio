@@ -100,7 +100,7 @@ export function ProjectDetail({ project }: { project: Project }) {
       </div>
 
       <div className="mt-8 flex flex-wrap items-center gap-3">
-        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{project.title}</h1>
+        <h1 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">{project.title}</h1>
         <StatusBadge status={project.status} />
       </div>
       <p className="mt-3 text-lg text-foreground/70">{t(project.tagline, locale)}</p>

@@ -40,6 +40,14 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (!mobileOpen) return;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
   return (
     <header
       className={cn(
@@ -112,44 +120,51 @@ export function Navbar() {
 
       <AnimatePresence>
         {mobileOpen && (
-          <motion.ul
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="flex flex-col overflow-hidden border-b border-black/5 bg-background/95 backdrop-blur-md px-6 sm:hidden dark:border-white/5"
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-40 flex flex-col bg-background sm:hidden"
           >
-            {NAV_ITEMS.map((item) => (
-              <li key={item.id}>
-                {isHome ? (
-                  <a
-                    href={`#${item.id}`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setMobileOpen(false);
-                      window.setTimeout(() => {
-                        document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" });
-                      }, 280);
-                    }}
-                    className={cn(
-                      "block py-3 text-sm transition-colors",
-                      activeId === item.id ? "text-foreground" : "text-foreground/60"
-                    )}
-                  >
-                    {item.label}
-                  </a>
-                ) : (
-                  <Link
-                    href={`/#${item.id}`}
-                    onClick={() => setMobileOpen(false)}
-                    className="block py-3 text-sm text-foreground/60 transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                )}
-              </li>
-            ))}
-          </motion.ul>
+            <div className="flex flex-1 flex-col justify-center gap-1 px-8 pb-20">
+              {NAV_ITEMS.map((item, i) => (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.08 + i * 0.06, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  {isHome ? (
+                    <a
+                      href={`#${item.id}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setMobileOpen(false);
+                        window.setTimeout(() => {
+                          document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" });
+                        }, 280);
+                      }}
+                      className={cn(
+                        "block py-2.5 font-display text-4xl tracking-tight transition-colors",
+                        activeId === item.id ? "text-foreground" : "text-foreground/40"
+                      )}
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={`/#${item.id}`}
+                      onClick={() => setMobileOpen(false)}
+                      className="block py-2.5 font-display text-4xl tracking-tight text-foreground/70"
+                    >
+                      {item.label}
+                    </Link>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </header>

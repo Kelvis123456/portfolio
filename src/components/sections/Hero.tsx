@@ -16,47 +16,52 @@ export function Hero() {
   const { locale } = useLanguage();
   const dict = dictionary[locale];
 
-  const words = t(siteConfig.tagline, locale).split(" ");
+  const nameWords = siteConfig.name.split(" ");
 
   return (
     <section id="top" className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden px-6 pt-20">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(124,138,255,0.14),transparent_70%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(255,138,76,0.16),transparent_70%)]"
       />
 
       <motion.div
         initial="hidden"
         animate="visible"
-        variants={staggerContainer(0.06)}
-        className="relative z-10 flex max-w-3xl flex-col items-center text-center"
+        variants={staggerContainer(0.08)}
+        className="relative z-10 flex w-full max-w-3xl flex-col items-center text-center"
       >
-        <motion.span variants={wordReveal} className="mb-4 text-sm font-medium uppercase tracking-widest text-foreground/50">
+        <motion.span
+          variants={wordReveal}
+          className="mb-5 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-accent"
+        >
+          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
           {t(siteConfig.role, locale)}
         </motion.span>
 
-        <h1 className="flex flex-wrap justify-center gap-x-3 text-4xl font-semibold tracking-tight sm:text-6xl">
-          {words.map((word, i) => (
-            <motion.span key={i} variants={wordReveal} className="inline-block">
-              {word}
-            </motion.span>
+        <h1 className="w-full text-[clamp(2.75rem,10vw,6.5rem)] font-display font-semibold leading-[1.02] tracking-tight">
+          {nameWords.map((word, i) => (
+            <span key={i}>
+              <motion.span variants={wordReveal} className="inline-block">
+                {word}
+              </motion.span>
+              {i < nameWords.length - 1 ? " " : ""}
+            </span>
           ))}
         </h1>
+
+        <motion.p variants={wordReveal} className="mt-6 max-w-xl text-balance text-lg text-foreground/70 sm:text-xl">
+          {t(siteConfig.tagline, locale)}
+        </motion.p>
 
         <motion.div variants={wordReveal} className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <MagneticButton href="#projects" className="bg-foreground text-background">
             {dict.hero.viewProjects}
           </MagneticButton>
-          <MagneticButton
-            href={siteConfig.github}
-            className="border border-border bg-surface"
-          >
+          <MagneticButton href={siteConfig.github} className="border border-border bg-surface">
             <FolderGit2 size={16} /> {dict.hero.github}
           </MagneticButton>
-          <MagneticButton
-            href={siteConfig.linkedin}
-            className="border border-border bg-surface"
-          >
+          <MagneticButton href={siteConfig.linkedin} className="border border-border bg-surface">
             <LinkedinIcon size={16} /> {dict.hero.linkedin}
           </MagneticButton>
           <CopyableEmailButton label={dict.hero.contact} className="border border-border bg-surface" />

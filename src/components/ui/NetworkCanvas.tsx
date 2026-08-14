@@ -27,7 +27,7 @@ export function NetworkCanvas({ className }: { className?: string }) {
     const mouse = { x: -9999, y: -9999 };
     let frameId = 0;
 
-    const rgb = isDark ? "124, 138, 255" : "67, 56, 202";
+    const rgb = isDark ? "255, 138, 76" : "230, 90, 31";
     const dotAlpha = isDark ? 0.5 : 0.95;
     const linkAlphaMultiplier = isDark ? 0.17 : 0.6;
     const dotRadius = (isDark ? 1.6 : 2.1) * dpr;
