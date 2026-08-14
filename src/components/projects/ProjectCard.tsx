@@ -58,7 +58,7 @@ export function ProjectCard({ project, large = false }: { project: Project; larg
         <div className={cn("flex flex-1 flex-col justify-between p-6", large ? "sm:p-8" : "")}>
           <div>
             <div className="flex items-center justify-between gap-3">
-              <h3 className={cn("font-semibold tracking-tight", large ? "text-2xl" : "text-lg")}>
+              <h3 className={cn("font-display font-semibold tracking-tight", large ? "text-2xl" : "text-lg")}>
                 {project.title}
               </h3>
               <StatusBadge status={project.status} />

@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "motion/react";
 import { Section } from "@/components/ui/Section";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { skillGroups } from "@/content/skills";
 import { dictionary } from "@/content/dictionary";
 import { useLanguage, t } from "@/lib/language-context";
@@ -16,9 +17,7 @@ export function Skills() {
   return (
     <Section id="skills">
       <div className="mx-auto max-w-5xl px-6">
-        <motion.h2 variants={fadeUp} className="text-2xl font-semibold tracking-tight sm:text-3xl">
-          {dict.skills.heading}
-        </motion.h2>
+        <SectionHeading index="03">{dict.skills.heading}</SectionHeading>
 
         <motion.div variants={staggerContainer(0.1)} className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
           {skillGroups.map((group) => (

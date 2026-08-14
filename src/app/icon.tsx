@@ -14,10 +14,10 @@ export default function Icon() {
           alignItems: "center",
           justifyContent: "center",
           borderRadius: 40,
-          background: "linear-gradient(135deg, #6d5bf5 0%, #8b7bff 100%)",
+          background: "linear-gradient(135deg, #ff5a1f 0%, #ff8a4c 100%)",
         }}
       >
-        <div style={{ fontSize: 96, fontWeight: 700, color: "#ffffff" }}>KG</div>
+        <div style={{ fontSize: 96, fontWeight: 700, color: "#fff8f2" }}>KG</div>
       </div>
     ),
     { ...size }

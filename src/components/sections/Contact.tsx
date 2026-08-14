@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { Download, FolderGit2 } from "lucide-react";
 import { Section } from "@/components/ui/Section";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { siteConfig } from "@/content/siteConfig";
 import { dictionary } from "@/content/dictionary";
 import { useLanguage } from "@/lib/language-context";
@@ -18,9 +19,9 @@ export function Contact() {
   return (
     <Section id="contact">
       <div className="mx-auto max-w-2xl px-6 text-center">
-        <motion.h2 variants={fadeUp} className="text-2xl font-semibold tracking-tight sm:text-3xl">
+        <SectionHeading index="04" className="justify-center">
           {dict.contact.heading}
-        </motion.h2>
+        </SectionHeading>
         <motion.p variants={fadeUp} className="mt-4 text-foreground/70">
           {dict.contact.body}
         </motion.p>
