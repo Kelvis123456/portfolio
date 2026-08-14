@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useReducedMotion } from "motion/react";
+import { MapPin } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { siteConfig } from "@/content/siteConfig";
 import { dictionary } from "@/content/dictionary";
@@ -40,40 +41,52 @@ export function About() {
 
   return (
     <Section id="about">
-      <div className="mx-auto grid max-w-5xl gap-12 px-6 sm:grid-cols-[220px_1fr]">
-        <motion.div
-          variants={fadeUp}
-          className="mx-auto flex h-40 w-40 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500/20 to-sky-500/20 text-3xl font-semibold sm:mx-0"
-          style={{ transformStyle: "preserve-3d" }}
-          whileHover={shouldReduceMotion ? undefined : { rotateX: -6, rotateY: 6, scale: 1.02 }}
-          transition={{ type: "spring", stiffness: 200, damping: 15 }}
-        >
-          {initials}
-        </motion.div>
-
-        <div>
-          <motion.h2 variants={fadeUp} className="text-2xl font-semibold tracking-tight sm:text-3xl">
-            {dict.about.heading}
-          </motion.h2>
-          <motion.p variants={fadeUp} className="mt-4 max-w-xl text-foreground/70">
-            {t(siteConfig.bio, locale)} {dict.about.basedIn} {t(siteConfig.location, locale)}.
-          </motion.p>
+      <div className="mx-auto max-w-5xl px-6">
+        <motion.div variants={staggerContainer(0.1)} className="grid gap-4 sm:grid-cols-6">
+          <motion.div
+            variants={fadeUp}
+            className="flex flex-col gap-6 rounded-2xl border border-border bg-surface p-8 sm:col-span-4 sm:flex-row sm:items-center"
+          >
+            <motion.div
+              className="flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500/20 to-sky-500/20 text-2xl font-semibold"
+              style={{ transformStyle: "preserve-3d" }}
+              whileHover={shouldReduceMotion ? undefined : { rotateX: -6, rotateY: 6, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 200, damping: 15 }}
+            >
+              {initials}
+            </motion.div>
+            <div>
+              <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">{dict.about.heading}</h2>
+              <p className="mt-3 text-foreground/70">{t(siteConfig.bio, locale)}</p>
+            </div>
+          </motion.div>
 
           <motion.div
-            variants={staggerContainer(0.1)}
-            className="mt-8 grid grid-cols-3 gap-6 max-w-md"
+            variants={fadeUp}
+            className="flex flex-col items-center justify-center gap-2 rounded-2xl border border-border bg-surface p-8 text-center sm:col-span-2"
           >
-            {siteConfig.metrics.map((metric) => (
-              <motion.div key={metric.label.en} variants={fadeUp}>
-                <div className="text-2xl font-semibold tracking-tight sm:text-3xl">
-                  <AnimatedNumber value={metric.value} />
-                  {metric.label.en === "Lines of code (approx.)" && "+"}
-                </div>
-                <div className="mt-1 text-xs text-foreground/60">{t(metric.label, locale)}</div>
-              </motion.div>
-            ))}
+            <MapPin size={20} className="text-foreground/40" />
+            <p className="text-sm text-foreground/70">
+              {dict.about.basedIn}
+              <br />
+              {t(siteConfig.location, locale)}
+            </p>
           </motion.div>
-        </div>
+
+          {siteConfig.metrics.map((metric) => (
+            <motion.div
+              key={metric.label.en}
+              variants={fadeUp}
+              className="rounded-2xl border border-border bg-surface p-6 sm:col-span-2"
+            >
+              <div className="text-2xl font-semibold tracking-tight sm:text-3xl">
+                <AnimatedNumber value={metric.value} />
+                {metric.label.en === "Lines of code (approx.)" && "+"}
+              </div>
+              <div className="mt-1 text-xs text-foreground/60">{t(metric.label, locale)}</div>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </Section>
   );
