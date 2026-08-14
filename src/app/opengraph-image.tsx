@@ -15,8 +15,8 @@ export default async function Image() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#0b0c10",
-          backgroundImage: "radial-gradient(circle at 25% 15%, rgba(139,123,255,0.35), transparent 55%)",
+          backgroundColor: "#0d0b09",
+          backgroundImage: "radial-gradient(circle at 25% 15%, rgba(255,138,76,0.35), transparent 55%)",
         }}
       >
         <div
@@ -25,7 +25,7 @@ export default async function Image() {
             fontWeight: 600,
             letterSpacing: 4,
             textTransform: "uppercase",
-            color: "#8b7bff",
+            color: "#ff8a4c",
             marginBottom: 24,
           }}
         >

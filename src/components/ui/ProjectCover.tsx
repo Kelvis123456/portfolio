@@ -6,11 +6,11 @@ import type { Project } from "@/content/projects";
 import { cn } from "@/lib/cn";
 
 const GRADIENTS = [
-  "from-violet-500/25 via-fuchsia-500/10 to-transparent",
-  "from-sky-500/25 via-cyan-500/10 to-transparent",
+  "from-orange-500/25 via-amber-500/10 to-transparent",
   "from-emerald-500/25 via-teal-500/10 to-transparent",
-  "from-amber-500/25 via-orange-500/10 to-transparent",
-  "from-rose-500/25 via-pink-500/10 to-transparent",
+  "from-amber-600/25 via-yellow-500/10 to-transparent",
+  "from-red-500/20 via-orange-500/10 to-transparent",
+  "from-teal-500/20 via-emerald-500/10 to-transparent",
 ];
 
 function gradientForSlug(slug: string) {

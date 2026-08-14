@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Section } from "@/components/ui/Section";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { projects, otherWork, type ProjectCategory } from "@/content/projects";
 import { dictionary } from "@/content/dictionary";
@@ -31,9 +32,9 @@ export function Projects() {
   return (
     <Section id="projects">
       <div className="mx-auto max-w-5xl px-6">
-        <motion.div variants={fadeUp} className="flex flex-wrap items-end justify-between gap-4">
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">{dict.projects.heading}</h2>
-          <div className="flex gap-1 rounded-full border border-border bg-surface p-1">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <SectionHeading index="02">{dict.projects.heading}</SectionHeading>
+          <motion.div variants={fadeUp} className="flex gap-1 rounded-full border border-border bg-surface p-1">
             {FILTERS.map((f) => (
               <button
                 key={f.value}
@@ -53,8 +54,8 @@ export function Projects() {
                 <span className="relative z-10">{f.label}</span>
               </button>
             ))}
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
 
         {filtered.length === 0 ? (
           <motion.p
