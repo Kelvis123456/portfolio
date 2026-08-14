@@ -1,9 +1,10 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { ArrowLeft, ExternalLink, FolderGit2 } from "lucide-react";
 import type { Project } from "@/content/projects";
 import { StatusBadge } from "@/components/ui/StatusBadge";
+import { ProjectCover } from "@/components/ui/ProjectCover";
 import { Lightbox } from "@/components/ui/Lightbox";
 import { dictionary } from "@/content/dictionary";
 import { useLanguage, t, tList, type Locale } from "@/lib/language-context";
@@ -64,22 +65,13 @@ function DesignProcessCaseStudy({ project, locale }: { project: Project; locale:
 }
 
 function ProjectGallery({ project, locale }: { project: Project; locale: Locale }) {
-  const dict = dictionary[locale];
-  if (project.gallery && project.gallery.length > 0) {
-    return (
-      <div className="mt-10">
-        <Lightbox images={project.gallery} alt={`${project.title} screenshot`} />
-      </div>
-    );
-  }
-  if (project.placeholderGallery) {
-    return (
-      <div className="mt-10 flex h-56 items-center justify-center rounded-2xl border border-dashed border-border bg-surface-muted/40 text-sm text-foreground/50">
-        {dict.detail.screenshotsComingSoon}
-      </div>
-    );
-  }
-  return null;
+  const rest = project.gallery?.slice(1) ?? [];
+  if (rest.length === 0) return null;
+  return (
+    <div className="mt-10">
+      <Lightbox images={rest} alt={`${project.title} screenshot`} />
+    </div>
+  );
 }
 
 export function ProjectDetail({ project }: { project: Project }) {
@@ -95,7 +87,19 @@ export function ProjectDetail({ project }: { project: Project }) {
         <ArrowLeft size={14} /> {dict.projects.backToProjects}
       </Link>
 
-      <div className="mt-6 flex flex-wrap items-center gap-3">
+      <div className="mt-6">
+        <ProjectCover
+          project={project}
+          priority
+          sizes="(min-width: 768px) 768px, 100vw"
+          className="aspect-[16/9] rounded-2xl sm:aspect-[21/9]"
+        />
+        {project.placeholderGallery && (
+          <p className="mt-3 text-center text-xs text-foreground/50">{dict.detail.screenshotsComingSoon}</p>
+        )}
+      </div>
+
+      <div className="mt-8 flex flex-wrap items-center gap-3">
         <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{project.title}</h1>
         <StatusBadge status={project.status} />
       </div>
