@@ -160,7 +160,7 @@ export function Navbar() {
                         }}
                         className={cn(
                           "block py-2.5 font-display text-4xl tracking-tight transition-colors",
-                          active ? "text-foreground" : "text-foreground/40"
+                          active ? "text-foreground" : "text-foreground/65"
                         )}
                       >
                         {item.label}
