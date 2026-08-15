@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useTheme } from "next-themes";
 import { Search, User, FolderGit2, Code2, Gamepad2, Sparkles, Mail, Sun, Moon, Download } from "lucide-react";
 import { LinkedinIcon } from "@/components/ui/LinkedinIcon";
+import { GithubIcon } from "@/components/ui/GithubIcon";
 import { projects } from "@/content/projects";
 import { siteConfig } from "@/content/siteConfig";
 import { dictionary } from "@/content/dictionary";
@@ -116,7 +117,7 @@ export function CommandPalette() {
       id: "action-github",
       group: "actions",
       label: dict.commandPalette.viewGithub,
-      icon: FolderGit2,
+      icon: GithubIcon,
       onSelect: () => {
         close();
         window.open(siteConfig.github, "_blank", "noopener,noreferrer");

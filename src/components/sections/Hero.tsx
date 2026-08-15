@@ -1,7 +1,8 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowDown, FolderGit2 } from "lucide-react";
+import { ArrowDown } from "lucide-react";
+import { GithubIcon } from "@/components/ui/GithubIcon";
 import { siteConfig } from "@/content/siteConfig";
 import { dictionary } from "@/content/dictionary";
 import { useLanguage, t } from "@/lib/language-context";
@@ -28,7 +29,7 @@ export function Hero() {
       <motion.div
         initial="hidden"
         animate="visible"
-        variants={staggerContainer(0.08)}
+        variants={staggerContainer(0.04)}
         className="relative z-10 flex w-full max-w-3xl flex-col items-center text-center"
       >
         <motion.span
@@ -55,7 +56,7 @@ export function Hero() {
             {dict.hero.viewProjects}
           </MagneticButton>
           <MagneticButton href={siteConfig.github} className="border border-border bg-surface">
-            <FolderGit2 size={16} /> {dict.hero.github}
+            <GithubIcon size={16} /> {dict.hero.github}
           </MagneticButton>
           <MagneticButton href={siteConfig.linkedin} className="border border-border bg-surface">
             <LinkedinIcon size={16} /> {dict.hero.linkedin}

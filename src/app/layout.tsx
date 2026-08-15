@@ -34,7 +34,7 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://portfolio-kelvis-g.vercel.app"),
+  metadataBase: new URL(siteConfig.url),
   title: `${siteConfig.name} — ${siteConfig.role.en}`,
   description: siteConfig.tagline.en,
   other: {
@@ -48,7 +48,7 @@ const personJsonLd = {
   name: siteConfig.name,
   jobTitle: siteConfig.role.en,
   description: siteConfig.bio.en,
-  url: "https://portfolio-kelvis-g.vercel.app",
+  url: siteConfig.url,
   email: `mailto:${siteConfig.email}`,
   sameAs: [siteConfig.github, siteConfig.linkedin],
 };
@@ -83,7 +83,7 @@ export default function RootLayout({
                 <Navbar />
                 <div className="relative z-10 flex min-h-full flex-1 flex-col lg:pl-80">
                   {children}
-                  <Footer />
+                  <Footer year={new Date().getFullYear()} />
                 </div>
                 <CommandPalette />
               </CommandPaletteProvider>
