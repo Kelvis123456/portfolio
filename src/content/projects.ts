@@ -444,7 +444,7 @@ export const projects: Project[] = [
       { label: { en: "Prototype", es: "Prototipo" }, value: "Playable in-browser, persistent" },
     ],
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/neon-tether-game-design", icon: "github" }],
-    gallery: ["/images/neon-tether/gameplay.png", "/images/neon-tether/menu.png"],
+    gallery: ["/images/neon-tether/combo.png", "/images/neon-tether/gameplay.png", "/images/neon-tether/menu.png"],
   },
 ];
 
