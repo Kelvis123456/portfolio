@@ -84,6 +84,7 @@ export const projects: Project[] = [
         "An SSRF guard (with real DNS-rebinding resolution, not string matching) re-validates and pins every outbound tenant webhook to its checked IP at delivery time, not just when the channel is saved -- closing the gap where a hostname could be re-pointed at a cloud metadata endpoint after passing validation; JWT sessions carry live revocation so deactivating a user actually invalidates their existing token",
         "Durable job queues: every BullMQ queue bounds its completed/failed job history and retries with backoff, so the audit-log queue can't silently drop an entry on a transient DB blip",
         "Accessibility pass against a full interface-guidelines checklist: real roving-tabindex ARIA tabs, visible keyboard focus rings app-wide, live-region announcements for async errors, and every stateful filter/tab reflected in the URL",
+        "A second audit round closed the rules engine's last open gaps -- seasonal demand index and competitor price deltas are now first-class rule facts, with thresholds each tenant sets on its own -- and fixed a dashboard KPI query that was loading a tenant's entire pricing-decision history on every request; the same round cleared all 17 findings from a dedicated visual/UX audit, including WCAG contrast fixes on every status badge and a shared page-header layout across the app",
       ],
       es: [
         "Monorepo NestJS + Next.js (Turborepo) con una capa de microservicios en Python para scraping y forecasting con ML, aislada por perfil de carga",
@@ -98,10 +99,11 @@ export const projects: Project[] = [
         "Un guard anti-SSRF (con resolución real de DNS-rebinding, no comparación de strings) re-valida y fija cada webhook saliente de tenant a su IP verificada en el momento del envío, no solo al guardar el canal -- cerrando el hueco donde un hostname podía re-apuntar a un endpoint de metadata de la nube después de pasar la validación; las sesiones JWT tienen revocación real, así que desactivar un usuario invalida su token en el acto",
         "Colas de trabajo durables: cada cola de BullMQ acota su historial de jobs completados/fallidos y reintenta con backoff, para que la cola del log de auditoría no pierda una entrada en silencio por un blip transitorio de la DB",
         "Pasada de accesibilidad contra un checklist completo de interface guidelines: pestañas ARIA con roving-tabindex real, foco de teclado visible en toda la app, anuncios de región viva para errores asíncronos, y cada filtro/tab con estado reflejado en la URL",
+        "Una segunda ronda de auditoría cerró los últimos huecos del motor de reglas -- el índice de demanda estacional y los deltas de precio de la competencia ya son facts de primera clase, con umbrales que cada tenant define por su cuenta -- y resolvió una consulta de KPIs del dashboard que cargaba el historial completo de decisiones de precio en cada request; la misma ronda corrigió los 17 hallazgos de UX/accesibilidad de una auditoría visual dedicada, incluyendo contraste WCAG en cada badge de estado y un encabezado de página compartido en toda la app",
       ],
     },
     metrics: [
-      { label: { en: "Backend tests", es: "Tests de backend" }, value: "1,060+ (unit + e2e)" },
+      { label: { en: "Backend tests", es: "Tests de backend" }, value: "1,267 (unit + e2e)" },
       { label: { en: "Services", es: "Servicios" }, value: "API + Web + 2 Python microservices" },
     ],
     links: [{ label: PRIVATE_LABEL, href: "mailto:kelvisguerrero03@gmail.com?subject=RentEdge%20repo%20access", icon: "external" }],
