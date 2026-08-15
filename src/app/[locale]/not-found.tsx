@@ -15,7 +15,7 @@ export default function NotFound() {
       <h1 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl">{dict.notFound.heading}</h1>
       <p className="mt-4 max-w-md text-foreground/70">{dict.notFound.body}</p>
       <Link
-        href="/"
+        href={`/${locale}`}
         className="mt-8 inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-medium text-background transition-opacity hover:opacity-90"
       >
         <ArrowLeft size={16} /> {dict.notFound.backHome}

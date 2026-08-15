@@ -22,7 +22,7 @@ export function Sidebar() {
   const dict = dictionary[locale];
   const { setOpen: setPaletteOpen } = useCommandPalette();
   const pathname = usePathname();
-  const isHome = pathname === "/";
+  const isHome = pathname === `/${locale}`;
   const scrollSpyId = useScrollSpy(NAV_IDS as unknown as string[]);
   const activeId = isHome ? scrollSpyId : null;
 
@@ -41,7 +41,7 @@ export function Sidebar() {
             <span className="font-display text-2xl font-semibold tracking-tight">{siteConfig.name}</span>
           </a>
         ) : (
-          <Link href="/" className="block">
+          <Link href={`/${locale}`} className="block">
             <span className="font-display text-2xl font-semibold tracking-tight">{siteConfig.name}</span>
           </Link>
         )}
@@ -78,7 +78,7 @@ export function Sidebar() {
             ) : (
               <Link
                 key={item.id}
-                href={`/#${item.id}`}
+                href={`/${locale}#${item.id}`}
                 className="group flex items-center gap-3 py-2 text-sm text-foreground/65 transition-colors hover:text-foreground"
               >
                 {content}

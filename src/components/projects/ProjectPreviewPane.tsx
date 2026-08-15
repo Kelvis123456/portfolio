@@ -57,7 +57,7 @@ export function ProjectPreviewPane({ project }: { project: Project | undefined }
           ))}
         </div>
         <Link
-          href={`/projects/${project.slug}`}
+          href={`/${locale}/projects/${project.slug}`}
           className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-accent-text hover:underline"
         >
           {dict.projects.viewCaseStudy}

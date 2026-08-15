@@ -1,18 +1,22 @@
 import { ImageResponse } from "next/og";
 import { projects } from "@/content/projects";
+import type { Locale } from "@/lib/language-context";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+const LOCALES: Locale[] = ["en", "es"];
+
 export function generateStaticParams() {
-  return projects.map((project) => ({ slug: project.slug }));
+  return LOCALES.flatMap((locale) => projects.map((project) => ({ locale, slug: project.slug })));
 }
 
-export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+export default async function Image({ params }: { params: Promise<{ locale: string; slug: string }> }) {
+  const { locale: rawLocale, slug } = await params;
+  const locale: Locale = rawLocale === "es" ? "es" : "en";
   const project = projects.find((p) => p.slug === slug);
   const title = project?.title ?? "Kelvis Guerrero";
-  const tagline = project?.tagline.en ?? "Software Developer";
+  const tagline = project?.tagline[locale] ?? "Software Developer";
   const isGameDesign = project?.kind === "game-design";
 
   return new ImageResponse(
