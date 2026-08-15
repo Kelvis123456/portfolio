@@ -41,7 +41,7 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
             fontWeight: 600,
             letterSpacing: 4,
             textTransform: "uppercase",
-            color: isGameDesign ? "#6fe3c9" : "#ff8a4c",
+            color: isGameDesign ? "#6fe3b4" : "#ff7b4d",
             marginBottom: 20,
           }}
         >
@@ -51,7 +51,7 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
           style={{
             fontSize: 80,
             fontWeight: 700,
-            color: "#f2f2f5",
+            color: "#f1ece3",
             textAlign: "center",
             padding: "0 80px",
             lineHeight: 1.1,
@@ -62,7 +62,7 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
         <div
           style={{
             fontSize: 30,
-            color: "#9497a3",
+            color: "#9b9388",
             marginTop: 28,
             textAlign: "center",
             padding: "0 120px",
@@ -70,7 +70,7 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
         >
           {tagline}
         </div>
-        <div style={{ display: "flex", fontSize: 26, color: "#6b6d76", marginTop: 48 }}>
+        <div style={{ display: "flex", fontSize: 26, color: "#9b9388", marginTop: 48 }}>
           Kelvis Guerrero
         </div>
       </div>

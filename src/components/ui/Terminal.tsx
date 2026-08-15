@@ -18,18 +18,48 @@ const TYPE_SPEED_MS = 18;
 const LINE_PAUSE_MS = 220;
 const LOOP_PAUSE_MS = 2600;
 
+function useIsVisible(ref: React.RefObject<HTMLElement | null>) {
+  const [isVisible, setIsVisible] = useState(false);
+  const [isPageVisible, setIsPageVisible] = useState(true);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => setIsVisible(entry.isIntersecting), {
+      threshold: 0.1,
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [ref]);
+
+  useEffect(() => {
+    function handleVisibilityChange() {
+      setIsPageVisible(document.visibilityState === "visible");
+    }
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, []);
+
+  return isVisible && isPageVisible;
+}
+
 export function Terminal({ className }: { className?: string }) {
   const shouldReduceMotion = useReducedMotion();
   const { locale } = useLanguage();
   const [typed, setTyped] = useState<string[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isVisible = useIsVisible(containerRef);
+  const active = isVisible && !shouldReduceMotion;
 
   useEffect(() => {
     if (shouldReduceMotion) {
       setTyped(LOG_LINES.map((l) => `${l.label} — ${t(l.detail, locale)}`));
       return;
     }
+
+    if (!active) return;
 
     let cancelled = false;
     let lineIdx = 0;
@@ -74,10 +104,11 @@ export function Terminal({ className }: { className?: string }) {
       cancelled = true;
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-  }, [shouldReduceMotion, locale]);
+  }, [active, shouldReduceMotion, locale]);
 
   return (
     <div
+      ref={containerRef}
       className={cn(
         "overflow-hidden rounded-xl border border-border bg-surface font-mono text-[12.5px]",
         className
@@ -89,10 +120,10 @@ export function Terminal({ className }: { className?: string }) {
         <span className="h-2.5 w-2.5 rounded-full bg-[#28C840]" />
         <span className="ml-2.5 tracking-wide text-muted-foreground">kelvis@systems: status</span>
       </div>
-      <div className="min-h-[168px] px-3.5 py-4 leading-[1.85] text-foreground/80">
+      <div className="min-h-[124px] overflow-hidden px-3.5 py-4 leading-[1.85] text-foreground/80">
         {typed.map((line, i) => (
-          <div key={i} className="whitespace-pre">
-            <span className="text-accent-2">✓</span> {line}
+          <div key={i} className="whitespace-pre-wrap break-words">
+            <span className="text-accent-2-text">✓</span> {line}
             {!shouldReduceMotion && i === activeIndex && i === typed.length - 1 && (
               <span className="ml-0.5 inline-block h-3 w-1.5 translate-y-0.5 animate-pulse bg-accent" />
             )}

@@ -33,7 +33,7 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
             fontWeight: 600,
             letterSpacing: 4,
             textTransform: "uppercase",
-            color: "#ff8a4c",
+            color: "#ff7b4d",
             marginBottom: 24,
           }}
         >
@@ -43,7 +43,7 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
           style={{
             fontSize: 72,
             fontWeight: 700,
-            color: "#f2f2f5",
+            color: "#f1ece3",
             textAlign: "center",
             padding: "0 80px",
             lineHeight: 1.15,
@@ -54,7 +54,7 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
         <div
           style={{
             fontSize: 32,
-            color: "#9497a3",
+            color: "#9b9388",
             marginTop: 28,
             textAlign: "center",
             padding: "0 100px",

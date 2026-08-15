@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function useScrollSpy(ids: string[], options?: IntersectionObserverInit) {
   const [activeId, setActiveId] = useState<string>(ids[0] ?? "");
+  const ratios = useRef(new Map<string, number>());
 
   useEffect(() => {
     const elements = ids
@@ -14,12 +15,19 @@ export function useScrollSpy(ids: string[], options?: IntersectionObserverInit) 
 
     const observer = new IntersectionObserver(
       (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible[0]) {
-          setActiveId(visible[0].target.id);
+        for (const entry of entries) {
+          ratios.current.set(entry.target.id, entry.isIntersecting ? entry.intersectionRatio : 0);
         }
+        let bestId = "";
+        let bestRatio = 0;
+        for (const id of ids) {
+          const ratio = ratios.current.get(id) ?? 0;
+          if (ratio > bestRatio) {
+            bestRatio = ratio;
+            bestId = id;
+          }
+        }
+        if (bestId) setActiveId(bestId);
       },
       { rootMargin: "-40% 0px -50% 0px", threshold: [0, 0.25, 0.5, 0.75, 1], ...options }
     );
