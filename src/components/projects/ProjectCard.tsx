@@ -2,14 +2,17 @@
 
 import { Link } from "next-view-transitions";
 import { motion, useReducedMotion } from "motion/react";
+import { Star } from "lucide-react";
 import type { Project } from "@/content/projects";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { ProjectCover } from "@/components/ui/ProjectCover";
+import { dictionary } from "@/content/dictionary";
 import { useLanguage, t } from "@/lib/language-context";
 import { cn } from "@/lib/cn";
 
 export function ProjectCard({ project, large = false }: { project: Project; large?: boolean }) {
   const { locale } = useLanguage();
+  const dict = dictionary[locale];
   const shouldReduceMotion = useReducedMotion();
 
   return (
@@ -33,14 +36,27 @@ export function ProjectCard({ project, large = false }: { project: Project; larg
         <div className={cn("flex flex-1 flex-col justify-between p-6", large ? "sm:p-8" : "")}>
           <div>
             <div className="flex items-center justify-between gap-3">
-              <h3 className={cn("font-display font-semibold tracking-tight", large ? "text-2xl" : "text-lg")}>
+              <h3
+                style={{ viewTransitionName: `project-title-${project.slug}` } as React.CSSProperties}
+                className={cn("font-display font-semibold tracking-tight", large ? "text-2xl" : "text-lg")}
+              >
                 {project.title}
               </h3>
-              <StatusBadge status={project.status} />
+              <div className="flex items-center gap-2">
+                {project.featured && (
+                  <Star aria-label={dict.projects.featured} size={13} className="fill-accent-text text-accent-text" />
+                )}
+                <StatusBadge status={project.status} />
+              </div>
             </div>
             <p className="mt-2 text-sm text-foreground/70">{t(project.tagline, locale)}</p>
             {project.problem && (
               <p className="mt-2 line-clamp-2 text-sm text-foreground/60">{t(project.problem, locale)}</p>
+            )}
+            {project.metrics?.[0] && (
+              <p className="mt-2 text-xs font-medium text-accent-text">
+                {project.metrics[0].value} · {t(project.metrics[0].label, locale)}
+              </p>
             )}
           </div>
 

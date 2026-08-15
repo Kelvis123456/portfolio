@@ -44,12 +44,22 @@ export function ProjectPreviewPane({ project }: { project: Project | undefined }
 
       <div className="mt-4">
         <div className="flex items-center justify-between gap-3">
-          <h3 className="font-display text-xl font-semibold tracking-tight">{project.title}</h3>
+          <h3
+            style={{ viewTransitionName: `project-title-${project.slug}` } as React.CSSProperties}
+            className="font-display text-xl font-semibold tracking-tight"
+          >
+            {project.title}
+          </h3>
           <StatusBadge status={project.status} />
         </div>
         <p className="mt-1.5 text-sm text-foreground/70">{t(project.tagline, locale)}</p>
         {project.problem && (
           <p className="mt-1.5 line-clamp-1 text-sm text-foreground/65">{t(project.problem, locale)}</p>
+        )}
+        {project.metrics?.[0] && (
+          <p className="mt-1.5 text-xs font-medium text-accent-text">
+            {project.metrics[0].value} · {t(project.metrics[0].label, locale)}
+          </p>
         )}
         <div className="mt-3 flex flex-wrap gap-2">
           {project.stack.slice(0, 5).map((tech) => (
