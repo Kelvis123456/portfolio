@@ -27,7 +27,7 @@ export function ProjectListRow({
       onFocus={onActivate}
       className={cn(
         "group flex items-start gap-4 rounded-xl border px-5 py-4 transition-colors",
-        active ? "border-[#c2410c]/40 bg-surface dark:border-[#ff7b4d]/40" : "border-border/60 hover:bg-surface"
+        active ? "border-accent-text/40 bg-surface" : "border-border/60 hover:bg-surface"
       )}
     >
       <span className="mt-0.5 font-mono text-xs text-foreground/65">{String(index + 1).padStart(2, "0")}</span>
@@ -53,7 +53,7 @@ export function ProjectListRow({
         size={18}
         className={cn(
           "mt-0.5 shrink-0 text-foreground/65 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5",
-          active && "text-[#c2410c] dark:text-[#ff7b4d]"
+          active && "text-accent-text"
         )}
       />
     </Link>

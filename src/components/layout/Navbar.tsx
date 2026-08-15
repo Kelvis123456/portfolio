@@ -119,7 +119,7 @@ export function Navbar() {
                       }}
                       className={cn(
                         "block py-2.5 font-display text-4xl tracking-tight transition-colors",
-                        activeId === item.id ? "text-foreground" : "text-foreground/40"
+                        activeId === item.id ? "text-foreground" : "text-foreground/65"
                       )}
                     >
                       {item.label}

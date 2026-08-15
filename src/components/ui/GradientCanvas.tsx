@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { useReducedMotion } from "motion/react";
-import { useTheme } from "next-themes";
 
 const VERTEX_SRC = `
 attribute vec2 a_position;
@@ -18,6 +17,7 @@ uniform float u_time;
 uniform vec3 u_colorA;
 uniform vec3 u_colorB;
 uniform vec3 u_bg;
+uniform float u_isDark;
 
 void main() {
   vec2 uv = gl_FragCoord.xy / u_resolution.xy;
@@ -39,11 +39,17 @@ void main() {
   float g3 = smoothstep(0.95, 0.0, d3);
 
   vec3 color = u_bg;
-  color = mix(color, u_colorA, g1 * 0.32);
-  color = mix(color, u_colorB, g2 * 0.2);
-  color = mix(color, u_colorA, g3 * 0.14);
+  if (u_isDark > 0.5) {
+    color += u_colorA * g1 * 0.32;
+    color += u_colorB * g2 * 0.2;
+    color += u_colorA * g3 * 0.14;
+  } else {
+    color = mix(color, u_colorA, g1 * 0.32);
+    color = mix(color, u_colorB, g2 * 0.2);
+    color = mix(color, u_colorA, g3 * 0.14);
+  }
 
-  gl_FragColor = vec4(color, 1.0);
+  gl_FragColor = vec4(clamp(color, 0.0, 1.0), 1.0);
 }
 `;
 
@@ -72,7 +78,6 @@ const RENDER_SCALE = 0.6;
 export function GradientCanvas({ className }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const shouldReduceMotion = useReducedMotion();
-  const { resolvedTheme } = useTheme();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -106,31 +111,40 @@ export function GradientCanvas({ className }: { className?: string }) {
     const colorALoc = gl.getUniformLocation(program, "u_colorA");
     const colorBLoc = gl.getUniformLocation(program, "u_colorB");
     const bgLoc = gl.getUniformLocation(program, "u_bg");
+    const isDarkLoc = gl.getUniformLocation(program, "u_isDark");
 
     function readColors() {
       const styles = getComputedStyle(document.documentElement);
       const accent = hexToRgb01(styles.getPropertyValue("--accent") || "#ff5a1f");
       const accent2 = hexToRgb01(styles.getPropertyValue("--accent-2") || "#1f8a5f");
       const bg = hexToRgb01(styles.getPropertyValue("--background") || "#faf8f5");
+      const isDark = document.documentElement.classList.contains("dark");
       gl!.uniform3f(colorALoc, accent[0], accent[1], accent[2]);
       gl!.uniform3f(colorBLoc, accent2[0], accent2[1], accent2[2]);
       gl!.uniform3f(bgLoc, bg[0], bg[1], bg[2]);
+      gl!.uniform1f(isDarkLoc, isDark ? 1 : 0);
     }
 
     let width = 0;
     let height = 0;
+    let resizeTimeout: ReturnType<typeof setTimeout> | null = null;
 
     function resize() {
       if (!parent || !canvas || !gl) return;
       const rect = parent.getBoundingClientRect();
-      width = Math.max(1, Math.floor(rect.width * RENDER_SCALE));
-      height = Math.max(1, Math.floor(rect.height * RENDER_SCALE));
+      width = Math.max(1, Math.round(rect.width * RENDER_SCALE));
+      height = Math.max(1, Math.round(rect.height * RENDER_SCALE));
       canvas.width = width;
       canvas.height = height;
       canvas.style.width = `${rect.width}px`;
       canvas.style.height = `${rect.height}px`;
       gl.viewport(0, 0, width, height);
       gl.uniform2f(resolutionLoc, width, height);
+    }
+
+    function scheduleResize() {
+      if (resizeTimeout) clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(resize, 150);
     }
 
     let frameId = 0;
@@ -149,7 +163,7 @@ export function GradientCanvas({ className }: { className?: string }) {
 
     readColors();
     resize();
-    window.addEventListener("resize", resize);
+    window.addEventListener("resize", scheduleResize);
 
     if (shouldReduceMotion) {
       draw(start);
@@ -164,11 +178,16 @@ export function GradientCanvas({ className }: { className?: string }) {
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
 
     return () => {
-      window.removeEventListener("resize", resize);
+      window.removeEventListener("resize", scheduleResize);
+      if (resizeTimeout) clearTimeout(resizeTimeout);
       themeObserver.disconnect();
       if (frameId) cancelAnimationFrame(frameId);
+      gl.deleteBuffer(positionBuffer);
+      gl.deleteProgram(program);
+      gl.deleteShader(vertexShader);
+      gl.deleteShader(fragmentShader);
     };
-  }, [shouldReduceMotion, resolvedTheme]);
+  }, [shouldReduceMotion]);
 
   return <canvas ref={canvasRef} aria-hidden className={className ?? "absolute inset-0 h-full w-full"} />;
 }
