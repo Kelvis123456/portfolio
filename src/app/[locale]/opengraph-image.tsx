@@ -1,10 +1,18 @@
 import { ImageResponse } from "next/og";
 import { siteConfig } from "@/content/siteConfig";
+import type { Locale } from "@/lib/language-context";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default async function Image() {
+export function generateStaticParams() {
+  return [{ locale: "en" }, { locale: "es" }];
+}
+
+export default async function Image({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale: rawLocale } = await params;
+  const locale: Locale = rawLocale === "es" ? "es" : "en";
+
   return new ImageResponse(
     (
       <div
@@ -29,7 +37,7 @@ export default async function Image() {
             marginBottom: 24,
           }}
         >
-          {siteConfig.role.en}
+          {siteConfig.role[locale]}
         </div>
         <div
           style={{
@@ -52,7 +60,7 @@ export default async function Image() {
             padding: "0 100px",
           }}
         >
-          {siteConfig.tagline.en}
+          {siteConfig.tagline[locale]}
         </div>
       </div>
     ),

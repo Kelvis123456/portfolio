@@ -22,7 +22,7 @@ export function Navbar() {
   const { setOpen: setPaletteOpen } = useCommandPalette();
   const t = dictionary[locale];
   const pathname = usePathname();
-  const isHome = pathname === "/";
+  const isHome = pathname === `/${locale}`;
   const NAV_ITEMS = [
     { id: NAV_IDS[0], label: t.nav.about },
     { id: NAV_IDS[1], label: t.nav.projects },
@@ -63,7 +63,7 @@ export function Navbar() {
             Kelvis Guerrero
           </a>
         ) : (
-          <Link href="/" className="font-display text-lg font-semibold tracking-tight">
+          <Link href={`/${locale}`} className="font-display text-lg font-semibold tracking-tight">
             Kelvis Guerrero
           </Link>
         )}
@@ -126,7 +126,7 @@ export function Navbar() {
                     </a>
                   ) : (
                     <Link
-                      href={`/#${item.id}`}
+                      href={`/${locale}#${item.id}`}
                       onClick={() => setMobileOpen(false)}
                       className="block py-2.5 font-display text-4xl tracking-tight text-foreground/70"
                     >

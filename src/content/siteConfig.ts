@@ -1,6 +1,7 @@
 import type { LocalizedText } from "@/lib/language-context";
 
 export const siteConfig = {
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://portfolio-kelvis-g.vercel.app",
   name: "Kelvis Guerrero",
   role: {
     en: "Software Developer",
