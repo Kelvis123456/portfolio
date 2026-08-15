@@ -3,7 +3,8 @@
 import { usePathname } from "next/navigation";
 import { Link } from "next-view-transitions";
 import { motion } from "motion/react";
-import { FolderGit2, Mail, Search } from "lucide-react";
+import { Mail, Search } from "lucide-react";
+import { GithubIcon } from "@/components/ui/GithubIcon";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { LanguageToggle } from "@/components/ui/LanguageToggle";
 import { LinkedinIcon } from "@/components/ui/LinkedinIcon";
@@ -44,7 +45,7 @@ export function Sidebar() {
             <span className="font-display text-2xl font-semibold tracking-tight">{siteConfig.name}</span>
           </Link>
         )}
-        <span className="mt-2 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-accent">
+        <span className="mt-2 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-accent-text">
           <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
           {t(siteConfig.role, locale)}
         </span>
@@ -66,9 +67,10 @@ export function Sidebar() {
               <a
                 key={item.id}
                 href={`#${item.id}`}
+                aria-current={active ? "page" : undefined}
                 className={cn(
                   "group flex items-center gap-3 py-2 text-sm transition-colors",
-                  active ? "text-foreground" : "text-foreground/45 hover:text-foreground"
+                  active ? "text-foreground" : "text-foreground/65 hover:text-foreground"
                 )}
               >
                 {content}
@@ -77,7 +79,7 @@ export function Sidebar() {
               <Link
                 key={item.id}
                 href={`/${locale}#${item.id}`}
-                className="group flex items-center gap-3 py-2 text-sm text-foreground/45 transition-colors hover:text-foreground"
+                className="group flex items-center gap-3 py-2 text-sm text-foreground/65 transition-colors hover:text-foreground"
               >
                 {content}
               </Link>
@@ -87,9 +89,9 @@ export function Sidebar() {
       </div>
 
       <div className="flex flex-col gap-4">
-        <div className="flex items-center gap-3 text-foreground/50">
+        <div className="flex items-center gap-3 text-foreground/65">
           <a href={siteConfig.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="hover:text-foreground transition-colors">
-            <FolderGit2 size={17} />
+            <GithubIcon size={17} />
           </a>
           <a href={siteConfig.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="hover:text-foreground transition-colors">
             <LinkedinIcon size={17} />

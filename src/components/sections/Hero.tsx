@@ -1,7 +1,8 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowDown, FolderGit2 } from "lucide-react";
+import { ArrowDown } from "lucide-react";
+import { GithubIcon } from "@/components/ui/GithubIcon";
 import { siteConfig } from "@/content/siteConfig";
 import { dictionary } from "@/content/dictionary";
 import { useLanguage, t } from "@/lib/language-context";
@@ -28,12 +29,12 @@ export function Hero() {
       <motion.div
         initial="hidden"
         animate="visible"
-        variants={staggerContainer(0.08)}
+        variants={staggerContainer(0.04)}
         className="relative z-10 flex w-full max-w-3xl flex-col items-center text-center"
       >
         <motion.span
           variants={wordReveal}
-          className="mb-5 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-accent lg:hidden"
+          className="mb-5 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-accent-text lg:hidden"
         >
           <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
           {t(siteConfig.role, locale)}
@@ -55,7 +56,7 @@ export function Hero() {
             {dict.hero.viewProjects}
           </MagneticButton>
           <MagneticButton href={siteConfig.github} className="border border-border bg-surface">
-            <FolderGit2 size={16} /> {dict.hero.github}
+            <GithubIcon size={16} /> {dict.hero.github}
           </MagneticButton>
           <MagneticButton href={siteConfig.linkedin} className="border border-border bg-surface">
             <LinkedinIcon size={16} /> {dict.hero.linkedin}
@@ -73,7 +74,7 @@ export function Hero() {
         aria-label={dict.scrollDown}
         animate={shouldReduceMotion ? undefined : { y: [0, 8, 0] }}
         transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-        className="absolute bottom-10 z-10 text-foreground/40 hover:text-foreground/70 transition-colors"
+        className="absolute bottom-10 z-10 text-foreground/65 hover:text-foreground/70 transition-colors"
       >
         <ArrowDown size={20} />
       </motion.a>
