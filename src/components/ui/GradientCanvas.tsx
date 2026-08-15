@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { useReducedMotion } from "motion/react";
-import { useTheme } from "next-themes";
 
 const VERTEX_SRC = `
 attribute vec2 a_position;
@@ -79,7 +78,6 @@ const RENDER_SCALE = 0.6;
 export function GradientCanvas({ className }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const shouldReduceMotion = useReducedMotion();
-  const { resolvedTheme } = useTheme();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -129,18 +127,24 @@ export function GradientCanvas({ className }: { className?: string }) {
 
     let width = 0;
     let height = 0;
+    let resizeTimeout: ReturnType<typeof setTimeout> | null = null;
 
     function resize() {
       if (!parent || !canvas || !gl) return;
       const rect = parent.getBoundingClientRect();
-      width = Math.max(1, Math.floor(rect.width * RENDER_SCALE));
-      height = Math.max(1, Math.floor(rect.height * RENDER_SCALE));
+      width = Math.max(1, Math.round(rect.width * RENDER_SCALE));
+      height = Math.max(1, Math.round(rect.height * RENDER_SCALE));
       canvas.width = width;
       canvas.height = height;
       canvas.style.width = `${rect.width}px`;
       canvas.style.height = `${rect.height}px`;
       gl.viewport(0, 0, width, height);
       gl.uniform2f(resolutionLoc, width, height);
+    }
+
+    function scheduleResize() {
+      if (resizeTimeout) clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(resize, 150);
     }
 
     let frameId = 0;
@@ -159,7 +163,7 @@ export function GradientCanvas({ className }: { className?: string }) {
 
     readColors();
     resize();
-    window.addEventListener("resize", resize);
+    window.addEventListener("resize", scheduleResize);
 
     if (shouldReduceMotion) {
       draw(start);
@@ -174,11 +178,16 @@ export function GradientCanvas({ className }: { className?: string }) {
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
 
     return () => {
-      window.removeEventListener("resize", resize);
+      window.removeEventListener("resize", scheduleResize);
+      if (resizeTimeout) clearTimeout(resizeTimeout);
       themeObserver.disconnect();
       if (frameId) cancelAnimationFrame(frameId);
+      gl.deleteBuffer(positionBuffer);
+      gl.deleteProgram(program);
+      gl.deleteShader(vertexShader);
+      gl.deleteShader(fragmentShader);
     };
-  }, [shouldReduceMotion, resolvedTheme]);
+  }, [shouldReduceMotion]);
 
   return <canvas ref={canvasRef} aria-hidden className={className ?? "absolute inset-0 h-full w-full"} />;
 }
