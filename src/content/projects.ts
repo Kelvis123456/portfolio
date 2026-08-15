@@ -152,7 +152,7 @@ export const projects: Project[] = [
       { label: { en: "Screens", es: "Pantallas" }, value: "23" },
     ],
     links: [{ label: PRIVATE_LABEL, href: "mailto:kelvisguerrero03@gmail.com?subject=MONARCH%20repo%20access", icon: "external" }],
-    gallery: ["/images/monarch/splash.png", "/images/monarch/onboarding1.png", "/images/monarch/onboarding2.png"],
+    gallery: ["/images/monarch/onboarding1.png", "/images/monarch/onboarding2.png", "/images/monarch/splash.png"],
   },
   {
     slug: "recetas-app",
@@ -301,7 +301,7 @@ export const projects: Project[] = [
       { label: { en: "Test files", es: "Archivos de test" }, value: "7 (Vitest)" },
     ],
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/detective-game", icon: "github" }],
-    gallery: ["/images/detective-game/menu.png", "/images/detective-game/crimescene.png"],
+    gallery: ["/images/detective-game/crimescene.png", "/images/detective-game/menu.png"],
   },
   {
     slug: "phase",
@@ -414,7 +414,7 @@ export const projects: Project[] = [
       { label: { en: "Prototype", es: "Prototipo" }, value: "Playable in-browser, persistent" },
     ],
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/neon-tether-game-design", icon: "github" }],
-    gallery: ["/images/neon-tether/menu.png", "/images/neon-tether/gameplay.png"],
+    gallery: ["/images/neon-tether/gameplay.png", "/images/neon-tether/menu.png"],
   },
 ];
 
