@@ -13,7 +13,8 @@ export function CopyableEmailButton({ label, className }: { label: string; class
   const [copied, setCopied] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  async function handleClick() {
+  async function handleClick(e: React.MouseEvent) {
+    e.preventDefault();
     try {
       await navigator.clipboard.writeText(siteConfig.email);
     } catch {

@@ -14,7 +14,7 @@ export function MagneticButton({
   children: React.ReactNode;
   className?: string;
   href?: string;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent) => void;
   download?: boolean | string;
 }) {
   const ref = useRef<HTMLAnchorElement | HTMLButtonElement>(null);
@@ -28,7 +28,8 @@ export function MagneticButton({
     const rect = el.getBoundingClientRect();
     const relX = e.clientX - (rect.left + rect.width / 2);
     const relY = e.clientY - (rect.top + rect.height / 2);
-    setOffset({ x: relX * 0.3, y: relY * 0.3 });
+    const clamp = (v: number) => Math.max(-10, Math.min(10, v));
+    setOffset({ x: clamp(relX * 0.15), y: clamp(relY * 0.15) });
   }
 
   function handleMouseLeave() {
@@ -46,7 +47,7 @@ export function MagneticButton({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       animate={{ x: offset.x, y: offset.y }}
-      transition={{ type: "spring", stiffness: 150, damping: 12, mass: 0.5 }}
+      transition={{ type: "spring", stiffness: 200, damping: 20, mass: 0.4 }}
       className={cn(
         "inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-colors",
         className

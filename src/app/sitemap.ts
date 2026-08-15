@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 import { projects } from "@/content/projects";
+import { siteConfig } from "@/content/siteConfig";
 
-const BASE_URL = "https://portfolio-kelvis-g.vercel.app";
+const BASE_URL = siteConfig.url;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const projectRoutes: MetadataRoute.Sitemap = projects.map((project) => ({
