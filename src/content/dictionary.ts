@@ -16,9 +16,11 @@ export const dictionary = {
       viewCaseStudy: "View case study",
       previousProject: "Previous",
       nextProject: "Next",
+      featured: "Featured",
     },
     status: { live: "Live", inDevelopment: "In Development", concept: "Concept" },
     detail: {
+      role: "Role",
       problem: "Problem",
       solution: "Solution",
       architectureHighlights: "Architecture highlights",
@@ -84,9 +86,11 @@ export const dictionary = {
       viewCaseStudy: "Ver caso de estudio",
       previousProject: "Anterior",
       nextProject: "Siguiente",
+      featured: "Destacado",
     },
     status: { live: "Activo", inDevelopment: "En desarrollo", concept: "Concepto" },
     detail: {
+      role: "Rol",
       problem: "Problema",
       solution: "Solución",
       architectureHighlights: "Puntos clave de arquitectura",

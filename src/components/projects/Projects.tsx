@@ -24,10 +24,11 @@ export function Projects() {
     { label: dict.projects.filterGameDesign, value: "game" },
   ];
 
-  const filtered = useMemo(
-    () => projects.filter((p) => filter === "all" || p.category === filter),
-    [filter]
-  );
+  const filtered = useMemo(() => {
+    const matches = projects.filter((p) => filter === "all" || p.category === filter);
+    // stable sort: featured work leads the list, original ordering preserved within each group
+    return [...matches].sort((a, b) => Number(b.featured) - Number(a.featured));
+  }, [filter]);
 
   const flagship = filtered.find((p) => p.slug === "rentedge" || p.featured);
 
