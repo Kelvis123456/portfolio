@@ -15,19 +15,19 @@ function TechnicalCaseStudy({ project, locale }: { project: Project; locale: Loc
     <>
       {project.problem && (
         <section className="mt-10">
-          <h2 className="text-sm font-medium uppercase tracking-widest text-foreground/50">{dict.detail.problem}</h2>
+          <h2 className="text-sm font-medium uppercase tracking-widest text-foreground/65">{dict.detail.problem}</h2>
           <p className="mt-3 text-foreground/80">{t(project.problem, locale)}</p>
         </section>
       )}
       {project.solution && (
         <section className="mt-8">
-          <h2 className="text-sm font-medium uppercase tracking-widest text-foreground/50">{dict.detail.solution}</h2>
+          <h2 className="text-sm font-medium uppercase tracking-widest text-foreground/65">{dict.detail.solution}</h2>
           <p className="mt-3 text-foreground/80">{t(project.solution, locale)}</p>
         </section>
       )}
       {project.architectureHighlights && (
         <section className="mt-8">
-          <h2 className="text-sm font-medium uppercase tracking-widest text-foreground/50">
+          <h2 className="text-sm font-medium uppercase tracking-widest text-foreground/65">
             {dict.detail.architectureHighlights}
           </h2>
           <ul className="mt-3 space-y-2">
@@ -49,7 +49,7 @@ function DesignProcessCaseStudy({ project, locale }: { project: Project; locale:
   const steps = project.process ? tList(project.process, locale) : [];
   return (
     <section className="mt-10">
-      <h2 className="text-sm font-medium uppercase tracking-widest text-foreground/50">{dict.detail.process}</h2>
+      <h2 className="text-sm font-medium uppercase tracking-widest text-foreground/65">{dict.detail.process}</h2>
       <ol className="mt-4 space-y-4 border-l border-border pl-6">
         {steps.map((step, i) => (
           <li key={step} className="relative text-foreground/80">
@@ -95,7 +95,7 @@ export function ProjectDetail({ project }: { project: Project }) {
           className="aspect-[16/9] rounded-2xl sm:aspect-[21/9]"
         />
         {project.placeholderGallery && (
-          <p className="mt-3 text-center text-xs text-foreground/50">{dict.detail.screenshotsComingSoon}</p>
+          <p className="mt-3 text-center text-xs text-foreground/65">{dict.detail.screenshotsComingSoon}</p>
         )}
       </div>
 
