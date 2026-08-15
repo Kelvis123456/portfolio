@@ -13,6 +13,7 @@ export const dictionary = {
       moreProjects: "More projects",
       backToProjects: "Back to projects",
       emptyFilter: "No projects in this category yet.",
+      viewCaseStudy: "View case study",
     },
     status: { live: "Live", inDevelopment: "In Development", concept: "Concept" },
     detail: {
@@ -78,6 +79,7 @@ export const dictionary = {
       moreProjects: "Más proyectos",
       backToProjects: "Volver a proyectos",
       emptyFilter: "Aún no hay proyectos en esta categoría.",
+      viewCaseStudy: "Ver caso de estudio",
     },
     status: { live: "Activo", inDevelopment: "En desarrollo", concept: "Concepto" },
     detail: {

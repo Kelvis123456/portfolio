@@ -42,7 +42,7 @@ export function About() {
 
   return (
     <Section id="about">
-      <div className="mx-auto max-w-5xl px-6">
+      <div className="mx-auto max-w-6xl px-6">
         <SectionHeading index="01" className="mb-10">
           {dict.about.heading}
         </SectionHeading>
@@ -67,7 +67,7 @@ export function About() {
             variants={fadeUp}
             className="flex flex-col items-center justify-center gap-2 rounded-2xl border border-border bg-surface p-8 text-center shadow-sm sm:col-span-2 dark:shadow-none dark:ring-1 dark:ring-white/5"
           >
-            <MapPin size={20} className="text-foreground/40" />
+            <MapPin size={20} className="text-foreground/65" />
             <p className="text-sm text-foreground/70">
               {dict.about.basedIn}
               <br />

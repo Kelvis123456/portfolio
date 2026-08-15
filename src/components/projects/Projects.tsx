@@ -79,7 +79,7 @@ export function Projects() {
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="mt-10 rounded-2xl border border-dashed border-border py-12 text-center text-sm text-foreground/50"
+            className="mt-10 rounded-2xl border border-dashed border-border py-12 text-center text-sm text-foreground/65"
           >
             {dict.projects.emptyFilter}
           </motion.p>
@@ -104,7 +104,7 @@ export function Projects() {
             </motion.div>
 
             <div className="mt-10 hidden gap-10 lg:grid lg:grid-cols-[1fr_560px]">
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-3">
                 <AnimatePresence mode="popLayout" initial={false}>
                   {filtered.map((project, index) => (
                     <motion.div
@@ -131,7 +131,7 @@ export function Projects() {
         )}
 
         <motion.div variants={fadeUp} className="mt-16">
-          <h3 className="text-sm font-medium uppercase tracking-widest text-foreground/50">
+          <h3 className="text-sm font-medium uppercase tracking-widest text-foreground/65">
             {dict.projects.moreProjects}
           </h3>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">

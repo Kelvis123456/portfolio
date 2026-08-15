@@ -16,7 +16,7 @@ export function Skills() {
 
   return (
     <Section id="skills">
-      <div className="mx-auto max-w-5xl px-6">
+      <div className="mx-auto max-w-6xl px-6">
         <SectionHeading index="03">{dict.skills.heading}</SectionHeading>
 
         <motion.div variants={staggerContainer(0.1)} className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
@@ -29,7 +29,7 @@ export function Skills() {
                 group.items.length >= 5 ? "lg:col-span-3" : "lg:col-span-2"
               )}
             >
-              <h3 className="text-sm font-medium uppercase tracking-widest text-foreground/50">
+              <h3 className="text-sm font-medium uppercase tracking-widest text-foreground/65">
                 {t(group.category, locale)}
               </h3>
               <div className="mt-3 flex flex-wrap gap-2">
