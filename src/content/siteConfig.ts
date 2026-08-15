@@ -27,6 +27,11 @@ export const siteConfig = {
     { label: { en: "Lines of code (approx.)", es: "Líneas de código (aprox.)" } satisfies LocalizedText, value: 60000 },
     { label: { en: "Tech stacks", es: "Stacks tecnológicos" } satisfies LocalizedText, value: 8 },
   ],
+  performance: {
+    score: 90,
+    method: "Lighthouse, desktop",
+    date: "2026-08-15",
+  },
 };
 
 export type SiteConfig = typeof siteConfig;
