@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, type ReactNode } from "react";
+import { createContext, useContext, useEffect, type ReactNode } from "react";
 
 export type Locale = "en" | "es";
 
@@ -17,6 +17,10 @@ export interface LocalizedList {
 const LanguageContext = createContext<Locale | null>(null);
 
 export function LanguageProvider({ locale, children }: { locale: Locale; children: ReactNode }) {
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
+
   return <LanguageContext.Provider value={locale}>{children}</LanguageContext.Provider>;
 }
 
