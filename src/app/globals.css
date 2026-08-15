@@ -14,6 +14,7 @@
   --accent-2-text: #186c4b;
   --accent-foreground: #fff8f2;
   --muted-foreground: #6f6a61;
+  --spotlight-color: rgba(194, 65, 12, 0.14);
 }
 
 .dark {
@@ -28,6 +29,7 @@
   --accent-2-text: #6fe3b4;
   --accent-foreground: #12100d;
   --muted-foreground: #9b9388;
+  --spotlight-color: rgba(255, 138, 76, 0.07);
 }
 
 @theme inline {
