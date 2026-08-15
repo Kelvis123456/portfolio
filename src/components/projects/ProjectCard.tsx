@@ -34,7 +34,7 @@ export function ProjectCard({ project, large = false }: { project: Project; larg
   }
 
   return (
-    <Link href={`/projects/${project.slug}`} className="block h-full">
+    <Link href={`/${locale}/projects/${project.slug}`} className="block h-full">
       <motion.article
         ref={ref}
         onMouseMove={handleMouseMove}

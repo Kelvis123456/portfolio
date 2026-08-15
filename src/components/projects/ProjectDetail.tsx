@@ -81,7 +81,7 @@ export function ProjectDetail({ project }: { project: Project }) {
   return (
     <article className="mx-auto max-w-3xl px-6 py-28">
       <Link
-        href="/#projects"
+        href={`/${locale}#projects`}
         className="inline-flex items-center gap-2 text-sm text-foreground/60 hover:text-foreground transition-colors"
       >
         <ArrowLeft size={14} /> {dict.projects.backToProjects}

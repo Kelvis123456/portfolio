@@ -22,7 +22,7 @@ export function ProjectListRow({
 
   return (
     <Link
-      href={`/projects/${project.slug}`}
+      href={`/${locale}/projects/${project.slug}`}
       onMouseEnter={onActivate}
       onFocus={onActivate}
       className={cn(
