@@ -3,7 +3,8 @@
 import { usePathname } from "next/navigation";
 import { Link } from "next-view-transitions";
 import { motion } from "motion/react";
-import { FolderGit2, Mail, Search } from "lucide-react";
+import { Mail, Search } from "lucide-react";
+import { GithubIcon } from "@/components/ui/GithubIcon";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { LanguageToggle } from "@/components/ui/LanguageToggle";
 import { LinkedinIcon } from "@/components/ui/LinkedinIcon";
@@ -90,7 +91,7 @@ export function Sidebar() {
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-3 text-foreground/65">
           <a href={siteConfig.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="hover:text-foreground transition-colors">
-            <FolderGit2 size={17} />
+            <GithubIcon size={17} />
           </a>
           <a href={siteConfig.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="hover:text-foreground transition-colors">
             <LinkedinIcon size={17} />

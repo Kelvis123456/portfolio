@@ -26,12 +26,14 @@ export function ProjectCover({
   priority = false,
   sizes,
   quality,
+  fit = "cover",
   className,
 }: {
   project: Project;
   priority?: boolean;
   sizes?: string;
   quality?: number;
+  fit?: "cover" | "contain";
   className?: string;
 }) {
   const cover = project.gallery?.[0];
@@ -47,7 +49,7 @@ export function ProjectCover({
           priority={priority}
           sizes={sizes ?? "(min-width: 640px) 50vw, 100vw"}
           quality={quality}
-          className="object-cover object-top"
+          className={fit === "contain" ? "object-contain" : "object-cover object-top"}
         />
       </div>
     );
