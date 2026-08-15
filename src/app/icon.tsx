@@ -14,7 +14,7 @@ export default function Icon() {
           alignItems: "center",
           justifyContent: "center",
           borderRadius: 40,
-          background: "linear-gradient(135deg, #ff5a1f 0%, #ff8a4c 100%)",
+          background: "linear-gradient(135deg, #ff5a1f 0%, #ff7b4d 100%)",
         }}
       >
         <div style={{ fontSize: 96, fontWeight: 700, color: "#fff8f2" }}>KG</div>

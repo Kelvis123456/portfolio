@@ -34,7 +34,7 @@ export function Hero() {
       >
         <motion.span
           variants={wordReveal}
-          className="mb-5 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-accent lg:hidden"
+          className="mb-5 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-accent-text lg:hidden"
         >
           <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
           {t(siteConfig.role, locale)}
@@ -74,7 +74,7 @@ export function Hero() {
         aria-label={dict.scrollDown}
         animate={shouldReduceMotion ? undefined : { y: [0, 8, 0] }}
         transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-        className="absolute bottom-10 z-10 text-foreground/40 hover:text-foreground/70 transition-colors"
+        className="absolute bottom-10 z-10 text-foreground/65 hover:text-foreground/70 transition-colors"
       >
         <ArrowDown size={20} />
       </motion.a>
