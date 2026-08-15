@@ -10,7 +10,7 @@ export function Footer({ year }: { year: number }) {
 
   return (
     <footer className="w-full border-t border-border/60 py-10">
-      <div className="mx-auto flex max-w-5xl flex-col items-center gap-2 px-6 text-center text-sm text-foreground/60 sm:flex-row sm:justify-between sm:text-left">
+      <div className="mx-auto flex max-w-6xl flex-col items-center gap-2 px-6 text-center text-sm text-foreground/60 sm:flex-row sm:justify-between sm:text-left">
         <p>
           © {year} {siteConfig.name}
         </p>

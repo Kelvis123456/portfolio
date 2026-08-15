@@ -16,7 +16,7 @@ export function Skills() {
 
   return (
     <Section id="skills">
-      <div className="mx-auto max-w-5xl px-6">
+      <div className="mx-auto max-w-6xl px-6">
         <SectionHeading index="03">{dict.skills.heading}</SectionHeading>
 
         <motion.div variants={staggerContainer(0.1)} className="mt-10 grid items-start gap-4 sm:grid-cols-2 lg:grid-cols-6">
@@ -25,7 +25,7 @@ export function Skills() {
               key={group.category.en}
               variants={fadeUp}
               className={cn(
-                "rounded-2xl border border-border bg-surface p-6",
+                "rounded-2xl border border-border bg-surface p-6 shadow-sm dark:shadow-none dark:ring-1 dark:ring-white/5",
                 group.items.length >= 5 ? "lg:col-span-3" : "lg:col-span-2"
               )}
             >

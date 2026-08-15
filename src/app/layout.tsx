@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Fraunces } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "next-themes";
+import { MotionConfig } from "motion/react";
 import { ViewTransitions } from "next-view-transitions";
 import { LanguageProvider } from "@/lib/language-context";
 import { CommandPaletteProvider } from "@/lib/command-palette-context";
@@ -67,28 +68,36 @@ export default function RootLayout({
         className={`notranslate ${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
       >
         <body className="min-h-full flex flex-col bg-background text-foreground">
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[300] focus:rounded-full focus:bg-foreground focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-background"
+          >
+            Skip to content
+          </a>
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
           />
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-            <div className="fixed inset-0 z-0 bg-background" aria-hidden>
-              <GradientCanvas className="pointer-events-none absolute inset-0 h-full w-full" />
-            </div>
-            <CursorSpotlight />
-            <LanguageProvider>
-              <CommandPaletteProvider>
-                <ScrollProgress />
-                <Sidebar />
-                <Navbar />
-                <div className="relative z-10 flex min-h-full flex-1 flex-col lg:pl-80">
-                  {children}
-                  <Footer year={new Date().getFullYear()} />
-                </div>
-                <CommandPalette />
-              </CommandPaletteProvider>
-            </LanguageProvider>
-          </ThemeProvider>
+          <MotionConfig reducedMotion="user">
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+              <div className="fixed inset-0 z-0 bg-background" aria-hidden>
+                <GradientCanvas className="pointer-events-none absolute inset-0 h-full w-full" />
+              </div>
+              <CursorSpotlight />
+              <LanguageProvider>
+                <CommandPaletteProvider>
+                  <ScrollProgress />
+                  <Sidebar />
+                  <Navbar />
+                  <div id="main-content" className="relative z-10 flex min-h-full flex-1 flex-col lg:pl-80">
+                    {children}
+                    <Footer year={new Date().getFullYear()} />
+                  </div>
+                  <CommandPalette />
+                </CommandPaletteProvider>
+              </LanguageProvider>
+            </ThemeProvider>
+          </MotionConfig>
           <Analytics />
           <SpeedInsights />
         </body>

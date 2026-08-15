@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Link } from "next-view-transitions";
 import { AnimatePresence, motion } from "motion/react";
@@ -11,6 +11,7 @@ import { useScrollSpy } from "@/hooks/useScrollSpy";
 import { useLanguage } from "@/lib/language-context";
 import { useCommandPalette } from "@/lib/command-palette-context";
 import { dictionary } from "@/content/dictionary";
+import { lockScroll, unlockScroll } from "@/lib/scroll-lock";
 import { cn } from "@/lib/cn";
 
 const NAV_IDS = ["about", "projects", "skills", "contact"] as const;
@@ -32,6 +33,9 @@ export function Navbar() {
   const scrollSpyId = useScrollSpy(NAV_IDS as unknown as string[]);
   const activeId = isHome ? scrollSpyId : null;
 
+  const toggleButtonRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     function handleScroll() {
       setScrolled(window.scrollY > 24);
@@ -42,9 +46,35 @@ export function Navbar() {
 
   useEffect(() => {
     if (!mobileOpen) return;
-    document.body.style.overflow = "hidden";
+    lockScroll();
+
+    const menu = menuRef.current;
+    const focusable = menu?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])');
+    focusable?.[0]?.focus();
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setMobileOpen(false);
+        return;
+      }
+      if (e.key !== "Tab" || !focusable || focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
     return () => {
-      document.body.style.overflow = "";
+      document.removeEventListener("keydown", handleKeyDown);
+      unlockScroll();
+      toggleButtonRef.current?.focus();
     };
   }, [mobileOpen]);
 
@@ -80,8 +110,11 @@ export function Navbar() {
           <LanguageToggle />
           <ThemeToggle />
           <button
+            ref={toggleButtonRef}
             type="button"
             aria-label={mobileOpen ? t.closeMenu : t.openMenu}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
             onClick={() => setMobileOpen((v) => !v)}
             className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface hover:bg-surface-muted transition-colors"
           >
@@ -93,6 +126,11 @@ export function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
+            id="mobile-menu"
+            ref={menuRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={t.commandPalette.groupNavigation}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -100,41 +138,45 @@ export function Navbar() {
             className="fixed inset-0 z-40 flex flex-col bg-background"
           >
             <div className="flex flex-1 flex-col justify-center gap-1 px-8 pb-20">
-              {NAV_ITEMS.map((item, i) => (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.08 + i * 0.06, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  {isHome ? (
-                    <a
-                      href={`#${item.id}`}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setMobileOpen(false);
-                        window.setTimeout(() => {
-                          document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" });
-                        }, 280);
-                      }}
-                      className={cn(
-                        "block py-2.5 font-display text-4xl tracking-tight transition-colors",
-                        activeId === item.id ? "text-foreground" : "text-foreground/40"
-                      )}
-                    >
-                      {item.label}
-                    </a>
-                  ) : (
-                    <Link
-                      href={`/#${item.id}`}
-                      onClick={() => setMobileOpen(false)}
-                      className="block py-2.5 font-display text-4xl tracking-tight text-foreground/70"
-                    >
-                      {item.label}
-                    </Link>
-                  )}
-                </motion.div>
-              ))}
+              {NAV_ITEMS.map((item, i) => {
+                const active = activeId === item.id;
+                return (
+                  <motion.div
+                    key={item.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.08 + i * 0.06, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    {isHome ? (
+                      <a
+                        href={`#${item.id}`}
+                        aria-current={active ? "page" : undefined}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setMobileOpen(false);
+                          window.setTimeout(() => {
+                            document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" });
+                          }, 280);
+                        }}
+                        className={cn(
+                          "block py-2.5 font-display text-4xl tracking-tight transition-colors",
+                          active ? "text-foreground" : "text-foreground/65"
+                        )}
+                      >
+                        {item.label}
+                      </a>
+                    ) : (
+                      <Link
+                        href={`/#${item.id}`}
+                        onClick={() => setMobileOpen(false)}
+                        className="block py-2.5 font-display text-4xl tracking-tight text-foreground/70"
+                      >
+                        {item.label}
+                      </Link>
+                    )}
+                  </motion.div>
+                );
+              })}
             </div>
           </motion.div>
         )}

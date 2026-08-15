@@ -12,13 +12,26 @@ export function CursorSpotlight() {
     const el = ref.current;
     if (!el) return;
 
+    let frameId = 0;
+    let pendingX = 0;
+    let pendingY = 0;
+
     function handleMove(e: MouseEvent) {
-      el!.style.setProperty("--spotlight-x", `${e.clientX}px`);
-      el!.style.setProperty("--spotlight-y", `${e.clientY}px`);
+      pendingX = e.clientX;
+      pendingY = e.clientY;
+      if (frameId) return;
+      frameId = requestAnimationFrame(() => {
+        frameId = 0;
+        el!.style.setProperty("--spotlight-x", `${pendingX}px`);
+        el!.style.setProperty("--spotlight-y", `${pendingY}px`);
+      });
     }
 
     window.addEventListener("mousemove", handleMove);
-    return () => window.removeEventListener("mousemove", handleMove);
+    return () => {
+      window.removeEventListener("mousemove", handleMove);
+      if (frameId) cancelAnimationFrame(frameId);
+    };
   }, [shouldReduceMotion]);
 
   if (shouldReduceMotion) return null;
