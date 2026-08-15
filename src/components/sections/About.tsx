@@ -50,7 +50,7 @@ export function About() {
         <motion.div variants={staggerContainer(0.1)} className="grid gap-4 sm:grid-cols-6">
           <motion.div
             variants={fadeUp}
-            className="flex flex-col gap-6 rounded-2xl border border-border bg-surface p-8 sm:col-span-4 sm:flex-row sm:items-center"
+            className="flex flex-col gap-6 rounded-2xl border border-border bg-surface p-8 shadow-sm sm:col-span-4 sm:flex-row sm:items-center dark:shadow-none dark:ring-1 dark:ring-white/5"
           >
             <motion.div
               className="flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-accent/20 to-accent-2/20 font-display text-2xl font-semibold"
@@ -65,7 +65,7 @@ export function About() {
 
           <motion.div
             variants={fadeUp}
-            className="flex flex-col items-center justify-center gap-2 rounded-2xl border border-border bg-surface p-8 text-center sm:col-span-2"
+            className="flex flex-col items-center justify-center gap-2 rounded-2xl border border-border bg-surface p-8 text-center shadow-sm sm:col-span-2 dark:shadow-none dark:ring-1 dark:ring-white/5"
           >
             <MapPin size={20} className="text-foreground/65" />
             <p className="text-sm text-foreground/70">
@@ -79,7 +79,7 @@ export function About() {
             <motion.div
               key={metric.label.en}
               variants={fadeUp}
-              className="rounded-2xl border border-border bg-surface p-6 sm:col-span-2"
+              className="rounded-2xl border border-border bg-surface p-6 shadow-sm sm:col-span-2 dark:shadow-none dark:ring-1 dark:ring-white/5"
             >
               <div className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">
                 <AnimatedNumber value={metric.value} />

@@ -18,7 +18,7 @@ export function ProjectCard({ project, large = false }: { project: Project; larg
         whileHover={shouldReduceMotion ? undefined : { y: -6 }}
         transition={{ type: "spring", stiffness: 300, damping: 22 }}
         className={cn(
-          "flex h-full flex-col overflow-hidden rounded-2xl border bg-surface transition-shadow hover:shadow-xl hover:shadow-black/5 dark:hover:shadow-black/40",
+          "flex h-full flex-col overflow-hidden rounded-2xl border bg-surface shadow-sm transition-shadow hover:shadow-xl hover:shadow-black/5 dark:shadow-none dark:ring-1 dark:ring-white/5 dark:hover:shadow-black/40",
           project.kind === "game-design"
             ? "border-dashed border-border"
             : "border-border"

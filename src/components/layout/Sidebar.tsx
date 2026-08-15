@@ -66,6 +66,7 @@ export function Sidebar() {
               <a
                 key={item.id}
                 href={`#${item.id}`}
+                aria-current={active ? "page" : undefined}
                 className={cn(
                   "group flex items-center gap-3 py-2 text-sm transition-colors",
                   active ? "text-foreground" : "text-foreground/65 hover:text-foreground"
