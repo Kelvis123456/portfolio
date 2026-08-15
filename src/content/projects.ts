@@ -225,6 +225,34 @@ export const projects: Project[] = [
     gallery: ["/images/reservaya/home.png", "/images/reservaya/venues.png", "/images/reservaya/detail.png"],
   },
   {
+    slug: "pc-marketplace",
+    title: "PC Marketplace",
+    tagline: {
+      en: "The same marketplace domain, built twice",
+      es: "El mismo dominio de marketplace, construido dos veces",
+    },
+    kind: "software",
+    category: "software",
+    status: "live",
+    featured: false,
+    stack: ["Python", "React 19", "TypeScript", "Vite"],
+    role: { en: "Solo developer", es: "Desarrollador en solitario" },
+    summary: {
+      en: "A PC component marketplace (GPU/CPU/RAM stock and orders) implemented twice, independently: a Spanish-language Python console app with an in-memory domain model, and a separate React/TypeScript SPA that reimplements the same domain logic from scratch and persists it to localStorage. The two don't talk to each other — no shared backend.",
+      es: "Un marketplace de componentes de PC (stock y pedidos de GPU/CPU/RAM) implementado dos veces, de forma independiente: una app de consola en Python con un modelo de dominio en memoria, y una SPA separada en React/TypeScript que reimplementa la misma lógica de dominio desde cero y la persiste en localStorage. Ninguna de las dos se comunica con la otra — no comparten backend.",
+    },
+    problem: {
+      en: "Wanted to compare the same domain — components with stock, and orders that must reserve stock \"all or nothing\" — across a quick Python console script and a proper TypeScript SPA, without letting one lean on the other.",
+      es: "Quería comparar el mismo dominio — componentes con stock, y pedidos que deben reservar stock \"todo o nada\" — entre un script rápido de consola en Python y una SPA propiamente hecha en TypeScript, sin dejar que una dependiera de la otra.",
+    },
+    solution: {
+      en: "Each side owns its own domain model and validation. The Python `Marketplace` class checks accumulated stock across every item before committing an order; the TypeScript port re-derives that same rule independently, with a full UI on top (catalog, order placement, order history with cancellation that returns stock, a stock gauge).",
+      es: "Cada lado tiene su propio modelo de dominio y su propia validación. La clase `Marketplace` en Python verifica el stock acumulado de cada item antes de confirmar un pedido; el port en TypeScript re-implementa esa misma regla de forma independiente, con una UI completa encima (catálogo, registro de pedidos, historial con cancelación que devuelve el stock, y un indicador de stock).",
+    },
+    links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/pc-marketplace", icon: "github" }],
+    gallery: ["/images/pc-marketplace/catalog.png"],
+  },
+  {
     slug: "connect5",
     title: "Connect5",
     tagline: {
