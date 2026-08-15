@@ -25,7 +25,7 @@ export interface Project {
   visibility?: "public" | "private";
   featured: boolean;
   stack: string[];
-  role: string;
+  role: LocalizedText;
   summary: LocalizedText;
   problem?: LocalizedText;
   solution?: LocalizedText;
@@ -57,7 +57,7 @@ export const projects: Project[] = [
     visibility: "private",
     featured: true,
     stack: ["NestJS", "Next.js", "PostgreSQL", "TimescaleDB", "Redis", "BullMQ", "Python", "Prisma", "Turborepo"],
-    role: "Full-stack architect & developer",
+    role: { en: "Full-stack architect & developer", es: "Arquitecto full-stack y desarrollador" },
     summary: {
       en: "A multi-tenant SaaS platform that automates pricing, competitive intelligence, and revenue management for rent-a-car companies — the kind of system that usually costs six figures to license from an incumbent vendor.",
       es: "Una plataforma SaaS multi-tenant que automatiza el pricing, la inteligencia competitiva y la gestión de ingresos para empresas de rent-a-car — el tipo de sistema que normalmente cuesta seis cifras licenciar de un proveedor establecido.",
@@ -120,7 +120,7 @@ export const projects: Project[] = [
     visibility: "private",
     featured: true,
     stack: ["Flutter", "Riverpod", "Supabase", "PostgreSQL", "go_router"],
-    role: "Solo developer",
+    role: { en: "Solo developer", es: "Desarrollador en solitario" },
     summary: {
       en: "A fitness app that turns real workouts into RPG progression — ranks from E to S, guilds, boss raids, a skill tree, a season pass, and daily quests — all backed by a real Postgres schema, not local mock data.",
       es: "Una app de fitness que convierte entrenamientos reales en progresión RPG — rangos de E a S, guilds, boss raids, árbol de habilidades, season pass y misiones diarias — todo respaldado por un schema real de Postgres, no datos simulados locales.",
@@ -166,7 +166,7 @@ export const projects: Project[] = [
     status: "live",
     featured: false,
     stack: ["React 19", "Vite", "TypeScript", "Tailwind CSS v4", "Framer Motion"],
-    role: "Solo developer",
+    role: { en: "Solo developer", es: "Desarrollador en solitario" },
     summary: {
       en: "A recipe browsing and search app built to explore React 19 and Tailwind v4 together, with Framer Motion powering the transitions.",
       es: "Una app para explorar y buscar recetas, construida para probar React 19 y Tailwind v4 juntos, con Framer Motion en las transiciones.",
@@ -186,7 +186,7 @@ export const projects: Project[] = [
     status: "live",
     featured: true,
     stack: ["Node.js", "Express", "PostgreSQL", "Sequelize", "MongoDB", "Mongoose", "React", "Vite", "Tailwind CSS", "Docker"],
-    role: "Full-stack developer",
+    role: { en: "Full-stack developer", es: "Desarrollador full-stack" },
     summary: {
       en: "A court-booking platform (soccer, basketball, tennis) built to demonstrate a deliberate hybrid database architecture — PostgreSQL for data that needs strict integrity, MongoDB for flexible, high-write data — with real overlap-safe booking and a tested REST API, not just a CRUD demo.",
       es: "Una plataforma de reservas de canchas (fútbol, baloncesto, tenis) construida para demostrar una arquitectura híbrida de bases de datos deliberada — PostgreSQL para los datos que necesitan integridad estricta, MongoDB para datos flexibles y de alta escritura — con reservas realmente a prueba de solapamiento y una API REST probada, no solo un CRUD de ejemplo.",
@@ -236,7 +236,7 @@ export const projects: Project[] = [
     status: "live",
     featured: true,
     stack: ["Unity 6", "C#", "Netcode for GameObjects", "Unity Relay"],
-    role: "Solo developer",
+    role: { en: "Solo developer", es: "Desarrollador en solitario" },
     summary: {
       en: "A five-in-a-row board game with a local AI opponent and real online multiplayer — peer connection handled through Unity Relay so there's no port forwarding, no dedicated server to run.",
       es: "Un juego de mesa de conecta 5 en línea con un oponente de IA local y multijugador online real — la conexión entre pares se maneja vía Unity Relay, así que no hace falta abrir puertos ni correr un servidor dedicado.",
@@ -279,7 +279,7 @@ export const projects: Project[] = [
     status: "live",
     featured: false,
     stack: ["React 19", "TypeScript", "Vite", "Zustand", "Framer Motion", "Howler", "Vitest"],
-    role: "Solo developer",
+    role: { en: "Solo developer", es: "Desarrollador en solitario" },
     summary: {
       en: "Investigate crime scenes, gather evidence, interrogate suspects, and make an accusation across three full cases — driven by dedicated Case, Evidence, and Interrogation engines rather than hardcoded per-scene logic.",
       es: "Investiga escenas del crimen, recolecta evidencia, interroga sospechosos y haz una acusación a lo largo de tres casos completos — impulsado por motores dedicados de Casos, Evidencia e Interrogatorio en vez de lógica fija por escena.",
@@ -315,7 +315,7 @@ export const projects: Project[] = [
     status: "concept",
     featured: false,
     stack: ["Unity 2022 LTS", "URP", "C#", "FMOD"],
-    role: "Game designer / solo studio",
+    role: { en: "Game designer / solo studio", es: "Diseñador de juegos / estudio en solitario" },
     summary: {
       en: "\"Your past already knows the answer.\" A mobile roguelite where every action creates an echo that replays your movements — combined with bullet-time, you coordinate your present with your own past to solve rooms.",
       es: "\"Tu pasado ya sabe la respuesta.\" Un roguelite móvil donde cada acción crea un eco que repite tus movimientos — combinado con bullet-time, coordinas tu presente con tu propio pasado para resolver las salas.",
@@ -354,7 +354,7 @@ export const projects: Project[] = [
     status: "concept",
     featured: false,
     stack: ["Unity 2022.3 LTS", "URP", "C#"],
-    role: "Game designer / solo studio",
+    role: { en: "Game designer / solo studio", es: "Diseñador de juegos / estudio en solitario" },
     summary: {
       en: "\"One stone. One flick. The whole ocean.\" A physics-driven stone-skipping game aiming for Helix Jump-level polish, with a real Unity prototype already underway — further along than a typical concept doc.",
       es: "\"Una piedra. Un flick. El océano entero.\" Un juego de rebote de piedras basado en física, apuntando a un pulido nivel Helix Jump, con un prototipo real en Unity ya en marcha — más avanzado que un documento de concepto típico.",
@@ -390,7 +390,7 @@ export const projects: Project[] = [
     status: "concept",
     featured: false,
     stack: ["Godot 4 (planned)", "HTML/CSS/JS prototype", "Web Audio API"],
-    role: "Game designer / solo studio",
+    role: { en: "Game designer / solo studio", es: "Diseñador de juegos / estudio en solitario" },
     summary: {
       en: "Two glowing spheres linked by an elastic tether descend an endless vertical pipeline. Hold to split wide, release to snap together — avoid obstacles, graze them for combo, collect Volt Crystals.",
       es: "Dos esferas brillantes unidas por un tether elástico descienden por una tubería vertical infinita. Mantén presionado para separarlas, suelta para juntarlas — esquiva obstáculos, róznalos para hacer combo, y recolecta Volt Crystals.",

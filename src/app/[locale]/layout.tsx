@@ -1,11 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Geist, Geist_Mono, Fraunces } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { ThemeProvider } from "next-themes";
-import { MotionConfig } from "motion/react";
-import { ViewTransitions } from "next-view-transitions";
 import { LanguageProvider, type Locale } from "@/lib/language-context";
 import { CommandPaletteProvider } from "@/lib/command-palette-context";
 import { CommandPalette } from "@/components/ui/CommandPalette";
@@ -14,28 +8,8 @@ import { Sidebar } from "@/components/layout/Sidebar";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { siteConfig } from "@/content/siteConfig";
-import { GradientCanvas } from "@/components/ui/GradientCanvas";
-import { CursorSpotlight } from "@/components/ui/CursorSpotlight";
-import "../globals.css";
 
 const LOCALES: Locale[] = ["en", "es"];
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  axes: ["opsz", "SOFT", "WONK"],
-});
 
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
@@ -91,48 +65,23 @@ export default async function LocaleLayout({
   const locale = rawLocale as Locale;
 
   return (
-    <ViewTransitions>
-      <html
-        lang={locale}
-        translate="no"
-        suppressHydrationWarning
-        className={`notranslate ${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
-      >
-        <body className="min-h-full flex flex-col bg-background text-foreground">
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[300] focus:rounded-full focus:bg-foreground focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-background"
-          >
-            Skip to content
-          </a>
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd(locale)) }}
-          />
-          <MotionConfig reducedMotion="user">
-            <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-              <div className="fixed inset-0 z-0 bg-background" aria-hidden>
-                <GradientCanvas className="pointer-events-none absolute inset-0 h-full w-full" />
-              </div>
-              <CursorSpotlight />
-              <LanguageProvider locale={locale}>
-                <CommandPaletteProvider>
-                  <ScrollProgress />
-                  <Sidebar />
-                  <Navbar />
-                  <div id="main-content" className="relative z-10 flex min-h-full flex-1 flex-col lg:pl-80">
-                    {children}
-                    <Footer year={new Date().getFullYear()} />
-                  </div>
-                  <CommandPalette />
-                </CommandPaletteProvider>
-              </LanguageProvider>
-            </ThemeProvider>
-          </MotionConfig>
-          <Analytics />
-          <SpeedInsights />
-        </body>
-      </html>
-    </ViewTransitions>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd(locale)) }}
+      />
+      <LanguageProvider locale={locale}>
+        <CommandPaletteProvider>
+          <ScrollProgress />
+          <Sidebar />
+          <Navbar />
+          <div id="main-content" className="relative z-10 flex min-h-full flex-1 flex-col lg:pl-80">
+            {children}
+            <Footer year={new Date().getFullYear()} />
+          </div>
+          <CommandPalette />
+        </CommandPaletteProvider>
+      </LanguageProvider>
+    </>
   );
 }

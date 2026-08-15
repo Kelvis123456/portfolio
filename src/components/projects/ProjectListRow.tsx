@@ -1,9 +1,10 @@
 "use client";
 
 import { Link } from "next-view-transitions";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Star } from "lucide-react";
 import type { Project } from "@/content/projects";
 import { StatusBadge } from "@/components/ui/StatusBadge";
+import { dictionary } from "@/content/dictionary";
 import { useLanguage, t } from "@/lib/language-context";
 import { cn } from "@/lib/cn";
 
@@ -19,6 +20,7 @@ export function ProjectListRow({
   onActivate: () => void;
 }) {
   const { locale } = useLanguage();
+  const dict = dictionary[locale];
 
   return (
     <Link
@@ -34,7 +36,12 @@ export function ProjectListRow({
       <div className="min-w-0 flex-1">
         <div className="flex items-center justify-between gap-3">
           <h3 className="font-display text-lg font-semibold tracking-tight">{project.title}</h3>
-          <StatusBadge status={project.status} />
+          <div className="flex items-center gap-2">
+            {project.featured && (
+              <Star aria-label={dict.projects.featured} size={13} className="fill-accent-text text-accent-text" />
+            )}
+            <StatusBadge status={project.status} />
+          </div>
         </div>
         <p className="mt-1 text-sm text-foreground/70">{t(project.tagline, locale)}</p>
         {project.problem && (

@@ -93,10 +93,18 @@ export function ProjectDetail({ project }: { project: Project }) {
       </Link>
 
       <div className="mt-8 flex flex-wrap items-center gap-3">
-        <h1 className="font-display text-3xl font-semibold tracking-tight sm:text-4xl">{project.title}</h1>
+        <h1
+          style={{ viewTransitionName: `project-title-${project.slug}` } as React.CSSProperties}
+          className="font-display text-3xl font-semibold tracking-tight sm:text-4xl"
+        >
+          {project.title}
+        </h1>
         <StatusBadge status={project.status} />
       </div>
       <p className="mt-3 max-w-[68ch] text-lg leading-relaxed text-foreground/70">{t(project.tagline, locale)}</p>
+      <p className="mt-1 text-sm font-medium uppercase tracking-wide text-foreground/50">
+        {dict.detail.role}: {t(project.role, locale)}
+      </p>
 
       <div className="mt-6">
         <ProjectCover
