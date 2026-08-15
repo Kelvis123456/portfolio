@@ -46,11 +46,17 @@ export function Projects() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <SectionHeading index="02">{dict.projects.heading}</SectionHeading>
-          <motion.div variants={fadeUp} className="flex gap-1 rounded-full border border-border bg-surface p-1">
+          <motion.div
+            variants={fadeUp}
+            role="group"
+            aria-label={dict.projects.heading}
+            className="flex gap-1 rounded-full border border-border bg-surface p-1"
+          >
             {FILTERS.map((f) => (
               <button
                 key={f.value}
                 onClick={() => setFilter(f.value)}
+                aria-pressed={filter === f.value}
                 className={cn(
                   "relative rounded-full px-3 py-1.5 text-sm transition-colors",
                   filter === f.value ? "text-background" : "text-foreground/70 hover:text-foreground"

@@ -25,7 +25,7 @@ export function Skills() {
               key={group.category.en}
               variants={fadeUp}
               className={cn(
-                "rounded-2xl border border-border bg-surface p-6",
+                "rounded-2xl border border-border bg-surface p-6 shadow-sm dark:shadow-none dark:ring-1 dark:ring-white/5",
                 group.items.length >= 5 ? "lg:col-span-3" : "lg:col-span-2"
               )}
             >

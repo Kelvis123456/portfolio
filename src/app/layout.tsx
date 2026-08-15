@@ -68,6 +68,12 @@ export default function RootLayout({
         className={`notranslate ${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
       >
         <body className="min-h-full flex flex-col bg-background text-foreground">
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[300] focus:rounded-full focus:bg-foreground focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-background"
+          >
+            Skip to content
+          </a>
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
@@ -83,7 +89,7 @@ export default function RootLayout({
                   <ScrollProgress />
                   <Sidebar />
                   <Navbar />
-                  <div className="relative z-10 flex min-h-full flex-1 flex-col lg:pl-80">
+                  <div id="main-content" className="relative z-10 flex min-h-full flex-1 flex-col lg:pl-80">
                     {children}
                     <Footer />
                   </div>
