@@ -58,7 +58,7 @@ export function ProjectPreviewPane({ project }: { project: Project | undefined }
         </div>
         <Link
           href={`/projects/${project.slug}`}
-          className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-[#c2410c] hover:underline dark:text-[#ff7b4d]"
+          className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-accent-text hover:underline"
         >
           {dict.projects.viewCaseStudy}
           <ArrowRight size={15} aria-hidden />
