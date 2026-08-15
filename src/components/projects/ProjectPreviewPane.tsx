@@ -15,12 +15,14 @@ export function ProjectPreviewPane({ project }: { project: Project | undefined }
   const dict = dictionary[locale];
 
   if (!project) {
-    return <div className="sticky top-24 aspect-[4/3] w-full max-w-[560px] rounded-2xl border border-dashed border-border" />;
+    return (
+      <div className="sticky top-24 aspect-[16/10] w-full max-w-[560px] self-start rounded-2xl border border-dashed border-border" />
+    );
   }
 
   return (
-    <div className="sticky top-24 w-full max-w-[560px]">
-      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-border bg-surface-muted">
+    <div className="sticky top-24 w-full max-w-[560px] self-start">
+      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-border bg-surface-muted">
         <AnimatePresence initial={false}>
           <motion.div
             key={project.slug}
@@ -40,17 +42,17 @@ export function ProjectPreviewPane({ project }: { project: Project | undefined }
         </AnimatePresence>
       </div>
 
-      <div className="mt-5">
+      <div className="mt-4">
         <div className="flex items-center justify-between gap-3">
-          <h3 className="font-display text-2xl font-semibold tracking-tight">{project.title}</h3>
+          <h3 className="font-display text-xl font-semibold tracking-tight">{project.title}</h3>
           <StatusBadge status={project.status} />
         </div>
-        <p className="mt-2 text-sm text-foreground/70">{t(project.tagline, locale)}</p>
+        <p className="mt-1.5 text-sm text-foreground/70">{t(project.tagline, locale)}</p>
         {project.problem && (
-          <p className="mt-2 line-clamp-2 text-sm text-foreground/65">{t(project.problem, locale)}</p>
+          <p className="mt-1.5 line-clamp-1 text-sm text-foreground/65">{t(project.problem, locale)}</p>
         )}
-        <div className="mt-4 flex flex-wrap gap-2">
-          {project.stack.map((tech) => (
+        <div className="mt-3 flex flex-wrap gap-2">
+          {project.stack.slice(0, 5).map((tech) => (
             <span key={tech} className="rounded-full bg-surface-muted px-2.5 py-1 text-xs text-foreground/70">
               {tech}
             </span>
@@ -58,7 +60,7 @@ export function ProjectPreviewPane({ project }: { project: Project | undefined }
         </div>
         <Link
           href={`/${locale}/projects/${project.slug}`}
-          className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-accent-text hover:underline"
+          className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent-text hover:underline"
         >
           {dict.projects.viewCaseStudy}
           <ArrowRight size={15} aria-hidden />
