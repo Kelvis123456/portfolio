@@ -13,7 +13,7 @@ export function ProjectCard({ project, large = false }: { project: Project; larg
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <Link href={`/projects/${project.slug}`} className="block h-full">
+    <Link href={`/${locale}/projects/${project.slug}`} className="block h-full">
       <motion.article
         whileHover={shouldReduceMotion ? undefined : { y: -6 }}
         transition={{ type: "spring", stiffness: 300, damping: 22 }}

@@ -41,7 +41,7 @@ export function CommandPalette() {
   const dict = dictionary[locale];
   const { resolvedTheme, setTheme } = useTheme();
   const pathname = usePathname();
-  const isHome = pathname === "/";
+  const isHome = pathname === `/${locale}`;
   const router = useTransitionRouter();
 
   const [query, setQuery] = useState("");
@@ -66,7 +66,7 @@ export function CommandPalette() {
       }, 200);
     } else {
       close();
-      router.push(`/#${id}`);
+      router.push(`/${locale}#${id}`);
     }
   }
 
@@ -88,7 +88,7 @@ export function CommandPalette() {
       icon: project.kind === "game-design" ? Gamepad2 : Code2,
       onSelect: () => {
         close();
-        router.push(`/projects/${project.slug}`);
+        router.push(`/${locale}/projects/${project.slug}`);
       },
     })),
     {

@@ -86,7 +86,7 @@ export function ProjectDetail({ project }: { project: Project }) {
   return (
     <article className="mx-auto max-w-3xl px-6 py-28">
       <Link
-        href="/#projects"
+        href={`/${locale}#projects`}
         className="inline-flex items-center gap-2 text-sm text-foreground/60 hover:text-foreground transition-colors"
       >
         <ArrowLeft size={14} /> {dict.projects.backToProjects}
@@ -160,7 +160,7 @@ export function ProjectDetail({ project }: { project: Project }) {
       {projects.length > 1 && (
         <div className="mt-16 grid gap-4 border-t border-border pt-8 sm:grid-cols-2">
           <Link
-            href={`/projects/${prev.slug}`}
+            href={`/${locale}/projects/${prev.slug}`}
             className="group rounded-xl border border-border bg-surface p-5 shadow-sm transition-colors hover:bg-surface-muted dark:shadow-none dark:ring-1 dark:ring-white/5"
           >
             <span className="flex items-center gap-1.5 text-xs uppercase tracking-widest text-foreground/65">
@@ -171,7 +171,7 @@ export function ProjectDetail({ project }: { project: Project }) {
             </span>
           </Link>
           <Link
-            href={`/projects/${next.slug}`}
+            href={`/${locale}/projects/${next.slug}`}
             className="group rounded-xl border border-border bg-surface p-5 text-right shadow-sm transition-colors hover:bg-surface-muted dark:shadow-none dark:ring-1 dark:ring-white/5"
           >
             <span className="flex items-center justify-end gap-1.5 text-xs uppercase tracking-widest text-foreground/65">
