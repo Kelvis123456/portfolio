@@ -37,6 +37,7 @@ export function ProjectPreviewPane({ project }: { project: Project | undefined }
               className="h-full w-full"
               sizes="(min-width: 1024px) 560px, 100vw"
               quality={90}
+              fit={project.coverFit}
             />
           </motion.div>
         </AnimatePresence>
