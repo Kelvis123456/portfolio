@@ -35,6 +35,8 @@ export interface Project {
   links: ProjectLink[];
   placeholderGallery?: boolean;
   gallery?: string[];
+  /** "contain" for projects whose screenshots are portrait (mobile) — prevents cropping in the 16:10 cover boxes. */
+  coverFit?: "cover" | "contain";
 }
 
 const SOURCE_LABEL: LocalizedText = { en: "Source", es: "Código fuente" };
@@ -154,6 +156,7 @@ export const projects: Project[] = [
       { label: { en: "Screens", es: "Pantallas" }, value: "23" },
     ],
     links: [{ label: PRIVATE_LABEL, href: "mailto:kelvisguerrero03@gmail.com?subject=MONARCH%20repo%20access", icon: "external" }],
+    coverFit: "contain",
     gallery: [
       "/images/monarch/onboarding1.png",
       "/images/monarch/boss-raid.png",
@@ -450,6 +453,7 @@ export const projects: Project[] = [
       { label: { en: "Prototype", es: "Prototipo" }, value: "Playable in-browser, persistent" },
     ],
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/neon-tether-game-design", icon: "github" }],
+    coverFit: "contain",
     gallery: ["/images/neon-tether/combo.png", "/images/neon-tether/gameplay.png", "/images/neon-tether/menu.png"],
   },
 ];
