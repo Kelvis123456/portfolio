@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut } from "lucide-react";
+import { lockScroll, unlockScroll } from "@/lib/scroll-lock";
+import { pushModal, popModal, isTopModal } from "@/lib/modal-stack";
 
 export function Lightbox({ images, alt }: { images: string[]; alt: string }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -13,8 +15,10 @@ export function Lightbox({ images, alt }: { images: string[]; alt: string }) {
   // más allá de su tamaño original.
   const [zoomed, setZoomed] = useState(false);
   const [ratios, setRatios] = useState<Record<number, number>>({});
+  const dialogRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
+  const modalIdRef = useRef<symbol | null>(null);
 
   function showPrev() {
     setOpenIndex((i) => (i === null ? null : (i - 1 + images.length) % images.length));
@@ -31,9 +35,28 @@ export function Lightbox({ images, alt }: { images: string[]; alt: string }) {
   useEffect(() => {
     if (openIndex === null) return;
     function handleKey(e: KeyboardEvent) {
-      if (e.key === "Escape") close();
+      if (!modalIdRef.current || !isTopModal(modalIdRef.current)) return;
+      if (e.key === "Escape") {
+        e.preventDefault();
+        close();
+        return;
+      }
       if (e.key === "ArrowLeft") showPrev();
       if (e.key === "ArrowRight") showNext();
+      if (e.key !== "Tab") return;
+      const focusable = dialogRef.current?.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled])'
+      );
+      if (!focusable || focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     }
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
@@ -46,10 +69,14 @@ export function Lightbox({ images, alt }: { images: string[]; alt: string }) {
 
   useEffect(() => {
     if (openIndex === null) return;
-    document.body.style.overflow = "hidden";
+    const modalId = pushModal();
+    modalIdRef.current = modalId;
+    lockScroll();
     closeButtonRef.current?.focus();
     return () => {
-      document.body.style.overflow = "";
+      popModal(modalId);
+      modalIdRef.current = null;
+      unlockScroll();
       triggerRef.current?.focus();
     };
   }, [openIndex]);
@@ -91,6 +118,7 @@ export function Lightbox({ images, alt }: { images: string[]; alt: string }) {
       <AnimatePresence>
         {openIndex !== null && (
           <motion.div
+            ref={dialogRef}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
