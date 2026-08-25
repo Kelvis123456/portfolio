@@ -27,12 +27,15 @@ export function Contact() {
           {dict.contact.body}
         </motion.p>
         <motion.div variants={fadeUp} className="mt-8 flex flex-wrap items-center justify-center gap-4">
-          <CopyableEmailButton label={siteConfig.email} className="bg-foreground text-background" />
+          <CopyableEmailButton
+            label={siteConfig.email}
+            className="min-w-[270px] justify-center bg-foreground text-background hover:bg-foreground/88"
+          />
           <MagneticButton
             href={siteConfig.github}
             target="_blank"
             rel="noreferrer"
-            className="border border-border bg-surface"
+            className="border border-border bg-surface hover:border-accent-text/30 hover:bg-surface-muted"
           >
             <GithubIcon size={16} /> {dict.hero.github}
           </MagneticButton>
@@ -40,7 +43,7 @@ export function Contact() {
             href={siteConfig.linkedin}
             target="_blank"
             rel="noreferrer"
-            className="border border-border bg-surface"
+            className="border border-border bg-surface hover:border-accent-text/30 hover:bg-surface-muted"
           >
             <LinkedinIcon size={16} /> {dict.hero.linkedin}
           </MagneticButton>

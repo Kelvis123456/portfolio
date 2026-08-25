@@ -14,6 +14,7 @@ import { dictionary } from "@/content/dictionary";
 import { useLanguage, t } from "@/lib/language-context";
 import { useCommandPalette } from "@/lib/command-palette-context";
 import { lockScroll, unlockScroll } from "@/lib/scroll-lock";
+import { pushModal, popModal } from "@/lib/modal-stack";
 import { cn } from "@/lib/cn";
 
 const SECTION_IDS = ["about", "projects", "skills", "contact"] as const;
@@ -181,9 +182,11 @@ export function CommandPalette() {
       triggerRef.current = document.activeElement;
       const id = window.setTimeout(() => inputRef.current?.focus(), 10);
       lockScroll();
+      const modalId = pushModal();
       return () => {
         window.clearTimeout(id);
         unlockScroll();
+        popModal(modalId);
         if (triggerRef.current instanceof HTMLElement) triggerRef.current.focus();
       };
     }
@@ -203,25 +206,30 @@ export function CommandPalette() {
   function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
     if (e.key === "Escape") {
       e.preventDefault();
+      e.stopPropagation();
       close();
       return;
     }
     if (e.key === "ArrowDown") {
       e.preventDefault();
+      e.stopPropagation();
       setActiveIndex((i) => Math.min(i + 1, filtered.length - 1));
       return;
     }
     if (e.key === "ArrowUp") {
       e.preventDefault();
+      e.stopPropagation();
       setActiveIndex((i) => Math.max(i - 1, 0));
       return;
     }
     if (e.key === "Enter" && document.activeElement === inputRef.current) {
       e.preventDefault();
+      e.stopPropagation();
       filtered[activeIndex]?.onSelect();
       return;
     }
     if (e.key === "Tab") {
+      e.stopPropagation();
       const focusable = dialogRef.current?.querySelectorAll<HTMLElement>("input, button:not([disabled])");
       if (!focusable || focusable.length === 0) return;
       const first = focusable[0];
@@ -268,8 +276,10 @@ export function CommandPalette() {
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder={dict.commandPalette.placeholder}
                 role="combobox"
+                aria-label={dict.commandPalette.dialogLabel}
                 aria-expanded="true"
                 aria-controls="command-palette-listbox"
+                aria-activedescendant={filtered[activeIndex] ? `command-palette-option-${filtered[activeIndex].id}` : undefined}
                 className="w-full bg-transparent text-sm outline-none placeholder:text-foreground/65"
               />
               <kbd className="hidden shrink-0 rounded border border-border px-1.5 py-0.5 text-[10px] text-foreground/65 sm:block">
@@ -295,6 +305,7 @@ export function CommandPalette() {
                       return (
                         <button
                           key={item.id}
+                          id={`command-palette-option-${item.id}`}
                           ref={(el) => {
                             itemRefs.current[item.id] = el;
                           }}

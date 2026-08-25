@@ -52,14 +52,14 @@ export function Hero() {
         </h1>
 
         <motion.div variants={wordReveal} className="mt-10 flex flex-wrap items-center justify-center gap-4">
-          <MagneticButton href="#projects" className="bg-foreground text-background">
+          <MagneticButton href="#projects" className="bg-foreground text-background hover:bg-foreground/88">
             {dict.hero.viewProjects}
           </MagneticButton>
           <MagneticButton
             href={siteConfig.github}
             target="_blank"
             rel="noreferrer"
-            className="border border-border bg-surface"
+            className="border border-border bg-surface hover:border-accent-text/30 hover:bg-surface-muted"
           >
             <GithubIcon size={16} /> {dict.hero.github}
           </MagneticButton>
@@ -67,11 +67,14 @@ export function Hero() {
             href={siteConfig.linkedin}
             target="_blank"
             rel="noreferrer"
-            className="border border-border bg-surface"
+            className="border border-border bg-surface hover:border-accent-text/30 hover:bg-surface-muted"
           >
             <LinkedinIcon size={16} /> {dict.hero.linkedin}
           </MagneticButton>
-          <CopyableEmailButton label={dict.hero.contact} className="border border-border bg-surface" />
+          <CopyableEmailButton
+            label={dict.hero.contact}
+            className="border border-border bg-surface hover:border-accent-text/30 hover:bg-surface-muted"
+          />
         </motion.div>
 
         <motion.div variants={wordReveal} className="mt-12 w-full max-w-md">
