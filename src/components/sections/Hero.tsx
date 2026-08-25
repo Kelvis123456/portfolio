@@ -55,10 +55,20 @@ export function Hero() {
           <MagneticButton href="#projects" className="bg-foreground text-background">
             {dict.hero.viewProjects}
           </MagneticButton>
-          <MagneticButton href={siteConfig.github} className="border border-border bg-surface">
+          <MagneticButton
+            href={siteConfig.github}
+            target="_blank"
+            rel="noreferrer"
+            className="border border-border bg-surface"
+          >
             <GithubIcon size={16} /> {dict.hero.github}
           </MagneticButton>
-          <MagneticButton href={siteConfig.linkedin} className="border border-border bg-surface">
+          <MagneticButton
+            href={siteConfig.linkedin}
+            target="_blank"
+            rel="noreferrer"
+            className="border border-border bg-surface"
+          >
             <LinkedinIcon size={16} /> {dict.hero.linkedin}
           </MagneticButton>
           <CopyableEmailButton label={dict.hero.contact} className="border border-border bg-surface" />

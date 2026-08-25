@@ -30,12 +30,16 @@ export function Contact() {
           <CopyableEmailButton label={siteConfig.email} className="bg-foreground text-background" />
           <MagneticButton
             href={siteConfig.github}
+            target="_blank"
+            rel="noreferrer"
             className="border border-border bg-surface"
           >
             <GithubIcon size={16} /> {dict.hero.github}
           </MagneticButton>
           <MagneticButton
             href={siteConfig.linkedin}
+            target="_blank"
+            rel="noreferrer"
             className="border border-border bg-surface"
           >
             <LinkedinIcon size={16} /> {dict.hero.linkedin}
