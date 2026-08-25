@@ -66,11 +66,12 @@ function DesignProcessCaseStudy({ project, locale }: { project: Project; locale:
 }
 
 function ProjectGallery({ project, locale }: { project: Project; locale: Locale }) {
+  const dict = dictionary[locale];
   const rest = project.gallery?.slice(1) ?? [];
   if (rest.length === 0) return null;
   return (
     <div className="mt-10">
-      <Lightbox images={rest} alt={`${project.title} screenshot`} />
+      <Lightbox images={rest} alt={`${project.title} ${dict.lightbox.screenshot}`} />
     </div>
   );
 }

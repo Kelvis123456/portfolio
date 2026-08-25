@@ -8,7 +8,7 @@ Personal portfolio site — interactive case studies of real projects, built wit
 - Tailwind CSS v4 (CSS-first `@theme`, no `tailwind.config.*`)
 - `motion` (Framer Motion) for interactions, scroll reveals, and view transitions (`next-view-transitions`)
 - `next-themes` for dark/light mode
-- A hand-rolled i18n dictionary/context (`src/lib/language-context.tsx`) for English/Spanish — no `next-intl`, no URL-based locale routing (yet)
+- A hand-rolled i18n dictionary/context (`src/lib/language-context.tsx`) for English/Spanish, with URL-based locale routing (`/en`, `/es`) via `src/proxy.ts` — no `next-intl`
 - No CMS — all content is typed data in `src/content/`
 - Vercel Analytics + Speed Insights
 - No test suite, no linter/formatter config, no CI — this is a solo portfolio, verified via `tsc --noEmit` + `next build` + manual/Playwright smoke passes
@@ -17,7 +17,8 @@ Personal portfolio site — interactive case studies of real projects, built wit
 
 ```
 src/
-├─ app/                      — routes: home, /projects/[slug]; also generates the
+├─ app/                      — routes live under [locale] (/en, /es via src/proxy.ts):
+│                              home, /projects/[slug]; also generates the
 │                              favicon/apple-icon, OG images, manifest, sitemap, robots.txt
 ├─ components/
 │  ├─ layout/                — Sidebar (desktop nav), Navbar (mobile nav + menu), Footer

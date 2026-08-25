@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { Code2, Gamepad2 } from "lucide-react";
 import type { Project } from "@/content/projects";
+import { dictionary } from "@/content/dictionary";
+import { useLanguage } from "@/lib/language-context";
 import { cn } from "@/lib/cn";
 
 const GRADIENTS = [
@@ -36,6 +38,7 @@ export function ProjectCover({
   fit?: "cover" | "contain";
   className?: string;
 }) {
+  const { locale } = useLanguage();
   const cover = project.gallery?.[0];
   const transitionStyle = { viewTransitionName: `project-cover-${project.slug}` } as React.CSSProperties;
 
@@ -44,7 +47,7 @@ export function ProjectCover({
       <div style={transitionStyle} className={cn("relative isolate w-full overflow-hidden bg-surface-muted", className)}>
         <Image
           src={cover}
-          alt={`${project.title} screenshot`}
+          alt={`${project.title} ${dictionary[locale].lightbox.screenshot}`}
           fill
           priority={priority}
           sizes={sizes ?? "(min-width: 640px) 50vw, 100vw"}

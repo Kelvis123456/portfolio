@@ -4,10 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut } from "lucide-react";
+import { dictionary } from "@/content/dictionary";
+import { useLanguage } from "@/lib/language-context";
 import { lockScroll, unlockScroll } from "@/lib/scroll-lock";
 import { pushModal, popModal, isTopModal } from "@/lib/modal-stack";
 
 export function Lightbox({ images, alt }: { images: string[]; alt: string }) {
+  const { locale } = useLanguage();
+  const dict = dictionary[locale].lightbox;
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   // El lightbox parte "fit" (cabe en pantalla) -- "zoomed" muestra la imagen a
   // su resolución nativa dentro de un contenedor con scroll, para poder leer
@@ -131,7 +135,7 @@ export function Lightbox({ images, alt }: { images: string[]; alt: string }) {
             <button
               ref={closeButtonRef}
               type="button"
-              aria-label="Close"
+              aria-label={dict.close}
               onClick={(e) => {
                 e.stopPropagation();
                 close();
@@ -142,7 +146,7 @@ export function Lightbox({ images, alt }: { images: string[]; alt: string }) {
             </button>
             <button
               type="button"
-              aria-label={zoomed ? "Zoom out" : "Zoom in"}
+              aria-label={zoomed ? dict.zoomOut : dict.zoomIn}
               onClick={(e) => {
                 e.stopPropagation();
                 setZoomed((z) => !z);
@@ -156,7 +160,7 @@ export function Lightbox({ images, alt }: { images: string[]; alt: string }) {
               <>
                 <button
                   type="button"
-                  aria-label="Previous image"
+                  aria-label={dict.previousImage}
                   onClick={(e) => {
                     e.stopPropagation();
                     showPrev();
@@ -167,7 +171,7 @@ export function Lightbox({ images, alt }: { images: string[]; alt: string }) {
                 </button>
                 <button
                   type="button"
-                  aria-label="Next image"
+                  aria-label={dict.nextImage}
                   onClick={(e) => {
                     e.stopPropagation();
                     showNext();

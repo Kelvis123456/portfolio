@@ -12,6 +12,7 @@
   --accent-2: #1f8a5f;
   --accent-text: #c2410c;
   --accent-2-text: #186c4b;
+  --accent-warn: #b45309;
   --accent-foreground: #fff8f2;
   --muted-foreground: #6f6a61;
   --spotlight-color: rgba(194, 65, 12, 0.14);
@@ -27,6 +28,7 @@
   --accent-2: #6fe3b4;
   --accent-text: #ff7b4d;
   --accent-2-text: #6fe3b4;
+  --accent-warn: #fbbf24;
   --accent-foreground: #12100d;
   --muted-foreground: #9b9388;
   --spotlight-color: rgba(255, 138, 76, 0.07);
@@ -42,6 +44,7 @@
   --color-accent-2: var(--accent-2);
   --color-accent-text: var(--accent-text);
   --color-accent-2-text: var(--accent-2-text);
+  --color-accent-warn: var(--accent-warn);
   --color-accent-foreground: var(--accent-foreground);
   --color-muted-foreground: var(--muted-foreground);
   --font-sans: var(--font-geist-sans);

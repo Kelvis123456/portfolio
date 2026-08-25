@@ -6,9 +6,9 @@ import { useLanguage } from "@/lib/language-context";
 import { cn } from "@/lib/cn";
 
 const STATUS_STYLE: Record<ProjectStatus, { dot: string; text: string }> = {
-  live: { dot: "bg-emerald-500", text: "text-emerald-700 dark:text-emerald-400" },
-  "in-development": { dot: "bg-amber-500", text: "text-amber-700 dark:text-amber-400" },
-  concept: { dot: "bg-violet-500", text: "text-violet-700 dark:text-violet-400" },
+  live: { dot: "bg-accent-2", text: "text-accent-2-text" },
+  "in-development": { dot: "bg-accent-warn", text: "text-accent-warn" },
+  concept: { dot: "border border-muted-foreground/70", text: "text-muted-foreground" },
 };
 
 const STATUS_KEY: Record<ProjectStatus, "live" | "inDevelopment" | "concept"> = {
