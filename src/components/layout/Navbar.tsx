@@ -87,7 +87,7 @@ export function Navbar() {
           : "bg-transparent"
       )}
     >
-      <nav className="mx-auto flex items-center justify-between px-6 py-4">
+      <nav className="relative z-50 mx-auto flex items-center justify-between px-6 py-4">
         {isHome ? (
           <a href="#top" className="font-display text-lg font-semibold tracking-tight">
             Kelvis Guerrero
@@ -135,9 +135,17 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setMobileOpen(false);
+            }}
             className="fixed inset-0 z-40 flex flex-col bg-background"
           >
-            <div className="flex flex-1 flex-col justify-center gap-1 px-8 pb-20">
+            <div
+              onClick={(e) => {
+                if (e.target === e.currentTarget) setMobileOpen(false);
+              }}
+              className="flex flex-1 flex-col justify-center gap-1 px-8 pb-20"
+            >
               {NAV_ITEMS.map((item, i) => {
                 const active = activeId === item.id;
                 return (
