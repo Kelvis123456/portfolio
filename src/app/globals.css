@@ -103,7 +103,10 @@ button:focus-visible {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-50%);
+    /* The two duplicated groups are separated by one gap-8 (2rem) flex
+       gap. -50% alone lands 1rem short of the second group's actual
+       start, since it only accounts for half that gap. */
+    transform: translateX(calc(-50% - 1rem));
   }
 }
 

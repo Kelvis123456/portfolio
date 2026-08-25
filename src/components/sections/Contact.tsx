@@ -33,12 +33,16 @@ export function Contact() {
           />
           <MagneticButton
             href={siteConfig.github}
+            target="_blank"
+            rel="noreferrer"
             className="border border-border bg-surface hover:border-accent-text/30 hover:bg-surface-muted"
           >
             <GithubIcon size={16} /> {dict.hero.github}
           </MagneticButton>
           <MagneticButton
             href={siteConfig.linkedin}
+            target="_blank"
+            rel="noreferrer"
             className="border border-border bg-surface hover:border-accent-text/30 hover:bg-surface-muted"
           >
             <LinkedinIcon size={16} /> {dict.hero.linkedin}
