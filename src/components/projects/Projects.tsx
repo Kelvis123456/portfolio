@@ -30,7 +30,7 @@ export function Projects() {
     return [...matches].sort((a, b) => Number(b.featured) - Number(a.featured));
   }, [filter]);
 
-  const flagship = filtered.find((p) => p.slug === "rentedge" || p.featured);
+  const flagship = filtered.find((p) => p.featured);
 
   const [activeSlug, setActiveSlug] = useState<string | undefined>(flagship?.slug ?? filtered[0]?.slug);
   const activeProject = filtered.find((p) => p.slug === activeSlug) ?? flagship ?? filtered[0];

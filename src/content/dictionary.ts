@@ -70,6 +70,14 @@ export const dictionary = {
       body: "Sorry about that — you can try again, or head back to the homepage.",
       retry: "Try again",
     },
+    lightbox: {
+      close: "Close",
+      zoomIn: "Zoom in",
+      zoomOut: "Zoom out",
+      previousImage: "Previous image",
+      nextImage: "Next image",
+      screenshot: "screenshot",
+    },
   },
   es: {
     nav: { about: "Sobre mí", projects: "Proyectos", skills: "Habilidades", contact: "Contacto" },
@@ -140,9 +148,13 @@ export const dictionary = {
       body: "Disculpa el inconveniente — puedes intentar de nuevo, o volver al inicio.",
       retry: "Intentar de nuevo",
     },
+    lightbox: {
+      close: "Cerrar",
+      zoomIn: "Acercar",
+      zoomOut: "Alejar",
+      previousImage: "Imagen anterior",
+      nextImage: "Siguiente imagen",
+      screenshot: "captura de pantalla",
+    },
   },
 } satisfies Record<Locale, unknown>;
-
-export function useDictionary(locale: Locale) {
-  return dictionary[locale];
-}
