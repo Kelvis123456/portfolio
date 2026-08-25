@@ -21,8 +21,7 @@ const geistMono = Geist_Mono({
 const fraunces = Fraunces({
   variable: "--font-fraunces",
   subsets: ["latin"],
-  style: ["normal", "italic"],
-  axes: ["opsz", "SOFT", "WONK"],
+  style: ["normal"],
 });
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -33,6 +32,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         suppressHydrationWarning
         className={`notranslate ${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
       >
+        <head>
+          <script
+            dangerouslySetInnerHTML={{
+              __html:
+                '(function(){var m=location.pathname.match(/^\\/(en|es)(?:\\/|$)/);document.documentElement.lang=m?m[1]:"en";})();',
+            }}
+          />
+        </head>
         <body className="min-h-full flex flex-col bg-background text-foreground">
           <a
             href="#main-content"

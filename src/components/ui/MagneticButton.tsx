@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { useRef } from "react";
+import { motion, useMotionValue, useSpring, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/cn";
 
 export function MagneticButton({
@@ -10,16 +10,24 @@ export function MagneticButton({
   href,
   onClick,
   download,
+  target,
+  rel,
 }: {
   children: React.ReactNode;
   className?: string;
   href?: string;
   onClick?: (e: React.MouseEvent) => void;
   download?: boolean | string;
+  target?: string;
+  rel?: string;
 }) {
   const ref = useRef<HTMLAnchorElement | HTMLButtonElement>(null);
-  const [offset, setOffset] = useState({ x: 0, y: 0 });
   const shouldReduceMotion = useReducedMotion();
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const springConfig = { stiffness: 200, damping: 20, mass: 0.4 };
+  const springX = useSpring(x, springConfig);
+  const springY = useSpring(y, springConfig);
 
   function handleMouseMove(e: React.MouseEvent) {
     if (shouldReduceMotion) return;
@@ -29,11 +37,13 @@ export function MagneticButton({
     const relX = e.clientX - (rect.left + rect.width / 2);
     const relY = e.clientY - (rect.top + rect.height / 2);
     const clamp = (v: number) => Math.max(-10, Math.min(10, v));
-    setOffset({ x: clamp(relX * 0.15), y: clamp(relY * 0.15) });
+    x.set(clamp(relX * 0.15));
+    y.set(clamp(relY * 0.15));
   }
 
   function handleMouseLeave() {
-    setOffset({ x: 0, y: 0 });
+    x.set(0);
+    y.set(0);
   }
 
   const Component = href ? motion.a : motion.button;
@@ -43,11 +53,12 @@ export function MagneticButton({
       ref={ref as never}
       href={href}
       download={download}
+      target={target}
+      rel={rel}
       onClick={onClick}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      animate={{ x: offset.x, y: offset.y }}
-      transition={{ type: "spring", stiffness: 200, damping: 20, mass: 0.4 }}
+      style={{ x: springX, y: springY }}
       className={cn(
         "inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-colors",
         className

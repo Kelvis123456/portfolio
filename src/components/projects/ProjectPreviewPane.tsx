@@ -34,6 +34,7 @@ export function ProjectPreviewPane({ project }: { project: Project | undefined }
           >
             <ProjectCover
               project={project}
+              priority
               className="h-full w-full"
               sizes="(min-width: 1024px) 560px, 100vw"
               quality={90}

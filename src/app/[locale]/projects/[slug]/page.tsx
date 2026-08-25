@@ -7,6 +7,8 @@ import type { Locale } from "@/lib/language-context";
 
 const LOCALES: Locale[] = ["en", "es"];
 
+export const dynamicParams = true;
+
 export function generateStaticParams() {
   return LOCALES.flatMap((locale) => projects.map((project) => ({ locale, slug: project.slug })));
 }

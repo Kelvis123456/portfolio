@@ -103,7 +103,7 @@ export function ProjectDetail({ project }: { project: Project }) {
         <StatusBadge status={project.status} />
       </div>
       <p className="mt-3 max-w-[68ch] text-lg leading-relaxed text-foreground/70">{t(project.tagline, locale)}</p>
-      <p className="mt-1 text-sm font-medium uppercase tracking-wide text-foreground/50">
+      <p className="mt-1 text-sm font-medium uppercase tracking-wide text-foreground/60">
         {dict.detail.role}: {t(project.role, locale)}
       </p>
 

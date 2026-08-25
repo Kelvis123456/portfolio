@@ -75,9 +75,9 @@ export default async function LocaleLayout({
           <ScrollProgress />
           <Sidebar />
           <Navbar />
-          <div id="main-content" className="relative z-10 flex min-h-full flex-1 flex-col lg:pl-80">
+          <div id="main-content" tabIndex={-1} className="relative z-10 flex min-h-full flex-1 flex-col outline-none lg:pl-80">
             {children}
-            <Footer year={new Date().getFullYear()} />
+            <Footer />
           </div>
           <CommandPalette />
         </CommandPaletteProvider>

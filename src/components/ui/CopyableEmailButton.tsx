@@ -18,6 +18,9 @@ export function CopyableEmailButton({ label, className }: { label: string; class
     try {
       await navigator.clipboard.writeText(siteConfig.email);
     } catch {
+      // Clipboard API unavailable (insecure context, denied permission, etc.) —
+      // fall back to the mailto: link the anchor would have followed anyway.
+      window.location.href = `mailto:${siteConfig.email}`;
       return;
     }
     setCopied(true);
