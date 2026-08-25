@@ -49,8 +49,12 @@
   --font-display: var(--font-fraunces);
 }
 
-* {
-  border-color: var(--border);
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: var(--border);
+  }
 }
 
 html {
