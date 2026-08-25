@@ -10,12 +10,16 @@ export function MagneticButton({
   href,
   onClick,
   download,
+  target,
+  rel,
 }: {
   children: React.ReactNode;
   className?: string;
   href?: string;
   onClick?: (e: React.MouseEvent) => void;
   download?: boolean | string;
+  target?: string;
+  rel?: string;
 }) {
   const ref = useRef<HTMLAnchorElement | HTMLButtonElement>(null);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
@@ -43,6 +47,8 @@ export function MagneticButton({
       ref={ref as never}
       href={href}
       download={download}
+      target={target}
+      rel={rel}
       onClick={onClick}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}

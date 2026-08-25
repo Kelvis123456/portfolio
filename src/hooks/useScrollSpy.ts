@@ -27,7 +27,7 @@ export function useScrollSpy(ids: string[], options?: IntersectionObserverInit) 
             bestId = id;
           }
         }
-        if (bestId) setActiveId(bestId);
+        setActiveId(bestId);
       },
       { rootMargin: "-40% 0px -50% 0px", threshold: [0, 0.25, 0.5, 0.75, 1], ...options }
     );

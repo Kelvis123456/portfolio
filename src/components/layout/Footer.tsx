@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { siteConfig } from "@/content/siteConfig";
 import { dictionary } from "@/content/dictionary";
 import { useLanguage } from "@/lib/language-context";
@@ -17,9 +18,14 @@ const PERFORMANCE_DATE_LABEL: Record<string, string> = {
   }),
 };
 
-export function Footer({ year }: { year: number }) {
+export function Footer() {
   const { locale } = useLanguage();
   const dict = dictionary[locale];
+  const [year, setYear] = useState<number | null>(null);
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
 
   return (
     <footer className="w-full border-t border-border/60 py-10">
@@ -30,7 +36,7 @@ export function Footer({ year }: { year: number }) {
         <div className="flex items-center gap-4">
           <span
             title={`${siteConfig.performance.method} — ${siteConfig.performance.date}`}
-            className="text-xs text-foreground/45"
+            className="text-xs text-foreground/60"
           >
             {siteConfig.performance.score}/100 {dict.footer.performance} · {PERFORMANCE_DATE_LABEL[locale]}
           </span>
