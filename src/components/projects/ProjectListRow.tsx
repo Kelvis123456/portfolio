@@ -29,7 +29,7 @@ export function ProjectListRow({
       onFocus={onActivate}
       className={cn(
         "group flex items-start gap-4 rounded-xl border px-5 py-4 transition-colors",
-        active ? "border-accent-text/40 bg-surface" : "border-border/60 hover:bg-surface"
+        active ? "border-accent-text/40 bg-surface" : "border-border/60 bg-surface/60 hover:bg-surface"
       )}
     >
       <span className="mt-0.5 font-mono text-xs text-foreground/65">{String(index + 1).padStart(2, "0")}</span>

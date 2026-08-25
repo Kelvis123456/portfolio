@@ -40,13 +40,13 @@ void main() {
 
   vec3 color = u_bg;
   if (u_isDark > 0.5) {
-    color += u_colorA * g1 * 0.32;
-    color += u_colorB * g2 * 0.2;
-    color += u_colorA * g3 * 0.14;
+    color += u_colorA * g1 * 0.14;
+    color += u_colorB * g2 * 0.09;
+    color += u_colorA * g3 * 0.06;
   } else {
-    color = mix(color, u_colorA, g1 * 0.32);
-    color = mix(color, u_colorB, g2 * 0.2);
-    color = mix(color, u_colorA, g3 * 0.14);
+    color = mix(color, u_colorA, g1 * 0.14);
+    color = mix(color, u_colorB, g2 * 0.09);
+    color = mix(color, u_colorA, g3 * 0.06);
   }
 
   gl_FragColor = vec4(clamp(color, 0.0, 1.0), 1.0);
