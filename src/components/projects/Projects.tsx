@@ -86,7 +86,7 @@ export function Projects() {
           </motion.p>
         ) : (
           <>
-            <motion.div className="mt-10 grid gap-5 sm:grid-cols-2 lg:hidden">
+            <motion.div className="mt-10 grid gap-5 sm:grid-cols-2 xl:hidden">
               <AnimatePresence mode="popLayout" initial={false}>
                 {filtered.map((project, index) => (
                   <motion.div
@@ -104,7 +104,7 @@ export function Projects() {
               </AnimatePresence>
             </motion.div>
 
-            <div className="mt-10 hidden gap-10 lg:grid lg:grid-cols-[1fr_560px]">
+            <div className="mt-10 hidden gap-10 xl:grid xl:grid-cols-[minmax(0,1fr)_560px]">
               <div className="flex flex-col gap-3">
                 <AnimatePresence mode="popLayout" initial={false}>
                   {filtered.map((project, index) => (
