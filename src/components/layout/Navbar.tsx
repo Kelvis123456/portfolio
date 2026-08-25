@@ -12,6 +12,7 @@ import { useLanguage } from "@/lib/language-context";
 import { useCommandPalette } from "@/lib/command-palette-context";
 import { dictionary } from "@/content/dictionary";
 import { lockScroll, unlockScroll } from "@/lib/scroll-lock";
+import { pushModal, popModal, isTopModal } from "@/lib/modal-stack";
 import { cn } from "@/lib/cn";
 
 const NAV_IDS = ["about", "projects", "skills", "contact"] as const;
@@ -47,18 +48,22 @@ export function Navbar() {
   useEffect(() => {
     if (!mobileOpen) return;
     lockScroll();
+    const modalId = pushModal();
 
     const menu = menuRef.current;
     const focusable = menu?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])');
     focusable?.[0]?.focus();
 
     function handleKeyDown(e: KeyboardEvent) {
+      if (!isTopModal(modalId)) return;
       if (e.key === "Escape") {
         e.preventDefault();
+        e.stopPropagation();
         setMobileOpen(false);
         return;
       }
       if (e.key !== "Tab" || !focusable || focusable.length === 0) return;
+      e.stopPropagation();
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
       if (e.shiftKey && document.activeElement === first) {
@@ -73,6 +78,7 @@ export function Navbar() {
     document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
+      popModal(modalId);
       unlockScroll();
       toggleButtonRef.current?.focus();
     };
