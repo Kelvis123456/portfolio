@@ -19,6 +19,7 @@ const LOG_LINES: LogLine[] = [
 const TYPE_SPEED_MS = 18;
 const LINE_PAUSE_MS = 220;
 const LOOP_PAUSE_MS = 2600;
+const SEED_COUNT = 3;
 
 function useIsVisible(ref: React.RefObject<HTMLElement | null>) {
   const [isVisible, setIsVisible] = useState(false);
@@ -54,6 +55,7 @@ export function Terminal({ className }: { className?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const isVisible = useIsVisible(containerRef);
   const active = isVisible && !shouldReduceMotion;
+  const hasSeededRef = useRef(false);
 
   useEffect(() => {
     if (shouldReduceMotion) {
@@ -63,10 +65,20 @@ export function Terminal({ className }: { className?: string }) {
 
     if (!active) return;
 
+    const seedFirstRun = !hasSeededRef.current;
+    hasSeededRef.current = true;
+
     let cancelled = false;
-    let lineIdx = 0;
+    let lineIdx = seedFirstRun ? SEED_COUNT : 0;
     let charIdx = 0;
-    let lines: string[] = [];
+    let lines: string[] = seedFirstRun
+      ? LOG_LINES.slice(0, SEED_COUNT).map((l) => `${l.label} — ${t(l.detail, locale)}`)
+      : [];
+
+    if (seedFirstRun) {
+      setTyped(lines);
+      setActiveIndex(lineIdx);
+    }
 
     function scheduleNext(fn: () => void, delay: number) {
       timeoutRef.current = setTimeout(() => {
@@ -122,7 +134,7 @@ export function Terminal({ className }: { className?: string }) {
         <span className="h-2.5 w-2.5 rounded-full bg-[#28C840]" />
         <span className="ml-2.5 tracking-wide text-muted-foreground">kelvis@systems: status</span>
       </div>
-      <div className="min-h-[124px] overflow-hidden px-3.5 py-4 leading-[1.85] text-foreground/80">
+      <div className="h-[168px] overflow-hidden px-3.5 py-4 text-left leading-[1.85] text-foreground/80">
         {typed.map((line, i) => (
           <div key={i} className="whitespace-pre-wrap break-words">
             <span className="text-accent-2-text">✓</span> {line}
