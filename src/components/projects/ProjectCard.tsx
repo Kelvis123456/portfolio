@@ -29,7 +29,6 @@ export function ProjectCard({ project, large = false }: { project: Project; larg
       >
         <ProjectCover
           project={project}
-          priority={large}
           fit={project.coverFit}
           className={cn("aspect-[16/10]", large ? "sm:aspect-[21/9]" : "")}
         />
