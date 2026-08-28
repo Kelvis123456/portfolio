@@ -10,6 +10,14 @@ import { GithubIcon } from "@/components/ui/GithubIcon";
 import { dictionary } from "@/content/dictionary";
 import { useLanguage, t, tList, type Locale } from "@/lib/language-context";
 
+function hexToRgbTriplet(hex: string): string {
+  const clean = hex.replace("#", "");
+  const r = parseInt(clean.slice(0, 2), 16);
+  const g = parseInt(clean.slice(2, 4), 16);
+  const b = parseInt(clean.slice(4, 6), 16);
+  return `${r} ${g} ${b}`;
+}
+
 function TechnicalCaseStudy({ project, locale }: { project: Project; locale: Locale }) {
   const dict = dictionary[locale];
   return (
@@ -83,9 +91,17 @@ export function ProjectDetail({ project }: { project: Project }) {
   const index = projects.findIndex((p) => p.slug === project.slug);
   const prev = index > 0 ? projects[index - 1] : projects[projects.length - 1];
   const next = index >= 0 && index < projects.length - 1 ? projects[index + 1] : projects[0];
+  const washRgb = project.accentColor ? hexToRgbTriplet(project.accentColor) : null;
 
   return (
-    <article className="mx-auto max-w-3xl px-6 py-28">
+    <article className="relative z-0 mx-auto max-w-3xl px-6 py-28">
+      {washRgb && (
+        <div
+          aria-hidden
+          style={{ "--project-wash": washRgb } as React.CSSProperties}
+          className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[560px] bg-[radial-gradient(ellipse_70%_55%_at_50%_0%,rgb(var(--project-wash)/0.34),transparent_72%)] dark:bg-[radial-gradient(ellipse_70%_55%_at_50%_0%,rgb(var(--project-wash)/0.4),transparent_72%)]"
+        />
+      )}
       <Link
         href={`/${locale}#projects`}
         className="inline-flex items-center gap-2 text-sm text-foreground/60 hover:text-foreground transition-colors"
