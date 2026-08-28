@@ -154,13 +154,16 @@ export function Navbar() {
             >
               {NAV_ITEMS.map((item, i) => {
                 const active = activeId === item.id;
+                const index = String(i + 1).padStart(2, "0");
                 return (
                   <motion.div
                     key={item.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.08 + i * 0.06, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                    className="flex items-baseline gap-3"
                   >
+                    <span className="font-mono text-xs tracking-[0.2em] text-accent-text">{index}</span>
                     {isHome ? (
                       <a
                         href={`#${item.id}`}
