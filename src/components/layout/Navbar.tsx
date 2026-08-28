@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Menu, Search, X } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { LanguageToggle } from "@/components/ui/LanguageToggle";
+import { Monogram } from "@/components/ui/Monogram";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
 import { useLanguage } from "@/lib/language-context";
 import { useCommandPalette } from "@/lib/command-palette-context";
@@ -95,12 +96,14 @@ export function Navbar() {
     >
       <nav className="relative z-50 mx-auto flex items-center justify-between px-6 py-4">
         {isHome ? (
-          <a href="#top" className="font-display text-lg font-semibold tracking-tight">
-            Kelvis Guerrero
+          <a href="#top">
+            <Monogram />
+            <span className="sr-only">Kelvis Guerrero</span>
           </a>
         ) : (
-          <Link href={`/${locale}`} className="font-display text-lg font-semibold tracking-tight">
-            Kelvis Guerrero
+          <Link href={`/${locale}`}>
+            <Monogram />
+            <span className="sr-only">Kelvis Guerrero</span>
           </Link>
         )}
         <div className="flex items-center gap-2">

@@ -8,6 +8,7 @@ import { GithubIcon } from "@/components/ui/GithubIcon";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { LanguageToggle } from "@/components/ui/LanguageToggle";
 import { LinkedinIcon } from "@/components/ui/LinkedinIcon";
+import { Monogram } from "@/components/ui/Monogram";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
 import { useLanguage, t } from "@/lib/language-context";
 import { useCommandPalette } from "@/lib/command-palette-context";
@@ -37,11 +38,13 @@ export function Sidebar() {
     <aside className="fixed inset-y-0 left-0 z-30 hidden w-80 flex-col justify-between border-r border-border/60 bg-background/50 p-10 backdrop-blur-sm lg:flex">
       <div>
         {isHome ? (
-          <a href="#top" className="block">
+          <a href="#top" className="flex items-center gap-3">
+            <Monogram />
             <span className="font-display text-2xl font-semibold tracking-tight">{siteConfig.name}</span>
           </a>
         ) : (
-          <Link href={`/${locale}`} className="block">
+          <Link href={`/${locale}`} className="flex items-center gap-3">
+            <Monogram />
             <span className="font-display text-2xl font-semibold tracking-tight">{siteConfig.name}</span>
           </Link>
         )}
