@@ -78,6 +78,11 @@ export const dictionary = {
       nextImage: "Next image",
       screenshot: "screenshot",
     },
+    cursor: {
+      view: "View",
+      zoom: "Zoom",
+      download: "Download",
+    },
   },
   es: {
     nav: { about: "Sobre mí", projects: "Proyectos", skills: "Habilidades", contact: "Contacto" },
@@ -155,6 +160,11 @@ export const dictionary = {
       previousImage: "Imagen anterior",
       nextImage: "Siguiente imagen",
       screenshot: "captura de pantalla",
+    },
+    cursor: {
+      view: "Ver",
+      zoom: "Ampliar",
+      download: "Descargar",
     },
   },
 } satisfies Record<Locale, unknown>;

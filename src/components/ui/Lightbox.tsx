@@ -12,6 +12,7 @@ import { pushModal, popModal, isTopModal } from "@/lib/modal-stack";
 export function Lightbox({ images, alt }: { images: string[]; alt: string }) {
   const { locale } = useLanguage();
   const dict = dictionary[locale].lightbox;
+  const cursorLabel = dictionary[locale].cursor.zoom;
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   // El lightbox parte "fit" (cabe en pantalla) -- "zoomed" muestra la imagen a
   // su resolución nativa dentro de un contenedor con scroll, para poder leer
@@ -103,6 +104,7 @@ export function Lightbox({ images, alt }: { images: string[]; alt: string }) {
               triggerRef.current = e.currentTarget;
               setOpenIndex(i);
             }}
+            data-cursor-label={cursorLabel}
             style={{ aspectRatio: ratios[i] ?? 16 / 10 }}
             className="relative cursor-zoom-in overflow-hidden rounded-2xl border border-border bg-surface-muted"
           >
