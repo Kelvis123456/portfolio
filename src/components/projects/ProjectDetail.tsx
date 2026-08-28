@@ -99,7 +99,7 @@ export function ProjectDetail({ project }: { project: Project }) {
         <div
           aria-hidden
           style={{ "--project-wash": washRgb } as React.CSSProperties}
-          className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[560px] bg-[radial-gradient(ellipse_70%_55%_at_50%_0%,rgb(var(--project-wash)/0.34),transparent_72%)] dark:bg-[radial-gradient(ellipse_70%_55%_at_50%_0%,rgb(var(--project-wash)/0.4),transparent_72%)]"
+          className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[560px] bg-[radial-gradient(ellipse_70%_55%_at_50%_0%,rgb(var(--project-wash)/0.65),transparent_75%)] dark:bg-[radial-gradient(ellipse_70%_55%_at_50%_0%,rgb(var(--project-wash)/0.7),transparent_75%)]"
         />
       )}
       <Link
