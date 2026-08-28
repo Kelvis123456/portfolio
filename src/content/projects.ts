@@ -37,6 +37,8 @@ export interface Project {
   gallery?: string[];
   /** "contain" for projects whose screenshots are portrait (mobile) — prevents cropping in the 16:10 cover boxes. */
   coverFit?: "cover" | "contain";
+  /** Sampled from the project's own screenshots/brand — tints the case study header wash. */
+  accentColor?: string;
 }
 
 const SOURCE_LABEL: LocalizedText = { en: "Source", es: "Código fuente" };
@@ -110,6 +112,7 @@ export const projects: Project[] = [
     ],
     links: [{ label: PRIVATE_LABEL, href: "mailto:kelvisguerrero03@gmail.com?subject=RentEdge%20repo%20access", icon: "external" }],
     gallery: ["/images/rentedge/dashboard.png", "/images/rentedge/offices.png", "/images/rentedge/login.png"],
+    accentColor: "#7c5cb0",
   },
   {
     slug: "monarch",
@@ -164,6 +167,7 @@ export const projects: Project[] = [
       "/images/monarch/onboarding2.png",
       "/images/monarch/splash.png",
     ],
+    accentColor: "#c98a1f",
   },
   {
     slug: "recetas-app",
@@ -184,6 +188,7 @@ export const projects: Project[] = [
     },
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/recetas-app", icon: "github" }],
     gallery: ["/images/recetas-app/home.png"],
+    accentColor: "#b5793f",
   },
   {
     slug: "reservaya",
@@ -234,6 +239,7 @@ export const projects: Project[] = [
     ],
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/reservaya", icon: "github" }],
     gallery: ["/images/reservaya/home.png", "/images/reservaya/venues.png", "/images/reservaya/detail.png"],
+    accentColor: "#0f9d70",
   },
   {
     slug: "pc-marketplace",
@@ -262,6 +268,7 @@ export const projects: Project[] = [
     },
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/pc-marketplace", icon: "github" }],
     gallery: ["/images/pc-marketplace/catalog.png"],
+    accentColor: "#3b82c4",
   },
   {
     slug: "connect5",
@@ -305,6 +312,7 @@ export const projects: Project[] = [
     metrics: [{ label: { en: "C# scripts", es: "Scripts C#" }, value: "50" }],
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/connect5", icon: "github" }],
     gallery: ["/images/connect5/lobby.png", "/images/connect5/gameplay.png"],
+    accentColor: "#3568c9",
   },
   {
     slug: "detective-game",
@@ -341,6 +349,7 @@ export const projects: Project[] = [
     ],
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/detective-game", icon: "github" }],
     gallery: ["/images/detective-game/crimescene.png", "/images/detective-game/menu.png"],
+    accentColor: "#8a6a3a",
   },
   {
     slug: "phase",
@@ -380,6 +389,7 @@ export const projects: Project[] = [
     metrics: [{ label: { en: "Design docs", es: "Documentos de diseño" }, value: "11 files, ~870KB" }],
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/phase-game-design", icon: "github" }],
     placeholderGallery: true,
+    accentColor: "#5b6b8c",
   },
   {
     slug: "skim",
@@ -416,6 +426,7 @@ export const projects: Project[] = [
     ],
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/skim-game-design", icon: "github" }],
     placeholderGallery: true,
+    accentColor: "#2f8f9e",
   },
   {
     slug: "neon-tether",
@@ -455,6 +466,7 @@ export const projects: Project[] = [
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/neon-tether-game-design", icon: "github" }],
     coverFit: "contain",
     gallery: ["/images/neon-tether/combo.png", "/images/neon-tether/gameplay.png", "/images/neon-tether/menu.png"],
+    accentColor: "#d6266e",
   },
 ];
 
