@@ -52,6 +52,7 @@ export function Contact() {
           variants={fadeUp}
           href={locale === "es" ? "/resume-es.pdf" : "/resume-en.pdf"}
           download={locale === "es" ? "Kelvis-Guerrero-CV.pdf" : "Kelvis-Guerrero-Resume.pdf"}
+          data-cursor-label={dict.cursor.download}
           className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-foreground/70 hover:text-foreground hover:underline transition-colors"
         >
           <Download size={14} /> {dict.contact.downloadResume}
