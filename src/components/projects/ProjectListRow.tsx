@@ -27,7 +27,6 @@ export function ProjectListRow({
       href={`/${locale}/projects/${project.slug}`}
       onMouseEnter={onActivate}
       onFocus={onActivate}
-      data-cursor-label={dict.cursor.view}
       className={cn(
         "group flex items-start gap-4 rounded-xl border px-5 py-4 transition-colors",
         active ? "border-accent-text/40 bg-surface" : "border-border/60 bg-surface/60 hover:bg-surface"

@@ -6,7 +6,6 @@ import { MotionConfig } from "motion/react";
 import { ViewTransitions } from "next-view-transitions";
 import { GradientCanvas } from "@/components/ui/GradientCanvas";
 import { CursorSpotlight } from "@/components/ui/CursorSpotlight";
-import { CustomCursor } from "@/components/ui/CustomCursor";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -54,7 +53,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 <GradientCanvas className="pointer-events-none absolute inset-0 h-full w-full" />
               </div>
               <CursorSpotlight />
-              <CustomCursor />
               {children}
             </ThemeProvider>
           </MotionConfig>
