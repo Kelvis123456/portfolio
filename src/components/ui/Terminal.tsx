@@ -11,7 +11,7 @@ const LOG_LINES: LogLine[] = [
   { label: "rentedge — pricing-engine", detail: { en: "rules loaded", es: "reglas cargadas" } },
   { label: "reservaya — postgres", detail: { en: "overlap check passed", es: "verificación de solapamiento aprobada" } },
   { label: "connect5 — relay", detail: { en: "multiplayer connection stable", es: "conexión multijugador estable" } },
-  { label: "monarch — supabase", detail: { en: "auth + RLS active", es: "auth + RLS activos" } },
+  { label: "willforge — supabase", detail: { en: "auth + RLS active", es: "auth + RLS activos" } },
   { label: "detective-game — case-engine", detail: { en: "evidence linked", es: "evidencia vinculada" } },
   { label: "build — next.js", detail: { en: "0 errors, 0 warnings", es: "0 errores, 0 warnings" } },
 ];
