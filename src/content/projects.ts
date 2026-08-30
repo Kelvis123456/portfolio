@@ -166,6 +166,7 @@ export const projects: Project[] = [
     coverFit: "contain",
     gallery: [
       "/images/willforge/dashboard.png",
+      "/images/willforge/splash.png",
       "/images/willforge/avatar-gallery.png",
       "/images/willforge/profile.png",
       "/images/willforge/achievements.png",
