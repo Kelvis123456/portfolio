@@ -148,6 +148,7 @@ export const projects: Project[] = [
         "Daily Quests generated deterministically per (date, rank) with a configurable rest-day schedule",
         "18-illustration avatar gallery, freely pickable, decoupled from any other profile data",
         "Lifetime stat trend (sparkline + delta) computed from a real per-level-up snapshot table, not estimated",
+        "Persistent training routines built from the real exercise catalog, picked from a gallery and kept active across sessions",
       ],
       es: [
         "Sistema de guild con agregación real de XP semanal entre miembros y desafíos a nivel de guild",
@@ -156,6 +157,7 @@ export const projects: Project[] = [
         "Misiones diarias generadas de forma determinista por (fecha, rango) con un horario de días de descanso configurable",
         "Galería de 18 avatares ilustrados, de elección libre, independiente del resto de los datos del perfil",
         "Tendencia de stats de por vida (sparkline + delta) calculada desde una tabla real de snapshots por level-up, no estimada",
+        "Rutinas de entrenamiento persistentes armadas con el catálogo real de ejercicios, elegidas de una galería y activas entre sesiones",
       ],
     },
     metrics: [
@@ -168,6 +170,7 @@ export const projects: Project[] = [
       "/images/willforge/dashboard.png",
       "/images/willforge/splash.png",
       "/images/willforge/avatar-gallery.png",
+      "/images/willforge/routine.png",
       "/images/willforge/profile.png",
       "/images/willforge/achievements.png",
       "/images/willforge/boss-raid.png",
