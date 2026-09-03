@@ -438,7 +438,7 @@ export const projects: Project[] = [
       { label: { en: "Unity scripts", es: "Scripts de Unity" }, value: "35" },
     ],
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/skim-game-design", icon: "github" }],
-    placeholderGallery: true,
+    gallery: ["/images/skim/gameplay.png"],
     accentColor: "#2f8f9e",
   },
   {
