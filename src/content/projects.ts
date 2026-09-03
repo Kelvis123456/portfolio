@@ -381,6 +381,7 @@ export const projects: Project[] = [
         "Art direction — pixel art at 480×270, echo shader system, full style guide",
         "Technical architecture — Service Locator + ScriptableObject events, per-layer time scales for bullet-time",
         "Vertical Slice plan with a real working prototype (14 C# scripts: player controller, echo system, time manager)",
+        "Full production plan across 5 milestones (echo system at full scale, 50-room pool, 3 bosses, meta-progression, ethical monetization) and a QA/launch plan with test cases centered on the echo/bullet-time system",
       ],
       es: [
         "Investigación de mercado en el sector de juegos móviles, identificando un nicho desatendido en roguelites basados en física",
@@ -389,9 +390,13 @@ export const projects: Project[] = [
         "Dirección de arte — pixel art a 480×270, sistema de shader de ecos, guía de estilo completa",
         "Arquitectura técnica — Service Locator + eventos ScriptableObject, escalas de tiempo por capa para el bullet-time",
         "Plan de Vertical Slice con un prototipo real funcionando (14 scripts C#: controlador del jugador, sistema de ecos, gestor de tiempo)",
+        "Plan de producción completa en 5 milestones (sistema de ecos a escala real, pool de 50 salas, 3 bosses, meta-progresión, monetización ética) y plan de QA/lanzamiento con casos de prueba centrados en el sistema de ecos/bullet-time",
       ],
     },
-    metrics: [{ label: { en: "Design docs", es: "Documentos de diseño" }, value: "11 files, ~870KB" }],
+    metrics: [
+      { label: { en: "Design docs", es: "Documentos de diseño" }, value: "14 files, ~476KB" },
+      { label: { en: "Unity scripts", es: "Scripts de Unity" }, value: "14" },
+    ],
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/phase-game-design", icon: "github" }],
     placeholderGallery: true,
     accentColor: "#5b6b8c",
