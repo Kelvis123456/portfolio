@@ -53,6 +53,7 @@ export function Terminal({ className }: { className?: string }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const logRef = useRef<HTMLDivElement>(null);
   const isVisible = useIsVisible(containerRef);
   const active = isVisible && !shouldReduceMotion;
   const hasSeededRef = useRef(false);
@@ -120,6 +121,12 @@ export function Terminal({ className }: { className?: string }) {
     };
   }, [active, shouldReduceMotion, locale]);
 
+  useEffect(() => {
+    const el = logRef.current;
+    if (!el) return;
+    el.scrollTop = el.scrollHeight;
+  }, [typed]);
+
   return (
     <div
       ref={containerRef}
@@ -134,7 +141,10 @@ export function Terminal({ className }: { className?: string }) {
         <span className="h-2.5 w-2.5 rounded-full bg-[#28C840]" />
         <span className="ml-2.5 tracking-wide text-muted-foreground">kelvis@systems: status</span>
       </div>
-      <div className="h-[168px] overflow-hidden px-3.5 py-4 text-left leading-[1.85] text-foreground/80">
+      <div
+        ref={logRef}
+        className="h-[168px] overflow-y-auto overscroll-contain px-3.5 py-4 text-left leading-[1.85] text-foreground/80 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
         {typed.map((line, i) => (
           <div key={i} className="whitespace-pre-wrap break-words">
             <span className="text-accent-2-text">✓</span> {line}
