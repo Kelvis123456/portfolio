@@ -426,11 +426,13 @@ export const projects: Project[] = [
         "Market research and concept generation, merging two finalist ideas into SKIM",
         "Full GDD across 11 phases, art direction per weather tier, tech stack selection",
         "Working Unity project already started: 35 C# scripts across audio, camera, core physics, and economy systems",
+        "Wired the documented night-ocean art direction into real shaders and per-stone geometry, and built the full menu flow (collection, climate, daily challenge, settings) from the UX spec",
       ],
       es: [
         "Investigación de mercado y generación de conceptos, fusionando dos ideas finalistas en SKIM",
         "GDD completo a lo largo de 11 fases, dirección de arte por nivel climático, selección de stack técnico",
         "Proyecto Unity real ya iniciado: 35 scripts C# entre audio, cámara, física central y sistemas de economía",
+        "Se conectó la dirección de arte del océano nocturno a shaders reales y geometría propia por piedra, y se construyó el flujo completo de menús (colección, clima, desafío diario, configuración) a partir de la especificación UX",
       ],
     },
     metrics: [
@@ -438,8 +440,8 @@ export const projects: Project[] = [
       { label: { en: "Unity scripts", es: "Scripts de Unity" }, value: "35" },
     ],
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/skim-game-design", icon: "github" }],
-    gallery: ["/images/skim/gameplay.png"],
-    accentColor: "#2f8f9e",
+    gallery: ["/images/skim/gameplay.png", "/images/skim/menu.png", "/images/skim/collection.png"],
+    accentColor: "#00c4cc",
   },
   {
     slug: "neon-tether",
