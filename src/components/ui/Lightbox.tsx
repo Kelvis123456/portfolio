@@ -195,7 +195,7 @@ export function Lightbox({ images, alt }: { images: string[]; alt: string }) {
               exit={{ scale: 0.95 }}
               className={
                 zoomed
-                  ? "relative max-h-[85vh] max-w-[90vw] overflow-auto rounded-xl"
+                  ? "relative max-h-[calc(100vh-3rem)] max-w-[calc(100vw-3rem)] overflow-auto rounded-xl"
                   : "relative max-h-[85vh] max-w-[90vw]"
               }
             >
