@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
@@ -10,7 +10,24 @@ import { useLanguage } from "@/lib/language-context";
 import { lockScroll, unlockScroll } from "@/lib/scroll-lock";
 import { pushModal, popModal, isTopModal } from "@/lib/modal-stack";
 
-export function Lightbox({ images, alt }: { images: string[]; alt: string }) {
+export interface LightboxHandle {
+  open: (index: number) => void;
+}
+
+interface LightboxProps {
+  /** Full navigable sequence -- prev/next cycles through all of these. */
+  images: string[];
+  /** Subset rendered as a clickable thumbnail grid. Omit to render no grid
+   *  at all (e.g. when every image in `images` already has its own trigger
+   *  elsewhere, like a project's hero cover calling `.open(0)` via ref). */
+  thumbnails?: string[];
+  alt: string;
+}
+
+export const Lightbox = forwardRef<LightboxHandle, LightboxProps>(function Lightbox(
+  { images, thumbnails, alt },
+  ref
+) {
   const { locale } = useLanguage();
   const dict = dictionary[locale].lightbox;
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -32,6 +49,10 @@ export function Lightbox({ images, alt }: { images: string[]; alt: string }) {
   const modalIdRef = useRef<symbol | null>(null);
 
   useEffect(() => setMounted(true), []);
+
+  useImperativeHandle(ref, () => ({
+    open: (index: number) => setOpenIndex(index),
+  }));
 
   function showPrev() {
     setOpenIndex((i) => (i === null ? null : (i - 1 + images.length) % images.length));
@@ -103,30 +124,32 @@ export function Lightbox({ images, alt }: { images: string[]; alt: string }) {
 
   return (
     <>
-      <div className={images.length > 1 ? "grid gap-4 sm:grid-cols-2" : "grid gap-4"}>
-        {images.map((src, i) => (
-          <button
-            key={src}
-            type="button"
-            onClick={(e) => {
-              triggerRef.current = e.currentTarget;
-              setOpenIndex(i);
-            }}
-            style={{ aspectRatio: ratios[i] ?? 16 / 10 }}
-            className="relative cursor-zoom-in overflow-hidden rounded-2xl border border-border bg-surface-muted"
-          >
-            <Image
-              src={src}
-              alt={`${alt} ${i + 1}`}
-              fill
-              sizes="(min-width: 640px) 50vw, 100vw"
-              quality={90}
-              onLoad={(e) => handleThumbnailLoad(i, e)}
-              className="object-cover object-top transition-opacity hover:opacity-90"
-            />
-          </button>
-        ))}
-      </div>
+      {thumbnails && thumbnails.length > 0 && (
+        <div className={thumbnails.length > 1 ? "grid gap-4 sm:grid-cols-2" : "grid gap-4"}>
+          {thumbnails.map((src, i) => (
+            <button
+              key={src}
+              type="button"
+              onClick={(e) => {
+                triggerRef.current = e.currentTarget;
+                setOpenIndex(images.indexOf(src));
+              }}
+              style={{ aspectRatio: ratios[i] ?? 16 / 10 }}
+              className="relative cursor-zoom-in overflow-hidden rounded-2xl border border-border bg-surface-muted"
+            >
+              <Image
+                src={src}
+                alt={`${alt} ${images.indexOf(src) + 1}`}
+                fill
+                sizes="(min-width: 640px) 50vw, 100vw"
+                quality={90}
+                onLoad={(e) => handleThumbnailLoad(i, e)}
+                className="object-cover object-top transition-opacity hover:opacity-90"
+              />
+            </button>
+          ))}
+        </div>
+      )}
 
       {mounted && createPortal(
         <AnimatePresence>
@@ -225,4 +248,4 @@ export function Lightbox({ images, alt }: { images: string[]; alt: string }) {
       )}
     </>
   );
-}
+});
