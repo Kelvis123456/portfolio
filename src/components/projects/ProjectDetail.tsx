@@ -1,11 +1,12 @@
 "use client";
 
+import { useRef } from "react";
 import { Link } from "next-view-transitions";
 import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
 import { projects, type Project } from "@/content/projects";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { ProjectCover } from "@/components/ui/ProjectCover";
-import { Lightbox } from "@/components/ui/Lightbox";
+import { Lightbox, type LightboxHandle } from "@/components/ui/Lightbox";
 import { GithubIcon } from "@/components/ui/GithubIcon";
 import { dictionary } from "@/content/dictionary";
 import { useLanguage, t, tList, type Locale } from "@/lib/language-context";
@@ -73,13 +74,27 @@ function DesignProcessCaseStudy({ project, locale }: { project: Project; locale:
   );
 }
 
-function ProjectGallery({ project, locale }: { project: Project; locale: Locale }) {
+function ProjectGallery({
+  project,
+  locale,
+  lightboxRef,
+}: {
+  project: Project;
+  locale: Locale;
+  lightboxRef: React.RefObject<LightboxHandle | null>;
+}) {
   const dict = dictionary[locale];
-  const rest = project.gallery?.slice(1) ?? [];
-  if (rest.length === 0) return null;
+  const gallery = project.gallery ?? [];
+  const rest = gallery.slice(1);
+  if (gallery.length === 0) return null;
   return (
-    <div className="mt-10">
-      <Lightbox images={rest} alt={`${project.title} ${dict.lightbox.screenshot}`} />
+    <div className={rest.length > 0 ? "mt-10" : undefined}>
+      <Lightbox
+        ref={lightboxRef}
+        images={gallery}
+        thumbnails={rest}
+        alt={`${project.title} ${dict.lightbox.screenshot}`}
+      />
     </div>
   );
 }
@@ -87,6 +102,8 @@ function ProjectGallery({ project, locale }: { project: Project; locale: Locale 
 export function ProjectDetail({ project }: { project: Project }) {
   const { locale } = useLanguage();
   const dict = dictionary[locale];
+  const lightboxRef = useRef<LightboxHandle>(null);
+  const hasGallery = (project.gallery?.length ?? 0) > 0;
 
   const index = projects.findIndex((p) => p.slug === project.slug);
   const prev = index > 0 ? projects[index - 1] : projects[projects.length - 1];
@@ -125,13 +142,30 @@ export function ProjectDetail({ project }: { project: Project }) {
 
       <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_300px] lg:gap-10">
         <div className="order-1 lg:order-none lg:col-start-1 lg:row-start-1">
-          <ProjectCover
-            project={project}
-            priority
-            fit="contain"
-            sizes="(min-width: 1024px) 800px, 100vw"
-            className="aspect-[16/9] rounded-2xl border border-border"
-          />
+          {hasGallery ? (
+            <button
+              type="button"
+              onClick={() => lightboxRef.current?.open(0)}
+              aria-label={`${project.title} ${dict.lightbox.screenshot} 1`}
+              className="block w-full cursor-zoom-in text-left"
+            >
+              <ProjectCover
+                project={project}
+                priority
+                fit="contain"
+                sizes="(min-width: 1024px) 800px, 100vw"
+                className="aspect-[16/9] rounded-2xl border border-border transition-opacity hover:opacity-90"
+              />
+            </button>
+          ) : (
+            <ProjectCover
+              project={project}
+              priority
+              fit="contain"
+              sizes="(min-width: 1024px) 800px, 100vw"
+              className="aspect-[16/9] rounded-2xl border border-border"
+            />
+          )}
           {project.placeholderGallery && (
             <p className="mt-3 text-center text-xs text-foreground/65">{dict.detail.screenshotsComingSoon}</p>
           )}
@@ -162,7 +196,7 @@ export function ProjectDetail({ project }: { project: Project }) {
         </p>
 
         <div className="order-4 lg:order-none lg:col-start-1 lg:row-start-3">
-          <ProjectGallery project={project} locale={locale} />
+          <ProjectGallery project={project} locale={locale} lightboxRef={lightboxRef} />
         </div>
 
         <div className="order-5 lg:order-none lg:col-start-1 lg:row-start-4">
