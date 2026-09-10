@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut } from "lucide-react";
@@ -19,10 +20,18 @@ export function Lightbox({ images, alt }: { images: string[]; alt: string }) {
   // más allá de su tamaño original.
   const [zoomed, setZoomed] = useState(false);
   const [ratios, setRatios] = useState<Record<number, number>>({});
+  // The dialog is teleported to document.body via a portal below so its
+  // `fixed inset-0` actually covers the viewport -- nested inside the page's
+  // #main-content (which has its own `position: relative; z-index: 10`), it
+  // would be trapped in that stacking context and paint behind the sidebar's
+  // `z-30`, no matter how high its own z-index looks locally.
+  const [mounted, setMounted] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
   const modalIdRef = useRef<symbol | null>(null);
+
+  useEffect(() => setMounted(true), []);
 
   function showPrev() {
     setOpenIndex((i) => (i === null ? null : (i - 1 + images.length) % images.length));
@@ -119,7 +128,8 @@ export function Lightbox({ images, alt }: { images: string[]; alt: string }) {
         ))}
       </div>
 
-      <AnimatePresence>
+      {mounted && createPortal(
+        <AnimatePresence>
         {openIndex !== null && (
           <motion.div
             ref={dialogRef}
@@ -210,7 +220,9 @@ export function Lightbox({ images, alt }: { images: string[]; alt: string }) {
             </motion.div>
           </motion.div>
         )}
-      </AnimatePresence>
+        </AnimatePresence>,
+        document.body
+      )}
     </>
   );
 }
