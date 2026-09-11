@@ -282,8 +282,8 @@ export const projects: Project[] = [
     slug: "connect5",
     title: "Connect5",
     tagline: {
-      en: "Connect-Four-style board game with real online multiplayer",
-      es: "Juego de mesa estilo Conecta 4 con multijugador online real",
+      en: "A five-in-a-row board game with real online multiplayer",
+      es: "Un juego de mesa de conecta 5 con multijugador online real",
     },
     kind: "software",
     category: "game",
