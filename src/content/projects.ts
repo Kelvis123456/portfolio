@@ -515,6 +515,52 @@ export const projects: Project[] = [
     gallery: ["/images/neon-tether/gameplay.png", "/images/neon-tether/menu.png", "/images/neon-tether/shop.png"],
     accentColor: "#d6266e",
   },
+  {
+    slug: "nocturni",
+    title: "Nocturni",
+    tagline: {
+      en: "A premium streaming platform, built source-agnostic by design",
+      es: "Una plataforma de streaming premium, diseñada para ser agnóstica de fuente",
+    },
+    kind: "software",
+    category: "software",
+    status: "in-development",
+    visibility: "private",
+    featured: false,
+    stack: ["Next.js 15", "TypeScript", "Tailwind CSS", "Zustand", "Supabase", "PostgreSQL", "hls.js", "Framer Motion"],
+    role: { en: "Solo developer", es: "Desarrollador en solitario" },
+    summary: {
+      en: "A Netflix-style streaming UI — TMDB metadata, a pluggable multi-source player (HLS + sandboxed embeds), live TV, and real Supabase-backed accounts — built with the content-sourcing layer intentionally decoupled from any specific provider.",
+      es: "Un UI de streaming estilo Netflix — metadata de TMDB, un reproductor multi-fuente conectable (HLS + embeds sandboxeados), TV en vivo, y cuentas reales respaldadas por Supabase — construido con la capa de fuentes de contenido intencionalmente desacoplada de cualquier proveedor específico.",
+    },
+    problem: {
+      en: "A \"watch everything\" streaming clone is a common learning project, but most either hardcode unlicensed embed domains straight into the code, or skip authentication and persistence entirely and leave everything as local mock state.",
+      es: "Un clon de streaming \"para ver de todo\" es un proyecto de aprendizaje común, pero la mayoría hardcodea dominios de embeds no licenciados directamente en el código, o se salta la autenticación y persistencia por completo, dejando todo como estado simulado local.",
+    },
+    solution: {
+      en: "The player and live-TV layers read from pluggable provider configs (JSON, populated with your own licensed sources) instead of hardcoded embed domains, and real accounts run on Supabase — Netflix-style sub-profiles, RLS-protected favorites and watch progress synced across devices — with the whole app degrading gracefully to a local-only guest mode whenever no backend is configured.",
+      es: "Las capas de reproductor y TV en vivo leen de configuraciones de proveedores conectables (JSON, poblado con tus propias fuentes licenciadas) en vez de dominios de embeds hardcodeados, y las cuentas reales corren sobre Supabase — sub-perfiles estilo Netflix, favoritos y progreso de reproducción protegidos por RLS y sincronizados entre dispositivos — con toda la app degradando con gracia a un modo invitado local cuando no hay backend configurado.",
+    },
+    architectureHighlights: {
+      en: [
+        "Server Components fetch TMDB metadata directly server-side (the API token never reaches the client), with each home-page row streamed independently via Suspense so one failing category never takes down the rest of the page",
+        "Custom hls.js player (quality levels, resume-from-progress, skip-intro, next-episode) alongside a sandboxed iframe path for embed sources, sharing one pluggable provider config across movies/series and live IPTV channels",
+        "Supabase auth + Postgres persistence: viewer_profiles/favorites/watch_progress tables with row-level security scoped to auth.uid(), WITH CHECK on every mutating policy (not just USING), and a SECURITY DEFINER signup trigger with its direct RPC execute access explicitly revoked",
+        "The Zustand store syncs against Postgres for signed-in users and transparently falls back to localStorage-only guest mode when Supabase isn't configured — no code path assumes a backend is always present",
+        "A PIN-gated \"+18\" zone scoped to TMDB's own mature-content rating flag, not an actual adult-content catalog",
+      ],
+      es: [
+        "Los Server Components obtienen la metadata de TMDB directamente del lado del servidor (el token de la API nunca llega al cliente), con cada fila de la home transmitida de forma independiente vía Suspense para que una categoría que falle nunca tumbe el resto de la página",
+        "Reproductor hls.js a medida (niveles de calidad, resume de progreso, skip-intro, siguiente episodio) junto a una ruta de iframe sandboxeado para fuentes de embed, compartiendo una misma configuración de proveedores conectable entre películas/series y canales de TV en vivo",
+        "Autenticación con Supabase + persistencia en Postgres: tablas viewer_profiles/favorites/watch_progress con row-level security ligada a auth.uid(), WITH CHECK en cada política mutante (no solo USING), y un trigger de registro SECURITY DEFINER con su acceso directo de ejecución por RPC explícitamente revocado",
+        "El store de Zustand sincroniza contra Postgres para usuarios autenticados y cae de forma transparente a modo invitado solo-local cuando Supabase no está configurado — ningún camino de código asume que siempre hay un backend disponible",
+        "Una zona \"+18\" protegida por PIN, acotada a la bandera de clasificación madura propia de TMDB, no un catálogo real de contenido adulto",
+      ],
+    },
+    links: [{ label: PRIVATE_LABEL, href: "mailto:kelvisguerrero03@gmail.com?subject=Nocturni%20repo%20access", icon: "external" }],
+    placeholderGallery: true,
+    accentColor: "#8B5CF6",
+  },
 ];
 
 export interface OtherWork {
