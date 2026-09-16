@@ -529,7 +529,7 @@ export const projects: Project[] = [
     category: "software",
     status: "in-development",
     visibility: "private",
-    featured: false,
+    featured: true,
     stack: ["Next.js 15", "TypeScript", "Tailwind CSS", "Zustand", "Supabase", "PostgreSQL", "hls.js", "Framer Motion"],
     role: { en: "Solo developer", es: "Desarrollador en solitario" },
     summary: {
@@ -561,7 +561,7 @@ export const projects: Project[] = [
       ],
     },
     links: [{ label: PRIVATE_LABEL, href: "mailto:kelvisguerrero03@gmail.com?subject=Nocturni%20repo%20access", icon: "external" }],
-    placeholderGallery: true,
+    gallery: ["/images/nocturni/home.png", "/images/nocturni/details-modal.png", "/images/nocturni/movies.png"],
     accentColor: "#8B5CF6",
   },
 ];
