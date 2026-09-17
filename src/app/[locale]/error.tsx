@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { RefreshCw } from "lucide-react";
+import * as Sentry from "@sentry/nextjs";
 import { dictionary } from "@/content/dictionary";
 import { useLanguage } from "@/lib/language-context";
 
@@ -11,6 +12,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
 
   useEffect(() => {
     console.error(error);
+    Sentry.captureException(error);
   }, [error]);
 
   return (
