@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import { Moon, Sun } from "lucide-react";
 import { dictionary } from "@/content/dictionary";
 import { useLanguage } from "@/lib/language-context";
@@ -10,6 +10,10 @@ import { useLanguage } from "@/lib/language-context";
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
   const { locale } = useLanguage();
+  // next-themes' own documented pattern: `resolvedTheme` is unknown during
+  // SSR/first paint, so rendering an icon before mount would flash the wrong
+  // one or mismatch the server output. Deferring to an effect avoids that,
+  // not a fixable "extra render" — see the equivalent note in Lightbox.tsx.
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => setMounted(true), []);
@@ -28,7 +32,7 @@ export function ThemeToggle() {
       className="relative flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface hover:bg-surface-muted transition-colors overflow-hidden"
     >
       <AnimatePresence mode="wait" initial={false}>
-        <motion.span
+        <m.span
           key={isDark ? "moon" : "sun"}
           initial={{ rotate: -90, opacity: 0 }}
           animate={{ rotate: 0, opacity: 1 }}
@@ -37,7 +41,7 @@ export function ThemeToggle() {
           className="flex"
         >
           {isDark ? <Moon size={16} /> : <Sun size={16} />}
-        </motion.span>
+        </m.span>
       </AnimatePresence>
     </button>
   );

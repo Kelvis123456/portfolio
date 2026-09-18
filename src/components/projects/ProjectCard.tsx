@@ -1,7 +1,7 @@
 "use client";
 
 import { Link } from "next-view-transitions";
-import { motion, useReducedMotion } from "motion/react";
+import { m, useReducedMotion } from "motion/react";
 import { Star } from "lucide-react";
 import type { Project } from "@/content/projects";
 import { StatusBadge } from "@/components/ui/StatusBadge";
@@ -17,7 +17,7 @@ export function ProjectCard({ project, large = false }: { project: Project; larg
 
   return (
     <Link href={`/${locale}/projects/${project.slug}`} className="block h-full">
-      <motion.article
+      <m.article
         whileHover={shouldReduceMotion ? undefined : { y: -6 }}
         transition={{ type: "spring", stiffness: 300, damping: 22 }}
         className={cn(
@@ -71,7 +71,7 @@ export function ProjectCard({ project, large = false }: { project: Project; larg
             ))}
           </div>
         </div>
-      </motion.article>
+      </m.article>
     </Link>
   );
 }
