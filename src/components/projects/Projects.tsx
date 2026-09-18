@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ProjectCard } from "@/components/projects/ProjectCard";
@@ -47,7 +47,7 @@ export function Projects() {
       <div className="mx-auto max-w-6xl px-6">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <SectionHeading index="02">{dict.projects.heading}</SectionHeading>
-          <motion.div
+          <m.div
             variants={fadeUp}
             role="group"
             aria-label={dict.projects.heading}
@@ -64,7 +64,7 @@ export function Projects() {
                 )}
               >
                 {filter === f.value && (
-                  <motion.span
+                  <m.span
                     layoutId="filterPill"
                     className="absolute inset-0 rounded-full bg-foreground"
                     transition={{ type: "spring", stiffness: 350, damping: 30 }}
@@ -73,65 +73,84 @@ export function Projects() {
                 <span className="relative z-10">{f.label}</span>
               </button>
             ))}
-          </motion.div>
+          </m.div>
         </div>
 
-        {filtered.length === 0 ? (
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="mt-10 rounded-2xl border border-dashed border-border py-12 text-center text-sm text-foreground/65"
-          >
-            {dict.projects.emptyFilter}
-          </motion.p>
-        ) : (
-          <>
-            <motion.div className="mt-10 grid gap-5 sm:grid-cols-2 xl:hidden">
-              <AnimatePresence mode="popLayout" initial={false}>
-                {filtered.map((project, index) => (
-                  <motion.div
+        {/*
+          AnimatePresence must stay mounted across the empty/non-empty
+          transition — it used to sit behind an outer `filtered.length === 0`
+          ternary, so switching to the empty state unmounted AnimatePresence
+          itself along with every item, skipping their exit animations
+          entirely. Now the ternary lives INSIDE each AnimatePresence instead.
+        */}
+        <m.div className="mt-10 grid gap-5 sm:grid-cols-2 xl:hidden">
+          <AnimatePresence mode="popLayout" initial={false}>
+            {filtered.length === 0 ? (
+              <m.p
+                key="empty-mobile"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="col-span-full rounded-2xl border border-dashed border-border py-12 text-center text-sm text-foreground/65"
+              >
+                {dict.projects.emptyFilter}
+              </m.p>
+            ) : (
+              filtered.map((project, index) => (
+                <m.div
+                  layout
+                  key={project.slug}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -16 }}
+                  transition={{ duration: 0.25, delay: index * 0.04 }}
+                  className={project === flagship ? "sm:col-span-2" : ""}
+                >
+                  <ProjectCard project={project} large={project === flagship} />
+                </m.div>
+              ))
+            )}
+          </AnimatePresence>
+        </m.div>
+
+        <div className="mt-10 hidden gap-10 xl:grid xl:grid-cols-[minmax(0,1fr)_560px]">
+          <div className="flex flex-col gap-3">
+            <AnimatePresence mode="popLayout" initial={false}>
+              {filtered.length === 0 ? (
+                <m.p
+                  key="empty-desktop"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="rounded-2xl border border-dashed border-border py-12 text-center text-sm text-foreground/65"
+                >
+                  {dict.projects.emptyFilter}
+                </m.p>
+              ) : (
+                filtered.map((project, index) => (
+                  <m.div
                     layout
                     key={project.slug}
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -16 }}
                     transition={{ duration: 0.25, delay: index * 0.04 }}
-                    className={project === flagship ? "sm:col-span-2" : ""}
                   >
-                    <ProjectCard project={project} large={project === flagship} />
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-            </motion.div>
+                    <ProjectListRow
+                      project={project}
+                      index={index}
+                      active={project.slug === activeProject?.slug}
+                      onActivate={() => setActiveSlug(project.slug)}
+                    />
+                  </m.div>
+                ))
+              )}
+            </AnimatePresence>
+          </div>
+          <ProjectPreviewPane project={activeProject} />
+        </div>
 
-            <div className="mt-10 hidden gap-10 xl:grid xl:grid-cols-[minmax(0,1fr)_560px]">
-              <div className="flex flex-col gap-3">
-                <AnimatePresence mode="popLayout" initial={false}>
-                  {filtered.map((project, index) => (
-                    <motion.div
-                      layout
-                      key={project.slug}
-                      initial={{ opacity: 0, y: 16 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -16 }}
-                      transition={{ duration: 0.25, delay: index * 0.04 }}
-                    >
-                      <ProjectListRow
-                        project={project}
-                        index={index}
-                        active={project.slug === activeProject?.slug}
-                        onActivate={() => setActiveSlug(project.slug)}
-                      />
-                    </motion.div>
-                  ))}
-                </AnimatePresence>
-              </div>
-              <ProjectPreviewPane project={activeProject} />
-            </div>
-          </>
-        )}
-
-        <motion.div variants={fadeUp} className="mt-16">
+        <m.div variants={fadeUp} className="mt-16">
           <h3 className="text-sm font-medium uppercase tracking-widest text-foreground/65">
             {dict.projects.moreProjects}
           </h3>
@@ -149,7 +168,7 @@ export function Projects() {
               </a>
             ))}
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </Section>
   );

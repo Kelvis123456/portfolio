@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useMotionValue, useSpring, useReducedMotion } from "motion/react";
+import { m, useMotionValue, useSpring, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/cn";
 
 export function MagneticButton({
@@ -46,7 +46,7 @@ export function MagneticButton({
     y.set(0);
   }
 
-  const Component = href ? motion.a : motion.button;
+  const Component = href ? m.a : m.button;
 
   return (
     <Component

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { m, useReducedMotion } from "motion/react";
 import { fadeUp } from "@/lib/motion-variants";
 import { cn } from "@/lib/cn";
 
@@ -16,7 +16,7 @@ export function Section({
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <motion.section
+    <m.section
       id={id}
       className={cn("relative w-full py-24 sm:py-32", className)}
       initial={shouldReduceMotion ? "visible" : "hidden"}
@@ -25,6 +25,6 @@ export function Section({
       variants={fadeUp}
     >
       {children}
-    </motion.section>
+    </m.section>
   );
 }

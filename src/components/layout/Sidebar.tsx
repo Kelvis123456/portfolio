@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { Link } from "next-view-transitions";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { Mail, Search } from "lucide-react";
 import { GithubIcon } from "@/components/ui/GithubIcon";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
@@ -58,10 +58,11 @@ export function Sidebar() {
             const active = activeId === item.id;
             const content = (
               <>
-                <motion.span
-                  animate={{ width: active ? 32 : 16 }}
+                <m.span
+                  animate={{ scaleX: active ? 1 : 0.5 }}
                   transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                  className="h-px shrink-0 bg-current"
+                  style={{ transformOrigin: "left" }}
+                  className="h-px w-8 shrink-0 bg-current"
                 />
                 {item.label}
               </>

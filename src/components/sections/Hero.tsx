@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { m, useReducedMotion } from "motion/react";
 import { ArrowDown } from "lucide-react";
 import { GithubIcon } from "@/components/ui/GithubIcon";
 import { siteConfig } from "@/content/siteConfig";
@@ -26,32 +26,32 @@ export function Hero() {
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(255,138,76,0.16),transparent_70%)]"
       />
 
-      <motion.div
+      <m.div
         initial="hidden"
         animate="visible"
         variants={staggerContainer(0.04)}
         className="relative z-10 flex w-full max-w-3xl flex-col items-center text-center"
       >
-        <motion.span
+        <m.span
           variants={wordReveal}
           className="mb-5 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-accent-text lg:hidden"
         >
           <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
           {t(siteConfig.role, locale)}
-        </motion.span>
+        </m.span>
 
         <h1 className="w-full text-balance text-[clamp(2rem,5.5vw,4rem)] font-display font-medium leading-[1.08] tracking-tight">
           {words.map((word, i) => (
-            <span key={i}>
-              <motion.span variants={wordReveal} className="inline-block">
+            <span key={`${word}-${i}`}>
+              <m.span variants={wordReveal} className="inline-block">
                 {word}
-              </motion.span>
+              </m.span>
               {i < words.length - 1 ? " " : ""}
             </span>
           ))}
         </h1>
 
-        <motion.div variants={wordReveal} className="mt-10 flex flex-wrap items-center justify-center gap-4">
+        <m.div variants={wordReveal} className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <MagneticButton href="#projects" className="bg-foreground text-background hover:bg-foreground/88">
             {dict.hero.viewProjects}
           </MagneticButton>
@@ -75,14 +75,14 @@ export function Hero() {
             label={dict.hero.contact}
             className="border border-border bg-surface hover:border-accent-text/30 hover:bg-surface-muted"
           />
-        </motion.div>
+        </m.div>
 
-        <motion.div variants={wordReveal} className="mt-12 w-full max-w-md">
+        <m.div variants={wordReveal} className="mt-12 w-full max-w-md">
           <Terminal />
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
 
-      <motion.a
+      <m.a
         href="#about"
         aria-label={dict.scrollDown}
         animate={shouldReduceMotion ? undefined : { y: [0, 8, 0] }}
@@ -90,7 +90,7 @@ export function Hero() {
         className="absolute bottom-10 z-10 text-foreground/65 hover:text-foreground/70 transition-colors"
       >
         <ArrowDown size={20} />
-      </motion.a>
+      </m.a>
     </section>
   );
 }

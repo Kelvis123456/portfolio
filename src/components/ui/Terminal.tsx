@@ -146,7 +146,7 @@ export function Terminal({ className }: { className?: string }) {
         className="h-[168px] overflow-y-auto overscroll-contain px-3.5 py-4 text-left leading-[1.85] text-foreground/80 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {typed.map((line, i) => (
-          <div key={i} className="whitespace-pre-wrap break-words">
+          <div key={`${i}-${line}`} className="whitespace-pre-wrap break-words">
             <span className="text-accent-2-text">✓</span> {line}
             {!shouldReduceMotion && i === activeIndex && i === typed.length - 1 && (
               <span className="ml-0.5 inline-block h-3 w-1.5 translate-y-0.5 animate-pulse bg-accent" />

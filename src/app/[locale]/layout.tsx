@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { LanguageProvider, type Locale } from "@/lib/language-context";
+import { safeJsonLdStringify } from "@/lib/safe-json-ld";
 import { CommandPaletteProvider } from "@/lib/command-palette-context";
 import { CommandPalette } from "@/components/ui/CommandPalette";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
@@ -68,7 +69,7 @@ export default async function LocaleLayout({
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd(locale)) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLdStringify(personJsonLd(locale)) }}
       />
       <LanguageProvider locale={locale}>
         <CommandPaletteProvider>

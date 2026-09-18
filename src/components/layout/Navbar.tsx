@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Link } from "next-view-transitions";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import { Menu, Search, X } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { LanguageToggle } from "@/components/ui/LanguageToggle";
@@ -51,6 +51,9 @@ export function Navbar() {
     lockScroll();
     const modalId = pushModal();
 
+    // Captured now, not read from the ref inside cleanup — cleanup can run
+    // after `.current` has already changed (e.g. component re-render/unmount).
+    const toggleButton = toggleButtonRef.current;
     const menu = menuRef.current;
     const focusable = menu?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])');
     focusable?.[0]?.focus();
@@ -81,7 +84,7 @@ export function Navbar() {
       document.removeEventListener("keydown", handleKeyDown);
       popModal(modalId);
       unlockScroll();
-      toggleButtonRef.current?.focus();
+      toggleButton?.focus();
     };
   }, [mobileOpen]);
 
@@ -134,7 +137,7 @@ export function Navbar() {
 
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div
+          <m.div
             id="mobile-menu"
             ref={menuRef}
             role="dialog"
@@ -149,6 +152,15 @@ export function Navbar() {
             }}
             className="fixed inset-0 z-40 flex flex-col bg-background"
           >
+            {/*
+              This div only catches pointer clicks that land on its own empty
+              padding (mouse-only convenience for dismissing the menu) — it
+              wraps real interactive nav links, so it deliberately isn't given
+              an interactive role/tabIndex itself, which would misrepresent the
+              nav list to assistive tech. Keyboard/AT users already have a full
+              path to close the menu via Escape and the explicit close button
+              above, both wired in this component already.
+            */}
             <div
               onClick={(e) => {
                 if (e.target === e.currentTarget) setMobileOpen(false);
@@ -159,7 +171,7 @@ export function Navbar() {
                 const active = activeId === item.id;
                 const index = String(i + 1).padStart(2, "0");
                 return (
-                  <motion.div
+                  <m.div
                     key={item.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -194,11 +206,11 @@ export function Navbar() {
                         {item.label}
                       </Link>
                     )}
-                  </motion.div>
+                  </m.div>
                 );
               })}
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </header>

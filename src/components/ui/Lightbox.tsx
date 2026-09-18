@@ -3,7 +3,7 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut } from "lucide-react";
 import { dictionary } from "@/content/dictionary";
 import { useLanguage } from "@/lib/language-context";
@@ -42,6 +42,13 @@ export const Lightbox = forwardRef<LightboxHandle, LightboxProps>(function Light
   // #main-content (which has its own `position: relative; z-index: 10`), it
   // would be trapped in that stacking context and paint behind the sidebar's
   // `z-30`, no matter how high its own z-index looks locally.
+  // `mounted` starts false on purpose, matching SSR (no `document` there),
+  // and only flips true from an effect (post-hydration commit) — reading
+  // `typeof document !== "undefined"` directly at render time instead would
+  // make the client's first render disagree with the server's, which is a
+  // hydration mismatch, not a fix. It also never flips back to false, so it
+  // doesn't share a toggle condition with `openIndex` below: AnimatePresence
+  // is gated once at hydration, not re-gated every open/close.
   const [mounted, setMounted] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -154,7 +161,7 @@ export const Lightbox = forwardRef<LightboxHandle, LightboxProps>(function Light
       {mounted && createPortal(
         <AnimatePresence>
         {openIndex !== null && (
-          <motion.div
+          <m.div
             ref={dialogRef}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -222,7 +229,7 @@ export const Lightbox = forwardRef<LightboxHandle, LightboxProps>(function Light
             {/* Clicking the image bubbles to the backdrop and closes the lightbox
                 (the standard convention) — zoom is only triggered by the dedicated
                 button above, not by clicking the image itself. */}
-            <motion.div
+            <m.div
               initial={{ scale: 0.95 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.95 }}
@@ -240,8 +247,8 @@ export const Lightbox = forwardRef<LightboxHandle, LightboxProps>(function Light
                 quality={100}
                 className={zoomed ? "w-auto max-w-none rounded-xl" : "max-h-[85vh] w-auto rounded-xl object-contain"}
               />
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
         </AnimatePresence>,
         document.body

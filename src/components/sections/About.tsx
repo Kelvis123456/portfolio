@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView, useReducedMotion } from "motion/react";
+import { m, useInView, useReducedMotion } from "motion/react";
 import { MapPin } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -49,23 +49,23 @@ export function About() {
           {dict.about.heading}
         </SectionHeading>
 
-        <motion.div variants={staggerContainer(0.1)} className="grid gap-4 sm:grid-cols-6">
-          <motion.div
+        <m.div variants={staggerContainer(0.1)} className="grid gap-4 sm:grid-cols-6">
+          <m.div
             variants={fadeUp}
             className="flex flex-col gap-6 rounded-2xl border border-border bg-surface p-8 shadow-sm sm:col-span-4 sm:flex-row sm:items-center dark:shadow-none dark:ring-1 dark:ring-white/5"
           >
-            <motion.div
+            <m.div
               className="flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-accent/20 to-accent-2/20 font-display text-2xl font-semibold"
               style={{ transformStyle: "preserve-3d" }}
               whileHover={shouldReduceMotion ? undefined : { rotateX: -6, rotateY: 6, scale: 1.02 }}
               transition={{ type: "spring", stiffness: 200, damping: 15 }}
             >
               {initials}
-            </motion.div>
+            </m.div>
             <p className="text-foreground/70">{t(siteConfig.bio, locale)}</p>
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             variants={fadeUp}
             className="flex flex-col items-center justify-center gap-2 rounded-2xl border border-border bg-surface p-8 text-center shadow-sm sm:col-span-2 dark:shadow-none dark:ring-1 dark:ring-white/5"
           >
@@ -75,10 +75,10 @@ export function About() {
               <br />
               {t(siteConfig.location, locale)}
             </p>
-          </motion.div>
+          </m.div>
 
           {siteConfig.metrics.map((metric) => (
-            <motion.div
+            <m.div
               key={metric.label.en}
               variants={fadeUp}
               className="rounded-2xl border border-border bg-surface p-6 shadow-sm sm:col-span-2 dark:shadow-none dark:ring-1 dark:ring-white/5"
@@ -88,9 +88,9 @@ export function About() {
                 {metric.label.en === "Lines of code (approx.)" && "+"}
               </div>
               <div className="mt-1 text-xs text-foreground/60">{t(metric.label, locale)}</div>
-            </motion.div>
+            </m.div>
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </Section>
   );
