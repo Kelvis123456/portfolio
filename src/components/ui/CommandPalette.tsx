@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useTransitionRouter } from "next-view-transitions";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import { useTheme } from "next-themes";
 import { Search, User, FolderGit2, Code2, Gamepad2, Sparkles, Mail, Sun, Moon, Download } from "lucide-react";
 import { LinkedinIcon } from "@/components/ui/LinkedinIcon";
@@ -15,7 +15,7 @@ import { useLanguage, t } from "@/lib/language-context";
 import { useCommandPalette } from "@/lib/command-palette-context";
 import { lockScroll, unlockScroll } from "@/lib/scroll-lock";
 import { pushModal, popModal } from "@/lib/modal-stack";
-import { cn } from "@/lib/cn";
+import { CommandPaletteResults, type PaletteGroup, type PaletteItem } from "@/components/ui/CommandPaletteResults";
 
 const SECTION_IDS = ["about", "projects", "skills", "contact"] as const;
 const SECTION_ICONS: Record<(typeof SECTION_IDS)[number], React.ComponentType<{ size?: number; className?: string }>> = {
@@ -24,17 +24,6 @@ const SECTION_ICONS: Record<(typeof SECTION_IDS)[number], React.ComponentType<{ 
   skills: Sparkles,
   contact: Mail,
 };
-
-type PaletteGroup = "navigation" | "projects" | "actions";
-
-interface PaletteItem {
-  id: string;
-  group: PaletteGroup;
-  label: string;
-  keywords?: string;
-  icon: React.ComponentType<{ size?: number; className?: string }>;
-  onSelect: () => void;
-}
 
 export function CommandPalette() {
   const { open, setOpen } = useCommandPalette();
@@ -247,7 +236,7 @@ export function CommandPalette() {
   return (
     <AnimatePresence>
       {open && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -255,7 +244,7 @@ export function CommandPalette() {
           className="fixed inset-0 z-[200] flex items-start justify-center bg-black/50 px-4 pt-[12vh] backdrop-blur-sm"
           onClick={close}
         >
-          <motion.div
+          <m.div
             ref={dialogRef}
             initial={{ opacity: 0, y: -12, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -287,47 +276,14 @@ export function CommandPalette() {
               </kbd>
             </div>
 
-            <div id="command-palette-listbox" role="listbox" className="max-h-[50vh] overflow-y-auto p-2">
-              {filtered.length === 0 && (
-                <p className="px-3 py-8 text-center text-sm text-foreground/65">{dict.commandPalette.noResults}</p>
-              )}
-              {groups.map((group) => {
-                const groupItems = filtered.filter((item) => item.group === group.key);
-                if (groupItems.length === 0) return null;
-                return (
-                  <div key={group.key} className="mb-2 last:mb-0">
-                    <p className="px-3 py-1.5 text-xs font-medium uppercase tracking-widest text-foreground/65">
-                      {group.label}
-                    </p>
-                    {groupItems.map((item) => {
-                      const index = filtered.indexOf(item);
-                      const Icon = item.icon;
-                      return (
-                        <button
-                          key={item.id}
-                          id={`command-palette-option-${item.id}`}
-                          ref={(el) => {
-                            itemRefs.current[item.id] = el;
-                          }}
-                          type="button"
-                          role="option"
-                          aria-selected={index === activeIndex}
-                          onMouseEnter={() => setActiveIndex(index)}
-                          onClick={() => item.onSelect()}
-                          className={cn(
-                            "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-colors",
-                            index === activeIndex ? "bg-surface-muted text-foreground" : "text-foreground/70"
-                          )}
-                        >
-                          <Icon size={16} className="shrink-0 text-foreground/65" />
-                          {item.label}
-                        </button>
-                      );
-                    })}
-                  </div>
-                );
-              })}
-            </div>
+            <CommandPaletteResults
+              groups={groups}
+              filtered={filtered}
+              activeIndex={activeIndex}
+              noResultsLabel={dict.commandPalette.noResults}
+              itemRefs={itemRefs}
+              onHoverItem={setActiveIndex}
+            />
 
             <div className="hidden items-center gap-4 border-t border-border px-4 py-2.5 text-xs text-foreground/65 sm:flex">
               <span className="flex items-center gap-1.5">
@@ -344,8 +300,8 @@ export function CommandPalette() {
                 {dict.commandPalette.hintClose}
               </span>
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   );
