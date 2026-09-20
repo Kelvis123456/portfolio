@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, m, useReducedMotion } from "motion/react";
 import { Link } from "next-view-transitions";
 import { ArrowRight } from "lucide-react";
 import type { Project } from "@/content/projects";
@@ -24,7 +24,7 @@ export function ProjectPreviewPane({ project }: { project: Project | undefined }
     <div className="sticky top-24 w-full max-w-[560px] self-start">
       <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-border bg-surface-muted">
         <AnimatePresence initial={false}>
-          <motion.div
+          <m.div
             key={project.slug}
             className="absolute inset-0"
             initial={shouldReduceMotion ? undefined : { opacity: 0 }}
@@ -40,7 +40,7 @@ export function ProjectPreviewPane({ project }: { project: Project | undefined }
               quality={90}
               fit={project.coverFit}
             />
-          </motion.div>
+          </m.div>
         </AnimatePresence>
       </div>
 

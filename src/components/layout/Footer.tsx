@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { siteConfig } from "@/content/siteConfig";
 import { dictionary } from "@/content/dictionary";
 import { useLanguage } from "@/lib/language-context";
@@ -21,11 +20,11 @@ const PERFORMANCE_DATE_LABEL: Record<string, string> = {
 export function Footer() {
   const { locale } = useLanguage();
   const dict = dictionary[locale];
-  const [year, setYear] = useState<number | null>(null);
-
-  useEffect(() => {
-    setYear(new Date().getFullYear());
-  }, []);
+  // Computed directly rather than via an effect+state (which flashed an
+  // empty value on first paint) — this is a static site, so the year is
+  // effectively "frozen" at build time either way, same as the performance
+  // date label above; a same-render value avoids the flash for free.
+  const year = new Date().getFullYear();
 
   return (
     <footer className="w-full border-t border-border/60 py-10">
