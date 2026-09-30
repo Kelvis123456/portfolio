@@ -466,6 +466,7 @@ export const projects: Project[] = [
         "Ethical monetization shipped for real: ad removal, 4 premium cosmetic skins, and a Season Pass, all layered on top of a purchase-provider abstraction ready for the real store SDKs",
         "Accessibility settings connected to actual gameplay — a colorblind mode that remaps echo colors, and adjustable bullet-time echo speed/charge time, all from a real in-game Options screen",
         "GDPR data rights (export/delete) and a first real (unsigned) Android APK build from the same project",
+        "8 run modifiers the player picks before each run, all changing real gameplay: mirrored rooms, faster echoes, fog, double-strength or disabled bullet-time for bonus crystals, echoes only visible in bullet-time, and a short 2-room run",
       ],
       es: [
         "Investigación de mercado en el sector de juegos móviles, identificando un nicho desatendido en roguelites basados en física",
@@ -478,6 +479,7 @@ export const projects: Project[] = [
         "Monetización ética implementada de verdad: modo sin anuncios, 4 skins cosméticas Premium, y un Season Pass, todo sobre una abstracción de proveedor de compra lista para los SDKs reales de tienda",
         "Accesibilidad conectada a gameplay real — un modo daltónico que remapea los colores de los ecos, y velocidad/tiempo de carga de bullet-time ajustables, todo desde una pantalla de Opciones real dentro del juego",
         "Derechos GDPR (exportar/eliminar datos) y un primer build de Android real (APK sin firmar) desde el mismo proyecto",
+        "8 modificadores de run que el jugador elige antes de cada partida, todos con efecto real en el gameplay: salas en espejo, ecos más rápidos, niebla, bullet-time doble o desactivado a cambio de más cristales, ecos visibles solo en bullet-time, y una run corta de 2 salas",
       ],
     },
     metrics: [
