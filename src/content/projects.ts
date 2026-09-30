@@ -323,6 +323,57 @@ export const projects: Project[] = [
     accentColor: "#3568c9",
   },
   {
+    slug: "brick-breaker",
+    title: "Brick Breaker",
+    tagline: {
+      en: "A browser brick breaker with a boss fight, built on a plain canvas",
+      es: "Un brick breaker de navegador con jefe final, hecho sobre un canvas simple",
+    },
+    kind: "software",
+    category: "game",
+    status: "live",
+    featured: false,
+    stack: ["TypeScript", "Canvas 2D", "Web Audio API", "Vite", "Vitest", "Playwright"],
+    role: { en: "Solo developer", es: "Desarrollador en solitario" },
+    summary: {
+      en: "Started as a 30-minute technical assessment, then finished properly: six levels ending in a boss that patrols behind metal bricks, six power-ups (lasers and a fireball among them), combo scoring and a top-5 scoreboard. No game engine and no audio files: sound effects are synthesized in the browser.",
+      es: "Empezó como una prueba técnica de 30 minutos y después lo terminé bien: seis niveles que acaban en un jefe que patrulla detrás de ladrillos de metal, seis power-ups (entre ellos láser y bola de fuego), puntaje por combos y una tabla de los 5 mejores. Sin motor de juego y sin archivos de audio: los efectos de sonido se sintetizan en el navegador.",
+    },
+    problem: {
+      en: "The first version moved the ball a fixed distance per frame, so it ran more than twice as fast on a 144Hz monitor as on a 60Hz one. And collision code in a canvas game is easy to get subtly wrong: balls stuck inside bricks, or bounced back into a brick they were already leaving.",
+      es: "La primera versión movía la bola una distancia fija por frame, así que en un monitor de 144Hz iba a más del doble de velocidad que en uno de 60Hz. Y el código de colisiones de un juego en canvas es fácil de hacer mal sin notarlo: bolas atrapadas dentro de un ladrillo, o rebotadas de vuelta hacia uno del que ya estaban saliendo.",
+    },
+    solution: {
+      en: "Physics runs on a fixed 120Hz step regardless of frame rate, and all collision, bounce and scoring logic lives in a DOM-free module with unit tests. One test sweeps a grid of positions around a brick to check that the corrected position never still overlaps it.",
+      es: "La física corre a un paso fijo de 120Hz sin importar los FPS, y toda la lógica de colisiones, rebotes y puntaje vive en un módulo sin DOM con tests unitarios. Uno de ellos recorre una grilla de posiciones alrededor de un ladrillo para comprobar que la posición corregida nunca lo sigue tocando.",
+    },
+    architectureHighlights: {
+      en: [
+        "Fixed-timestep physics: same speed on 60Hz and 144Hz screens, and no tunneling at top speed",
+        "Levels defined as plain strings ('.' empty, '1'-'3' hits, '#' metal), each one checked by a test to be clearable",
+        "Saved scores treated as untrusted input: validated on load and rendered as text, never HTML",
+        "Playwright tests on desktop and mobile covering the boss fight, power-ups and the scoreboard",
+      ],
+      es: [
+        "Física con paso fijo: misma velocidad en pantallas de 60Hz y 144Hz, y sin atravesar ladrillos a máxima velocidad",
+        "Niveles definidos como texto plano ('.' vacío, '1'-'3' golpes, '#' metal), y un test comprueba que cada uno se puede completar",
+        "Los puntajes guardados se tratan como datos no confiables: se validan al cargar y se muestran como texto, nunca como HTML",
+        "Tests de Playwright en escritorio y móvil que cubren el jefe, los power-ups y la tabla de puntajes",
+      ],
+    },
+    metrics: [
+      { label: { en: "Tests", es: "Tests" }, value: "44 unit + 20 e2e" },
+      { label: { en: "Levels", es: "Niveles" }, value: "6 + boss loop" },
+      { label: { en: "Bundle", es: "Bundle" }, value: "~7KB gzipped" },
+    ],
+    links: [
+      { label: { en: "Play it", es: "Jugar" }, href: "https://brick-breaker-kelvis.vercel.app", icon: "external" },
+      { label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/brick-breaker", icon: "github" },
+    ],
+    gallery: ["/images/brick-breaker/boss.png", "/images/brick-breaker/fireball.png", "/images/brick-breaker/gameplay.png"],
+    accentColor: "#7c5cff",
+  },
+  {
     slug: "detective-game",
     title: "Detective Game",
     tagline: {
