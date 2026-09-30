@@ -24,6 +24,12 @@ interface LightboxProps {
   alt: string;
 }
 
+/** Índices de la imagen anterior y siguiente (sin repetir ni incluir la actual). */
+export function neighborIndexes(index: number, total: number): number[] {
+  if (total < 2) return [];
+  return [...new Set([(index + 1) % total, (index - 1 + total) % total])].filter((i) => i !== index);
+}
+
 export const Lightbox = forwardRef<LightboxHandle, LightboxProps>(function Lightbox(
   { images, thumbnails, alt },
   ref
@@ -248,6 +254,25 @@ export const Lightbox = forwardRef<LightboxHandle, LightboxProps>(function Light
                 className={zoomed ? "w-auto max-w-none rounded-xl" : "max-h-[85vh] w-auto rounded-xl object-contain"}
               />
             </m.div>
+
+            {/* Precarga la anterior y la siguiente con las MISMAS props (mismo
+                srcset -> misma URL optimizada), así la flecha muestra una imagen
+                ya en caché. Sin esto cada flecha esperaba recién ahí la descarga
+                de una captura retina a calidad 100 (varios MB). */}
+            {neighborIndexes(openIndex, images.length).map((i) => (
+              <Image
+                key={`preload-${images[i]}`}
+                src={images[i]}
+                alt=""
+                aria-hidden="true"
+                width={1440}
+                height={900}
+                quality={100}
+                loading="eager"
+                fetchPriority="low"
+                className="pointer-events-none fixed -left-[10000px] top-0 opacity-0"
+              />
+            ))}
           </m.div>
         )}
         </AnimatePresence>,
