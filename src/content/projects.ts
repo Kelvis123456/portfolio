@@ -434,7 +434,14 @@ export const projects: Project[] = [
       { label: { en: "Unity scripts", es: "Scripts de Unity" }, value: "54" },
     ],
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/phase-game-design", icon: "github" }],
-    gallery: ["/images/phase/menu.png", "/images/phase/shop.png", "/images/phase/options.png"],
+    gallery: [
+      "/images/phase/echoes-bullet-time.png",
+      "/images/phase/boss-espejo.png",
+      "/images/phase/zone3-abismo.png",
+      "/images/phase/menu.png",
+      "/images/phase/shop.png",
+      "/images/phase/options.png",
+    ],
     accentColor: "#5b6b8c",
   },
   {
