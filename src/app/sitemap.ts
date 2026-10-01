@@ -22,5 +22,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   );
 
-  return [...homeRoutes, ...projectRoutes];
+  const privacyRoutes: MetadataRoute.Sitemap = LOCALES.map((locale) => ({
+    url: `${BASE_URL}/${locale}/privacy`,
+    changeFrequency: "yearly",
+    priority: 0.2,
+  }));
+
+  return [...homeRoutes, ...projectRoutes, ...privacyRoutes];
 }
