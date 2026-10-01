@@ -4,17 +4,16 @@ import { siteConfig } from "@/content/siteConfig";
 import { dictionary } from "@/content/dictionary";
 import { useLanguage } from "@/lib/language-context";
 
+// Spelled out instead of toLocaleDateString: Node's ICU and the browser's
+// disagree on es-DO abbreviations ("ago" vs "ago."), a hydration mismatch.
+const MONTHS = {
+  en: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+  es: ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"],
+};
+const [perfYear, perfMonth] = siteConfig.performance.date.split("-").map(Number);
 const PERFORMANCE_DATE_LABEL: Record<string, string> = {
-  en: new Date(`${siteConfig.performance.date}T00:00:00Z`).toLocaleDateString("en-US", {
-    month: "short",
-    year: "numeric",
-    timeZone: "UTC",
-  }),
-  es: new Date(`${siteConfig.performance.date}T00:00:00Z`).toLocaleDateString("es-DO", {
-    month: "short",
-    year: "numeric",
-    timeZone: "UTC",
-  }),
+  en: `${MONTHS.en[perfMonth - 1]} ${perfYear}`,
+  es: `${MONTHS.es[perfMonth - 1]} ${perfYear}`,
 };
 
 export function Footer() {
