@@ -7,7 +7,7 @@ import type { Locale } from "@/lib/language-context";
 
 const LOCALES: Locale[] = ["en", "es"];
 
-export const dynamicParams = true;
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return LOCALES.flatMap((locale) => projects.map((project) => ({ locale, slug: project.slug })));
@@ -30,6 +30,7 @@ export async function generateMetadata({
       languages: {
         en: `${siteConfig.url}/en/projects/${slug}`,
         es: `${siteConfig.url}/es/projects/${slug}`,
+        "x-default": `${siteConfig.url}/en/projects/${slug}`,
       },
     },
   };
