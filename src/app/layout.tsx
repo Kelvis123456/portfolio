@@ -42,7 +42,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         possible instead (correct before first paint, just not present in the
         raw server-rendered markup for a no-JS client).
       */}
+      {/* lang="en" por defecto en el HTML del servidor: sin él, un lector de
+          pantalla o crawler sin JS no sabía el idioma. El script de abajo lo
+          corrige a "es" en las rutas /es antes del primer paint. */}
       <html
+        lang="en"
         translate="no"
         suppressHydrationWarning
         className={`notranslate ${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
