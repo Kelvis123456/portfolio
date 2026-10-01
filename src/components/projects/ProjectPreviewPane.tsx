@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, m, useReducedMotion } from "motion/react";
+import { EASE_OUT } from "@/lib/motion-variants";
 import { Link } from "next-view-transitions";
 import { ArrowRight } from "lucide-react";
 import type { Project } from "@/content/projects";
@@ -30,11 +31,10 @@ export function ProjectPreviewPane({ project }: { project: Project | undefined }
             initial={shouldReduceMotion ? undefined : { opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={shouldReduceMotion ? undefined : { opacity: 0 }}
-            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.22, ease: EASE_OUT }}
           >
             <ProjectCover
               project={project}
-              priority
               className="h-full w-full"
               sizes="(min-width: 1024px) 560px, 100vw"
               quality={90}

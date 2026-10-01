@@ -140,6 +140,10 @@ export function GradientCanvas({ className }: { className?: string }) {
       canvas.style.height = `${rect.height}px`;
       gl.viewport(0, 0, width, height);
       gl.uniform2f(resolutionLoc, width, height);
+      // Setting canvas.width clears it to black (alpha: false), and the static
+      // mode (reduced motion / touch) has no loop to repaint -- e.g. when the
+      // mobile URL bar collapses and fires resize.
+      draw(performance.now());
     }
 
     function scheduleResize() {
@@ -156,16 +160,24 @@ export function GradientCanvas({ className }: { className?: string }) {
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     }
 
+    // The drift is slow enough that ~12fps reads the same as 60 and costs a
+    // fraction of the GPU/battery. On touch devices it stays a still frame.
+    const FRAME_MS = 1000 / 12;
+    let lastDraw = 0;
     function loop(time: number) {
-      draw(time);
+      if (time - lastDraw >= FRAME_MS) {
+        lastDraw = time;
+        draw(time);
+      }
       frameId = requestAnimationFrame(loop);
     }
+    const isStatic = shouldReduceMotion || window.matchMedia("(pointer: coarse)").matches;
 
     readColors();
     resize();
     window.addEventListener("resize", scheduleResize);
 
-    if (shouldReduceMotion) {
+    if (isStatic) {
       draw(start);
     } else {
       frameId = requestAnimationFrame(loop);
@@ -173,7 +185,7 @@ export function GradientCanvas({ className }: { className?: string }) {
 
     const themeObserver = new MutationObserver(() => {
       readColors();
-      if (shouldReduceMotion) draw(performance.now());
+      if (isStatic) draw(performance.now());
     });
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
 
