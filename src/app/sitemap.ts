@@ -5,10 +5,11 @@ import { siteConfig } from "@/content/siteConfig";
 const BASE_URL = siteConfig.url;
 const LOCALES = ["en", "es"] as const;
 
+// No lastModified: it was new Date() on every build, so every URL claimed to
+// change on every deploy and Google learns to ignore the field.
 export default function sitemap(): MetadataRoute.Sitemap {
   const homeRoutes: MetadataRoute.Sitemap = LOCALES.map((locale) => ({
     url: `${BASE_URL}/${locale}`,
-    lastModified: new Date(),
     changeFrequency: "weekly",
     priority: 1,
   }));
@@ -16,7 +17,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const projectRoutes: MetadataRoute.Sitemap = LOCALES.flatMap((locale) =>
     projects.map((project) => ({
       url: `${BASE_URL}/${locale}/projects/${project.slug}`,
-      lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.7,
     }))
