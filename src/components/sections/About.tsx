@@ -11,8 +11,10 @@ import { useLanguage, t } from "@/lib/language-context";
 import { staggerContainer, fadeUp } from "@/lib/motion-variants";
 
 // Starts at the real value so the server HTML (and anyone with reduced
-// motion) shows the actual number, not a 0 that only JS can fix.
-function AnimatedNumber({ value }: { value: number }) {
+// motion) shows the actual number, not a 0 that only JS can fix. The locale
+// is passed explicitly: a bare toLocaleString() uses the server's locale on
+// SSR and the visitor's on the client ("1,700" vs "1700"), a hydration mismatch.
+function AnimatedNumber({ value, locale }: { value: number; locale: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.6 });
   const shouldReduceMotion = useReducedMotion();
@@ -33,7 +35,7 @@ function AnimatedNumber({ value }: { value: number }) {
     return () => cancelAnimationFrame(frameId);
   }, [inView, value, shouldReduceMotion]);
 
-  return <span ref={ref}>{display.toLocaleString()}</span>;
+  return <span ref={ref}>{display.toLocaleString(locale)}</span>;
 }
 
 export function About() {
@@ -81,7 +83,7 @@ export function About() {
               className="rounded-2xl border border-border bg-surface p-6 shadow-sm sm:col-span-2 dark:shadow-none dark:ring-1 dark:ring-white/5"
             >
               <div className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">
-                <AnimatedNumber value={metric.value} />
+                <AnimatedNumber value={metric.value} locale={locale} />
                 {metric.suffix}
               </div>
               <div className="mt-1 text-xs text-foreground/60">{t(metric.label, locale)}</div>
