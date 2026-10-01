@@ -11,7 +11,7 @@ This is my personal site — where I put up real, working case studies of the th
 - **`motion` (Framer Motion)** for the scroll reveals, hover-preview panel, and page transitions (`next-view-transitions`). This is a portfolio — the interaction polish is part of what I'm trying to demonstrate, not decoration for its own sake.
 - **Vercel Analytics + Speed Insights**, because I wanted real visitor/performance numbers instead of guessing.
 
-## What's *not* here, on purpose
+## What's _not_ here, on purpose
 
 No test suite, no linter/formatter config, no CI. This is a solo static-ish site with no backend logic to regression-test — for changes here I lean on `tsc --noEmit`, `next build`, and a manual/Playwright smoke pass rather than pretending a test suite would be pulling real weight on a project like this.
 

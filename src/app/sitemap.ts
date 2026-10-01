@@ -19,7 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${BASE_URL}/${locale}/projects/${project.slug}`,
       changeFrequency: "monthly" as const,
       priority: 0.7,
-    }))
+    })),
   );
 
   return [...homeRoutes, ...projectRoutes];

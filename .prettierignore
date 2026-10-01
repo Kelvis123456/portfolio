@@ -1,0 +1,13 @@
+package-lock.json
+public/
+.agents/
+.claude/
+.codebuddy/
+.codex/
+.continue/
+.impeccable/
+.junie/
+.kiro/
+DESIGN.md
+PRODUCT.md
+skills-lock.json

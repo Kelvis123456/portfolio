@@ -22,9 +22,7 @@ export function ProjectCard({ project, large = false }: { project: Project; larg
         transition={{ type: "spring", stiffness: 300, damping: 22 }}
         className={cn(
           "flex h-full flex-col overflow-hidden rounded-2xl border bg-surface shadow-sm transition-shadow hover:shadow-xl hover:shadow-black/5 dark:shadow-none dark:ring-1 dark:ring-white/5 dark:hover:shadow-black/40",
-          project.kind === "game-design"
-            ? "border-dashed border-border"
-            : "border-border"
+          project.kind === "game-design" ? "border-dashed border-border" : "border-border",
         )}
       >
         <ProjectCover
@@ -62,10 +60,7 @@ export function ProjectCard({ project, large = false }: { project: Project; larg
 
           <div className="mt-6 flex flex-wrap gap-2">
             {project.stack.slice(0, large ? 6 : 4).map((tech) => (
-              <span
-                key={tech}
-                className="rounded-full bg-surface-muted px-2.5 py-1 text-xs text-foreground/70"
-              >
+              <span key={tech} className="rounded-full bg-surface-muted px-2.5 py-1 text-xs text-foreground/70">
                 {tech}
               </span>
             ))}

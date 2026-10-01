@@ -12,10 +12,7 @@ const CommandPaletteContext = createContext<CommandPaletteContextValue | null>(n
 
 export function CommandPaletteProvider({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
-  const value = useMemo(
-    () => ({ open, setOpen, toggle: () => setOpen((v) => !v) }),
-    [open]
-  );
+  const value = useMemo(() => ({ open, setOpen, toggle: () => setOpen((v) => !v) }), [open]);
 
   return <CommandPaletteContext.Provider value={value}>{children}</CommandPaletteContext.Provider>;
 }

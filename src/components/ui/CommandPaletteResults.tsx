@@ -33,9 +33,7 @@ export function CommandPaletteResults({
 }: CommandPaletteResultsProps) {
   return (
     <div id="command-palette-listbox" role="listbox" className="max-h-[50vh] overflow-y-auto p-2">
-      {filtered.length === 0 && (
-        <p className="px-3 py-8 text-center text-sm text-foreground/65">{noResultsLabel}</p>
-      )}
+      {filtered.length === 0 && <p className="px-3 py-8 text-center text-sm text-foreground/65">{noResultsLabel}</p>}
       {groups.map((group) => {
         const groupItems = filtered.filter((item) => item.group === group.key);
         if (groupItems.length === 0) return null;
@@ -61,7 +59,7 @@ export function CommandPaletteResults({
                   onClick={() => item.onSelect()}
                   className={cn(
                     "flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-colors",
-                    index === activeIndex ? "bg-surface-muted text-foreground" : "text-foreground/70"
+                    index === activeIndex ? "bg-surface-muted text-foreground" : "text-foreground/70",
                   )}
                 >
                   <Icon size={16} className="shrink-0 text-foreground/65" />

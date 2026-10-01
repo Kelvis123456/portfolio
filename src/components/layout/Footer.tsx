@@ -38,7 +38,12 @@ export function Footer() {
           >
             {siteConfig.performance.score}/100 {dict.footer.performance} · {PERFORMANCE_DATE_LABEL[locale]}
           </span>
-          <a href={siteConfig.github} target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">
+          <a
+            href={siteConfig.github}
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-foreground transition-colors"
+          >
             {dict.footer.github}
           </a>
         </div>

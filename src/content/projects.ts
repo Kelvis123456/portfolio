@@ -81,7 +81,7 @@ export const projects: Project[] = [
         "Multi-tenant JWT/RBAC with tenant isolation enforced in every use case, verified end-to-end (403 on cross-tenant access)",
         "Automated competitive rate intelligence via lightweight adapters that call OTA internal APIs directly instead of browser automation where possible",
         "PostgreSQL + TimescaleDB for pricing/occupancy time series, Redis + BullMQ for repricing events",
-        "Price segmentation by length-of-stay and sales channel, no-show/overbooking risk detection, and deterministic template-based \"why this price changed\" narratives generated from stored rule facts — a $0 alternative to a paid AI pricing assistant",
+        'Price segmentation by length-of-stay and sales channel, no-show/overbooking risk detection, and deterministic template-based "why this price changed" narratives generated from stored rule facts — a $0 alternative to a paid AI pricing assistant',
         "Multi-country tax/currency support (USD/DOP/MXN) and a general activity/audit log capturing every mutating request via a single global middleware, not per-endpoint instrumentation",
         "Public OpenAPI/Swagger docs and automated nightly Postgres backups to Cloudflare R2, with the restore cycle itself verified in CI, not just the backup",
         "Money modeled as exact decimal (not float) end-to-end, with row-level locking around every price mutation so two concurrent repricing events can never silently overwrite each other's result",
@@ -98,7 +98,7 @@ export const projects: Project[] = [
         "Multi-tenancy con JWT/RBAC y aislamiento de tenant forzado en cada caso de uso, verificado de punta a punta (403 en accesos cruzados entre tenants)",
         "Inteligencia competitiva automatizada vía adaptadores ligeros que llaman directamente a las APIs internas de las OTAs en vez de automatización de navegador, cuando es posible",
         "PostgreSQL + TimescaleDB para series de tiempo de precios/ocupación, Redis + BullMQ para eventos de repricing",
-        "Segmentación de precio por duración de estadía y canal de venta, detección de riesgo de no-show/overbooking, y narrativas deterministas basadas en plantillas (\"por qué cambió este precio\") generadas desde los mismos facts de las reglas — una alternativa a $0 frente a un asistente de IA pago",
+        'Segmentación de precio por duración de estadía y canal de venta, detección de riesgo de no-show/overbooking, y narrativas deterministas basadas en plantillas ("por qué cambió este precio") generadas desde los mismos facts de las reglas — una alternativa a $0 frente a un asistente de IA pago',
         "Soporte multi-país de impuestos/moneda (USD/DOP/MXN) y un log de actividad/auditoría general que captura cada request mutante vía un único middleware global, no instrumentación por endpoint",
         "Documentación pública OpenAPI/Swagger y backups automáticos nocturnos de Postgres a Cloudflare R2, con el ciclo de restore verificado en CI, no solo el backup",
         "Dinero modelado como decimal exacto (no float) de punta a punta, con locking a nivel de fila en cada mutación de precio para que dos eventos de repricing concurrentes nunca se pisen en silencio",
@@ -115,8 +115,20 @@ export const projects: Project[] = [
       { label: { en: "Frontend tests", es: "Tests de frontend" }, value: "344 unit + 99 Playwright (3 devices)" },
       { label: { en: "Services", es: "Servicios" }, value: "API + Web + 2 Python microservices" },
     ],
-    links: [{ label: PRIVATE_LABEL, href: "mailto:kelvisguerrero03@gmail.com?subject=RentEdge%20repo%20access", icon: "external" }],
-    gallery: ["/images/rentedge/dashboard.png", "/images/rentedge/dashboard-dark.png", "/images/rentedge/pricing-rules.png", "/images/rentedge/offices.png", "/images/rentedge/login.png"],
+    links: [
+      {
+        label: PRIVATE_LABEL,
+        href: "mailto:kelvisguerrero03@gmail.com?subject=RentEdge%20repo%20access",
+        icon: "external",
+      },
+    ],
+    gallery: [
+      "/images/rentedge/dashboard.png",
+      "/images/rentedge/dashboard-dark.png",
+      "/images/rentedge/pricing-rules.png",
+      "/images/rentedge/offices.png",
+      "/images/rentedge/login.png",
+    ],
     accentColor: "#1e4a8c",
   },
   {
@@ -130,7 +142,18 @@ export const projects: Project[] = [
     category: "software",
     status: "in-development",
     featured: true,
-    stack: [".NET 10", "ASP.NET Core", "EF Core", "SQL Server", "Microsoft.Extensions.AI", "Claude", "WhatsApp Cloud API", "xUnit", "Testcontainers", "Docker"],
+    stack: [
+      ".NET 10",
+      "ASP.NET Core",
+      "EF Core",
+      "SQL Server",
+      "Microsoft.Extensions.AI",
+      "Claude",
+      "WhatsApp Cloud API",
+      "xUnit",
+      "Testcontainers",
+      "Docker",
+    ],
     role: { en: "Backend developer", es: "Desarrollador backend" },
     summary: {
       en: "A .NET backend for the way many small businesses in the Dominican Republic actually take bookings: by hand, over WhatsApp. An LLM agent reads the customer's message, checks real availability, proposes a slot and books it only after the customer says yes. A background job sends a reminder the day before.",
@@ -222,7 +245,13 @@ export const projects: Project[] = [
       { label: { en: "Lines of Dart", es: "Líneas de Dart" }, value: "~19,900" },
       { label: { en: "Screens", es: "Pantallas" }, value: "23" },
     ],
-    links: [{ label: PRIVATE_LABEL, href: "mailto:kelvisguerrero03@gmail.com?subject=WillForge%20repo%20access", icon: "external" }],
+    links: [
+      {
+        label: PRIVATE_LABEL,
+        href: "mailto:kelvisguerrero03@gmail.com?subject=WillForge%20repo%20access",
+        icon: "external",
+      },
+    ],
     coverFit: "contain",
     gallery: [
       "/images/willforge/dashboard.png",
@@ -267,7 +296,18 @@ export const projects: Project[] = [
     category: "software",
     status: "live",
     featured: false,
-    stack: ["Node.js", "Express", "PostgreSQL", "Sequelize", "MongoDB", "Mongoose", "React", "Vite", "Tailwind CSS", "Docker"],
+    stack: [
+      "Node.js",
+      "Express",
+      "PostgreSQL",
+      "Sequelize",
+      "MongoDB",
+      "Mongoose",
+      "React",
+      "Vite",
+      "Tailwind CSS",
+      "Docker",
+    ],
     role: { en: "Full-stack developer", es: "Desarrollador full-stack" },
     summary: {
       en: "A court-booking platform (soccer, basketball, tennis) built to demonstrate a deliberate hybrid database architecture — PostgreSQL for data that needs strict integrity, MongoDB for flexible, high-write data — with real overlap-safe booking and a tested REST API, not just a CRUD demo.",
@@ -325,8 +365,8 @@ export const projects: Project[] = [
       es: "Un marketplace de componentes de PC (stock y pedidos de GPU/CPU/RAM) implementado dos veces, de forma independiente: una app de consola en Python con un modelo de dominio en memoria, y una SPA separada en React/TypeScript que reimplementa la misma lógica de dominio desde cero y la persiste en localStorage. Ninguna de las dos se comunica con la otra — no comparten backend.",
     },
     problem: {
-      en: "Wanted to compare the same domain — components with stock, and orders that must reserve stock \"all or nothing\" — across a quick Python console script and a proper TypeScript SPA, without letting one lean on the other.",
-      es: "Quería comparar el mismo dominio — componentes con stock, y pedidos que deben reservar stock \"todo o nada\" — entre un script rápido de consola en Python y una SPA propiamente hecha en TypeScript, sin dejar que una dependiera de la otra.",
+      en: 'Wanted to compare the same domain — components with stock, and orders that must reserve stock "all or nothing" — across a quick Python console script and a proper TypeScript SPA, without letting one lean on the other.',
+      es: 'Quería comparar el mismo dominio — componentes con stock, y pedidos que deben reservar stock "todo o nada" — entre un script rápido de consola en Python y una SPA propiamente hecha en TypeScript, sin dejar que una dependiera de la otra.',
     },
     solution: {
       en: "Each side owns its own domain model and validation. The Python `Marketplace` class checks accumulated stock across every item before committing an order; the TypeScript port re-derives that same rule independently, with a full UI on top (catalog, order placement, order history with cancellation that returns stock, a stock gauge).",
@@ -430,7 +470,11 @@ export const projects: Project[] = [
       { label: { en: "Play it", es: "Jugar" }, href: "https://brick-breaker-kelvis.vercel.app", icon: "external" },
       { label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/brick-breaker", icon: "github" },
     ],
-    gallery: ["/images/brick-breaker/boss.png", "/images/brick-breaker/fireball.png", "/images/brick-breaker/gameplay.png"],
+    gallery: [
+      "/images/brick-breaker/boss.png",
+      "/images/brick-breaker/fireball.png",
+      "/images/brick-breaker/gameplay.png",
+    ],
     accentColor: "#7c5cff",
   },
   {
@@ -485,7 +529,11 @@ export const projects: Project[] = [
       { label: { en: "Tests", es: "Tests" }, value: "444 (Vitest)" },
     ],
     links: [
-      { label: { en: "Live demo", es: "Demo en vivo" }, href: "https://detective-game-kelvis-g.vercel.app", icon: "external" },
+      {
+        label: { en: "Live demo", es: "Demo en vivo" },
+        href: "https://detective-game-kelvis-g.vercel.app",
+        icon: "external",
+      },
       { label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/detective-game", icon: "github" },
     ],
     gallery: [
@@ -511,8 +559,8 @@ export const projects: Project[] = [
     stack: ["Unity 6", "URP", "C#"],
     role: { en: "Game designer / solo studio", es: "Diseñador de juegos / estudio en solitario" },
     summary: {
-      en: "\"Your past already knows the answer.\" A mobile roguelite where every action creates an echo that replays your movements — combined with bullet-time, you coordinate your present with your own past to solve rooms. Past the design phase now: a real, playable Unity project with 3 full zones, 3 bosses, ethical monetization, and accessibility settings, plus a first real Android build.",
-      es: "\"Tu pasado ya sabe la respuesta.\" Un roguelite móvil donde cada acción crea un eco que repite tus movimientos — combinado con bullet-time, coordinas tu presente con tu propio pasado para resolver las salas. Ya pasó la fase de diseño: un proyecto Unity real y jugable con 3 zonas completas, 3 bosses, monetización ética y ajustes de accesibilidad, más un primer build de Android real.",
+      en: '"Your past already knows the answer." A mobile roguelite where every action creates an echo that replays your movements — combined with bullet-time, you coordinate your present with your own past to solve rooms. Past the design phase now: a real, playable Unity project with 3 full zones, 3 bosses, ethical monetization, and accessibility settings, plus a first real Android build.',
+      es: '"Tu pasado ya sabe la respuesta." Un roguelite móvil donde cada acción crea un eco que repite tus movimientos — combinado con bullet-time, coordinas tu presente con tu propio pasado para resolver las salas. Ya pasó la fase de diseño: un proyecto Unity real y jugable con 3 zonas completas, 3 bosses, monetización ética y ajustes de accesibilidad, más un primer build de Android real.',
     },
     process: {
       en: [
@@ -571,8 +619,8 @@ export const projects: Project[] = [
     stack: ["Unity 6", "URP", "C#"],
     role: { en: "Game designer / solo studio", es: "Diseñador de juegos / estudio en solitario" },
     summary: {
-      en: "\"One stone. One flick. The whole ocean.\" A physics-driven stone-skipping game aiming for best-in-class mobile arcade polish — a full, playable Unity prototype with a real menu flow, day/night ocean art, procedural audio, and live Spanish/English localization.",
-      es: "\"Una piedra. Un flick. El océano entero.\" Un juego de rebote de piedras basado en física, apuntando al pulido de las mejores arcade móviles — un prototipo completo y jugable en Unity con flujo de menús real, arte de océano nocturno, audio procedural y localización español/inglés en vivo.",
+      en: '"One stone. One flick. The whole ocean." A physics-driven stone-skipping game aiming for best-in-class mobile arcade polish — a full, playable Unity prototype with a real menu flow, day/night ocean art, procedural audio, and live Spanish/English localization.',
+      es: '"Una piedra. Un flick. El océano entero." Un juego de rebote de piedras basado en física, apuntando al pulido de las mejores arcade móviles — un prototipo completo y jugable en Unity con flujo de menús real, arte de océano nocturno, audio procedural y localización español/inglés en vivo.',
     },
     process: {
       en: [
@@ -637,7 +685,10 @@ export const projects: Project[] = [
     },
     metrics: [
       { label: { en: "Design docs", es: "Documentos de diseño" }, value: "17 files, ~105KB" },
-      { label: { en: "Godot build", es: "Build en Godot" }, value: "Full core loop + shop + achievements, Android APK verified" },
+      {
+        label: { en: "Godot build", es: "Build en Godot" },
+        value: "Full core loop + shop + achievements, Android APK verified",
+      },
     ],
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/neon-tether-game-design", icon: "github" }],
     coverFit: "contain",
@@ -663,8 +714,8 @@ export const projects: Project[] = [
       es: "Un UI de streaming estilo Netflix — metadata de TMDB, un reproductor multi-fuente conectable (HLS + embeds sandboxeados), TV en vivo, y cuentas reales respaldadas por Supabase — construido con la capa de fuentes de contenido intencionalmente desacoplada de cualquier proveedor específico.",
     },
     problem: {
-      en: "A \"watch everything\" streaming clone is a common learning project, but most either hardcode unlicensed embed domains straight into the code, or skip authentication and persistence entirely and leave everything as local mock state.",
-      es: "Un clon de streaming \"para ver de todo\" es un proyecto de aprendizaje común, pero la mayoría hardcodea dominios de embeds no licenciados directamente en el código, o se salta la autenticación y persistencia por completo, dejando todo como estado simulado local.",
+      en: 'A "watch everything" streaming clone is a common learning project, but most either hardcode unlicensed embed domains straight into the code, or skip authentication and persistence entirely and leave everything as local mock state.',
+      es: 'Un clon de streaming "para ver de todo" es un proyecto de aprendizaje común, pero la mayoría hardcodea dominios de embeds no licenciados directamente en el código, o se salta la autenticación y persistencia por completo, dejando todo como estado simulado local.',
     },
     solution: {
       en: "The player and live-TV layers read from pluggable provider configs (JSON, populated with your own licensed sources) instead of hardcoded embed domains, and real accounts run on Supabase — Netflix-style sub-profiles, RLS-protected favorites and watch progress synced across devices — with the whole app degrading gracefully to a local-only guest mode whenever no backend is configured.",
@@ -676,17 +727,23 @@ export const projects: Project[] = [
         "Custom hls.js player (quality levels, resume-from-progress, skip-intro, next-episode) alongside a sandboxed iframe path for embed sources, sharing one pluggable provider config across movies/series and live IPTV channels",
         "Supabase auth + Postgres persistence: viewer_profiles/favorites/watch_progress tables with row-level security scoped to auth.uid(), WITH CHECK on every mutating policy (not just USING), and a SECURITY DEFINER signup trigger with its direct RPC execute access explicitly revoked",
         "The Zustand store syncs against Postgres for signed-in users and transparently falls back to localStorage-only guest mode when Supabase isn't configured — no code path assumes a backend is always present",
-        "A PIN-gated \"+18\" zone scoped to TMDB's own mature-content rating flag, not an actual adult-content catalog",
+        'A PIN-gated "+18" zone scoped to TMDB\'s own mature-content rating flag, not an actual adult-content catalog',
       ],
       es: [
         "Los Server Components obtienen la metadata de TMDB directamente del lado del servidor (el token de la API nunca llega al cliente), con cada fila de la home transmitida de forma independiente vía Suspense para que una categoría que falle nunca tumbe el resto de la página",
         "Reproductor hls.js a medida (niveles de calidad, resume de progreso, skip-intro, siguiente episodio) junto a una ruta de iframe sandboxeado para fuentes de embed, compartiendo una misma configuración de proveedores conectable entre películas/series y canales de TV en vivo",
         "Autenticación con Supabase + persistencia en Postgres: tablas viewer_profiles/favorites/watch_progress con row-level security ligada a auth.uid(), WITH CHECK en cada política mutante (no solo USING), y un trigger de registro SECURITY DEFINER con su acceso directo de ejecución por RPC explícitamente revocado",
         "El store de Zustand sincroniza contra Postgres para usuarios autenticados y cae de forma transparente a modo invitado solo-local cuando Supabase no está configurado — ningún camino de código asume que siempre hay un backend disponible",
-        "Una zona \"+18\" protegida por PIN, acotada a la bandera de clasificación madura propia de TMDB, no un catálogo real de contenido adulto",
+        'Una zona "+18" protegida por PIN, acotada a la bandera de clasificación madura propia de TMDB, no un catálogo real de contenido adulto',
       ],
     },
-    links: [{ label: PRIVATE_LABEL, href: "mailto:kelvisguerrero03@gmail.com?subject=Nocturni%20repo%20access", icon: "external" }],
+    links: [
+      {
+        label: PRIVATE_LABEL,
+        href: "mailto:kelvisguerrero03@gmail.com?subject=Nocturni%20repo%20access",
+        icon: "external",
+      },
+    ],
     gallery: ["/images/nocturni/home.png", "/images/nocturni/details-modal.png", "/images/nocturni/movies.png"],
     accentColor: "#8B5CF6",
   },

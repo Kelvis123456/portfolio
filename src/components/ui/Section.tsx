@@ -4,15 +4,7 @@ import { m, useReducedMotion } from "motion/react";
 import { fadeUp } from "@/lib/motion-variants";
 import { cn } from "@/lib/cn";
 
-export function Section({
-  id,
-  className,
-  children,
-}: {
-  id?: string;
-  className?: string;
-  children: React.ReactNode;
-}) {
+export function Section({ id, className, children }: { id?: string; className?: string; children: React.ReactNode }) {
   const shouldReduceMotion = useReducedMotion();
 
   return (

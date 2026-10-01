@@ -10,21 +10,19 @@ export function generateImageMetadata() {
 export default async function Icon({ id }: { id: Promise<string | number> }) {
   const px = Number(await id);
   return new ImageResponse(
-    (
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          borderRadius: px * (40 / 192),
-          background: "linear-gradient(135deg, #ff5a1f 0%, #ff7b4d 100%)",
-        }}
-      >
-        <div style={{ fontSize: px / 2, fontWeight: 700, color: "#fff8f2" }}>KG</div>
-      </div>
-    ),
-    { width: px, height: px }
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: px * (40 / 192),
+        background: "linear-gradient(135deg, #ff5a1f 0%, #ff7b4d 100%)",
+      }}
+    >
+      <div style={{ fontSize: px / 2, fontWeight: 700, color: "#fff8f2" }}>KG</div>
+    </div>,
+    { width: px, height: px },
   );
 }

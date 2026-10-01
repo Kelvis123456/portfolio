@@ -19,11 +19,7 @@ export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale: rawLocale } = await params;
   const locale: Locale = rawLocale === "es" ? "es" : "en";
 
@@ -80,7 +76,11 @@ export default async function LocaleLayout({
           <ScrollProgress />
           <Sidebar />
           <Navbar />
-          <div id="main-content" tabIndex={-1} className="relative z-10 flex min-h-full flex-1 flex-col outline-none lg:pl-80">
+          <div
+            id="main-content"
+            tabIndex={-1}
+            className="relative z-10 flex min-h-full flex-1 flex-col outline-none lg:pl-80"
+          >
             {children}
             <Footer />
           </div>

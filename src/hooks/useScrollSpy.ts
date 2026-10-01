@@ -11,9 +11,7 @@ export function useScrollSpy(ids: string[], options?: IntersectionObserverInit) 
   const pathname = usePathname();
 
   useEffect(() => {
-    const elements = ids
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => el !== null);
+    const elements = ids.map((id) => document.getElementById(id)).filter((el): el is HTMLElement => el !== null);
 
     if (elements.length === 0) return;
 
@@ -33,7 +31,7 @@ export function useScrollSpy(ids: string[], options?: IntersectionObserverInit) 
         }
         setActiveId(bestId);
       },
-      { rootMargin: "-40% 0px -50% 0px", threshold: [0, 0.25, 0.5, 0.75, 1], ...options }
+      { rootMargin: "-40% 0px -50% 0px", threshold: [0, 0.25, 0.5, 0.75, 1], ...options },
     );
 
     elements.forEach((el) => observer.observe(el));

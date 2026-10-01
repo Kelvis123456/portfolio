@@ -25,7 +25,7 @@ export function Skills() {
               variants={fadeUp}
               className={cn(
                 "rounded-2xl border border-border bg-surface p-6 shadow-sm dark:shadow-none dark:ring-1 dark:ring-white/5",
-                group.items.length >= 5 ? "lg:col-span-3" : "lg:col-span-2"
+                group.items.length >= 5 ? "lg:col-span-3" : "lg:col-span-2",
               )}
             >
               <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-foreground/70">
@@ -33,10 +33,7 @@ export function Skills() {
               </h3>
               <div className="mt-3 flex flex-wrap gap-2">
                 {group.items.map((item) => (
-                  <span
-                    key={item}
-                    className="rounded-full border border-border bg-surface-muted px-3 py-1.5 text-sm"
-                  >
+                  <span key={item} className="rounded-full border border-border bg-surface-muted px-3 py-1.5 text-sm">
                     {item}
                   </span>
                 ))}

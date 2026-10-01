@@ -59,7 +59,9 @@ export function Sidebar() {
             const active = activeId === item.id;
             const content = (
               <>
-                <span className="font-mono text-xs tracking-[0.2em] text-accent-text">{String(i + 1).padStart(2, "0")}</span>
+                <span className="font-mono text-xs tracking-[0.2em] text-accent-text">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
                 <m.span
                   animate={{ scaleX: active ? 1 : 0.5 }}
                   transition={{ type: "spring", stiffness: 300, damping: 25 }}
@@ -76,7 +78,7 @@ export function Sidebar() {
                 aria-current={active ? "location" : undefined}
                 className={cn(
                   "group flex items-center gap-3 py-2 text-sm transition-colors",
-                  active ? "text-foreground" : "text-foreground/65 hover:text-foreground"
+                  active ? "text-foreground" : "text-foreground/65 hover:text-foreground",
                 )}
               >
                 {content}
@@ -96,10 +98,22 @@ export function Sidebar() {
 
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-3 text-foreground/65">
-          <a href={siteConfig.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="hover:text-foreground transition-colors">
+          <a
+            href={siteConfig.github}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="GitHub"
+            className="hover:text-foreground transition-colors"
+          >
             <GithubIcon size={17} />
           </a>
-          <a href={siteConfig.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="hover:text-foreground transition-colors">
+          <a
+            href={siteConfig.linkedin}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="LinkedIn"
+            className="hover:text-foreground transition-colors"
+          >
             <LinkedinIcon size={17} />
           </a>
           <a href={`mailto:${siteConfig.email}`} aria-label="Email" className="hover:text-foreground transition-colors">

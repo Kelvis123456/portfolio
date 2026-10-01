@@ -59,7 +59,7 @@ export function Navbar() {
     const menu = menuRef.current;
     // The close (toggle) button lives outside the menu panel but must stay in the trap.
     const focusable = [
-      ...(menu?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])') ?? []),
+      ...(menu?.querySelectorAll<HTMLElement>("a[href], button:not([disabled])") ?? []),
       ...(toggleButton ? [toggleButton] : []),
     ];
     focusable?.[0]?.focus();
@@ -98,9 +98,7 @@ export function Navbar() {
     <header
       className={cn(
         "fixed top-0 z-50 w-full transition-[background-color,border-color,backdrop-filter] duration-300 lg:hidden",
-        scrolled
-          ? "border-b border-border/60 bg-background/70 backdrop-blur-md"
-          : "bg-transparent"
+        scrolled ? "border-b border-border/60 bg-background/70 backdrop-blur-md" : "bg-transparent",
       )}
     >
       <nav className="relative z-50 mx-auto flex items-center justify-between px-6 py-4">
@@ -198,7 +196,7 @@ export function Navbar() {
                         }}
                         className={cn(
                           "block py-2.5 font-display text-4xl tracking-tight transition-colors",
-                          active ? "text-foreground" : "text-foreground/65"
+                          active ? "text-foreground" : "text-foreground/65",
                         )}
                       >
                         {item.label}
