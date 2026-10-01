@@ -9,6 +9,7 @@ import { dictionary } from "@/content/dictionary";
 import { useLanguage } from "@/lib/language-context";
 import { lockScroll, unlockScroll } from "@/lib/scroll-lock";
 import { pushModal, popModal, isTopModal } from "@/lib/modal-stack";
+import { neighborIndexes } from "@/lib/lightbox-neighbors";
 
 export interface LightboxHandle {
   open: (index: number) => void;
@@ -22,12 +23,6 @@ interface LightboxProps {
    *  elsewhere, like a project's hero cover calling `.open(0)` via ref). */
   thumbnails?: string[];
   alt: string;
-}
-
-/** Índices de la imagen anterior y siguiente (sin repetir ni incluir la actual). */
-export function neighborIndexes(index: number, total: number): number[] {
-  if (total < 2) return [];
-  return [...new Set([(index + 1) % total, (index - 1 + total) % total])].filter((i) => i !== index);
 }
 
 export const Lightbox = forwardRef<LightboxHandle, LightboxProps>(function Lightbox(
@@ -64,7 +59,12 @@ export const Lightbox = forwardRef<LightboxHandle, LightboxProps>(function Light
   useEffect(() => setMounted(true), []);
 
   useImperativeHandle(ref, () => ({
-    open: (index: number) => setOpenIndex(index),
+    open: (index: number) => {
+      // Callers like the project cover open it through the ref, not a
+      // thumbnail -- remember whatever had focus so closing returns there.
+      triggerRef.current = document.activeElement as HTMLElement | null;
+      setOpenIndex(index);
+    },
   }));
 
   function showPrev() {
@@ -114,8 +114,12 @@ export const Lightbox = forwardRef<LightboxHandle, LightboxProps>(function Light
     setZoomed(false);
   }, [openIndex]);
 
+  // Keyed on open/closed, not the index: re-running this on every prev/next
+  // bounced focus to the trigger behind the modal and then to Close, so a
+  // keyboard user pressing Enter on "Next" twice closed the lightbox.
+  const isOpen = openIndex !== null;
   useEffect(() => {
-    if (openIndex === null) return;
+    if (!isOpen) return;
     const modalId = pushModal();
     modalIdRef.current = modalId;
     lockScroll();
@@ -126,7 +130,7 @@ export const Lightbox = forwardRef<LightboxHandle, LightboxProps>(function Light
       unlockScroll();
       triggerRef.current?.focus();
     };
-  }, [openIndex]);
+  }, [isOpen]);
 
   function handleThumbnailLoad(i: number, e: React.SyntheticEvent<HTMLImageElement>) {
     const img = e.currentTarget;
