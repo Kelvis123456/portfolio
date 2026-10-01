@@ -188,7 +188,7 @@ export function Navbar() {
                     {isHome ? (
                       <a
                         href={`#${item.id}`}
-                        aria-current={active ? "page" : undefined}
+                        aria-current={active ? "location" : undefined}
                         onClick={(e) => {
                           e.preventDefault();
                           setMobileOpen(false);

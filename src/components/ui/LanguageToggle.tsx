@@ -19,7 +19,8 @@ export function LanguageToggle() {
 
   function handleClick() {
     document.cookie = `NEXT_LOCALE=${next}; path=/; max-age=31536000`;
-    router.push(swapLocaleInPath(pathname, next));
+    // Keep the section anchor: /en#projects should land on /es#projects, not the top.
+    router.push(swapLocaleInPath(pathname, next) + window.location.hash);
   }
 
   return (
