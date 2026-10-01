@@ -19,8 +19,21 @@ function hexToRgbTriplet(hex: string): string {
   return `${r} ${g} ${b}`;
 }
 
+const VISIBLE_HIGHLIGHTS = 6;
+
+function HighlightItem({ item }: { item: string }) {
+  return (
+    <li className="flex gap-3 leading-relaxed text-foreground/80">
+      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-foreground/40" />
+      {item}
+    </li>
+  );
+}
+
 function TechnicalCaseStudy({ project, locale }: { project: Project; locale: Locale }) {
   const dict = dictionary[locale];
+  const highlights = project.architectureHighlights ? tList(project.architectureHighlights, locale) : [];
+  const extra = highlights.slice(VISIBLE_HIGHLIGHTS);
   return (
     <>
       {project.problem && (
@@ -41,13 +54,22 @@ function TechnicalCaseStudy({ project, locale }: { project: Project; locale: Loc
             {dict.detail.architectureHighlights}
           </h2>
           <ul className="mt-3 space-y-2">
-            {tList(project.architectureHighlights, locale).map((item) => (
-              <li key={item} className="flex gap-3 leading-relaxed text-foreground/80">
-                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-foreground/40" />
-                {item}
-              </li>
+            {highlights.slice(0, VISIBLE_HIGHLIGHTS).map((item) => (
+              <HighlightItem key={item} item={item} />
             ))}
           </ul>
+          {extra.length > 0 && (
+            <details className="group mt-3">
+              <summary className="cursor-pointer text-sm font-medium text-accent-text hover:underline">
+                {dict.detail.moreHighlights} ({extra.length})
+              </summary>
+              <ul className="mt-3 space-y-2">
+                {extra.map((item) => (
+                  <HighlightItem key={item} item={item} />
+                ))}
+              </ul>
+            </details>
+          )}
         </section>
       )}
     </>
@@ -129,7 +151,7 @@ export function ProjectDetail({ project }: { project: Project }) {
       <div className="mt-8 flex flex-wrap items-center gap-3">
         <h1
           style={{ viewTransitionName: `project-title-${project.slug}` } as React.CSSProperties}
-          className="font-display text-3xl font-semibold tracking-tight sm:text-4xl"
+          className="font-display text-[clamp(2.25rem,4.5vw,3.5rem)] font-semibold leading-[1.05] tracking-tight"
         >
           {project.title}
         </h1>
@@ -152,7 +174,7 @@ export function ProjectDetail({ project }: { project: Project }) {
               <ProjectCover
                 project={project}
                 priority
-                fit="contain"
+                fit={project.coverFit ?? "cover"}
                 sizes="(min-width: 1024px) 800px, 100vw"
                 className="aspect-[16/9] rounded-2xl border border-border transition-opacity hover:opacity-90"
               />
@@ -161,7 +183,7 @@ export function ProjectDetail({ project }: { project: Project }) {
             <ProjectCover
               project={project}
               priority
-              fit="contain"
+              fit={project.coverFit ?? "cover"}
               sizes="(min-width: 1024px) 800px, 100vw"
               className="aspect-[16/9] rounded-2xl border border-border"
             />
@@ -196,15 +218,15 @@ export function ProjectDetail({ project }: { project: Project }) {
         </p>
 
         <div className="order-4 lg:order-none lg:col-start-1 lg:row-start-3">
-          <ProjectGallery project={project} locale={locale} lightboxRef={lightboxRef} />
-        </div>
-
-        <div className="order-5 lg:order-none lg:col-start-1 lg:row-start-4">
           {project.kind === "software" ? (
             <TechnicalCaseStudy project={project} locale={locale} />
           ) : (
             <DesignProcessCaseStudy project={project} locale={locale} />
           )}
+        </div>
+
+        <div className="order-5 lg:order-none lg:col-start-1 lg:row-start-4">
+          <ProjectGallery project={project} locale={locale} lightboxRef={lightboxRef} />
         </div>
 
         {project.links.length > 0 && (
@@ -229,7 +251,7 @@ export function ProjectDetail({ project }: { project: Project }) {
         <div className="mt-16 grid gap-4 border-t border-border pt-8 sm:grid-cols-2">
           <Link
             href={`/${locale}/projects/${prev.slug}`}
-            className="group rounded-xl border border-border bg-surface p-5 shadow-sm transition-colors hover:bg-surface-muted dark:shadow-none dark:ring-1 dark:ring-white/5"
+            className="group rounded-2xl border border-border bg-surface p-5 shadow-sm transition-colors hover:bg-surface-muted dark:shadow-none dark:ring-1 dark:ring-white/5"
           >
             <span className="flex items-center gap-1.5 text-xs uppercase tracking-widest text-foreground/65">
               <ArrowLeft size={12} /> {dict.projects.previousProject}
@@ -240,7 +262,7 @@ export function ProjectDetail({ project }: { project: Project }) {
           </Link>
           <Link
             href={`/${locale}/projects/${next.slug}`}
-            className="group rounded-xl border border-border bg-surface p-5 text-right shadow-sm transition-colors hover:bg-surface-muted dark:shadow-none dark:ring-1 dark:ring-white/5"
+            className="group rounded-2xl border border-border bg-surface p-5 text-right shadow-sm transition-colors hover:bg-surface-muted dark:shadow-none dark:ring-1 dark:ring-white/5"
           >
             <span className="flex items-center justify-end gap-1.5 text-xs uppercase tracking-widest text-foreground/65">
               {dict.projects.nextProject} <ArrowRight size={12} />
