@@ -9,7 +9,7 @@ export const dictionary = {
       linkedin: "LinkedIn",
       resume: "Resume",
       contact: "Contact",
-      available: "Open to full-time developer roles — remote (LatAm) or on-site in Santo Domingo",
+      available: "Open to full-time developer roles, remote (LatAm) or on-site in Santo Domingo",
     },
     about: { heading: "About", basedIn: "Based in" },
     projects: {
@@ -75,7 +75,7 @@ export const dictionary = {
     errorPage: {
       eyebrow: "Something went wrong",
       heading: "An unexpected error occurred",
-      body: "Sorry about that — you can try again, or head back to the homepage.",
+      body: "Sorry about that. You can try again or head back to the homepage.",
       retry: "Try again",
     },
     lightbox: {
@@ -95,7 +95,7 @@ export const dictionary = {
       linkedin: "LinkedIn",
       resume: "CV",
       contact: "Contacto",
-      available: "Disponible para puestos full-time de desarrollo — remoto (LatAm) o presencial en Santo Domingo",
+      available: "Disponible para puestos full-time de desarrollo, remoto (LatAm) o presencial en Santo Domingo",
     },
     about: { heading: "Sobre mí", basedIn: "Ubicado en" },
     projects: {
@@ -161,7 +161,7 @@ export const dictionary = {
     errorPage: {
       eyebrow: "Algo salió mal",
       heading: "Ocurrió un error inesperado",
-      body: "Disculpa el inconveniente — puedes intentar de nuevo, o volver al inicio.",
+      body: "Disculpa el inconveniente. Puedes intentar de nuevo o volver al inicio.",
       retry: "Intentar de nuevo",
     },
     lightbox: {
