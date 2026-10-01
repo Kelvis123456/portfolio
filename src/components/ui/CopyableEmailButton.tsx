@@ -29,9 +29,14 @@ export function CopyableEmailButton({ label, className }: { label: string; class
   }
 
   return (
-    <MagneticButton href={`mailto:${siteConfig.email}`} onClick={handleClick} className={className}>
-      {copied ? <Check size={16} /> : <Mail size={16} />}
-      {copied ? dict.contact.emailCopied : label}
-    </MagneticButton>
+    <>
+      <MagneticButton href={`mailto:${siteConfig.email}`} onClick={handleClick} className={className}>
+        {copied ? <Check size={16} /> : <Mail size={16} />}
+        {copied ? dict.contact.emailCopied : label}
+      </MagneticButton>
+      <span role="status" className="sr-only">
+        {copied ? dict.contact.emailCopied : ""}
+      </span>
+    </>
   );
 }

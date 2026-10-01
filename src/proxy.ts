@@ -10,7 +10,8 @@ function getLocale(request: NextRequest): string {
   }
 
   const acceptLanguage = request.headers.get("accept-language");
-  if (acceptLanguage?.toLowerCase().includes("es")) return "es";
+  // First (preferred) language only: "en-US,en;q=0.9,es;q=0.1" is an English speaker.
+  if (acceptLanguage?.split(",")[0].trim().toLowerCase().startsWith("es")) return "es";
 
   return DEFAULT_LOCALE;
 }

@@ -31,14 +31,14 @@ export function ThemeToggle() {
       onClick={() => setTheme(isDark ? "light" : "dark")}
       className="relative flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface hover:bg-surface-muted transition-colors overflow-hidden"
     >
-      <AnimatePresence mode="wait" initial={false}>
+      <AnimatePresence initial={false}>
         <m.span
           key={isDark ? "moon" : "sun"}
           initial={{ rotate: -90, opacity: 0 }}
           animate={{ rotate: 0, opacity: 1 }}
           exit={{ rotate: 90, opacity: 0 }}
-          transition={{ duration: 0.25 }}
-          className="flex"
+          transition={{ duration: 0.15 }}
+          className="absolute flex"
         >
           {isDark ? <Moon size={16} /> : <Sun size={16} />}
         </m.span>

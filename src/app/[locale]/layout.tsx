@@ -12,6 +12,9 @@ import { siteConfig } from "@/content/siteConfig";
 
 const LOCALES: Locale[] = ["en", "es"];
 
+// Only the generated locales/slugs exist; anything else is a 404 instead of an on-demand render.
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
 }
@@ -33,6 +36,7 @@ export async function generateMetadata({
       languages: {
         en: `${siteConfig.url}/en`,
         es: `${siteConfig.url}/es`,
+        "x-default": `${siteConfig.url}/en`,
       },
     },
     other: {

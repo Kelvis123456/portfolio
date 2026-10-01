@@ -1,4 +1,5 @@
 import type { LocalizedText } from "@/lib/language-context";
+import { projects } from "@/content/projects";
 
 export const siteConfig = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://portfolio-kelvis-g.vercel.app",
@@ -22,10 +23,20 @@ export const siteConfig = {
     en: "Santo Domingo, Dominican Republic",
     es: "Santo Domingo, República Dominicana",
   } satisfies LocalizedText,
+  // Counted from projects.ts or from a real test run, so a recruiter can
+  // check every one of them against the case studies.
   metrics: [
-    { label: { en: "Projects shipped", es: "Proyectos lanzados" } satisfies LocalizedText, value: 14 },
-    { label: { en: "Lines of code (approx.)", es: "Líneas de código (aprox.)" } satisfies LocalizedText, value: 60000 },
-    { label: { en: "Tech stacks", es: "Stacks tecnológicos" } satisfies LocalizedText, value: 8 },
+    { label: { en: "Case studies", es: "Casos de estudio" } satisfies LocalizedText, value: projects.length, suffix: "" },
+    {
+      label: { en: "Live or playable now", es: "En vivo o jugables" } satisfies LocalizedText,
+      value: projects.filter((p) => p.status === "live").length,
+      suffix: "",
+    },
+    {
+      label: { en: "Automated tests in RentEdge", es: "Tests automatizados en RentEdge" } satisfies LocalizedText,
+      value: 1700,
+      suffix: "+",
+    },
   ],
   performance: {
     score: 90,

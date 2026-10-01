@@ -26,6 +26,10 @@ export function Contact() {
         <m.p variants={fadeUp} className="mt-4 text-foreground/70">
           {dict.contact.body}
         </m.p>
+        <m.p variants={fadeUp} className="mt-3 inline-flex items-center gap-2 text-sm text-muted-foreground">
+          <span className="h-2 w-2 shrink-0 rounded-full bg-accent-2" aria-hidden />
+          {dict.hero.available}
+        </m.p>
         <m.div variants={fadeUp} className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <CopyableEmailButton
             label={siteConfig.email}

@@ -15,6 +15,7 @@ import { useCommandPalette } from "@/lib/command-palette-context";
 import { dictionary } from "@/content/dictionary";
 import { siteConfig } from "@/content/siteConfig";
 import { cn } from "@/lib/cn";
+import { ShortcutKey } from "@/components/ui/ShortcutKey";
 
 const NAV_IDS = ["about", "projects", "skills", "contact"] as const;
 
@@ -54,10 +55,11 @@ export function Sidebar() {
         </span>
 
         <nav className="mt-12 flex flex-col gap-1">
-          {NAV_ITEMS.map((item) => {
+          {NAV_ITEMS.map((item, i) => {
             const active = activeId === item.id;
             const content = (
               <>
+                <span className="font-mono text-xs tracking-[0.2em] text-accent-text">{String(i + 1).padStart(2, "0")}</span>
                 <m.span
                   animate={{ scaleX: active ? 1 : 0.5 }}
                   transition={{ type: "spring", stiffness: 300, damping: 25 }}
@@ -112,7 +114,7 @@ export function Sidebar() {
             className="flex h-9 items-center gap-1.5 rounded-full border border-border bg-surface px-3 text-foreground/60 hover:bg-surface-muted hover:text-foreground transition-colors"
           >
             <Search size={14} />
-            <kbd className="text-[10px] font-medium">⌘K</kbd>
+            <ShortcutKey className="text-[10px] font-medium" />
           </button>
           <LanguageToggle />
           <ThemeToggle />

@@ -117,6 +117,20 @@ button:focus-visible {
   animation: marquee 34s linear infinite;
 }
 
+/* Hero entrance in CSS instead of motion: the text is in the server HTML at
+   full opacity for no-JS/crawlers/slow hydration, and only animates once the
+   stylesheet applies. Delay per element via --d. */
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+.hero-in {
+  animation: hero-in 0.5s cubic-bezier(0.23, 1, 0.32, 1) var(--d, 0ms) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -128,7 +142,8 @@ button:focus-visible {
     animation: none !important;
   }
 
-  .animate-marquee {
+  .animate-marquee,
+  .hero-in {
     animation: none;
   }
 }
@@ -136,7 +151,7 @@ button:focus-visible {
 @media (prefers-reduced-motion: no-preference) {
   ::view-transition-group(*) {
     animation-duration: 0.4s;
-    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
   }
 
   ::view-transition-old(root),

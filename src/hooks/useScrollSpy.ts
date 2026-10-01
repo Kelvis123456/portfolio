@@ -1,10 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 
 export function useScrollSpy(ids: string[], options?: IntersectionObserverInit) {
   const [activeId, setActiveId] = useState<string>(ids[0] ?? "");
   const ratios = useRef(new Map<string, number>());
+  // The [locale] layout survives navigation, so without this the observer
+  // keeps watching unmounted sections after project page -> home.
+  const pathname = usePathname();
 
   useEffect(() => {
     const elements = ids
@@ -34,7 +38,7 @@ export function useScrollSpy(ids: string[], options?: IntersectionObserverInit) 
 
     elements.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-  }, [ids, options]);
+  }, [ids, options, pathname]);
 
   return activeId;
 }

@@ -7,6 +7,9 @@ export const contentType = "image/png";
 
 const LOCALES: Locale[] = ["en", "es"];
 
+// Only the generated locales/slugs exist; anything else is a 404 instead of an on-demand render.
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return LOCALES.flatMap((locale) => projects.map((project) => ({ locale, slug: project.slug })));
 }

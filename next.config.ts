@@ -3,6 +3,11 @@ import { withSentryConfig } from "@sentry/nextjs";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // Sentry is used for errors only; booleans (not "false" strings) so the
+  // bundler can actually drop the tracing/debug code paths.
+  compiler: {
+    define: { __SENTRY_TRACING__: false, __SENTRY_DEBUG__: false },
+  },
   images: {
     qualities: [75, 90, 100],
   },

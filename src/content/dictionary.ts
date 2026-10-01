@@ -3,7 +3,14 @@ import type { Locale } from "@/lib/language-context";
 export const dictionary = {
   en: {
     nav: { about: "About", projects: "Projects", skills: "Skills", contact: "Contact" },
-    hero: { viewProjects: "View projects", github: "GitHub", linkedin: "LinkedIn", contact: "Contact" },
+    hero: {
+      viewProjects: "View projects",
+      github: "GitHub",
+      linkedin: "LinkedIn",
+      resume: "Resume",
+      contact: "Contact",
+      available: "Open to full-time developer roles — remote (LatAm) or on-site in Santo Domingo",
+    },
     about: { heading: "About", basedIn: "Based in" },
     projects: {
       heading: "Projects",
@@ -24,6 +31,7 @@ export const dictionary = {
       problem: "Problem",
       solution: "Solution",
       architectureHighlights: "Architecture highlights",
+      moreHighlights: "More highlights",
       process: "Process",
       screenshotsComingSoon: "Screenshots coming soon",
     },
@@ -81,7 +89,14 @@ export const dictionary = {
   },
   es: {
     nav: { about: "Sobre mí", projects: "Proyectos", skills: "Habilidades", contact: "Contacto" },
-    hero: { viewProjects: "Ver proyectos", github: "GitHub", linkedin: "LinkedIn", contact: "Contacto" },
+    hero: {
+      viewProjects: "Ver proyectos",
+      github: "GitHub",
+      linkedin: "LinkedIn",
+      resume: "CV",
+      contact: "Contacto",
+      available: "Disponible para puestos full-time de desarrollo — remoto (LatAm) o presencial en Santo Domingo",
+    },
     about: { heading: "Sobre mí", basedIn: "Ubicado en" },
     projects: {
       heading: "Proyectos",
@@ -102,6 +117,7 @@ export const dictionary = {
       problem: "Problema",
       solution: "Solución",
       architectureHighlights: "Puntos clave de arquitectura",
+      moreHighlights: "Más puntos clave",
       process: "Proceso",
       screenshotsComingSoon: "Capturas próximamente",
     },

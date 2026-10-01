@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useTransitionRouter } from "next-view-transitions";
 import { AnimatePresence, m } from "motion/react";
+import { EASE_OUT } from "@/lib/motion-variants";
 import { useTheme } from "next-themes";
 import { Search, User, FolderGit2, Code2, Gamepad2, Sparkles, Mail, Sun, Moon, Download } from "lucide-react";
 import { LinkedinIcon } from "@/components/ui/LinkedinIcon";
@@ -249,7 +250,7 @@ export function CommandPalette() {
             initial={{ opacity: 0, y: -12, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.98 }}
-            transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.18, ease: EASE_OUT }}
             onClick={(e) => e.stopPropagation()}
             onKeyDown={handleKeyDown}
             role="dialog"
@@ -269,7 +270,7 @@ export function CommandPalette() {
                 aria-expanded="true"
                 aria-controls="command-palette-listbox"
                 aria-activedescendant={filtered[activeIndex] ? `command-palette-option-${filtered[activeIndex].id}` : undefined}
-                className="w-full bg-transparent text-sm outline-none placeholder:text-foreground/65"
+                className="w-full bg-transparent text-base outline-none sm:text-sm placeholder:text-foreground/65"
               />
               <kbd className="hidden shrink-0 rounded border border-border px-1.5 py-0.5 text-[10px] text-foreground/65 sm:block">
                 esc

@@ -10,13 +10,16 @@ import { dictionary } from "@/content/dictionary";
 import { useLanguage, t } from "@/lib/language-context";
 import { staggerContainer, fadeUp } from "@/lib/motion-variants";
 
+// Starts at the real value so the server HTML (and anyone with reduced
+// motion) shows the actual number, not a 0 that only JS can fix.
 function AnimatedNumber({ value }: { value: number }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.6 });
-  const [display, setDisplay] = useState(0);
+  const shouldReduceMotion = useReducedMotion();
+  const [display, setDisplay] = useState(value);
 
   useEffect(() => {
-    if (!inView) return;
+    if (!inView || shouldReduceMotion) return;
     let frameId = 0;
     const duration = 1200;
     const start = performance.now();
@@ -28,7 +31,7 @@ function AnimatedNumber({ value }: { value: number }) {
     }
     frameId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frameId);
-  }, [inView, value]);
+  }, [inView, value, shouldReduceMotion]);
 
   return <span ref={ref}>{display.toLocaleString()}</span>;
 }
@@ -36,7 +39,6 @@ function AnimatedNumber({ value }: { value: number }) {
 export function About() {
   const { locale } = useLanguage();
   const dict = dictionary[locale];
-  const shouldReduceMotion = useReducedMotion();
   const initials = siteConfig.name
     .split(" ")
     .map((n) => n[0])
@@ -54,14 +56,9 @@ export function About() {
             variants={fadeUp}
             className="flex flex-col gap-6 rounded-2xl border border-border bg-surface p-8 shadow-sm sm:col-span-4 sm:flex-row sm:items-center dark:shadow-none dark:ring-1 dark:ring-white/5"
           >
-            <m.div
-              className="flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-accent/20 to-accent-2/20 font-display text-2xl font-semibold"
-              style={{ transformStyle: "preserve-3d" }}
-              whileHover={shouldReduceMotion ? undefined : { rotateX: -6, rotateY: 6, scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 200, damping: 15 }}
-            >
+            <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-accent/20 to-accent-2/20 font-display text-2xl font-semibold">
               {initials}
-            </m.div>
+            </div>
             <p className="text-foreground/70">{t(siteConfig.bio, locale)}</p>
           </m.div>
 
@@ -85,7 +82,7 @@ export function About() {
             >
               <div className="font-display text-2xl font-semibold tracking-tight sm:text-3xl">
                 <AnimatedNumber value={metric.value} />
-                {metric.label.en === "Lines of code (approx.)" && "+"}
+                {metric.suffix}
               </div>
               <div className="mt-1 text-xs text-foreground/60">{t(metric.label, locale)}</div>
             </m.div>

@@ -5,6 +5,9 @@ import type { Locale } from "@/lib/language-context";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+// Only the generated locales/slugs exist; anything else is a 404 instead of an on-demand render.
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return [{ locale: "en" }, { locale: "es" }];
 }
