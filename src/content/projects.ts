@@ -148,7 +148,7 @@ export const projects: Project[] = [
       "EF Core",
       "SQL Server",
       "Microsoft.Extensions.AI",
-      "Claude",
+      "Gemini",
       "WhatsApp Cloud API",
       "xUnit",
       "Testcontainers",
@@ -171,7 +171,8 @@ export const projects: Project[] = [
       en: [
         "Double-booking test fires 8 identical bookings in parallel against a real SQL Server: with Serializable exactly 1 wins; with ReadCommitted all 8 got in",
         "The two-turn confirmation rule lives in C#, not in the prompt, and has a test that fails if the check is removed",
-        "Agent built on Microsoft.Extensions.AI IChatClient: Claude Haiku 4.5 in production, a scripted fake model in tests",
+        "Agent built on Microsoft.Extensions.AI IChatClient: Gemini (free tier) or Claude by configuration, a scripted fake model in tests",
+        "The evals caught a real bug: on the customer's \"yes\" the model re-proposed and confirmed in the same turn, the server rejected it, and the model still told the customer it was booked. Fixed by putting the pending proposal in each turn's prompt",
         "WhatsApp webhook validates X-Hub-Signature-256, deduplicates retries with a unique index and processes through a Channel<T> + BackgroundService",
         "LLM cost caps: per-number and per-IP rate limits, a daily cap for the public demo, max 6 tool calls per message",
         "Public demo page prints a receipt of every tool call the agent made, including the ones the server rejected",
@@ -180,7 +181,8 @@ export const projects: Project[] = [
       es: [
         "El test de doble reserva lanza 8 reservas iguales en paralelo contra un SQL Server real: con Serializable entra exactamente 1; con ReadCommitted entraban las 8",
         "La regla de confirmación en dos turnos vive en C#, no en el prompt, y tiene un test que falla si se quita el chequeo",
-        "Agente construido sobre IChatClient de Microsoft.Extensions.AI: Claude Haiku 4.5 en producción, un modelo falso con guion en los tests",
+        "Agente construido sobre IChatClient de Microsoft.Extensions.AI: Gemini (plan gratis) o Claude según la configuración, un modelo falso con guion en los tests",
+        'Las evals encontraron un bug real: ante el "sí" del cliente, el modelo volvía a proponer y confirmaba en el mismo turno; el servidor lo rechazaba y el modelo igual decía que estaba agendado. Se arregló poniendo la propuesta pendiente en el prompt de cada turno',
         "El webhook de WhatsApp valida X-Hub-Signature-256, deduplica reintentos con un índice único y procesa con Channel<T> + BackgroundService",
         "Topes de costo del LLM: rate limit por número y por IP, tope diario para la demo pública y máximo 6 llamadas a herramientas por mensaje",
         "La demo pública imprime un ticket con cada herramienta que usó el agente, incluidas las que el servidor rechazó",
@@ -188,11 +190,11 @@ export const projects: Project[] = [
       ],
     },
     metrics: [
-      { label: { en: "Automated tests", es: "Tests automatizados" }, value: "28 + 13 evals" },
+      { label: { en: "Automated tests", es: "Tests automatizados" }, value: "31 + 13 evals" },
       { label: { en: "Parallel double-booking attempts", es: "Reservas simultáneas en el test" }, value: "8 → 1" },
     ],
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/agendabot", icon: "github" }],
-    gallery: ["/images/agendabot/demo.png"],
+    gallery: ["/images/agendabot/conversation.png", "/images/agendabot/demo.png"],
     accentColor: "#1F55B5",
   },
   {
