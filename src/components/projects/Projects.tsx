@@ -10,7 +10,7 @@ import { ProjectPreviewPane } from "@/components/projects/ProjectPreviewPane";
 import { projects, otherWork, type ProjectCategory } from "@/content/projects";
 import { dictionary } from "@/content/dictionary";
 import { useLanguage, t } from "@/lib/language-context";
-import { fadeUp } from "@/lib/motion-variants";
+import { EASE_OUT, fadeUp } from "@/lib/motion-variants";
 import { cn } from "@/lib/cn";
 
 export function Projects() {
@@ -103,7 +103,7 @@ export function Projects() {
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -16 }}
-                  transition={{ duration: 0.25, delay: index * 0.04 }}
+                  transition={{ duration: 0.25, delay: Math.min(index, 5) * 0.03, ease: EASE_OUT }}
                   className={project === flagship ? "sm:col-span-2" : ""}
                 >
                   <ProjectCard project={project} large={project === flagship} />
@@ -134,7 +134,7 @@ export function Projects() {
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -16 }}
-                    transition={{ duration: 0.25, delay: index * 0.04 }}
+                    transition={{ duration: 0.25, delay: Math.min(index, 5) * 0.03, ease: EASE_OUT }}
                   >
                     <ProjectListRow
                       project={project}
@@ -161,7 +161,7 @@ export function Projects() {
                 href={item.href}
                 target="_blank"
                 rel="noreferrer"
-                className="group flex flex-col gap-1 rounded-xl border border-border bg-surface p-4 text-sm transition-colors hover:border-accent/40"
+                className="group flex flex-col gap-1 rounded-2xl border border-border bg-surface p-4 text-sm transition-colors hover:border-accent/40"
               >
                 <span className="font-medium group-hover:underline">{item.title}</span>
                 <span className="text-foreground/60">{t(item.description, locale)}</span>

@@ -18,7 +18,7 @@ export function Section({
   return (
     <m.section
       id={id}
-      className={cn("relative w-full py-24 sm:py-32", className)}
+      className={cn("relative w-full py-20 sm:py-24", className)}
       initial={shouldReduceMotion ? "visible" : "hidden"}
       whileInView="visible"
       viewport={{ once: true, amount: "some" }}

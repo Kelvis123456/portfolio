@@ -25,11 +25,13 @@ export function LanguageToggle() {
   return (
     <button
       type="button"
-      aria-label={dictionary[locale].language}
+      // Shows where the click takes you (the other language), not where you are.
+      aria-label={`${dictionary[locale].language}: ${next === "es" ? "Español" : "English"}`}
+      lang={next}
       onClick={handleClick}
       className="relative flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface text-xs font-semibold uppercase hover:bg-surface-muted transition-colors"
     >
-      {locale}
+      {next}
     </button>
   );
 }

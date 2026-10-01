@@ -18,7 +18,6 @@ const LOG_LINES: LogLine[] = [
 
 const TYPE_SPEED_MS = 18;
 const LINE_PAUSE_MS = 220;
-const LOOP_PAUSE_MS = 2600;
 const SEED_COUNT = 3;
 
 function useIsVisible(ref: React.RefObject<HTMLElement | null>) {
@@ -99,17 +98,9 @@ export function Terminal({ className }: { className?: string }) {
         lines = [...lines, full];
         lineIdx++;
         charIdx = 0;
-        if (lineIdx < LOG_LINES.length) {
-          scheduleNext(typeChar, LINE_PAUSE_MS);
-        } else {
-          scheduleNext(() => {
-            lines = [];
-            lineIdx = 0;
-            charIdx = 0;
-            setTyped([]);
-            scheduleNext(typeChar, TYPE_SPEED_MS);
-          }, LOOP_PAUSE_MS);
-        }
+        // Types the log once and stays: a looping wipe-and-retype kept
+        // pulling the eye back to the hero while reading the rest of the page.
+        if (lineIdx < LOG_LINES.length) scheduleNext(typeChar, LINE_PAUSE_MS);
       }
     }
 

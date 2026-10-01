@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Link } from "next-view-transitions";
 import { AnimatePresence, m } from "motion/react";
+import { EASE_OUT } from "@/lib/motion-variants";
 import { Menu, Search, X } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { LanguageToggle } from "@/components/ui/LanguageToggle";
@@ -15,6 +16,7 @@ import { dictionary } from "@/content/dictionary";
 import { lockScroll, unlockScroll } from "@/lib/scroll-lock";
 import { pushModal, popModal, isTopModal } from "@/lib/modal-stack";
 import { cn } from "@/lib/cn";
+import { ShortcutKey } from "@/components/ui/ShortcutKey";
 
 const NAV_IDS = ["about", "projects", "skills", "contact"] as const;
 
@@ -55,7 +57,11 @@ export function Navbar() {
     // after `.current` has already changed (e.g. component re-render/unmount).
     const toggleButton = toggleButtonRef.current;
     const menu = menuRef.current;
-    const focusable = menu?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])');
+    // The close (toggle) button lives outside the menu panel but must stay in the trap.
+    const focusable = [
+      ...(menu?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])') ?? []),
+      ...(toggleButton ? [toggleButton] : []),
+    ];
     focusable?.[0]?.focus();
 
     function handleKeyDown(e: KeyboardEvent) {
@@ -91,7 +97,7 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed top-0 z-50 w-full transition-all duration-300 lg:hidden",
+        "fixed top-0 z-50 w-full transition-[background-color,border-color,backdrop-filter] duration-300 lg:hidden",
         scrolled
           ? "border-b border-border/60 bg-background/70 backdrop-blur-md"
           : "bg-transparent"
@@ -117,7 +123,7 @@ export function Navbar() {
             className="flex h-9 items-center gap-1.5 rounded-full border border-border bg-surface px-3 text-foreground/60 hover:bg-surface-muted hover:text-foreground transition-colors"
           >
             <Search size={14} />
-            <kbd className="hidden text-[10px] font-medium sm:inline">⌘K</kbd>
+            <ShortcutKey className="hidden text-[10px] font-medium sm:inline" />
           </button>
           <LanguageToggle />
           <ThemeToggle />
@@ -175,7 +181,7 @@ export function Navbar() {
                     key={item.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.08 + i * 0.06, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ delay: 0.04 + i * 0.04, duration: 0.25, ease: EASE_OUT }}
                     className="flex items-baseline gap-3"
                   >
                     <span className="font-mono text-xs tracking-[0.2em] text-accent-text">{index}</span>
