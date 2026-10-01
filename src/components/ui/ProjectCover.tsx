@@ -44,7 +44,10 @@ export function ProjectCover({
 
   if (cover) {
     return (
-      <div style={transitionStyle} className={cn("relative isolate w-full overflow-hidden bg-surface-muted", className)}>
+      <div
+        style={transitionStyle}
+        className={cn("relative isolate w-full overflow-hidden bg-surface-muted", className)}
+      >
         <Image
           src={cover}
           alt={`${project.title} ${dictionary[locale].lightbox.screenshot}`}
@@ -66,7 +69,7 @@ export function ProjectCover({
       className={cn(
         "relative isolate flex w-full items-center justify-center overflow-hidden bg-surface-muted bg-gradient-to-br",
         gradientForSlug(project.slug),
-        className
+        className,
       )}
     >
       <div

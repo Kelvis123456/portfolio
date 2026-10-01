@@ -26,7 +26,11 @@ export const siteConfig = {
   // Counted from projects.ts or from a real test run, so a recruiter can
   // check every one of them against the case studies.
   metrics: [
-    { label: { en: "Case studies", es: "Casos de estudio" } satisfies LocalizedText, value: projects.length, suffix: "" },
+    {
+      label: { en: "Case studies", es: "Casos de estudio" } satisfies LocalizedText,
+      value: projects.length,
+      suffix: "",
+    },
     {
       label: { en: "Live or playable now", es: "En vivo o jugables" } satisfies LocalizedText,
       value: projects.filter((p) => p.status === "live").length,

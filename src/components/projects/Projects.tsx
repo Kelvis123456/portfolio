@@ -60,7 +60,7 @@ export function Projects() {
                 aria-pressed={filter === f.value}
                 className={cn(
                   "relative rounded-full px-3 py-1.5 text-sm transition-colors",
-                  filter === f.value ? "text-background" : "text-foreground/70 hover:text-foreground"
+                  filter === f.value ? "text-background" : "text-foreground/70 hover:text-foreground",
                 )}
               >
                 {filter === f.value && (

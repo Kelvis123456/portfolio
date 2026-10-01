@@ -27,10 +27,7 @@ interface LightboxProps {
   alt: string;
 }
 
-export const Lightbox = forwardRef<LightboxHandle, LightboxProps>(function Lightbox(
-  { images, thumbnails, alt },
-  ref
-) {
+export const Lightbox = forwardRef<LightboxHandle, LightboxProps>(function Lightbox({ images, thumbnails, alt }, ref) {
   const { locale } = useLanguage();
   const dict = dictionary[locale].lightbox;
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -93,9 +90,7 @@ export const Lightbox = forwardRef<LightboxHandle, LightboxProps>(function Light
       if (e.key === "ArrowLeft") showPrev();
       if (e.key === "ArrowRight") showNext();
       if (e.key !== "Tab") return;
-      const focusable = dialogRef.current?.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled])'
-      );
+      const focusable = dialogRef.current?.querySelectorAll<HTMLElement>("a[href], button:not([disabled])");
       if (!focusable || focusable.length === 0) return;
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
@@ -170,122 +165,125 @@ export const Lightbox = forwardRef<LightboxHandle, LightboxProps>(function Light
         </div>
       )}
 
-      {mounted && createPortal(
-        <AnimatePresence>
-        {openIndex !== null && (
-          <m.div
-            ref={dialogRef}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={close}
-            role="dialog"
-            aria-modal="true"
-            aria-label={alt}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 p-6"
-          >
-            <button
-              ref={closeButtonRef}
-              type="button"
-              aria-label={dict.close}
-              onClick={(e) => {
-                e.stopPropagation();
-                close();
-              }}
-              className="absolute right-6 top-6 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
-            >
-              <X size={18} />
-            </button>
-            <button
-              type="button"
-              aria-label={zoomed ? dict.zoomOut : dict.zoomIn}
-              onClick={(e) => {
-                e.stopPropagation();
-                setZoomed((z) => !z);
-              }}
-              className="absolute right-20 top-6 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
-            >
-              {zoomed ? <ZoomOut size={18} /> : <ZoomIn size={18} />}
-            </button>
-
-            {images.length > 1 && (
-              <>
+      {mounted &&
+        createPortal(
+          <AnimatePresence>
+            {openIndex !== null && (
+              <m.div
+                ref={dialogRef}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={close}
+                role="dialog"
+                aria-modal="true"
+                aria-label={alt}
+                className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 p-6"
+              >
                 <button
+                  ref={closeButtonRef}
                   type="button"
-                  aria-label={dict.previousImage}
+                  aria-label={dict.close}
                   onClick={(e) => {
                     e.stopPropagation();
-                    showPrev();
+                    close();
                   }}
-                  className="absolute left-6 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
+                  className="absolute right-6 top-6 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
                 >
-                  <ChevronLeft size={20} />
+                  <X size={18} />
                 </button>
                 <button
                   type="button"
-                  aria-label={dict.nextImage}
+                  aria-label={zoomed ? dict.zoomOut : dict.zoomIn}
                   onClick={(e) => {
                     e.stopPropagation();
-                    showNext();
+                    setZoomed((z) => !z);
                   }}
-                  className="absolute right-6 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
+                  className="absolute right-20 top-6 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
                 >
-                  <ChevronRight size={20} />
+                  {zoomed ? <ZoomOut size={18} /> : <ZoomIn size={18} />}
                 </button>
-                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 rounded-full bg-white/10 px-3 py-1 text-xs text-white">
-                  {openIndex + 1} / {images.length}
-                </div>
-              </>
-            )}
 
-            {/* Clicking the image bubbles to the backdrop and closes the lightbox
+                {images.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      aria-label={dict.previousImage}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        showPrev();
+                      }}
+                      className="absolute left-6 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
+                    >
+                      <ChevronLeft size={20} />
+                    </button>
+                    <button
+                      type="button"
+                      aria-label={dict.nextImage}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        showNext();
+                      }}
+                      className="absolute right-6 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
+                    >
+                      <ChevronRight size={20} />
+                    </button>
+                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 rounded-full bg-white/10 px-3 py-1 text-xs text-white">
+                      {openIndex + 1} / {images.length}
+                    </div>
+                  </>
+                )}
+
+                {/* Clicking the image bubbles to the backdrop and closes the lightbox
                 (the standard convention) — zoom is only triggered by the dedicated
                 button above, not by clicking the image itself. */}
-            <m.div
-              initial={{ scale: 0.95 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.95 }}
-              className={
-                zoomed
-                  ? "relative max-h-[calc(100vh-3rem)] max-w-[calc(100vw-3rem)] overflow-auto rounded-xl"
-                  : "relative max-h-[85vh] max-w-[90vw]"
-              }
-            >
-              <Image
-                src={images[openIndex]}
-                alt={`${alt} ${openIndex + 1}`}
-                width={1440}
-                height={900}
-                // 90 to browse (a retina screenshot at 100 was several MB per
-                // arrow); full quality only once you zoom in to read small text.
-                quality={zoomed ? 100 : LIGHTBOX_QUALITY}
-                className={zoomed ? "w-auto max-w-none rounded-xl" : "max-h-[85vh] w-auto rounded-xl object-contain"}
-              />
-            </m.div>
+                <m.div
+                  initial={{ scale: 0.95 }}
+                  animate={{ scale: 1 }}
+                  exit={{ scale: 0.95 }}
+                  className={
+                    zoomed
+                      ? "relative max-h-[calc(100vh-3rem)] max-w-[calc(100vw-3rem)] overflow-auto rounded-xl"
+                      : "relative max-h-[85vh] max-w-[90vw]"
+                  }
+                >
+                  <Image
+                    src={images[openIndex]}
+                    alt={`${alt} ${openIndex + 1}`}
+                    width={1440}
+                    height={900}
+                    // 90 to browse (a retina screenshot at 100 was several MB per
+                    // arrow); full quality only once you zoom in to read small text.
+                    quality={zoomed ? 100 : LIGHTBOX_QUALITY}
+                    className={
+                      zoomed ? "w-auto max-w-none rounded-xl" : "max-h-[85vh] w-auto rounded-xl object-contain"
+                    }
+                  />
+                </m.div>
 
-            {/* Precarga la anterior y la siguiente con las MISMAS props (mismo
+                {/* Precarga la anterior y la siguiente con las MISMAS props (mismo
                 srcset -> misma URL optimizada), así la flecha muestra una imagen
                 ya en caché. Sin esto cada flecha esperaba recién ahí la descarga
                 de una captura retina a calidad 100 (varios MB). */}
-            {neighborIndexes(openIndex, images.length).map((i) => (
-              <Image
-                key={`preload-${images[i]}`}
-                src={images[i]}
-                alt=""
-                aria-hidden="true"
-                width={1440}
-                height={900}
-                quality={LIGHTBOX_QUALITY}
-                loading="eager"
-                fetchPriority="low"
-                className="pointer-events-none fixed -left-[10000px] top-0 opacity-0"
-              />
-            ))}
-          </m.div>
+                {neighborIndexes(openIndex, images.length).map((i) => (
+                  <Image
+                    key={`preload-${images[i]}`}
+                    src={images[i]}
+                    alt=""
+                    aria-hidden="true"
+                    width={1440}
+                    height={900}
+                    quality={LIGHTBOX_QUALITY}
+                    loading="eager"
+                    fetchPriority="low"
+                    className="pointer-events-none fixed -left-[10000px] top-0 opacity-0"
+                  />
+                ))}
+              </m.div>
+            )}
+          </AnimatePresence>,
+          document.body,
         )}
-        </AnimatePresence>,
-        document.body
-      )}
     </>
   );
 });

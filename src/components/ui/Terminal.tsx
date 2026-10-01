@@ -9,7 +9,10 @@ type LogLine = { label: string; detail: LocalizedText };
 
 const LOG_LINES: LogLine[] = [
   { label: "rentedge — pricing-engine", detail: { en: "rules loaded", es: "reglas cargadas" } },
-  { label: "reservaya — postgres", detail: { en: "overlap check passed", es: "verificación de solapamiento aprobada" } },
+  {
+    label: "reservaya — postgres",
+    detail: { en: "overlap check passed", es: "verificación de solapamiento aprobada" },
+  },
   { label: "connect5 — relay", detail: { en: "multiplayer connection stable", es: "conexión multijugador estable" } },
   { label: "willforge — supabase", detail: { en: "auth + RLS active", es: "auth + RLS activos" } },
   { label: "detective-game — case-engine", detail: { en: "evidence linked", es: "evidencia vinculada" } },
@@ -121,10 +124,7 @@ export function Terminal({ className }: { className?: string }) {
   return (
     <div
       ref={containerRef}
-      className={cn(
-        "overflow-hidden rounded-xl border border-border bg-surface font-mono text-[12.5px]",
-        className
-      )}
+      className={cn("overflow-hidden rounded-xl border border-border bg-surface font-mono text-[12.5px]", className)}
     >
       <div className="flex items-center gap-1.5 border-b border-border bg-surface-muted px-3 py-2.5">
         <span className="h-2.5 w-2.5 rounded-full bg-[#FF5F57]" />

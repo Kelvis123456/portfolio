@@ -17,9 +17,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
 
   return (
     <main className="flex flex-1 flex-col items-center justify-center px-6 py-32 text-center">
-      <span className="text-sm font-medium uppercase tracking-widest text-foreground/65">
-        {dict.errorPage.eyebrow}
-      </span>
+      <span className="text-sm font-medium uppercase tracking-widest text-foreground/65">{dict.errorPage.eyebrow}</span>
       <h1 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl">{dict.errorPage.heading}</h1>
       <p className="mt-4 max-w-md text-foreground/70">{dict.errorPage.body}</p>
       <button

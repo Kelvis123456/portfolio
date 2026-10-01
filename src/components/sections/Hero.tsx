@@ -20,7 +20,10 @@ export function Hero() {
   const dict = dictionary[locale];
 
   return (
-    <section id="top" className="relative flex min-h-[90svh] w-full flex-col items-center justify-center overflow-hidden px-6 pt-24 lg:min-h-screen">
+    <section
+      id="top"
+      className="relative flex min-h-[90svh] w-full flex-col items-center justify-center overflow-hidden px-6 pt-24 lg:min-h-screen"
+    >
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(255,138,76,0.16),transparent_70%)]"
@@ -43,7 +46,10 @@ export function Hero() {
           {t(siteConfig.tagline, locale)}
         </h1>
 
-        <p style={delay(140)} className="hero-in mt-6 flex items-start gap-2 text-left text-sm text-muted-foreground sm:items-center">
+        <p
+          style={delay(140)}
+          className="hero-in mt-6 flex items-start gap-2 text-left text-sm text-muted-foreground sm:items-center"
+        >
           <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-accent-2 sm:mt-0" aria-hidden />
           {dict.hero.available}
         </p>

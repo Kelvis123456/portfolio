@@ -19,7 +19,10 @@ import { pushModal, popModal } from "@/lib/modal-stack";
 import { CommandPaletteResults, type PaletteGroup, type PaletteItem } from "@/components/ui/CommandPaletteResults";
 
 const SECTION_IDS = ["about", "projects", "skills", "contact"] as const;
-const SECTION_ICONS: Record<(typeof SECTION_IDS)[number], React.ComponentType<{ size?: number; className?: string }>> = {
+const SECTION_ICONS: Record<
+  (typeof SECTION_IDS)[number],
+  React.ComponentType<{ size?: number; className?: string }>
+> = {
   about: User,
   projects: FolderGit2,
   skills: Sparkles,
@@ -146,9 +149,7 @@ export function CommandPalette() {
   ];
 
   const q = query.trim().toLowerCase();
-  const filtered = q
-    ? items.filter((item) => `${item.label} ${item.keywords ?? ""}`.toLowerCase().includes(q))
-    : items;
+  const filtered = q ? items.filter((item) => `${item.label} ${item.keywords ?? ""}`.toLowerCase().includes(q)) : items;
 
   const groups: { key: PaletteGroup; label: string }[] = [
     { key: "navigation", label: dict.commandPalette.groupNavigation },
@@ -269,7 +270,9 @@ export function CommandPalette() {
                 aria-label={dict.commandPalette.dialogLabel}
                 aria-expanded="true"
                 aria-controls="command-palette-listbox"
-                aria-activedescendant={filtered[activeIndex] ? `command-palette-option-${filtered[activeIndex].id}` : undefined}
+                aria-activedescendant={
+                  filtered[activeIndex] ? `command-palette-option-${filtered[activeIndex].id}` : undefined
+                }
                 className="w-full bg-transparent text-base outline-none sm:text-sm placeholder:text-foreground/65"
               />
               <kbd className="hidden shrink-0 rounded border border-border px-1.5 py-0.5 text-[10px] text-foreground/65 sm:block">
