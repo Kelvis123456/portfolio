@@ -1,6 +1,6 @@
 "use client";
 
-import { m, useReducedMotion } from "motion/react";
+import { m } from "motion/react";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { skillGroups } from "@/content/skills";
@@ -12,14 +12,13 @@ import { cn } from "@/lib/cn";
 export function Skills() {
   const { locale } = useLanguage();
   const dict = dictionary[locale];
-  const shouldReduceMotion = useReducedMotion();
 
   return (
     <Section id="skills">
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading index="03">{dict.skills.heading}</SectionHeading>
 
-        <m.div variants={staggerContainer(0.1)} className="mt-10 grid items-start gap-4 sm:grid-cols-2 lg:grid-cols-6">
+        <m.div variants={staggerContainer(0.1)} className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
           {skillGroups.map((group) => (
             <m.div
               key={group.category.en}
@@ -34,14 +33,12 @@ export function Skills() {
               </h3>
               <div className="mt-3 flex flex-wrap gap-2">
                 {group.items.map((item) => (
-                  <m.span
+                  <span
                     key={item}
-                    whileHover={shouldReduceMotion ? undefined : { scale: 1.06, rotate: -2 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                    className="rounded-full border border-border bg-surface-muted px-3 py-1.5 text-sm hover:border-accent-2/50 transition-colors"
+                    className="rounded-full border border-border bg-surface-muted px-3 py-1.5 text-sm"
                   >
                     {item}
-                  </m.span>
+                  </span>
                 ))}
               </div>
             </m.div>

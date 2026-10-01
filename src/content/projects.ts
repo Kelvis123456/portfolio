@@ -213,7 +213,7 @@ export const projects: Project[] = [
     kind: "software",
     category: "software",
     status: "live",
-    featured: true,
+    featured: false,
     stack: ["Node.js", "Express", "PostgreSQL", "Sequelize", "MongoDB", "Mongoose", "React", "Vite", "Tailwind CSS", "Docker"],
     role: { en: "Full-stack developer", es: "Desarrollador full-stack" },
     summary: {
@@ -293,7 +293,7 @@ export const projects: Project[] = [
     kind: "software",
     category: "game",
     status: "live",
-    featured: true,
+    featured: false,
     stack: ["Unity 6", "C#", "Netcode for GameObjects", "Unity Relay"],
     role: { en: "Solo developer", es: "Desarrollador en solitario" },
     summary: {
@@ -452,7 +452,7 @@ export const projects: Project[] = [
     kind: "game-design",
     category: "game",
     status: "in-development",
-    featured: true,
+    featured: false,
     stack: ["Unity 6", "URP", "C#"],
     role: { en: "Game designer / solo studio", es: "Diseñador de juegos / estudio en solitario" },
     summary: {
@@ -600,7 +600,7 @@ export const projects: Project[] = [
     category: "software",
     status: "in-development",
     visibility: "private",
-    featured: true,
+    featured: false,
     stack: ["Next.js 15", "TypeScript", "Tailwind CSS", "Zustand", "Supabase", "PostgreSQL", "hls.js", "Framer Motion"],
     role: { en: "Solo developer", es: "Desarrollador en solitario" },
     summary: {

@@ -28,7 +28,7 @@ export function ProjectListRow({
       onMouseEnter={onActivate}
       onFocus={onActivate}
       className={cn(
-        "group flex items-start gap-4 rounded-xl border px-5 py-4 transition-colors",
+        "group flex items-start gap-4 rounded-2xl border px-5 py-4 transition-colors",
         active ? "border-accent-text/40 bg-surface" : "border-border/60 bg-surface/60 hover:bg-surface"
       )}
     >
@@ -44,9 +44,6 @@ export function ProjectListRow({
           </div>
         </div>
         <p className="mt-1 text-sm text-foreground/70">{t(project.tagline, locale)}</p>
-        {project.problem && (
-          <p className="mt-1 line-clamp-1 text-sm text-foreground/60">{t(project.problem, locale)}</p>
-        )}
         <div className="mt-3 flex flex-wrap gap-2">
           {project.stack.slice(0, 4).map((tech) => (
             <span key={tech} className="rounded-full bg-surface-muted px-2.5 py-1 text-xs text-foreground/70">
