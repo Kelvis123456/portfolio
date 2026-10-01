@@ -358,18 +358,20 @@ export const projects: Project[] = [
         "Levels defined as plain strings ('.' empty, '1'-'3' hits, '#' metal), each one checked by a test to be clearable",
         "Saved scores treated as untrusted input: validated on load and rendered as text, never HTML",
         "Playwright tests on desktop and mobile covering the boss fight, power-ups and the scoreboard",
+        "Built for phones too: touch drags the paddle relatively so the thumb never hides the ball, and reduced motion turns off screen shake",
       ],
       es: [
         "Física con paso fijo: misma velocidad en pantallas de 60Hz y 144Hz, y sin atravesar ladrillos a máxima velocidad",
         "Niveles definidos como texto plano ('.' vacío, '1'-'3' golpes, '#' metal), y un test comprueba que cada uno se puede completar",
         "Los puntajes guardados se tratan como datos no confiables: se validan al cargar y se muestran como texto, nunca como HTML",
         "Tests de Playwright en escritorio y móvil que cubren el jefe, los power-ups y la tabla de puntajes",
+        "Pensado también para móvil: el dedo arrastra la paleta de forma relativa para no tapar la bola, y con movimiento reducido se apaga el temblor de pantalla",
       ],
     },
     metrics: [
-      { label: { en: "Tests", es: "Tests" }, value: "44 unit + 20 e2e" },
+      { label: { en: "Tests", es: "Tests" }, value: "54 unit + 25 e2e" },
       { label: { en: "Levels", es: "Niveles" }, value: "6 + boss loop" },
-      { label: { en: "Bundle", es: "Bundle" }, value: "~7KB gzipped" },
+      { label: { en: "Bundle", es: "Bundle" }, value: "~8KB gzipped" },
     ],
     links: [
       { label: { en: "Play it", es: "Jugar" }, href: "https://brick-breaker-kelvis.vercel.app", icon: "external" },
