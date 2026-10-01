@@ -120,6 +120,59 @@ export const projects: Project[] = [
     accentColor: "#1e4a8c",
   },
   {
+    slug: "agendabot",
+    title: "AgendaBot",
+    tagline: {
+      en: "ASP.NET Core backend where an AI agent books barbershop appointments over WhatsApp",
+      es: "Backend en ASP.NET Core donde un agente con IA agenda citas de una barbería por WhatsApp",
+    },
+    kind: "software",
+    category: "software",
+    status: "in-development",
+    featured: true,
+    stack: [".NET 10", "ASP.NET Core", "EF Core", "SQL Server", "Microsoft.Extensions.AI", "Claude", "WhatsApp Cloud API", "xUnit", "Testcontainers", "Docker"],
+    role: { en: "Backend developer", es: "Desarrollador backend" },
+    summary: {
+      en: "A .NET backend for the way many small businesses in the Dominican Republic actually take bookings: by hand, over WhatsApp. An LLM agent reads the customer's message, checks real availability, proposes a slot and books it only after the customer says yes. A background job sends a reminder the day before.",
+      es: "Un backend en .NET para la forma en que muchos negocios pequeños en República Dominicana agendan de verdad: a mano, por WhatsApp. Un agente con LLM lee el mensaje del cliente, consulta la disponibilidad real, propone un horario y agenda solo cuando el cliente dice que sí. Un proceso en segundo plano manda un recordatorio el día antes.",
+    },
+    problem: {
+      en: "Letting a language model write to a calendar is risky: it can double-book, invent a free slot, or confirm something the customer never agreed to. And a WhatsApp webhook has to answer Meta fast, survive retries and keep the LLM bill under control.",
+      es: "Dejar que un modelo de lenguaje escriba en una agenda es riesgoso: puede reservar dos veces el mismo horario, inventarse uno libre o confirmar algo que el cliente nunca aceptó. Y un webhook de WhatsApp tiene que responderle rápido a Meta, aguantar reintentos y no disparar la factura del LLM.",
+    },
+    solution: {
+      en: "The agent's write tools only leave a pending proposal; the server executes it only if the customer wrote something after it, so the model can't propose and confirm on its own. Bookings run in a serializable SQL Server transaction. The webhook verifies Meta's signature, deduplicates by message id and hands the slow work to a background queue.",
+      es: "Las herramientas de escritura del agente solo dejan una propuesta pendiente; el servidor la ejecuta únicamente si el cliente escribió algo después, así que el modelo no puede proponer y confirmar solo. Las reservas corren en una transacción serializable de SQL Server. El webhook verifica la firma de Meta, deduplica por id de mensaje y pasa el trabajo lento a una cola en segundo plano.",
+    },
+    architectureHighlights: {
+      en: [
+        "Double-booking test fires 8 identical bookings in parallel against a real SQL Server: with Serializable exactly 1 wins; with ReadCommitted all 8 got in",
+        "The two-turn confirmation rule lives in C#, not in the prompt, and has a test that fails if the check is removed",
+        "Agent built on Microsoft.Extensions.AI IChatClient: Claude Haiku 4.5 in production, a scripted fake model in tests",
+        "WhatsApp webhook validates X-Hub-Signature-256, deduplicates retries with a unique index and processes through a Channel<T> + BackgroundService",
+        "LLM cost caps: per-number and per-IP rate limits, a daily cap for the public demo, max 6 tool calls per message",
+        "Public demo page prints a receipt of every tool call the agent made, including the ones the server rejected",
+        "Tests run against real SQL Server via Testcontainers in GitHub Actions, plus 13 scripted evals against the real model graded by database state",
+      ],
+      es: [
+        "El test de doble reserva lanza 8 reservas iguales en paralelo contra un SQL Server real: con Serializable entra exactamente 1; con ReadCommitted entraban las 8",
+        "La regla de confirmación en dos turnos vive en C#, no en el prompt, y tiene un test que falla si se quita el chequeo",
+        "Agente construido sobre IChatClient de Microsoft.Extensions.AI: Claude Haiku 4.5 en producción, un modelo falso con guion en los tests",
+        "El webhook de WhatsApp valida X-Hub-Signature-256, deduplica reintentos con un índice único y procesa con Channel<T> + BackgroundService",
+        "Topes de costo del LLM: rate limit por número y por IP, tope diario para la demo pública y máximo 6 llamadas a herramientas por mensaje",
+        "La demo pública imprime un ticket con cada herramienta que usó el agente, incluidas las que el servidor rechazó",
+        "Los tests corren contra SQL Server real con Testcontainers en GitHub Actions, más 13 evals guionadas contra el modelo real calificadas por el estado de la base",
+      ],
+    },
+    metrics: [
+      { label: { en: "Automated tests", es: "Tests automatizados" }, value: "28 + 13 evals" },
+      { label: { en: "Parallel double-booking attempts", es: "Reservas simultáneas en el test" }, value: "8 → 1" },
+    ],
+    links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/agendabot", icon: "github" }],
+    gallery: ["/images/agendabot/demo.png"],
+    accentColor: "#1F55B5",
+  },
+  {
     slug: "willforge",
     title: "WillForge",
     tagline: {
