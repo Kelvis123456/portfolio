@@ -11,6 +11,8 @@ import { lockScroll, unlockScroll } from "@/lib/scroll-lock";
 import { pushModal, popModal, isTopModal } from "@/lib/modal-stack";
 import { neighborIndexes } from "@/lib/lightbox-neighbors";
 
+const LIGHTBOX_QUALITY = 90;
+
 export interface LightboxHandle {
   open: (index: number) => void;
 }
@@ -254,7 +256,9 @@ export const Lightbox = forwardRef<LightboxHandle, LightboxProps>(function Light
                 alt={`${alt} ${openIndex + 1}`}
                 width={1440}
                 height={900}
-                quality={100}
+                // 90 to browse (a retina screenshot at 100 was several MB per
+                // arrow); full quality only once you zoom in to read small text.
+                quality={zoomed ? 100 : LIGHTBOX_QUALITY}
                 className={zoomed ? "w-auto max-w-none rounded-xl" : "max-h-[85vh] w-auto rounded-xl object-contain"}
               />
             </m.div>
@@ -271,7 +275,7 @@ export const Lightbox = forwardRef<LightboxHandle, LightboxProps>(function Light
                 aria-hidden="true"
                 width={1440}
                 height={900}
-                quality={100}
+                quality={LIGHTBOX_QUALITY}
                 loading="eager"
                 fetchPriority="low"
                 className="pointer-events-none fixed -left-[10000px] top-0 opacity-0"

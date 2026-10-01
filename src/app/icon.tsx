@@ -1,9 +1,14 @@
 import { ImageResponse } from "next/og";
 
-export const size = { width: 192, height: 192 };
 export const contentType = "image/png";
 
-export default function Icon() {
+// 192 for the tab/Android, 512 for the install splash -- the manifest asks for both.
+export function generateImageMetadata() {
+  return [192, 512].map((px) => ({ id: String(px), size: { width: px, height: px }, contentType }));
+}
+
+export default async function Icon({ id }: { id: Promise<string | number> }) {
+  const px = Number(await id);
   return new ImageResponse(
     (
       <div
@@ -13,13 +18,13 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          borderRadius: 40,
+          borderRadius: px * (40 / 192),
           background: "linear-gradient(135deg, #ff5a1f 0%, #ff7b4d 100%)",
         }}
       >
-        <div style={{ fontSize: 96, fontWeight: 700, color: "#fff8f2" }}>KG</div>
+        <div style={{ fontSize: px / 2, fontWeight: 700, color: "#fff8f2" }}>KG</div>
       </div>
     ),
-    { ...size }
+    { width: px, height: px }
   );
 }
