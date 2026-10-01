@@ -29,8 +29,10 @@ export function MagneticButton({
   const springX = useSpring(x, springConfig);
   const springY = useSpring(y, springConfig);
 
-  function handleMouseMove(e: React.MouseEvent) {
-    if (shouldReduceMotion) return;
+  // Mouse only: on touch the "magnet" fired on tap and left the button
+  // nudged off-center after the finger lifted.
+  function handlePointerMove(e: React.PointerEvent) {
+    if (shouldReduceMotion || e.pointerType !== "mouse") return;
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
@@ -56,11 +58,12 @@ export function MagneticButton({
       target={target}
       rel={rel}
       onClick={onClick}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handleMouseLeave}
+      whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
       style={{ x: springX, y: springY }}
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-colors",
+        "inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-colors [-webkit-tap-highlight-color:transparent]",
         className
       )}
     >
