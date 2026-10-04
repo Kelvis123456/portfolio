@@ -12,19 +12,7 @@ export function generateImageMetadata() {
 export default async function Icon({ id }: { id: Promise<string | number> }) {
   const px = Number(await id);
   return new ImageResponse(
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: px * (40 / 192),
-        background: "#ff5a1f",
-      }}
-    >
-      <KgMark size={px * 0.72} color="#fff8f2" />
-    </div>,
+    <KgMark size={px} />,
     { width: px, height: px },
   );
 }
