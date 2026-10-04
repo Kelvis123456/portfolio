@@ -30,7 +30,7 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
       }}
     >
       <div style={{ display: "flex", marginBottom: 36 }}>
-        <KgMark size={96} color="#ff7b4d" />
+        <KgMark size={120} tile={false} halo="#0d0b09" />
       </div>
       <div
         style={{
