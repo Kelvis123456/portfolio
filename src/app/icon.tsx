@@ -1,5 +1,7 @@
 import { ImageResponse } from "next/og";
 
+import { KgMark } from "@/components/ui/KgMark";
+
 export const contentType = "image/png";
 
 // 192 for the tab/Android, 512 for the install splash -- the manifest asks for both.
@@ -18,10 +20,10 @@ export default async function Icon({ id }: { id: Promise<string | number> }) {
         alignItems: "center",
         justifyContent: "center",
         borderRadius: px * (40 / 192),
-        background: "linear-gradient(135deg, #ff5a1f 0%, #ff7b4d 100%)",
+        background: "#ff5a1f",
       }}
     >
-      <div style={{ fontSize: px / 2, fontWeight: 700, color: "#fff8f2" }}>KG</div>
+      <KgMark size={px * 0.72} color="#fff8f2" />
     </div>,
     { width: px, height: px },
   );
