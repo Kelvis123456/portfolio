@@ -198,6 +198,50 @@ export const projects: Project[] = [
     accentColor: "#1F55B5",
   },
   {
+    slug: "automatizaciones",
+    title: "Automatizaciones",
+    tagline: {
+      en: "n8n workflows I built to practice process automation: a daily exchange rate and an AI message classifier",
+      es: "Flujos de n8n que armé para practicar automatización de procesos: una tasa de cambio diaria y un clasificador de mensajes con IA",
+    },
+    kind: "software",
+    category: "software",
+    status: "in-development",
+    featured: false,
+    stack: ["n8n", "PostgreSQL", "Docker", "JavaScript", "Gemini API", "GitHub Actions"],
+    role: { en: "Author", es: "Autor" },
+    summary: {
+      en: "Two n8n workflows with their own repo. One pulls the USD to DOP rate every weekday, stores it in Postgres and compares it with the previous day. The other is a webhook that sends a customer message to Gemini and returns its category, urgency and a one-line summary.",
+      es: "Dos flujos de n8n con su propio repo. Uno pide la tasa USD a DOP cada día hábil, la guarda en Postgres y la compara con el día anterior. El otro es un webhook que manda el mensaje de un cliente a Gemini y devuelve su categoría, urgencia y un resumen de una línea.",
+    },
+    problem: {
+      en: "A language model can answer with the wrong format or with whatever the customer's message tells it to, and a workflow that trusts that output breaks quietly.",
+      es: "Un modelo de lenguaje puede responder con otro formato o con lo que el mensaje del cliente le pida, y un flujo que confía en esa salida falla en silencio.",
+    },
+    solution: {
+      en: "The customer's text goes between tags and is treated as data, the answer is checked against the allowed values, and the webhook returns 400 for bad input and 502 when Gemini fails after three tries.",
+      es: "El texto del cliente va entre etiquetas y se trata como dato, la respuesta se valida contra los valores permitidos y el webhook devuelve 400 con entrada inválida y 502 si Gemini falla tras tres intentos.",
+    },
+    architectureHighlights: {
+      en: [
+        "6 tests against the real webhook, including a message that tries to give orders to the model and a forced 502",
+        "The exchange rate lives in a Postgres table with one row per day, so manual runs and scheduled runs see the same history",
+        "A GitHub Actions job checks that every exported flow imports cleanly and carries no keys",
+        "Postgres in Docker instead of my SQL Server Express, which only accepts Windows authentication: the reasoning is in the repo's decisions log",
+      ],
+      es: [
+        "6 pruebas contra el webhook real, incluido un mensaje que intenta darle órdenes al modelo y un 502 forzado",
+        "La tasa vive en una tabla de Postgres con una fila por día, así que las corridas manuales y las programadas ven el mismo historial",
+        "Un job de GitHub Actions revisa que cada flujo exportado se importe bien y no lleve llaves",
+        "Postgres en Docker en vez de mi SQL Server Express, que solo acepta autenticación de Windows: el razonamiento está en el registro de decisiones del repo",
+      ],
+    },
+    metrics: [{ label: { en: "Tests against the webhook", es: "Pruebas contra el webhook" }, value: "6" }],
+    links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/automatizaciones", icon: "github" }],
+    gallery: ["/images/automatizaciones/clasificador.png", "/images/automatizaciones/tasa-diaria.png"],
+    accentColor: "#EA4B71",
+  },
+  {
     slug: "willforge",
     title: "WillForge",
     tagline: {
