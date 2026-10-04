@@ -12,11 +12,13 @@ type Props = {
   radius?: number;
   /** Colour of the gap that separates the G from the K; match whatever is behind the mark. */
   halo?: string;
+  /** Crop of the 512 canvas to show; the header zooms in so the letters fill their small tile. */
+  viewBox?: string;
 };
 
-export function KgMark({ size, tile = true, radius = 112, halo = INK }: Props) {
+export function KgMark({ size, tile = true, radius = 112, halo = INK, viewBox = "0 0 512 512" }: Props) {
   return (
-    <svg width={size} height={size} viewBox="0 0 512 512">
+    <svg width={size} height={size} viewBox={viewBox}>
       {tile && <rect width="512" height="512" rx={radius} fill={INK} />}
       <path d={K} fill="#ff5a1f" />
       <path d={G} fill={halo} stroke={halo} strokeWidth={26} strokeLinejoin="round" />
