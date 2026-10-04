@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { KgMark } from "@/components/ui/KgMark";
 import { siteConfig } from "@/content/siteConfig";
 import type { Locale } from "@/lib/language-context";
 
@@ -26,9 +27,11 @@ export default async function Image({ params }: { params: Promise<{ locale: stri
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "#0d0b09",
-        backgroundImage: "radial-gradient(circle at 25% 15%, rgba(255,138,76,0.35), transparent 55%)",
       }}
     >
+      <div style={{ display: "flex", marginBottom: 36 }}>
+        <KgMark size={96} color="#ff7b4d" />
+      </div>
       <div
         style={{
           fontSize: 28,

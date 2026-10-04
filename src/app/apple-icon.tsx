@@ -1,5 +1,7 @@
 import { ImageResponse } from "next/og";
 
+import { KgMark } from "@/components/ui/KgMark";
+
 export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
@@ -12,10 +14,10 @@ export default function AppleIcon() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "linear-gradient(135deg, #ff5a1f 0%, #ff7b4d 100%)",
+        background: "#ff5a1f",
       }}
     >
-      <div style={{ fontSize: 90, fontWeight: 700, color: "#fff8f2" }}>KG</div>
+      <KgMark size={130} color="#fff8f2" />
     </div>,
     { ...size },
   );
