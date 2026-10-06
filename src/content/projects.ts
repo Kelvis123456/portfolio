@@ -311,6 +311,27 @@ export const projects: Project[] = [
     accentColor: "#6E3BFF",
   },
   {
+    slug: "aura-novel",
+    title: "Aura Novel",
+    tagline: {
+      en: "A mobile novel-writing app where you bring your own AI",
+      es: "Una app móvil para escribir novelas donde traes tu propia IA",
+    },
+    kind: "software",
+    category: "software",
+    status: "in-development",
+    featured: false,
+    stack: ["Flutter", "Dart", "SQLite", "OpenAI-compatible API"],
+    role: { en: "Solo developer", es: "Desarrollador en solitario" },
+    summary: {
+      en: "An Android editor that continues your scene with any OpenAI-compatible model. Projects, chapters, branching story history and a character/lore studio live in local SQLite, and chapters export to TXT, PDF or EPUB.",
+      es: "Un editor Android que continúa tu escena con cualquier modelo compatible con OpenAI. Proyectos, capítulos, historial de historia en ramas y un estudio de personajes y lore viven en SQLite local, y los capítulos se exportan a TXT, PDF o EPUB.",
+    },
+    links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/aura-novel", icon: "github" }],
+    gallery: ["/images/aura-novel/editor.png", "/images/aura-novel/menu.png"],
+    accentColor: "#dc143c",
+  },
+  {
     slug: "recetas-app",
     title: "recetas-app",
     tagline: {
