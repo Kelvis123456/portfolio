@@ -9,8 +9,8 @@ export const siteConfig = {
     es: "Desarrollador de Software",
   } satisfies LocalizedText,
   tagline: {
-    en: "Building SaaS platforms, mobile apps, and games — end to end.",
-    es: "Construyendo plataformas SaaS, apps móviles y videojuegos — de principio a fin.",
+    en: "Building SaaS platforms, mobile apps, and games, end to end.",
+    es: "Construyendo plataformas SaaS, apps móviles y videojuegos, de principio a fin.",
   } satisfies LocalizedText,
   bio: {
     en: "Software Development student (ITLA), currently in the Full-Stack + AI program at Alterna Academy. Backend internship experience building REST APIs and Worker Services in C#/.NET, plus independent work shipping SaaS platforms, mobile apps, and original game prototypes.",

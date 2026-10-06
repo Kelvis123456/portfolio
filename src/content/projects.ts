@@ -43,8 +43,8 @@ export interface Project {
 
 const SOURCE_LABEL: LocalizedText = { en: "Source", es: "Código fuente" };
 const PRIVATE_LABEL: LocalizedText = {
-  en: "Private repository — available on request",
-  es: "Repositorio privado — disponible bajo solicitud",
+  en: "Private repository, available on request",
+  es: "Repositorio privado, disponible bajo solicitud",
 };
 
 export const projects: Project[] = [
@@ -63,25 +63,25 @@ export const projects: Project[] = [
     stack: ["NestJS", "Next.js", "PostgreSQL", "TimescaleDB", "Redis", "BullMQ", "Python", "Prisma", "Turborepo"],
     role: { en: "Full-stack architect & developer", es: "Arquitecto full-stack y desarrollador" },
     summary: {
-      en: "A multi-tenant SaaS platform that automates pricing, competitive intelligence, and revenue management for rent-a-car companies — the kind of system that usually costs six figures to license from an incumbent vendor.",
-      es: "Una plataforma SaaS multi-tenant que automatiza el pricing, la inteligencia competitiva y la gestión de ingresos para empresas de rent-a-car — el tipo de sistema que normalmente cuesta seis cifras licenciar de un proveedor establecido.",
+      en: "A multi-tenant SaaS platform that automates pricing, competitive intelligence, and revenue management for rent-a-car companies, the kind of system that usually costs six figures to license from an incumbent vendor.",
+      es: "Una plataforma SaaS multi-tenant que automatiza el pricing, la inteligencia competitiva y la gestión de ingresos para empresas de rent-a-car, el tipo de sistema que normalmente cuesta seis cifras licenciar de un proveedor establecido.",
     },
     problem: {
       en: "Rent-a-car companies price vehicles manually or with static spreadsheets, missing real-time competitive shifts and leaving margin on the table. Existing enterprise tools are expensive, closed, and slow to adapt.",
       es: "Las empresas de rent-a-car fijan precios manualmente o con hojas de cálculo estáticas, sin detectar cambios competitivos en tiempo real y dejando margen sobre la mesa. Las herramientas empresariales existentes son costosas, cerradas y lentas para adaptarse.",
     },
     solution: {
-      en: "A modular-monolith pricing engine with a deterministic rules DSL, hard safety clamps (price floors/ceilings that can never be crossed), automatic competitor rate intelligence, and alerting — all multi-tenant from day one with real JWT/RBAC isolation.",
-      es: "Un motor de pricing tipo monolito modular con un DSL de reglas determinista, topes de seguridad estrictos (mínimos/máximos de precio que nunca se cruzan), inteligencia automática de tarifas de la competencia, y alertas — todo multi-tenant desde el primer día, con aislamiento real vía JWT/RBAC.",
+      en: "A modular-monolith pricing engine with a deterministic rules DSL, hard safety clamps (price floors/ceilings that can never be crossed), automatic competitor rate intelligence, and alerting, all multi-tenant from day one with real JWT/RBAC isolation.",
+      es: "Un motor de pricing tipo monolito modular con un DSL de reglas determinista, topes de seguridad estrictos (mínimos/máximos de precio que nunca se cruzan), inteligencia automática de tarifas de la competencia, y alertas, todo multi-tenant desde el primer día, con aislamiento real vía JWT/RBAC.",
     },
     architectureHighlights: {
       en: [
         "NestJS + Next.js monorepo (Turborepo) with a Python microservice layer for scraping and ML forecasting, isolated by workload profile",
-        "Deterministic rules engine with condition/action evaluation and conflict resolution by specificity — auditable by design, ML is a future suggestion layer, not a black box",
+        "Deterministic rules engine with condition/action evaluation and conflict resolution by specificity; auditable by design, ML is a future suggestion layer, not a black box",
         "Multi-tenant JWT/RBAC with tenant isolation enforced in every use case, verified end-to-end (403 on cross-tenant access)",
         "Automated competitive rate intelligence via lightweight adapters that call OTA internal APIs directly instead of browser automation where possible",
         "PostgreSQL + TimescaleDB for pricing/occupancy time series, Redis + BullMQ for repricing events",
-        'Price segmentation by length-of-stay and sales channel, no-show/overbooking risk detection, and deterministic template-based "why this price changed" narratives generated from stored rule facts — a $0 alternative to a paid AI pricing assistant',
+        'Price segmentation by length-of-stay and sales channel, no-show/overbooking risk detection, and deterministic template-based "why this price changed" narratives generated from stored rule facts, a $0 alternative to a paid AI pricing assistant',
         "Multi-country tax/currency support (USD/DOP/MXN) and a general activity/audit log capturing every mutating request via a single global middleware, not per-endpoint instrumentation",
         "Public OpenAPI/Swagger docs and automated nightly Postgres backups to Cloudflare R2, with the restore cycle itself verified in CI, not just the backup",
         "Money modeled as exact decimal (not float) end-to-end, with row-level locking around every price mutation so two concurrent repricing events can never silently overwrite each other's result",
@@ -94,11 +94,11 @@ export const projects: Project[] = [
       ],
       es: [
         "Monorepo NestJS + Next.js (Turborepo) con una capa de microservicios en Python para scraping y forecasting con ML, aislada por perfil de carga",
-        "Motor de reglas determinista con evaluación de condición/acción y resolución de conflictos por especificidad — auditable por diseño; el ML es una capa de sugerencia futura, no una caja negra",
+        "Motor de reglas determinista con evaluación de condición/acción y resolución de conflictos por especificidad; auditable por diseño; el ML es una capa de sugerencia futura, no una caja negra",
         "Multi-tenancy con JWT/RBAC y aislamiento de tenant forzado en cada caso de uso, verificado de punta a punta (403 en accesos cruzados entre tenants)",
         "Inteligencia competitiva automatizada vía adaptadores ligeros que llaman directamente a las APIs internas de las OTAs en vez de automatización de navegador, cuando es posible",
         "PostgreSQL + TimescaleDB para series de tiempo de precios/ocupación, Redis + BullMQ para eventos de repricing",
-        'Segmentación de precio por duración de estadía y canal de venta, detección de riesgo de no-show/overbooking, y narrativas deterministas basadas en plantillas ("por qué cambió este precio") generadas desde los mismos facts de las reglas — una alternativa a $0 frente a un asistente de IA pago',
+        'Segmentación de precio por duración de estadía y canal de venta, detección de riesgo de no-show/overbooking, y narrativas deterministas basadas en plantillas ("por qué cambió este precio") generadas desde los mismos facts de las reglas, una alternativa a $0 frente a un asistente de IA pago',
         "Soporte multi-país de impuestos/moneda (USD/DOP/MXN) y un log de actividad/auditoría general que captura cada request mutante vía un único middleware global, no instrumentación por endpoint",
         "Documentación pública OpenAPI/Swagger y backups automáticos nocturnos de Postgres a Cloudflare R2, con el ciclo de restore verificado en CI, no solo el backup",
         "Dinero modelado como decimal exacto (no float) de punta a punta, con locking a nivel de fila en cada mutación de precio para que dos eventos de repricing concurrentes nunca se pisen en silencio",
@@ -256,8 +256,8 @@ export const projects: Project[] = [
     stack: ["Flutter", "Riverpod", "Supabase", "PostgreSQL", "go_router"],
     role: { en: "Solo developer", es: "Desarrollador en solitario" },
     summary: {
-      en: "A fitness app that turns real workouts into RPG progression — ranks from E to S, guilds, boss raids, a skill tree, a season pass, and daily quests — all backed by a real Postgres schema, not local mock data.",
-      es: "Una app de fitness que convierte entrenamientos reales en progresión RPG — rangos de E a S, guilds, boss raids, árbol de habilidades, season pass y misiones diarias — todo respaldado por un schema real de Postgres, no datos simulados locales.",
+      en: "A fitness app that turns real workouts into RPG progression: ranks from E to S, guilds, boss raids, a skill tree, a season pass, and daily quests, all backed by a real Postgres schema, not local mock data.",
+      es: "Una app de fitness que convierte entrenamientos reales en progresión RPG: rangos de E a S, guilds, boss raids, árbol de habilidades, season pass y misiones diarias, todo respaldado por un schema real de Postgres, no datos simulados locales.",
     },
     problem: {
       en: "Most gamified fitness apps fake their progression systems with client-side state. I wanted every stat, rank, and reward tied to a real, persisted workout.",
@@ -356,12 +356,12 @@ export const projects: Project[] = [
     ],
     role: { en: "Full-stack developer", es: "Desarrollador full-stack" },
     summary: {
-      en: "A court-booking platform (soccer, basketball, tennis) built to demonstrate a deliberate hybrid database architecture — PostgreSQL for data that needs strict integrity, MongoDB for flexible, high-write data — with real overlap-safe booking and a tested REST API, not just a CRUD demo.",
-      es: "Una plataforma de reservas de canchas (fútbol, baloncesto, tenis) construida para demostrar una arquitectura híbrida de bases de datos deliberada — PostgreSQL para los datos que necesitan integridad estricta, MongoDB para datos flexibles y de alta escritura — con reservas realmente a prueba de solapamiento y una API REST probada, no solo un CRUD de ejemplo.",
+      en: "A court-booking platform (soccer, basketball, tennis) built to demonstrate a deliberate hybrid database architecture: PostgreSQL for data that needs strict integrity, MongoDB for flexible, high-write data, with real overlap-safe booking and a tested REST API, not just a CRUD demo.",
+      es: "Una plataforma de reservas de canchas (fútbol, baloncesto, tenis) construida para demostrar una arquitectura híbrida de bases de datos deliberada: PostgreSQL para los datos que necesitan integridad estricta, MongoDB para datos flexibles y de alta escritura, con reservas realmente a prueba de solapamiento y una API REST probada, no solo un CRUD de ejemplo.",
     },
     problem: {
-      en: "Booking systems need strict integrity for schedules and reservations — two people can never book the same court at the same hour — but they also generate flexible, high-volume data like reviews and per-event notifications that don't fit a rigid relational schema.",
-      es: "Los sistemas de reservas necesitan integridad estricta en horarios y reservas — dos personas nunca deben poder reservar la misma cancha a la misma hora — pero también generan datos flexibles y de alto volumen, como reseñas y notificaciones por evento, que no calzan en un schema relacional rígido.",
+      en: "Booking systems need strict integrity for schedules and reservations (two people can never book the same court at the same hour), but they also generate flexible, high-volume data like reviews and per-event notifications that don't fit a rigid relational schema.",
+      es: "Los sistemas de reservas necesitan integridad estricta en horarios y reservas (dos personas nunca deben poder reservar la misma cancha a la misma hora), pero también generan datos flexibles y de alto volumen, como reseñas y notificaciones por evento, que no calzan en un schema relacional rígido.",
     },
     solution: {
       en: "PostgreSQL (via Sequelize) models users, venues, weekly schedules, and reservations, with row-level locking inside a transaction so two overlapping bookings can never both succeed. MongoDB (via Mongoose) stores reviews and per-event notifications, whose shape genuinely varies by event type.",
@@ -370,18 +370,18 @@ export const projects: Project[] = [
     architectureHighlights: {
       en: [
         "Booking creation runs inside a Postgres transaction with row-level locks that re-check for time-range overlap right before committing, closing the read/write race window instead of relying on a unique constraint alone",
-        "Availability endpoint derives free/booked hour slots per day directly from the venue's weekly Schedule rows minus its active reservations — no separate cache to keep in sync",
+        "Availability endpoint derives free/booked hour slots per day directly from the venue's weekly Schedule rows minus its active reservations, with no separate cache to keep in sync",
         "A MongoDB aggregation pipeline computes each venue's average rating and review count on read, merged in-app with the Postgres venue record",
         "Domain events (reservation created/confirmed/cancelled, review received) write structured notifications into MongoDB, each with a free-form metadata field that differs by event type",
-        "76 backend tests (Vitest + Supertest) against a real Postgres/MongoDB test database, weighted toward negative paths — 401/403/404/409/400 on every route, not just the happy path",
+        "76 backend tests (Vitest + Supertest) against a real Postgres/MongoDB test database, weighted toward negative paths: 401/403/404/409/400 on every route, not just the happy path",
         "24 frontend tests (Vitest + React Testing Library) covering auth-context edge cases (invalid token, failed login) and role-gated route redirects",
       ],
       es: [
         "La creación de una reserva corre dentro de una transacción de Postgres con bloqueo a nivel de fila que re-verifica el solapamiento de horario justo antes de confirmar, cerrando la ventana de carrera entre leer y escribir en vez de depender solo de una restricción única",
-        "El endpoint de disponibilidad calcula los bloques libres/ocupados de cada día directamente desde el horario semanal de la cancha menos sus reservas activas — sin caché aparte que mantener sincronizado",
+        "El endpoint de disponibilidad calcula los bloques libres/ocupados de cada día directamente desde el horario semanal de la cancha menos sus reservas activas, sin caché aparte que mantener sincronizado",
         "Un pipeline de agregación de MongoDB calcula la calificación promedio y el conteo de reseñas de cada cancha al leer, combinado en la app con el registro de la cancha en Postgres",
         "Los eventos de dominio (reserva creada/confirmada/cancelada, reseña recibida) escriben notificaciones estructuradas en MongoDB, cada una con un campo de metadata libre que cambia según el tipo de evento",
-        "76 tests de backend (Vitest + Supertest) contra una base de datos de prueba real en Postgres/MongoDB, con peso hacia los caminos negativos — 401/403/404/409/400 en cada ruta, no solo el camino feliz",
+        "76 tests de backend (Vitest + Supertest) contra una base de datos de prueba real en Postgres/MongoDB, con peso hacia los caminos negativos: 401/403/404/409/400 en cada ruta, no solo el camino feliz",
         "24 tests de frontend (Vitest + React Testing Library) que cubren casos de borde del contexto de autenticación (token inválido, login fallido) y redirecciones de rutas protegidas por rol",
       ],
     },
@@ -407,12 +407,12 @@ export const projects: Project[] = [
     stack: ["Python", "React 19", "TypeScript", "Vite"],
     role: { en: "Solo developer", es: "Desarrollador en solitario" },
     summary: {
-      en: "A PC component marketplace (GPU/CPU/RAM stock and orders) implemented twice, independently: a Spanish-language Python console app with an in-memory domain model, and a separate React/TypeScript SPA that reimplements the same domain logic from scratch and persists it to localStorage. The two don't talk to each other — no shared backend.",
-      es: "Un marketplace de componentes de PC (stock y pedidos de GPU/CPU/RAM) implementado dos veces, de forma independiente: una app de consola en Python con un modelo de dominio en memoria, y una SPA separada en React/TypeScript que reimplementa la misma lógica de dominio desde cero y la persiste en localStorage. Ninguna de las dos se comunica con la otra — no comparten backend.",
+      en: "A PC component marketplace (GPU/CPU/RAM stock and orders) implemented twice, independently: a Spanish-language Python console app with an in-memory domain model, and a separate React/TypeScript SPA that reimplements the same domain logic from scratch and persists it to localStorage. The two don't talk to each other. There is no shared backend.",
+      es: "Un marketplace de componentes de PC (stock y pedidos de GPU/CPU/RAM) implementado dos veces, de forma independiente: una app de consola en Python con un modelo de dominio en memoria, y una SPA separada en React/TypeScript que reimplementa la misma lógica de dominio desde cero y la persiste en localStorage. Ninguna de las dos se comunica con la otra. No comparten backend.",
     },
     problem: {
-      en: 'Wanted to compare the same domain — components with stock, and orders that must reserve stock "all or nothing" — across a quick Python console script and a proper TypeScript SPA, without letting one lean on the other.',
-      es: 'Quería comparar el mismo dominio — componentes con stock, y pedidos que deben reservar stock "todo o nada" — entre un script rápido de consola en Python y una SPA propiamente hecha en TypeScript, sin dejar que una dependiera de la otra.',
+      en: 'Wanted to compare the same domain (components with stock, and orders that must reserve stock "all or nothing") across a quick Python console script and a proper TypeScript SPA, without letting one lean on the other.',
+      es: 'Quería comparar el mismo dominio (componentes con stock, y pedidos que deben reservar stock "todo o nada") entre un script rápido de consola en Python y una SPA propiamente hecha en TypeScript, sin dejar que una dependiera de la otra.',
     },
     solution: {
       en: "Each side owns its own domain model and validation. The Python `Marketplace` class checks accumulated stock across every item before committing an order; the TypeScript port re-derives that same rule independently, with a full UI on top (catalog, order placement, order history with cancellation that returns stock, a stock gauge).",
@@ -436,8 +436,8 @@ export const projects: Project[] = [
     stack: ["Unity 6", "C#", "Netcode for GameObjects", "Unity Relay"],
     role: { en: "Solo developer", es: "Desarrollador en solitario" },
     summary: {
-      en: "A five-in-a-row board game with a local AI opponent and real online multiplayer — peer connection handled through Unity Relay so there's no port forwarding, no dedicated server to run.",
-      es: "Un juego de mesa de conecta 5 en línea con un oponente de IA local y multijugador online real — la conexión entre pares se maneja vía Unity Relay, así que no hace falta abrir puertos ni correr un servidor dedicado.",
+      en: "A five-in-a-row board game with a local AI opponent and real online multiplayer. Peer connection is handled through Unity Relay so there's no port forwarding, no dedicated server to run.",
+      es: "Un juego de mesa de conecta 5 en línea con un oponente de IA local y multijugador online real. La conexión entre pares se maneja vía Unity Relay, así que no hace falta abrir puertos ni correr un servidor dedicado.",
     },
     problem: {
       en: "Most solo Unity board-game projects stop at local hotseat play. I wanted to ship the harder part: a real lobby and netcode-synced match state.",
@@ -537,35 +537,35 @@ export const projects: Project[] = [
     stack: ["React 19", "TypeScript", "Vite", "Zustand", "Framer Motion", "Web Audio API", "Vitest"],
     role: { en: "Solo developer", es: "Desarrollador en solitario" },
     summary: {
-      en: "Investigate crime scenes, recover evidence off a suspect's actual phone, interrogate suspects, connect evidence to a suspect on a corkboard, and build a real means/motive/opportunity case across four full cases — each with its own set-dressed crime scene, procedurally-generated suspect portraits, and a fully synthesized audio engine (zero recorded samples).",
-      es: "Investiga escenas del crimen, recupera evidencia del teléfono real de un sospechoso, interroga sospechosos, conecta evidencia a un sospechoso en un corcho, y arma un caso real de medios/móvil/oportunidad a lo largo de cuatro casos completos — cada uno con su propia escena decorada, retratos de sospechosos generados proceduralmente, y un motor de audio 100% sintetizado (cero samples grabados).",
+      en: "Investigate crime scenes, recover evidence off a suspect's actual phone, interrogate suspects, connect evidence to a suspect on a corkboard, and build a real means/motive/opportunity case across four full cases, each with its own set-dressed crime scene, procedurally-generated suspect portraits, and a fully synthesized audio engine (zero recorded samples).",
+      es: "Investiga escenas del crimen, recupera evidencia del teléfono real de un sospechoso, interroga sospechosos, conecta evidencia a un sospechoso en un corcho, y arma un caso real de medios/móvil/oportunidad a lo largo de cuatro casos completos, cada uno con su propia escena decorada, retratos de sospechosos generados proceduralmente, y un motor de audio 100% sintetizado (cero samples grabados).",
     },
     problem: {
-      en: "A wave of mobile games built entirely around reading a stranger's simulated phone had gone viral. I already had a detective game with three layers that genre skips (a physical crime scene, an interrogation system, an evidence board) — the gap was that the phone/PIN/messaging mechanic those games built their whole identity on didn't exist here yet, and closing it had to be done with an entirely original app ecosystem, icons, and UI.",
-      es: "Una ola de juegos móviles construidos enteramente alrededor de leer el teléfono simulado de un desconocido se había vuelto viral. Yo ya tenía un juego de detective con tres capas que ese género se salta (una escena física, un sistema de interrogatorio, un tablero de evidencia) — el hueco era que la mecánica de teléfono/PIN/mensajería sobre la que esos juegos construyeron toda su identidad no existía todavía aquí, y había que cerrarlo con un ecosistema de apps, íconos y UI completamente originales.",
+      en: "A wave of mobile games built entirely around reading a stranger's simulated phone had gone viral. I already had a detective game with three layers that genre skips (a physical crime scene, an interrogation system, an evidence board). The gap was that the phone/PIN/messaging mechanic those games built their whole identity on didn't exist here yet, and closing it had to be done with an entirely original app ecosystem, icons, and UI.",
+      es: "Una ola de juegos móviles construidos enteramente alrededor de leer el teléfono simulado de un desconocido se había vuelto viral. Yo ya tenía un juego de detective con tres capas que ese género se salta (una escena física, un sistema de interrogatorio, un tablero de evidencia). El hueco era que la mecánica de teléfono/PIN/mensajería sobre la que esos juegos construyeron toda su identidad no existía todavía aquí, y había que cerrarlo con un ecosistema de apps, íconos y UI completamente originales.",
     },
     solution: {
-      en: "Built a real digital-forensics layer from scratch, with its own invented app ecosystem (ChatVía, Anotta, Vozal, NubePlus) inside an actual phone frame with alternating chat bubbles, plus a means/motive/opportunity accusation system with four distinct endings, a narrative tension mechanic that can permanently lock evidence if the player stalls, and a connectable evidence board — none of it bolted onto the old architecture; the same CaseEngine/EvidenceEngine/InterrogationEngine from the original build still drive it, extended, not replaced.",
-      es: "Construí una capa real de forensia digital desde cero, con su propio ecosistema de apps inventadas (ChatVía, Anotta, Vozal, NubePlus) dentro de un marco de teléfono real con burbujas de chat alternadas, además de un sistema de acusación por medios/móvil/oportunidad con cuatro finales distintos, una mecánica de tensión narrativa que puede bloquear evidencia para siempre si el jugador se demora, y un tablero de evidencia conectable — nada de esto se le pegó con cinta a la arquitectura vieja; el mismo CaseEngine/EvidenceEngine/InterrogationEngine del build original sigue impulsándolo, extendido, no reemplazado.",
+      en: "Built a real digital-forensics layer from scratch, with its own invented app ecosystem (ChatVía, Anotta, Vozal, NubePlus) inside an actual phone frame with alternating chat bubbles, plus a means/motive/opportunity accusation system with four distinct endings, a narrative tension mechanic that can permanently lock evidence if the player stalls, and a connectable evidence board. None of it was bolted onto the old architecture; the same CaseEngine/EvidenceEngine/InterrogationEngine from the original build still drive it, extended, not replaced.",
+      es: "Construí una capa real de forensia digital desde cero, con su propio ecosistema de apps inventadas (ChatVía, Anotta, Vozal, NubePlus) dentro de un marco de teléfono real con burbujas de chat alternadas, además de un sistema de acusación por medios/móvil/oportunidad con cuatro finales distintos, una mecánica de tensión narrativa que puede bloquear evidencia para siempre si el jugador se demora, y un tablero de evidencia conectable. Nada de esto se le pegó con cinta a la arquitectura vieja; el mismo CaseEngine/EvidenceEngine/InterrogationEngine del build original sigue impulsándolo, extendido, no reemplazado.",
     },
     architectureHighlights: {
       en: [
         "CaseEngine, EvidenceEngine, InterrogationEngine, DigitalForensicsEngine, and RankEngine decoupled from the 9-scene UI flow (MainMenu → CaseSelection → CaseIntro → CrimeScene → Interrogation → EvidenceBoard → DigitalForensics → Accusation → Resolution)",
-        "4 full cases implemented as data, independent of the engines that run them — one built entirely around digital evidence recovered from a victim's phone",
+        "4 full cases implemented as data, independent of the engines that run them: one built entirely around digital evidence recovered from a victim's phone",
         "Means/motive/opportunity accusation system with 4 distinct endings, backed by a data-integrity test that every piece of evidence is actually obtainable and no tension-lock can cut off the only path to something the case requires",
-        "A tension mechanic that can permanently lock a digital thread/note if the player stalls too long — always with a redundant dialogue path, enforced by an automated test, not just careful authoring",
+        "A tension mechanic that can permanently lock a digital thread/note if the player stalls too long, always with a redundant dialogue path, enforced by an automated test, not just careful authoring",
         "A connectable evidence board (tap evidence, tap a suspect, a real SVG string connects them from live DOM positions) scored against the case's actual solution at Resolution",
-        "16 procedurally-generated SVG suspect portraits — every trait (skin tone, hair, clothing, accessories) derived from a hash of the suspect's id, so the same suspect always renders the same face with nothing copied from anywhere",
+        "16 procedurally-generated SVG suspect portraits, every trait (skin tone, hair, clothing, accessories) derived from a hash of the suspect's id, so the same suspect always renders the same face with nothing copied from anywhere",
         "A synthesized audio engine (oscillators/filters/noise buffers, zero recorded samples) with per-scene ambient beds and a distinct chord for each of the 4 resolution endings",
         "Zustand for global game state, Framer Motion for scene transitions, 444 Vitest tests including store-level audio side effects verified with spies",
       ],
       es: [
         "CaseEngine, EvidenceEngine, InterrogationEngine, DigitalForensicsEngine y RankEngine desacoplados del flujo de UI de 9 escenas (MainMenu → CaseSelection → CaseIntro → CrimeScene → Interrogation → EvidenceBoard → DigitalForensics → Accusation → Resolution)",
-        "4 casos completos implementados como datos, independientes de los motores que los ejecutan — uno construido enteramente alrededor de evidencia digital recuperada del teléfono de una víctima",
+        "4 casos completos implementados como datos, independientes de los motores que los ejecutan: uno construido enteramente alrededor de evidencia digital recuperada del teléfono de una víctima",
         "Sistema de acusación por medios/móvil/oportunidad con 4 finales distintos, respaldado por un test de integridad de datos que verifica que toda evidencia sea realmente obtenible y que ningún bloqueo de tensión corte la única ruta a algo que el caso exige",
-        "Una mecánica de tensión que puede bloquear para siempre un hilo/nota digital si el jugador se demora demasiado — siempre con una ruta de diálogo redundante, forzada por un test automático, no solo por cuidado al escribir el contenido",
+        "Una mecánica de tensión que puede bloquear para siempre un hilo/nota digital si el jugador se demora demasiado, siempre con una ruta de diálogo redundante, forzada por un test automático, no solo por cuidado al escribir el contenido",
         "Un tablero de evidencia conectable (toca evidencia, toca un sospechoso, un hilo SVG real los conecta desde posiciones reales del DOM) evaluado contra la solución real del caso en la Resolución",
-        "16 retratos de sospechosos en SVG generados proceduralmente — cada rasgo (tono de piel, pelo, ropa, accesorios) derivado de un hash del id del sospechoso, así el mismo sospechoso siempre da la misma cara sin copiar nada de ningún lado",
+        "16 retratos de sospechosos en SVG generados proceduralmente, cada rasgo (tono de piel, pelo, ropa, accesorios) derivado de un hash del id del sospechoso, así el mismo sospechoso siempre da la misma cara sin copiar nada de ningún lado",
         "Un motor de audio sintetizado (osciladores/filtros/buffers de ruido, cero samples grabados) con ambientes por escena y un acorde distinto para cada uno de los 4 finales de resolución",
         "Zustand para el estado global del juego, Framer Motion para las transiciones de escena, 444 tests de Vitest incluyendo efectos secundarios de audio verificados con spies a nivel de store",
       ],
@@ -605,33 +605,33 @@ export const projects: Project[] = [
     stack: ["Unity 6", "URP", "C#"],
     role: { en: "Game designer / solo studio", es: "Diseñador de juegos / estudio en solitario" },
     summary: {
-      en: '"Your past already knows the answer." A mobile roguelite where every action creates an echo that replays your movements — combined with bullet-time, you coordinate your present with your own past to solve rooms. Past the design phase now: a real, playable Unity project with 3 full zones, 3 bosses, ethical monetization, and accessibility settings, plus a first real Android build.',
-      es: '"Tu pasado ya sabe la respuesta." Un roguelite móvil donde cada acción crea un eco que repite tus movimientos — combinado con bullet-time, coordinas tu presente con tu propio pasado para resolver las salas. Ya pasó la fase de diseño: un proyecto Unity real y jugable con 3 zonas completas, 3 bosses, monetización ética y ajustes de accesibilidad, más un primer build de Android real.',
+      en: '"Your past already knows the answer." A mobile roguelite where every action creates an echo that replays your movements. Combined with bullet-time, you coordinate your present with your own past to solve rooms. Past the design phase now: a real, playable Unity project with 3 full zones, 3 bosses, ethical monetization, and accessibility settings, plus a first real Android build.',
+      es: '"Tu pasado ya sabe la respuesta." Un roguelite móvil donde cada acción crea un eco que repite tus movimientos. Combinado con bullet-time, coordinas tu presente con tu propio pasado para resolver las salas. Ya pasó la fase de diseño: un proyecto Unity real y jugable con 3 zonas completas, 3 bosses, monetización ética y ajustes de accesibilidad, más un primer build de Android real.',
     },
     process: {
       en: [
         "Market research across the mobile games market, identifying an underserved niche in physics-driven roguelites",
         "35 concepts generated and narrowed to 5 finalists, then 1 approved design",
-        "Full Game Design Document — core loop, progression, economy, accessibility",
-        "Art direction — pixel art at 480×270, echo shader system, full style guide",
-        "Technical architecture — Service Locator + ScriptableObject events, per-layer time scales for bullet-time",
-        "Vertical Slice: a real playable Unity 6 project, not just a plan — echo record/playback, bullet-time, and hand-made pixel art",
+        "Full Game Design Document: core loop, progression, economy, accessibility",
+        "Art direction: pixel art at 480×270, echo shader system, full style guide",
+        "Technical architecture: Service Locator + ScriptableObject events, per-layer time scales for bullet-time",
+        "Vertical Slice: a real playable Unity 6 project, not just a plan: echo record/playback, bullet-time, and hand-made pixel art",
         "Full production build-out: all 3 zones (50 rooms), all 3 bosses with their complete 3-phase structure, a 29-node meta-progression tree, and all 12 run upgrades wired to real gameplay effects",
         "Ethical monetization shipped for real: ad removal, 4 premium cosmetic skins, and a Season Pass, all layered on top of a purchase-provider abstraction ready for the real store SDKs",
-        "Accessibility settings connected to actual gameplay — a colorblind mode that remaps echo colors, and adjustable bullet-time echo speed/charge time, all from a real in-game Options screen",
+        "Accessibility settings connected to actual gameplay: a colorblind mode that remaps echo colors, and adjustable bullet-time echo speed/charge time, all from a real in-game Options screen",
         "GDPR data rights (export/delete) and a first real (unsigned) Android APK build from the same project",
         "8 run modifiers the player picks before each run, all changing real gameplay: mirrored rooms, faster echoes, fog, double-strength or disabled bullet-time for bonus crystals, echoes only visible in bullet-time, and a short 2-room run",
       ],
       es: [
         "Investigación de mercado en el sector de juegos móviles, identificando un nicho desatendido en roguelites basados en física",
         "35 conceptos generados, reducidos a 5 finalistas, y luego 1 diseño aprobado",
-        "Game Design Document completo — loop central, progresión, economía, accesibilidad",
-        "Dirección de arte — pixel art a 480×270, sistema de shader de ecos, guía de estilo completa",
-        "Arquitectura técnica — Service Locator + eventos ScriptableObject, escalas de tiempo por capa para el bullet-time",
-        "Vertical Slice: un proyecto Unity 6 real y jugable, no solo un plan — grabación/reproducción de ecos, bullet-time y pixel art hecho a mano",
+        "Game Design Document completo: loop central, progresión, economía, accesibilidad",
+        "Dirección de arte: pixel art a 480×270, sistema de shader de ecos, guía de estilo completa",
+        "Arquitectura técnica: Service Locator + eventos ScriptableObject, escalas de tiempo por capa para el bullet-time",
+        "Vertical Slice: un proyecto Unity 6 real y jugable, no solo un plan: grabación/reproducción de ecos, bullet-time y pixel art hecho a mano",
         "Producción completa: las 3 zonas (50 salas), los 3 bosses con su estructura completa de 3 fases, un árbol de meta-progresión de 29 nodos, y los 12 upgrades de run conectados a efectos reales de gameplay",
         "Monetización ética implementada de verdad: modo sin anuncios, 4 skins cosméticas Premium, y un Season Pass, todo sobre una abstracción de proveedor de compra lista para los SDKs reales de tienda",
-        "Accesibilidad conectada a gameplay real — un modo daltónico que remapea los colores de los ecos, y velocidad/tiempo de carga de bullet-time ajustables, todo desde una pantalla de Opciones real dentro del juego",
+        "Accesibilidad conectada a gameplay real: un modo daltónico que remapea los colores de los ecos, y velocidad/tiempo de carga de bullet-time ajustables, todo desde una pantalla de Opciones real dentro del juego",
         "Derechos GDPR (exportar/eliminar datos) y un primer build de Android real (APK sin firmar) desde el mismo proyecto",
         "8 modificadores de run que el jugador elige antes de cada partida, todos con efecto real en el gameplay: salas en espejo, ecos más rápidos, niebla, bullet-time doble o desactivado a cambio de más cristales, ecos visibles solo en bullet-time, y una run corta de 2 salas",
       ],
@@ -665,8 +665,8 @@ export const projects: Project[] = [
     stack: ["Unity 6", "URP", "C#"],
     role: { en: "Game designer / solo studio", es: "Diseñador de juegos / estudio en solitario" },
     summary: {
-      en: '"One stone. One flick. The whole ocean." A physics-driven stone-skipping game aiming for best-in-class mobile arcade polish — a full, playable Unity prototype with a real menu flow, day/night ocean art, procedural audio, and live Spanish/English localization.',
-      es: '"Una piedra. Un flick. El océano entero." Un juego de rebote de piedras basado en física, apuntando al pulido de las mejores arcade móviles — un prototipo completo y jugable en Unity con flujo de menús real, arte de océano nocturno, audio procedural y localización español/inglés en vivo.',
+      en: '"One stone. One flick. The whole ocean." A physics-driven stone-skipping game aiming for best-in-class mobile arcade polish: a full, playable Unity prototype with a real menu flow, day/night ocean art, procedural audio, and live Spanish/English localization.',
+      es: '"Una piedra. Un flick. El océano entero." Un juego de rebote de piedras basado en física, apuntando al pulido de las mejores arcade móviles: un prototipo completo y jugable en Unity con flujo de menús real, arte de océano nocturno, audio procedural y localización español/inglés en vivo.',
     },
     process: {
       en: [
@@ -708,24 +708,24 @@ export const projects: Project[] = [
     stack: ["Godot 4 (GDScript)", "HTML/CSS/JS prototype", "Web Audio API"],
     role: { en: "Game designer / solo studio", es: "Diseñador de juegos / estudio en solitario" },
     summary: {
-      en: "Two glowing spheres linked by an elastic tether descend an endless vertical pipeline. Hold to split wide, release to snap together — avoid obstacles, graze them for combo, collect Volt Crystals.",
-      es: "Dos esferas brillantes unidas por un tether elástico descienden por una tubería vertical infinita. Mantén presionado para separarlas, suelta para juntarlas — esquiva obstáculos, róznalos para hacer combo, y recolecta Volt Crystals.",
+      en: "Two glowing spheres linked by an elastic tether descend an endless vertical pipeline. Hold to split wide, release to snap together. Avoid obstacles, graze them for combo, collect Volt Crystals.",
+      es: "Dos esferas brillantes unidas por un tether elástico descienden por una tubería vertical infinita. Mantén presionado para separarlas, suelta para juntarlas. Esquiva obstáculos, róznalos para hacer combo, y recolecta Volt Crystals.",
     },
     process: {
       en: [
-        "Full Game Design Document — core loop, progression via Volt Crystals, ethics-first monetization",
+        "Full Game Design Document: core loop, progression via Volt Crystals, ethics-first monetization",
         "Engine evaluation across 6 stacks; selected Godot 4 for production (low input latency, native 2D shaders, ~12MB builds)",
-        "Working browser vertical slice validated the split/merge tether feel before committing to the full engine port — synthesized audio, localStorage persistence, local leaderboard, consistent colorblind support",
+        "Working browser vertical slice validated the split/merge tether feel before committing to the full engine port, with synthesized audio, localStorage persistence, local leaderboard, consistent colorblind support",
         "Ported the full game to Godot 4: the core mechanic, an AES-256 encrypted save system, a real shop economy, achievements with live progress tracking, daily missions, and a guided tutorial",
-        "Implemented the VFX the design doc always called for but neither build ever had — tapering tether trails, a snap-flash shockwave on merge, a particle shatter burst on crash",
+        "Implemented the VFX the design doc always called for but neither build ever had: tapering tether trails, a snap-flash shockwave on merge, a particle shatter burst on crash",
         "Built a signed Android debug APK and played it end-to-end on an emulator with real GPU acceleration, including tracking down and fixing a renderer-specific rendering bug along the way",
       ],
       es: [
-        "Game Design Document completo — loop central, progresión vía Volt Crystals, monetización ética",
+        "Game Design Document completo: loop central, progresión vía Volt Crystals, monetización ética",
         "Evaluación de 6 motores; se eligió Godot 4 para producción (baja latencia de input, shaders 2D nativos, builds de ~12MB)",
-        "Vertical slice jugable en navegador validó la sensación de separar/unir el tether antes de comprometerse al port completo — audio sintetizado, persistencia con localStorage, leaderboard local, soporte colorblind consistente",
+        "Vertical slice jugable en navegador validó la sensación de separar/unir el tether antes de comprometerse al port completo, con audio sintetizado, persistencia con localStorage, leaderboard local, soporte colorblind consistente",
         "Port completo del juego a Godot 4: la mecánica central, guardado cifrado AES-256, una tienda real, logros con progreso en vivo, misiones diarias, y un tutorial guiado",
-        "Implementados los efectos visuales que el documento de diseño siempre pidió pero que ninguna versión anterior tuvo — estelas del tether, un destello de fusión, y una ráfaga de partículas al chocar",
+        "Implementados los efectos visuales que el documento de diseño siempre pidió pero que ninguna versión anterior tuvo: estelas del tether, un destello de fusión, y una ráfaga de partículas al chocar",
         "Build de Android firmado, instalado y jugado de principio a fin en un emulador con aceleración GPU real, incluyendo encontrar y arreglar un bug de renderizado en el camino",
       ],
     },
@@ -756,30 +756,30 @@ export const projects: Project[] = [
     stack: ["Next.js 15", "TypeScript", "Tailwind CSS", "Zustand", "Supabase", "PostgreSQL", "hls.js", "Framer Motion"],
     role: { en: "Solo developer", es: "Desarrollador en solitario" },
     summary: {
-      en: "A Netflix-style streaming UI — TMDB metadata, a pluggable multi-source player (HLS + sandboxed embeds), live TV, and real Supabase-backed accounts — built with the content-sourcing layer intentionally decoupled from any specific provider.",
-      es: "Un UI de streaming estilo Netflix — metadata de TMDB, un reproductor multi-fuente conectable (HLS + embeds sandboxeados), TV en vivo, y cuentas reales respaldadas por Supabase — construido con la capa de fuentes de contenido intencionalmente desacoplada de cualquier proveedor específico.",
+      en: "A Netflix-style streaming UI with TMDB metadata, a pluggable multi-source player (HLS + sandboxed embeds), live TV, and real Supabase-backed accounts, built with the content-sourcing layer intentionally decoupled from any specific provider.",
+      es: "Un UI de streaming estilo Netflix con metadata de TMDB, un reproductor multi-fuente conectable (HLS + embeds sandboxeados), TV en vivo, y cuentas reales respaldadas por Supabase, construido con la capa de fuentes de contenido intencionalmente desacoplada de cualquier proveedor específico.",
     },
     problem: {
       en: 'A "watch everything" streaming clone is a common learning project, but most either hardcode unlicensed embed domains straight into the code, or skip authentication and persistence entirely and leave everything as local mock state.',
       es: 'Un clon de streaming "para ver de todo" es un proyecto de aprendizaje común, pero la mayoría hardcodea dominios de embeds no licenciados directamente en el código, o se salta la autenticación y persistencia por completo, dejando todo como estado simulado local.',
     },
     solution: {
-      en: "The player and live-TV layers read from pluggable provider configs (JSON, populated with your own licensed sources) instead of hardcoded embed domains, and real accounts run on Supabase — Netflix-style sub-profiles, RLS-protected favorites and watch progress synced across devices — with the whole app degrading gracefully to a local-only guest mode whenever no backend is configured.",
-      es: "Las capas de reproductor y TV en vivo leen de configuraciones de proveedores conectables (JSON, poblado con tus propias fuentes licenciadas) en vez de dominios de embeds hardcodeados, y las cuentas reales corren sobre Supabase — sub-perfiles estilo Netflix, favoritos y progreso de reproducción protegidos por RLS y sincronizados entre dispositivos — con toda la app degradando con gracia a un modo invitado local cuando no hay backend configurado.",
+      en: "The player and live-TV layers read from pluggable provider configs (JSON, populated with your own licensed sources) instead of hardcoded embed domains, and real accounts run on Supabase: Netflix-style sub-profiles, RLS-protected favorites and watch progress synced across devices, with the whole app degrading gracefully to a local-only guest mode whenever no backend is configured.",
+      es: "Las capas de reproductor y TV en vivo leen de configuraciones de proveedores conectables (JSON, poblado con tus propias fuentes licenciadas) en vez de dominios de embeds hardcodeados, y las cuentas reales corren sobre Supabase: sub-perfiles estilo Netflix, favoritos y progreso de reproducción protegidos por RLS y sincronizados entre dispositivos, con toda la app degradando con gracia a un modo invitado local cuando no hay backend configurado.",
     },
     architectureHighlights: {
       en: [
         "Server Components fetch TMDB metadata directly server-side (the API token never reaches the client), with each home-page row streamed independently via Suspense so one failing category never takes down the rest of the page",
         "Custom hls.js player (quality levels, resume-from-progress, skip-intro, next-episode) alongside a sandboxed iframe path for embed sources, sharing one pluggable provider config across movies/series and live IPTV channels",
         "Supabase auth + Postgres persistence: viewer_profiles/favorites/watch_progress tables with row-level security scoped to auth.uid(), WITH CHECK on every mutating policy (not just USING), and a SECURITY DEFINER signup trigger with its direct RPC execute access explicitly revoked",
-        "The Zustand store syncs against Postgres for signed-in users and transparently falls back to localStorage-only guest mode when Supabase isn't configured — no code path assumes a backend is always present",
+        "The Zustand store syncs against Postgres for signed-in users and transparently falls back to localStorage-only guest mode when Supabase isn't configured. No code path assumes a backend is always present",
         'A PIN-gated "+18" zone scoped to TMDB\'s own mature-content rating flag, not an actual adult-content catalog',
       ],
       es: [
         "Los Server Components obtienen la metadata de TMDB directamente del lado del servidor (el token de la API nunca llega al cliente), con cada fila de la home transmitida de forma independiente vía Suspense para que una categoría que falle nunca tumbe el resto de la página",
         "Reproductor hls.js a medida (niveles de calidad, resume de progreso, skip-intro, siguiente episodio) junto a una ruta de iframe sandboxeado para fuentes de embed, compartiendo una misma configuración de proveedores conectable entre películas/series y canales de TV en vivo",
         "Autenticación con Supabase + persistencia en Postgres: tablas viewer_profiles/favorites/watch_progress con row-level security ligada a auth.uid(), WITH CHECK en cada política mutante (no solo USING), y un trigger de registro SECURITY DEFINER con su acceso directo de ejecución por RPC explícitamente revocado",
-        "El store de Zustand sincroniza contra Postgres para usuarios autenticados y cae de forma transparente a modo invitado solo-local cuando Supabase no está configurado — ningún camino de código asume que siempre hay un backend disponible",
+        "El store de Zustand sincroniza contra Postgres para usuarios autenticados y cae de forma transparente a modo invitado solo-local cuando Supabase no está configurado. Ningún camino de código asume que siempre hay un backend disponible",
         'Una zona "+18" protegida por PIN, acotada a la bandera de clasificación madura propia de TMDB, no un catálogo real de contenido adulto',
       ],
     },
@@ -824,8 +824,8 @@ export const otherWork: OtherWork[] = [
   {
     title: "personal-landing-page",
     description: {
-      en: "An earlier personal portfolio site — React/Vite with bilingual EN/ES support.",
-      es: "Un portafolio personal anterior — React/Vite con soporte bilingüe EN/ES.",
+      en: "An earlier personal portfolio site built with React/Vite with bilingual EN/ES support.",
+      es: "Un portafolio personal anterior hecho con React/Vite con soporte bilingüe EN/ES.",
     },
     stack: ["React", "Vite", "i18next"],
     href: "https://github.com/Kelvis123456/personal-landing-page",
