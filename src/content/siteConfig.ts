@@ -2,7 +2,7 @@ import type { LocalizedText } from "@/lib/language-context";
 import { projects } from "@/content/projects";
 
 export const siteConfig = {
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://portfolio-kelvis-g.vercel.app",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://kelvis-guerrero.vercel.app",
   name: "Kelvis Guerrero",
   role: {
     en: "Software Developer",
