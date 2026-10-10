@@ -11,8 +11,5 @@ export function generateImageMetadata() {
 
 export default async function Icon({ id }: { id: Promise<string | number> }) {
   const px = Number(await id);
-  return new ImageResponse(
-    <KgMark size={px} />,
-    { width: px, height: px },
-  );
+  return new ImageResponse(<KgMark size={px} />, { width: px, height: px });
 }
