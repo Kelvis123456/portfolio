@@ -324,8 +324,8 @@ export const projects: Project[] = [
     stack: ["Flutter", "Dart", "SQLite", "OpenAI-compatible API"],
     role: { en: "Solo developer", es: "Desarrollador en solitario" },
     summary: {
-      en: "An Android editor that continues your scene with any OpenAI-compatible model. Projects, chapters, branching story history and a character/lore studio live in local SQLite, and chapters export to TXT, PDF or EPUB.",
-      es: "Un editor Android que continúa tu escena con cualquier modelo compatible con OpenAI. Proyectos, capítulos, historial de historia en ramas y un estudio de personajes y lore viven en SQLite local, y los capítulos se exportan a TXT, PDF o EPUB.",
+      en: "An Android editor that continues your scene with any OpenAI-compatible model. Projects, chapters, branching story history and a character/lore studio live in local SQLite. It keeps per-chapter summaries as context for long books, autosaves drafts, retries flaky API calls, and backs everything up to a single JSON. Chapters export to TXT, PDF or EPUB.",
+      es: "Un editor Android que continúa tu escena con cualquier modelo compatible con OpenAI. Proyectos, capítulos, historial de historia en ramas y un estudio de personajes y lore viven en SQLite local. Guarda un resumen por capítulo como contexto para libros largos, autoguarda borradores, reintenta las llamadas que fallan y respalda todo en un solo JSON. Los capítulos se exportan a TXT, PDF o EPUB.",
     },
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/aura-novel", icon: "github" }],
     gallery: ["/images/aura-novel/editor.png", "/images/aura-novel/menu.png"],
