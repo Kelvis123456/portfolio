@@ -328,7 +328,7 @@ export const projects: Project[] = [
       es: "Un editor Android que continúa tu escena con cualquier modelo compatible con OpenAI. Proyectos, capítulos, historial de historia en ramas y un estudio de personajes y lore viven en SQLite local. Guarda un resumen por capítulo como contexto para libros largos, autoguarda borradores, reintenta las llamadas que fallan y respalda todo en un solo JSON. Los capítulos se exportan a TXT, PDF o EPUB.",
     },
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/aura-novel", icon: "github" }],
-    gallery: ["/images/aura-novel/editor.png", "/images/aura-novel/menu.png"],
+    gallery: ["/images/aura-novel/editor.png", "/images/aura-novel/menu.png", "/images/aura-novel/api.png"],
     accentColor: "#dc143c",
   },
   {
