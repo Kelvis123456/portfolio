@@ -6,7 +6,7 @@ import { useTransitionRouter } from "next-view-transitions";
 import { AnimatePresence, m } from "motion/react";
 import { EASE_OUT } from "@/lib/motion-variants";
 import { useTheme } from "next-themes";
-import { Search, User, FolderGit2, Code2, Gamepad2, Sparkles, Mail, Sun, Moon, Download } from "lucide-react";
+import { Search, User, FolderGit2, Code2, Gamepad2, Wrench, Mail, Sun, Moon, Download } from "lucide-react";
 import { LinkedinIcon } from "@/components/ui/LinkedinIcon";
 import { GithubIcon } from "@/components/ui/GithubIcon";
 import { projects } from "@/content/projects";
@@ -25,7 +25,7 @@ const SECTION_ICONS: Record<
 > = {
   about: User,
   projects: FolderGit2,
-  skills: Sparkles,
+  skills: Wrench,
   contact: Mail,
 };
 
