@@ -1,5 +1,6 @@
 "use client";
 
+import { Link } from "next-view-transitions";
 import { siteConfig } from "@/content/siteConfig";
 import { dictionary } from "@/content/dictionary";
 import { useLanguage } from "@/lib/language-context";
@@ -46,6 +47,9 @@ export function Footer() {
           >
             {dict.footer.github}
           </a>
+          <Link href={`/${locale}/privacy`} className="hover:text-foreground transition-colors">
+            {dict.footer.privacy}
+          </Link>
         </div>
       </div>
     </footer>
