@@ -69,6 +69,7 @@ export default async function LocaleLayout({
     <>
       <script
         type="application/ld+json"
+        // nosemgrep: typescript.react.security.audit.react-dangerouslysetinnerhtml.react-dangerouslysetinnerhtml -- our own JSON-LD, escaped by safeJsonLdStringify
         dangerouslySetInnerHTML={{ __html: safeJsonLdStringify(personJsonLd(locale)) }}
       />
       <LanguageProvider locale={locale}>
