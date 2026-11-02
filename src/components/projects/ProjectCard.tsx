@@ -2,17 +2,14 @@
 
 import { Link } from "next-view-transitions";
 import { m, useReducedMotion } from "motion/react";
-import { Star } from "lucide-react";
 import type { Project } from "@/content/projects";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { ProjectCover } from "@/components/ui/ProjectCover";
-import { dictionary } from "@/content/dictionary";
 import { useLanguage, t } from "@/lib/language-context";
 import { cn } from "@/lib/cn";
 
 export function ProjectCard({ project, large = false }: { project: Project; large?: boolean }) {
   const { locale } = useLanguage();
-  const dict = dictionary[locale];
   const shouldReduceMotion = useReducedMotion();
 
   return (
@@ -41,9 +38,6 @@ export function ProjectCard({ project, large = false }: { project: Project; larg
                 {project.title}
               </h3>
               <div className="flex items-center gap-2">
-                {project.featured && (
-                  <Star aria-label={dict.projects.featured} size={13} className="fill-accent-text text-accent-text" />
-                )}
                 <StatusBadge status={project.status} />
               </div>
             </div>

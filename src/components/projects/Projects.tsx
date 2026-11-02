@@ -13,6 +13,9 @@ import { useLanguage, t } from "@/lib/language-context";
 import { EASE_OUT, fadeUp } from "@/lib/motion-variants";
 import { cn } from "@/lib/cn";
 
+const featuredProjects = projects.filter((p) => p.featured);
+const restProjects = projects.filter((p) => !p.featured);
+
 export function Projects() {
   const [filter, setFilter] = useState<ProjectCategory | "all">("all");
   const { locale } = useLanguage();
@@ -24,33 +27,35 @@ export function Projects() {
     { label: dict.projects.filterGameDesign, value: "game" },
   ];
 
-  const filtered = useMemo(() => {
-    const matches = projects.filter((p) => filter === "all" || p.category === filter);
-    // stable sort: featured work leads the list, original ordering preserved within each group
-    return [...matches].sort((a, b) => Number(b.featured) - Number(a.featured));
-  }, [filter]);
+  const filtered = useMemo(() => restProjects.filter((p) => filter === "all" || p.category === filter), [filter]);
 
-  const flagship = filtered.find((p) => p.featured);
-
-  const [activeSlug, setActiveSlug] = useState<string | undefined>(flagship?.slug ?? filtered[0]?.slug);
-  const activeProject = filtered.find((p) => p.slug === activeSlug) ?? flagship ?? filtered[0];
+  const [activeSlug, setActiveSlug] = useState<string | undefined>(filtered[0]?.slug);
+  const activeProject = filtered.find((p) => p.slug === activeSlug) ?? filtered[0];
 
   useEffect(() => {
-    if (!filtered.some((p) => p.slug === activeSlug)) {
-      setActiveSlug(flagship?.slug ?? filtered[0]?.slug);
-    }
+    if (!filtered.some((p) => p.slug === activeSlug)) setActiveSlug(filtered[0]?.slug);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filtered]);
 
   return (
     <Section id="projects">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <SectionHeading index="02">{dict.projects.heading}</SectionHeading>
+        <SectionHeading index="02">{dict.projects.heading}</SectionHeading>
+
+        <m.div variants={fadeUp} className="mt-10 grid gap-5 sm:grid-cols-2">
+          {featuredProjects.map((project, i) => (
+            <div key={project.slug} className={i === 0 ? "sm:col-span-2" : ""}>
+              <ProjectCard project={project} large={i === 0} />
+            </div>
+          ))}
+        </m.div>
+
+        <div className="mt-16 flex flex-wrap items-end justify-between gap-4">
+          <h3 className="font-display text-2xl font-semibold tracking-tight">{dict.projects.moreWork}</h3>
           <m.div
             variants={fadeUp}
             role="group"
-            aria-label={dict.projects.heading}
+            aria-label={dict.projects.moreWork}
             className="flex gap-1 rounded-full border border-border bg-surface p-1"
           >
             {FILTERS.map((f) => (
@@ -78,47 +83,16 @@ export function Projects() {
 
         {/*
           AnimatePresence must stay mounted across the empty/non-empty
-          transition — it used to sit behind an outer `filtered.length === 0`
-          ternary, so switching to the empty state unmounted AnimatePresence
-          itself along with every item, skipping their exit animations
-          entirely. Now the ternary lives INSIDE each AnimatePresence instead.
+          transition: the ternary lives INSIDE it, so the exit animations
+          of the last items still run when a filter matches nothing.
+          Compact rows on every viewport; the preview pane only fits at xl.
         */}
-        <m.div className="mt-10 grid gap-5 sm:grid-cols-2 xl:hidden">
-          <AnimatePresence mode="popLayout" initial={false}>
-            {filtered.length === 0 ? (
-              <m.p
-                key="empty-mobile"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="col-span-full rounded-2xl border border-dashed border-border py-12 text-center text-sm text-foreground/65"
-              >
-                {dict.projects.emptyFilter}
-              </m.p>
-            ) : (
-              filtered.map((project, index) => (
-                <m.div
-                  layout
-                  key={project.slug}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -16 }}
-                  transition={{ duration: 0.25, delay: Math.min(index, 5) * 0.03, ease: EASE_OUT }}
-                  className={project === flagship ? "sm:col-span-2" : ""}
-                >
-                  <ProjectCard project={project} large={project === flagship} />
-                </m.div>
-              ))
-            )}
-          </AnimatePresence>
-        </m.div>
-
-        <div className="mt-10 hidden gap-10 xl:grid xl:grid-cols-[minmax(0,1fr)_560px]">
+        <div className="mt-8 grid gap-10 xl:grid-cols-[minmax(0,1fr)_560px]">
           <div className="flex flex-col gap-3">
             <AnimatePresence mode="popLayout" initial={false}>
               {filtered.length === 0 ? (
                 <m.p
-                  key="empty-desktop"
+                  key="empty"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -147,7 +121,9 @@ export function Projects() {
               )}
             </AnimatePresence>
           </div>
-          <ProjectPreviewPane project={activeProject} />
+          <div className="hidden xl:block">
+            <ProjectPreviewPane project={activeProject} />
+          </div>
         </div>
 
         <m.div variants={fadeUp} className="mt-16">

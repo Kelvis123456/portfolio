@@ -252,7 +252,7 @@ export const projects: Project[] = [
     category: "software",
     status: "live",
     visibility: "private",
-    featured: true,
+    featured: false,
     stack: ["Flutter", "Riverpod", "Supabase", "PostgreSQL", "go_router"],
     role: { en: "Solo developer", es: "Desarrollador en solitario" },
     summary: {
@@ -362,7 +362,7 @@ export const projects: Project[] = [
     kind: "software",
     category: "software",
     status: "live",
-    featured: false,
+    featured: true,
     stack: [
       "Node.js",
       "Express",
@@ -554,7 +554,7 @@ export const projects: Project[] = [
     kind: "software",
     category: "game",
     status: "live",
-    featured: true,
+    featured: false,
     stack: ["React 19", "TypeScript", "Vite", "Zustand", "Framer Motion", "Web Audio API", "Vitest"],
     role: { en: "Solo developer", es: "Desarrollador en solitario" },
     summary: {
