@@ -12,11 +12,11 @@ const LOG_LINES: LogLine[] = [
   { label: "rentedge — backend", detail: { en: "1,260 tests (unit + e2e)", es: "1,260 tests (unit + e2e)" } },
   {
     label: "agendabot — sql server",
-    detail: { en: "8 parallel bookings, 1 committed", es: "8 reservas en paralelo, 1 confirmada" },
+    detail: { en: "8 in parallel, 1 committed", es: "8 en paralelo, 1 confirmada" },
   },
   {
     label: "reservaya — postgres",
-    detail: { en: "overlap re-checked under row lock", es: "solapamiento revisado con lock de fila" },
+    detail: { en: "overlap rechecked under lock", es: "solapamiento revisado bajo lock" },
   },
   { label: "reservaya — api", detail: { en: "76 backend tests", es: "76 tests de backend" } },
   { label: "willforge — supabase", detail: { en: "auth + RLS active", es: "auth + RLS activos" } },

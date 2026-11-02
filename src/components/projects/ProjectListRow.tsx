@@ -3,6 +3,7 @@
 import { Link } from "next-view-transitions";
 import { ArrowUpRight } from "lucide-react";
 import type { Project } from "@/content/projects";
+import { ProjectMeta } from "@/components/projects/ProjectMeta";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { useLanguage, t } from "@/lib/language-context";
 import { cn } from "@/lib/cn";
@@ -39,6 +40,7 @@ export function ProjectListRow({
           </div>
         </div>
         <p className="mt-1 text-sm text-foreground/70">{t(project.tagline, locale)}</p>
+        <ProjectMeta project={project} className="mt-2" />
         <div className="mt-3 flex flex-wrap gap-2">
           {project.stack.slice(0, 4).map((tech) => (
             <span key={tech} className="rounded-full bg-surface-muted px-2.5 py-1 text-xs text-foreground/70">

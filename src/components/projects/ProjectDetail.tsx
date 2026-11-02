@@ -8,6 +8,8 @@ import { StatusBadge } from "@/components/ui/StatusBadge";
 import { ProjectCover } from "@/components/ui/ProjectCover";
 import { Lightbox, type LightboxHandle } from "@/components/ui/Lightbox";
 import { GithubIcon } from "@/components/ui/GithubIcon";
+import { ProjectMeta } from "@/components/projects/ProjectMeta";
+import { RentEdgeDiagram } from "@/components/projects/RentEdgeDiagram";
 import { dictionary } from "@/content/dictionary";
 import { useLanguage, t, tList, type Locale } from "@/lib/language-context";
 
@@ -46,6 +48,23 @@ function TechnicalCaseStudy({ project, locale }: { project: Project; locale: Loc
         <section className="mt-8 max-w-[68ch]">
           <h2 className="text-sm font-medium uppercase tracking-widest text-foreground/65">{dict.detail.solution}</h2>
           <p className="mt-3 leading-relaxed text-foreground/80">{t(project.solution, locale)}</p>
+        </section>
+      )}
+      {project.slug === "rentedge" && <RentEdgeDiagram />}
+      {project.highlightGroups?.map((group) => (
+        <section key={group.title.en} className="mt-8 max-w-[68ch]">
+          <h2 className="text-sm font-medium uppercase tracking-widest text-foreground/65">{t(group.title, locale)}</h2>
+          <ul className="mt-3 space-y-2">
+            {tList(group.items, locale).map((item) => (
+              <HighlightItem key={item} item={item} />
+            ))}
+          </ul>
+        </section>
+      ))}
+      {project.notDoneYet && (
+        <section className="mt-8 max-w-[68ch] rounded-2xl border border-dashed border-border p-5">
+          <h2 className="text-sm font-medium uppercase tracking-widest text-foreground/65">{dict.detail.notDoneYet}</h2>
+          <p className="mt-3 leading-relaxed text-foreground/80">{t(project.notDoneYet, locale)}</p>
         </section>
       )}
       {project.architectureHighlights && (
@@ -116,6 +135,7 @@ function ProjectGallery({
         images={gallery}
         thumbnails={rest}
         alt={`${project.title} ${dict.lightbox.screenshot}`}
+        alts={project.galleryAlt ? tList(project.galleryAlt, locale) : undefined}
       />
     </div>
   );
@@ -161,6 +181,7 @@ export function ProjectDetail({ project }: { project: Project }) {
       <p className="mt-1 text-sm font-medium uppercase tracking-wide text-foreground/60">
         {dict.detail.role}: {t(project.role, locale)}
       </p>
+      <ProjectMeta project={project} className="mt-2" />
 
       <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_300px] lg:gap-10">
         <div className="order-1 lg:order-none lg:col-start-1 lg:row-start-1">
@@ -168,7 +189,11 @@ export function ProjectDetail({ project }: { project: Project }) {
             <button
               type="button"
               onClick={() => lightboxRef.current?.open(0)}
-              aria-label={`${project.title} ${dict.lightbox.screenshot} 1`}
+              aria-label={
+                project.galleryAlt
+                  ? t({ en: project.galleryAlt.en[0], es: project.galleryAlt.es[0] }, locale)
+                  : `${project.title} ${dict.lightbox.screenshot} 1`
+              }
               className="block w-full cursor-zoom-in text-left"
             >
               <ProjectCover
@@ -201,6 +226,22 @@ export function ProjectDetail({ project }: { project: Project }) {
               </span>
             ))}
           </div>
+          {project.links.length > 0 && (
+            <div className="mt-6 flex flex-col items-start gap-3">
+              {project.links.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  target={link.href.startsWith("mailto:") ? undefined : "_blank"}
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-90"
+                >
+                  {link.icon === "github" ? <GithubIcon size={16} /> : <ExternalLink size={16} />}
+                  {t(link.label, locale)}
+                </a>
+              ))}
+            </div>
+          )}
           {project.metrics && (
             <div className="mt-6 space-y-4 border-t border-border pt-6">
               {project.metrics.map((metric) => (
@@ -217,7 +258,7 @@ export function ProjectDetail({ project }: { project: Project }) {
           {t(project.summary, locale)}
         </p>
 
-        <div className="order-4 lg:order-none lg:col-start-1 lg:row-start-3">
+        <div className="order-4 min-w-0 lg:order-none lg:col-start-1 lg:row-start-3">
           {project.kind === "software" ? (
             <TechnicalCaseStudy project={project} locale={locale} />
           ) : (
@@ -228,23 +269,6 @@ export function ProjectDetail({ project }: { project: Project }) {
         <div className="order-5 lg:order-none lg:col-start-1 lg:row-start-4">
           <ProjectGallery project={project} locale={locale} lightboxRef={lightboxRef} />
         </div>
-
-        {project.links.length > 0 && (
-          <div className="order-6 lg:order-none lg:col-start-1 lg:row-start-5 flex flex-wrap gap-4">
-            {project.links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                target={link.href.startsWith("mailto:") ? undefined : "_blank"}
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-90"
-              >
-                {link.icon === "github" ? <GithubIcon size={16} /> : <ExternalLink size={16} />}
-                {t(link.label, locale)}
-              </a>
-            ))}
-          </div>
-        )}
       </div>
 
       {projects.length > 1 && (

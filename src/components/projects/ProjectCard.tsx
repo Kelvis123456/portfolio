@@ -3,6 +3,7 @@
 import { Link } from "next-view-transitions";
 import { m, useReducedMotion } from "motion/react";
 import type { Project } from "@/content/projects";
+import { ProjectMeta } from "@/components/projects/ProjectMeta";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { ProjectCover } from "@/components/ui/ProjectCover";
 import { useLanguage, t } from "@/lib/language-context";
@@ -42,6 +43,7 @@ export function ProjectCard({ project, large = false }: { project: Project; larg
               </div>
             </div>
             <p className="mt-2 text-sm text-foreground/70">{t(project.tagline, locale)}</p>
+            <ProjectMeta project={project} className="mt-2" />
             {project.problem && (
               <p className="mt-2 line-clamp-2 text-sm text-foreground/60">{t(project.problem, locale)}</p>
             )}

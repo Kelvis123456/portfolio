@@ -24,17 +24,25 @@ export interface Project {
   status: ProjectStatus;
   visibility?: "public" | "private";
   featured: boolean;
+  /** First-commit month of the project's repo, "YYYY-MM". Shown as "since". */
+  started: string;
   stack: string[];
   role: LocalizedText;
   summary: LocalizedText;
   problem?: LocalizedText;
   solution?: LocalizedText;
   architectureHighlights?: LocalizedList;
+  /** Grouped alternative to the flat list: used when a case study has too many points to scan. */
+  highlightGroups?: { title: LocalizedText; items: LocalizedList }[];
+  /** Plain statement of what does not exist yet (users, demo, outcomes). Never invent results. */
+  notDoneYet?: LocalizedText;
   process?: LocalizedList;
   metrics?: ProjectMetric[];
   links: ProjectLink[];
   placeholderGallery?: boolean;
   gallery?: string[];
+  /** One description per gallery image, same order. Falls back to a generic label when missing. */
+  galleryAlt?: LocalizedList;
   /** "contain" for projects whose screenshots are portrait (mobile) — prevents cropping in the 16:10 cover boxes. */
   coverFit?: "cover" | "contain";
   /** Sampled from the project's own screenshots/brand — tints the case study header wash. */
@@ -60,11 +68,12 @@ export const projects: Project[] = [
     status: "in-development",
     visibility: "private",
     featured: true,
+    started: "2026-07",
     stack: ["NestJS", "Next.js", "PostgreSQL", "TimescaleDB", "Redis", "BullMQ", "Python", "Prisma", "Turborepo"],
-    role: { en: "Full-stack architect & developer", es: "Arquitecto full-stack y desarrollador" },
+    role: { en: "Solo full-stack developer", es: "Desarrollador full-stack en solitario" },
     summary: {
-      en: "A multi-tenant SaaS platform that automates pricing, competitive intelligence, and revenue management for rent-a-car companies, the kind of system that usually costs six figures to license from an incumbent vendor.",
-      es: "Una plataforma SaaS multi-tenant que automatiza el pricing, la inteligencia competitiva y la gestión de ingresos para empresas de rent-a-car, el tipo de sistema que normalmente cuesta seis cifras licenciar de un proveedor establecido.",
+      en: "A multi-tenant SaaS platform that automates pricing, competitive intelligence, and revenue management for rent-a-car companies, built as a modular monolith around a deterministic, auditable rules engine.",
+      es: "Una plataforma SaaS multi-tenant que automatiza el pricing, la inteligencia competitiva y la gestión de ingresos para empresas de rent-a-car, construida como un monolito modular alrededor de un motor de reglas determinista y auditable.",
     },
     problem: {
       en: "Rent-a-car companies price vehicles manually or with static spreadsheets, missing real-time competitive shifts and leaving margin on the table. Existing enterprise tools are expensive, closed, and slow to adapt.",
@@ -74,41 +83,60 @@ export const projects: Project[] = [
       en: "A modular-monolith pricing engine with a deterministic rules DSL, hard safety clamps (price floors/ceilings that can never be crossed), automatic competitor rate intelligence, and alerting, all multi-tenant from day one with real JWT/RBAC isolation.",
       es: "Un motor de pricing tipo monolito modular con un DSL de reglas determinista, topes de seguridad estrictos (mínimos/máximos de precio que nunca se cruzan), inteligencia automática de tarifas de la competencia, y alertas, todo multi-tenant desde el primer día, con aislamiento real vía JWT/RBAC.",
     },
-    architectureHighlights: {
-      en: [
-        "NestJS + Next.js monorepo (Turborepo) with a Python microservice layer for scraping and ML forecasting, isolated by workload profile",
-        "Deterministic rules engine with condition/action evaluation and conflict resolution by specificity; auditable by design, ML is a future suggestion layer, not a black box",
-        "Multi-tenant JWT/RBAC with tenant isolation enforced in every use case, verified end-to-end (403 on cross-tenant access)",
-        "Automated competitive rate intelligence via lightweight adapters that call OTA internal APIs directly instead of browser automation where possible",
-        "PostgreSQL + TimescaleDB for pricing/occupancy time series, Redis + BullMQ for repricing events",
-        'Price segmentation by length-of-stay and sales channel, no-show/overbooking risk detection, and deterministic template-based "why this price changed" narratives generated from stored rule facts, a $0 alternative to a paid AI pricing assistant',
-        "Multi-country tax/currency support (USD/DOP/MXN) and a general activity/audit log capturing every mutating request via a single global middleware, not per-endpoint instrumentation",
-        "Public OpenAPI/Swagger docs and automated nightly Postgres backups to Cloudflare R2, with the restore cycle itself verified in CI, not just the backup",
-        "Money modeled as exact decimal (not float) end-to-end, with row-level locking around every price mutation so two concurrent repricing events can never silently overwrite each other's result",
-        "An SSRF guard (with real DNS-rebinding resolution, not string matching) re-validates and pins every outbound tenant webhook to its checked IP at delivery time, not just when the channel is saved -- closing the gap where a hostname could be re-pointed at a cloud metadata endpoint after passing validation; JWT sessions carry live revocation so deactivating a user actually invalidates their existing token",
-        "Durable job queues: every BullMQ queue bounds its completed/failed job history and retries with backoff, so the audit-log queue can't silently drop an entry on a transient DB blip",
-        "Accessibility pass against a full interface-guidelines checklist: real roving-tabindex ARIA tabs, visible keyboard focus rings app-wide, live-region announcements for async errors, and every stateful filter/tab reflected in the URL",
-        "A second audit round closed the rules engine's last open gaps -- seasonal demand index and competitor price deltas are now first-class rule facts, with thresholds each tenant sets on its own -- and fixed a dashboard KPI query that was loading a tenant's entire pricing-decision history on every request; the same round cleared all 17 findings from a dedicated visual/UX audit, including WCAG contrast fixes on every status badge and a shared page-header layout across the app",
-        "A design-engineering pass driven by real screenshots on three device sizes: a Tailwind 4 cascade bug that silently disabled every border utility (alert severity stripes, input focus, active tabs) fixed at the root, dark-mode text recalibrated against APCA with OKLCH so every token clears Lc 60 while keeping its hue, a shared motion system (custom ease-out curve, press feedback, no animation on keyboard-triggered UI, reduced-motion honored in CSS too), and mobile layouts that stack tables into cards",
-        "Deterministic security tooling on top of the audits -- gitleaks, Semgrep, OSV-Scanner and Trivy -- which caught an AES-GCM auth-tag-length gap in 2FA secret decryption (Node accepted 4-byte tags) and a global exception-filter ordering bug that turned every domain validation error into a 500 in production",
-      ],
-      es: [
-        "Monorepo NestJS + Next.js (Turborepo) con una capa de microservicios en Python para scraping y forecasting con ML, aislada por perfil de carga",
-        "Motor de reglas determinista con evaluación de condición/acción y resolución de conflictos por especificidad; auditable por diseño; el ML es una capa de sugerencia futura, no una caja negra",
-        "Multi-tenancy con JWT/RBAC y aislamiento de tenant forzado en cada caso de uso, verificado de punta a punta (403 en accesos cruzados entre tenants)",
-        "Inteligencia competitiva automatizada vía adaptadores ligeros que llaman directamente a las APIs internas de las OTAs en vez de automatización de navegador, cuando es posible",
-        "PostgreSQL + TimescaleDB para series de tiempo de precios/ocupación, Redis + BullMQ para eventos de repricing",
-        'Segmentación de precio por duración de estadía y canal de venta, detección de riesgo de no-show/overbooking, y narrativas deterministas basadas en plantillas ("por qué cambió este precio") generadas desde los mismos facts de las reglas, una alternativa a $0 frente a un asistente de IA pago',
-        "Soporte multi-país de impuestos/moneda (USD/DOP/MXN) y un log de actividad/auditoría general que captura cada request mutante vía un único middleware global, no instrumentación por endpoint",
-        "Documentación pública OpenAPI/Swagger y backups automáticos nocturnos de Postgres a Cloudflare R2, con el ciclo de restore verificado en CI, no solo el backup",
-        "Dinero modelado como decimal exacto (no float) de punta a punta, con locking a nivel de fila en cada mutación de precio para que dos eventos de repricing concurrentes nunca se pisen en silencio",
-        "Un guard anti-SSRF (con resolución real de DNS-rebinding, no comparación de strings) re-valida y fija cada webhook saliente de tenant a su IP verificada en el momento del envío, no solo al guardar el canal -- cerrando el hueco donde un hostname podía re-apuntar a un endpoint de metadata de la nube después de pasar la validación; las sesiones JWT tienen revocación real, así que desactivar un usuario invalida su token en el acto",
-        "Colas de trabajo durables: cada cola de BullMQ acota su historial de jobs completados/fallidos y reintenta con backoff, para que la cola del log de auditoría no pierda una entrada en silencio por un blip transitorio de la DB",
-        "Pasada de accesibilidad contra un checklist completo de interface guidelines: pestañas ARIA con roving-tabindex real, foco de teclado visible en toda la app, anuncios de región viva para errores asíncronos, y cada filtro/tab con estado reflejado en la URL",
-        "Una segunda ronda de auditoría cerró los últimos huecos del motor de reglas -- el índice de demanda estacional y los deltas de precio de la competencia ya son facts de primera clase, con umbrales que cada tenant define por su cuenta -- y resolvió una consulta de KPIs del dashboard que cargaba el historial completo de decisiones de precio en cada request; la misma ronda corrigió los 17 hallazgos de UX/accesibilidad de una auditoría visual dedicada, incluyendo contraste WCAG en cada badge de estado y un encabezado de página compartido en toda la app",
-        "Una pasada de design engineering basada en capturas reales en tres tamaños de dispositivo: un bug de cascada de Tailwind 4 que anulaba en silencio todas las utilidades de borde (franjas de severidad, foco de inputs, pestañas activas) corregido en la raíz, el texto del modo oscuro recalibrado contra APCA en OKLCH para que cada token pase Lc 60 sin cambiar su tono, un sistema de motion compartido (curva ease-out propia, feedback al presionar, sin animación en acciones de teclado, reduced-motion respetado también en CSS) y layouts mobile que apilan tablas como tarjetas",
-        "Herramientas de seguridad deterministas además de las auditorías -- gitleaks, Semgrep, OSV-Scanner y Trivy -- que detectaron un hueco en el largo del tag AES-GCM al descifrar secretos 2FA (Node aceptaba tags de 4 bytes) y un bug en el orden de los filtros globales de excepciones que convertía cada error de validación de dominio en un 500 en producción",
-      ],
+    highlightGroups: [
+      {
+        title: { en: "Architecture", es: "Arquitectura" },
+        items: {
+          en: [
+            "Turborepo monorepo: NestJS API, Next.js web, two Python services (rate-shopper and ml-forecasting) and a backup job, each isolated by workload profile",
+            'Deterministic rules engine: condition/action evaluation, conflict resolution by specificity, hard price floors and ceilings that can never be crossed. It also segments price by length of stay and channel and writes the "why this price changed" text from stored rule facts, with no LLM involved',
+            "Rate intelligence through light adapters that call OTA internal APIs directly (and respect robots.txt) instead of driving a browser. ml-forecasting is a stateless FastAPI service (OLS occupancy forecast, log-log price elasticity, MAD anomaly detection); its output is advisory and the rules engine still decides every price",
+            "PostgreSQL + TimescaleDB for price and occupancy series; Redis + BullMQ for repricing events, with bounded job history and retries with backoff so the audit-log queue cannot drop an entry on a transient DB error",
+            "Money as exact decimal end to end, with row-level locks around every price mutation so two concurrent repricing events cannot overwrite each other",
+          ],
+          es: [
+            "Monorepo Turborepo: API NestJS, web Next.js, dos servicios Python (rate-shopper y ml-forecasting) y un job de backup, cada uno aislado por perfil de carga",
+            'Motor de reglas determinista: evaluación condición/acción, resolución de conflictos por especificidad, pisos y techos de precio que nunca se cruzan. También segmenta el precio por duración de estadía y canal, y escribe el texto de "por qué cambió este precio" desde los facts guardados de las reglas, sin LLM',
+            "Inteligencia de tarifas con adaptadores ligeros que llaman directo a las APIs internas de las OTAs (y respetan robots.txt) en vez de manejar un navegador. ml-forecasting es un servicio FastAPI sin estado (forecast de ocupación OLS, elasticidad precio log-log, detección de anomalías con MAD); su salida es solo una sugerencia y el motor de reglas decide cada precio",
+            "PostgreSQL + TimescaleDB para series de precio y ocupación; Redis + BullMQ para eventos de repricing, con historial de jobs acotado y reintentos con backoff para que la cola del log de auditoría no pierda una entrada por un error transitorio de la DB",
+            "Dinero como decimal exacto de punta a punta, con locks de fila en cada mutación de precio para que dos eventos de repricing concurrentes no se pisen",
+          ],
+        },
+      },
+      {
+        title: { en: "Correctness and security", es: "Correctitud y seguridad" },
+        items: {
+          en: [
+            "Multi-tenant JWT/RBAC with tenant isolation enforced in every use case and verified end to end (403 on cross-tenant access); sessions carry live revocation, so deactivating a user kills their existing token",
+            "SSRF guard with real DNS resolution (not string matching) that re-validates and pins each outbound tenant webhook to its checked IP at delivery time, closing the gap where a hostname is re-pointed at a cloud metadata endpoint after passing validation",
+            "One global middleware writes the activity/audit log for every mutating request, instead of per-endpoint instrumentation",
+          ],
+          es: [
+            "JWT/RBAC multi-tenant con aislamiento de tenant forzado en cada caso de uso y verificado de punta a punta (403 en accesos cruzados); las sesiones tienen revocación real, así que desactivar un usuario invalida su token",
+            "Guard anti-SSRF con resolución real de DNS (no comparación de strings) que re-valida y fija cada webhook saliente de tenant a su IP verificada al momento del envío, cerrando el hueco donde un hostname se re-apunta a un endpoint de metadata de la nube después de pasar la validación",
+            "Un único middleware global escribe el log de actividad/auditoría de cada request mutante, en vez de instrumentar endpoint por endpoint",
+          ],
+        },
+      },
+      {
+        title: { en: "How I checked it", es: "Cómo lo verifiqué" },
+        items: {
+          en: [
+            "gitleaks, Semgrep, OSV-Scanner and Trivy found an AES-GCM auth-tag-length gap in 2FA secret decryption (Node accepted 4-byte tags) and an exception-filter ordering bug that turned every domain validation error into a 500 in production",
+            "Nightly Postgres backups to Cloudflare R2, with the restore itself exercised in CI, not just the backup",
+            "Two audit rounds closed the last rules-engine gaps (seasonal demand index and competitor price deltas became first-class rule facts) and fixed all 17 findings of a UX/accessibility audit, including WCAG contrast on every status badge, ARIA tabs with roving tabindex and visible keyboard focus",
+          ],
+          es: [
+            "gitleaks, Semgrep, OSV-Scanner y Trivy encontraron un hueco en el largo del tag AES-GCM al descifrar secretos 2FA (Node aceptaba tags de 4 bytes) y un bug de orden de filtros de excepción que convertía cada error de validación de dominio en un 500 en producción",
+            "Backups nocturnos de Postgres a Cloudflare R2, con el restore ejercitado en CI, no solo el backup",
+            "Dos rondas de auditoría cerraron los últimos huecos del motor de reglas (el índice de demanda estacional y los deltas de precio de la competencia pasaron a ser facts de primera clase) y corrigieron los 17 hallazgos de una auditoría de UX/accesibilidad, incluyendo contraste WCAG en cada badge de estado, pestañas ARIA con roving tabindex y foco de teclado visible",
+          ],
+        },
+      },
+    ],
+    notDoneYet: {
+      en: "No production users yet and no public demo: the platform is built toward a pilot with a rent-a-car company that has not started. The ML service only gives advisory suggestions.",
+      es: "Todavía no hay usuarios en producción ni demo pública: la plataforma está construida hacia un piloto con una empresa de rent-a-car que aún no empieza. El servicio de ML solo da sugerencias.",
     },
     metrics: [
       { label: { en: "Backend tests", es: "Tests de backend" }, value: "1,260 (unit + e2e)" },
@@ -129,6 +157,22 @@ export const projects: Project[] = [
       "/images/rentedge/offices.png",
       "/images/rentedge/login.png",
     ],
+    galleryAlt: {
+      en: [
+        "RentEdge dashboard with revenue KPIs, overbooking risk banner and operational counters",
+        "The same RentEdge dashboard in dark mode",
+        "Pricing rules screen listing the rules the engine evaluates",
+        "Offices and categories screen for a tenant",
+        "RentEdge login screen",
+      ],
+      es: [
+        "Dashboard de RentEdge con KPIs de ingresos, alerta de overbooking y contadores operativos",
+        "El mismo dashboard de RentEdge en modo oscuro",
+        "Pantalla de reglas de pricing con las reglas que evalúa el motor",
+        "Pantalla de oficinas y categorías de un tenant",
+        "Pantalla de inicio de sesión de RentEdge",
+      ],
+    },
     accentColor: "#1e4a8c",
   },
   {
@@ -142,6 +186,7 @@ export const projects: Project[] = [
     category: "software",
     status: "in-development",
     featured: true,
+    started: "2026-10",
     stack: [
       ".NET 10",
       "ASP.NET Core",
@@ -195,6 +240,16 @@ export const projects: Project[] = [
     ],
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/agendabot", icon: "github" }],
     gallery: ["/images/agendabot/conversation.png", "/images/agendabot/demo.png"],
+    galleryAlt: {
+      en: [
+        "AgendaBot chat where the agent books an appointment through WhatsApp-style messages",
+        "AgendaBot public demo page showing the chat next to the backend trace of tool calls",
+      ],
+      es: [
+        "Chat de AgendaBot donde el agente agenda una cita con mensajes estilo WhatsApp",
+        "Página de demo pública de AgendaBot con el chat junto a la traza de llamadas a herramientas del backend",
+      ],
+    },
     accentColor: "#1F55B5",
   },
   {
@@ -208,6 +263,7 @@ export const projects: Project[] = [
     category: "software",
     status: "in-development",
     featured: false,
+    started: "2026-10",
     stack: ["n8n", "PostgreSQL", "Docker", "JavaScript", "Gemini API", "GitHub Actions"],
     role: { en: "Author", es: "Autor" },
     summary: {
@@ -239,6 +295,16 @@ export const projects: Project[] = [
     metrics: [{ label: { en: "Tests against the webhook", es: "Pruebas contra el webhook" }, value: "6" }],
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/automatizaciones", icon: "github" }],
     gallery: ["/images/automatizaciones/clasificador.png", "/images/automatizaciones/tasa-diaria.png"],
+    galleryAlt: {
+      en: [
+        "n8n workflow that classifies incoming messages with a language model and routes them by category",
+        "n8n workflow that fetches the daily exchange rate and stores it in PostgreSQL",
+      ],
+      es: [
+        "Flujo de n8n que clasifica mensajes entrantes con un modelo de lenguaje y los enruta por categoría",
+        "Flujo de n8n que obtiene la tasa de cambio diaria y la guarda en PostgreSQL",
+      ],
+    },
     accentColor: "#EA4B71",
   },
   {
@@ -253,6 +319,7 @@ export const projects: Project[] = [
     status: "live",
     visibility: "private",
     featured: false,
+    started: "2026-07",
     stack: ["Flutter", "Riverpod", "Supabase", "PostgreSQL", "go_router"],
     role: { en: "Solo developer", es: "Desarrollador en solitario" },
     summary: {
@@ -308,6 +375,26 @@ export const projects: Project[] = [
       "/images/willforge/achievements.png",
       "/images/willforge/boss-raid.png",
     ],
+    galleryAlt: {
+      en: [
+        "WillForge home dashboard with the hunter's level, stats, daily quests and an active boss raid",
+        "WillForge animated splash screen",
+        "Avatar gallery where the player picks a character",
+        "Workout routine screen with exercises to complete",
+        "Player profile with stats and rank",
+        "Achievements list with unlocked and locked badges",
+        "Boss raid screen where players attack a shared boss",
+      ],
+      es: [
+        "Dashboard de WillForge con el nivel del cazador, estadísticas, misiones diarias y una raid activa",
+        "Pantalla de inicio animada de WillForge",
+        "Galería de avatares donde el jugador elige un personaje",
+        "Pantalla de rutina de entrenamiento con ejercicios por completar",
+        "Perfil del jugador con estadísticas y rango",
+        "Lista de logros con insignias desbloqueadas y bloqueadas",
+        "Pantalla de raid contra un jefe compartido",
+      ],
+    },
     accentColor: "#6E3BFF",
   },
   {
@@ -321,6 +408,7 @@ export const projects: Project[] = [
     category: "software",
     status: "in-development",
     featured: false,
+    started: "2026-10",
     stack: ["Flutter", "Dart", "SQLite", "OpenAI-compatible API"],
     role: { en: "Solo developer", es: "Desarrollador en solitario" },
     summary: {
@@ -329,6 +417,18 @@ export const projects: Project[] = [
     },
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/aura-novel", icon: "github" }],
     gallery: ["/images/aura-novel/editor.png", "/images/aura-novel/menu.png", "/images/aura-novel/api.png"],
+    galleryAlt: {
+      en: [
+        "Aura Novel editor for writing a story with AI assistance",
+        "Aura Novel main menu",
+        "Settings screen to connect an OpenAI-compatible API",
+      ],
+      es: [
+        "Editor de Aura Novel para escribir una historia con ayuda de IA",
+        "Menú principal de Aura Novel",
+        "Pantalla para conectar una API compatible con OpenAI",
+      ],
+    },
     accentColor: "#dc143c",
   },
   {
@@ -342,6 +442,7 @@ export const projects: Project[] = [
     category: "software",
     status: "live",
     featured: false,
+    started: "2026-06",
     stack: ["React 19", "Vite", "TypeScript", "Tailwind CSS v4", "Framer Motion"],
     role: { en: "Solo developer", es: "Desarrollador en solitario" },
     summary: {
@@ -350,6 +451,10 @@ export const projects: Project[] = [
     },
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/recetas-app", icon: "github" }],
     gallery: ["/images/recetas-app/home.png"],
+    galleryAlt: {
+      en: ["Recipes app home screen with recipe cards"],
+      es: ["Pantalla de inicio de la app de recetas con tarjetas de recetas"],
+    },
     accentColor: "#b5793f",
   },
   {
@@ -363,6 +468,7 @@ export const projects: Project[] = [
     category: "software",
     status: "live",
     featured: true,
+    started: "2026-08",
     stack: [
       "Node.js",
       "Express",
@@ -412,6 +518,18 @@ export const projects: Project[] = [
     ],
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/reservaya", icon: "github" }],
     gallery: ["/images/reservaya/home.png", "/images/reservaya/venues.png", "/images/reservaya/detail.png"],
+    galleryAlt: {
+      en: [
+        "ReservaYa landing page with a search box to find a sports court",
+        "List of sports venues available to book",
+        "Detail page of one venue with its courts and time slots",
+      ],
+      es: [
+        "Página de inicio de ReservaYa con buscador para encontrar una cancha",
+        "Lista de sedes deportivas disponibles para reservar",
+        "Detalle de una sede con sus canchas y horarios",
+      ],
+    },
     accentColor: "#0f9d70",
   },
   {
@@ -425,6 +543,7 @@ export const projects: Project[] = [
     category: "software",
     status: "live",
     featured: false,
+    started: "2026-08",
     stack: ["Python", "React 19", "TypeScript", "Vite"],
     role: { en: "Solo developer", es: "Desarrollador en solitario" },
     summary: {
@@ -441,6 +560,10 @@ export const projects: Project[] = [
     },
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/pc-marketplace", icon: "github" }],
     gallery: ["/images/pc-marketplace/catalog.png"],
+    galleryAlt: {
+      en: ["PC components marketplace catalog with product cards and filters"],
+      es: ["Catálogo del marketplace de componentes de PC con tarjetas de producto y filtros"],
+    },
     accentColor: "#3b82c4",
   },
   {
@@ -454,6 +577,7 @@ export const projects: Project[] = [
     category: "game",
     status: "live",
     featured: false,
+    started: "2026-07",
     stack: ["Unity 6", "C#", "Netcode for GameObjects", "Unity Relay"],
     role: { en: "Solo developer", es: "Desarrollador en solitario" },
     summary: {
@@ -485,6 +609,10 @@ export const projects: Project[] = [
     metrics: [{ label: { en: "C# scripts", es: "Scripts C#" }, value: "50" }],
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/connect5", icon: "github" }],
     gallery: ["/images/connect5/lobby.png", "/images/connect5/gameplay.png"],
+    galleryAlt: {
+      en: ["Connect5 multiplayer lobby", "Connect5 board during a match"],
+      es: ["Lobby multijugador de Connect5", "Tablero de Connect5 durante una partida"],
+    },
     accentColor: "#3568c9",
   },
   {
@@ -498,6 +626,7 @@ export const projects: Project[] = [
     category: "game",
     status: "live",
     featured: false,
+    started: "2026-09",
     stack: ["TypeScript", "Canvas 2D", "Web Audio API", "Vite", "Vitest", "Playwright"],
     role: { en: "Solo developer", es: "Desarrollador en solitario" },
     summary: {
@@ -542,6 +671,18 @@ export const projects: Project[] = [
       "/images/brick-breaker/fireball.png",
       "/images/brick-breaker/gameplay.png",
     ],
+    galleryAlt: {
+      en: [
+        "Brick Breaker boss fight",
+        "Brick Breaker with the fireball power-up active",
+        "Brick Breaker regular gameplay",
+      ],
+      es: [
+        "Pelea contra el jefe en Brick Breaker",
+        "Brick Breaker con el power-up de bola de fuego activo",
+        "Partida normal de Brick Breaker",
+      ],
+    },
     accentColor: "#7c5cff",
   },
   {
@@ -555,6 +696,7 @@ export const projects: Project[] = [
     category: "game",
     status: "live",
     featured: false,
+    started: "2026-07",
     stack: ["React 19", "TypeScript", "Vite", "Zustand", "Framer Motion", "Web Audio API", "Vitest"],
     role: { en: "Solo developer", es: "Desarrollador en solitario" },
     summary: {
@@ -610,6 +752,22 @@ export const projects: Project[] = [
       "/images/detective-game/crimescene.png",
       "/images/detective-game/menu.png",
     ],
+    galleryAlt: {
+      en: [
+        "Digital forensics puzzle in the detective game",
+        "Evidence connections board linking clues",
+        "Interrogation scene with dialogue choices",
+        "Crime scene with clickable evidence",
+        "Detective game main menu",
+      ],
+      es: [
+        "Puzzle de forense digital en el juego de detectives",
+        "Tablero de conexiones que une pistas de evidencia",
+        "Escena de interrogatorio con opciones de diálogo",
+        "Escena del crimen con evidencia seleccionable",
+        "Menú principal del juego de detectives",
+      ],
+    },
     accentColor: "#8a6a3a",
   },
   {
@@ -623,6 +781,7 @@ export const projects: Project[] = [
     category: "game",
     status: "in-development",
     featured: false,
+    started: "2026-07",
     stack: ["Unity 6", "URP", "C#"],
     role: { en: "Game designer / solo studio", es: "Diseñador de juegos / estudio en solitario" },
     summary: {
@@ -670,6 +829,24 @@ export const projects: Project[] = [
       "/images/phase/shop.png",
       "/images/phase/options.png",
     ],
+    galleryAlt: {
+      en: [
+        "PHASE gameplay with the echo bullet-time ability",
+        "Mirror boss fight in PHASE",
+        "Zone 3, the Abyss, in PHASE",
+        "PHASE main menu",
+        "PHASE shop screen",
+        "PHASE options screen",
+      ],
+      es: [
+        "Partida de PHASE con la habilidad de eco y tiempo bala",
+        "Pelea contra el jefe espejo en PHASE",
+        "Zona 3, el Abismo, en PHASE",
+        "Menú principal de PHASE",
+        "Tienda de PHASE",
+        "Pantalla de opciones de PHASE",
+      ],
+    },
     accentColor: "#5b6b8c",
   },
   {
@@ -683,6 +860,7 @@ export const projects: Project[] = [
     category: "game",
     status: "in-development",
     featured: false,
+    started: "2026-07",
     stack: ["Unity 6", "URP", "C#"],
     role: { en: "Game designer / solo studio", es: "Diseñador de juegos / estudio en solitario" },
     summary: {
@@ -713,6 +891,14 @@ export const projects: Project[] = [
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/skim-game-design", icon: "github" }],
     coverFit: "contain",
     gallery: ["/images/skim/gameplay.png", "/images/skim/menu.png", "/images/skim/collection.png"],
+    galleryAlt: {
+      en: ["SKIM gameplay with a stone skipping across the sea", "SKIM main menu", "SKIM stone collection screen"],
+      es: [
+        "Partida de SKIM con una piedra rebotando sobre el mar",
+        "Menú principal de SKIM",
+        "Pantalla de colección de piedras de SKIM",
+      ],
+    },
     accentColor: "#00c4cc",
   },
   {
@@ -726,6 +912,7 @@ export const projects: Project[] = [
     category: "game",
     status: "in-development",
     featured: false,
+    started: "2026-07",
     stack: ["Godot 4 (GDScript)", "HTML/CSS/JS prototype", "Web Audio API"],
     role: { en: "Game designer / solo studio", es: "Diseñador de juegos / estudio en solitario" },
     summary: {
@@ -760,6 +947,10 @@ export const projects: Project[] = [
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/neon-tether-game-design", icon: "github" }],
     coverFit: "contain",
     gallery: ["/images/neon-tether/gameplay.png", "/images/neon-tether/menu.png", "/images/neon-tether/shop.png"],
+    galleryAlt: {
+      en: ["Neon Tether gameplay", "Neon Tether main menu", "Neon Tether shop"],
+      es: ["Partida de Neon Tether", "Menú principal de Neon Tether", "Tienda de Neon Tether"],
+    },
     accentColor: "#d6266e",
   },
   {
@@ -774,6 +965,7 @@ export const projects: Project[] = [
     status: "in-development",
     visibility: "private",
     featured: false,
+    started: "2026-09",
     stack: ["Next.js 15", "TypeScript", "Tailwind CSS", "Zustand", "Supabase", "PostgreSQL", "hls.js", "Framer Motion"],
     role: { en: "Solo developer", es: "Desarrollador en solitario" },
     summary: {
@@ -812,6 +1004,18 @@ export const projects: Project[] = [
       },
     ],
     gallery: ["/images/nocturni/home.png", "/images/nocturni/details-modal.png", "/images/nocturni/movies.png"],
+    galleryAlt: {
+      en: [
+        "Nocturni home with a featured-title hero banner and a Popular Movies row",
+        "Title details modal in Nocturni",
+        "Movies browsing page in Nocturni",
+      ],
+      es: [
+        "Inicio de Nocturni con un banner de título destacado y una fila de películas populares",
+        "Modal de detalle de un título en Nocturni",
+        "Página de exploración de películas en Nocturni",
+      ],
+    },
     accentColor: "#8B5CF6",
   },
 ];

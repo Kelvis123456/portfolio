@@ -50,7 +50,11 @@ export function ProjectCover({
       >
         <Image
           src={cover}
-          alt={`${project.title} ${dictionary[locale].lightbox.screenshot}`}
+          alt={
+            project.galleryAlt
+              ? project.galleryAlt[locale][0]
+              : `${project.title} ${dictionary[locale].lightbox.screenshot}`
+          }
           fill
           priority={priority}
           sizes={sizes ?? "(min-width: 640px) 50vw, 100vw"}

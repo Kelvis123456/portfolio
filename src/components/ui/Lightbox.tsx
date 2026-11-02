@@ -25,9 +25,14 @@ interface LightboxProps {
    *  elsewhere, like a project's hero cover calling `.open(0)` via ref). */
   thumbnails?: string[];
   alt: string;
+  /** Per-image descriptions, same order as `images`; falls back to `alt` + index. */
+  alts?: string[];
 }
 
-export const Lightbox = forwardRef<LightboxHandle, LightboxProps>(function Lightbox({ images, thumbnails, alt }, ref) {
+export const Lightbox = forwardRef<LightboxHandle, LightboxProps>(function Lightbox(
+  { images, thumbnails, alt, alts },
+  ref,
+) {
   const { locale } = useLanguage();
   const dict = dictionary[locale].lightbox;
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -153,7 +158,7 @@ export const Lightbox = forwardRef<LightboxHandle, LightboxProps>(function Light
             >
               <Image
                 src={src}
-                alt={`${alt} ${images.indexOf(src) + 1}`}
+                alt={alts?.[images.indexOf(src)] ?? `${alt} ${images.indexOf(src) + 1}`}
                 fill
                 sizes="(min-width: 640px) 50vw, 100vw"
                 quality={90}
@@ -249,7 +254,7 @@ export const Lightbox = forwardRef<LightboxHandle, LightboxProps>(function Light
                 >
                   <Image
                     src={images[openIndex]}
-                    alt={`${alt} ${openIndex + 1}`}
+                    alt={alts?.[openIndex] ?? `${alt} ${openIndex + 1}`}
                     width={1440}
                     height={900}
                     // 90 to browse (a retina screenshot at 100 was several MB per
