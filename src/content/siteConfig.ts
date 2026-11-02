@@ -42,11 +42,6 @@ export const siteConfig = {
       suffix: "+",
     },
   ],
-  performance: {
-    score: 90,
-    method: "Lighthouse, desktop",
-    date: "2026-08-15",
-  },
 };
 
 export type SiteConfig = typeof siteConfig;
