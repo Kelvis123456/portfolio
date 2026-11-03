@@ -50,6 +50,19 @@ function TechnicalCaseStudy({ project, locale }: { project: Project; locale: Loc
           <p className="mt-3 leading-relaxed text-foreground/80">{t(project.solution, locale)}</p>
         </section>
       )}
+      {project.video && (
+        <figure className="mt-8 max-w-[68ch]">
+          <video
+            controls
+            preload="none"
+            poster={project.video.poster}
+            className="w-full rounded-2xl border border-border bg-surface"
+          >
+            <source src={project.video.src} type="video/webm" />
+          </video>
+          <figcaption className="mt-2 text-sm text-foreground/65">{t(project.video.caption, locale)}</figcaption>
+        </figure>
+      )}
       {project.slug === "rentedge" && <RentEdgeDiagram />}
       {project.highlightGroups?.map((group) => (
         <section key={group.title.en} className="mt-8 max-w-[68ch]">

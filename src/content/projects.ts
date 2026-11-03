@@ -40,6 +40,8 @@ export interface Project {
   metrics?: ProjectMetric[];
   links: ProjectLink[];
   placeholderGallery?: boolean;
+  /** Screen recording without narration; the caption says what the viewer is looking at. */
+  video?: { src: string; poster: string; caption: LocalizedText };
   gallery?: string[];
   /** One description per gallery image, same order. Falls back to a generic label when missing. */
   galleryAlt?: LocalizedList;
@@ -172,6 +174,14 @@ export const projects: Project[] = [
         "Pantalla de oficinas y categorías de un tenant",
         "Pantalla de inicio de sesión de RentEdge",
       ],
+    },
+    video: {
+      src: "/videos/rentedge-walkthrough.webm",
+      poster: "/images/rentedge/walkthrough-poster.jpg",
+      caption: {
+        en: "50-second walkthrough on a demo tenant with sample data: dashboard, pricing rules, an office with its price simulator. No audio.",
+        es: "Recorrido de 50 segundos en un tenant de demostración con datos de ejemplo: dashboard, reglas de pricing y una oficina con su simulador de precio. Sin audio.",
+      },
     },
     accentColor: "#1e4a8c",
   },
