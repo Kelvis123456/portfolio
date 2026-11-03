@@ -165,15 +165,15 @@ export const projects: Project[] = [
       en: [
         "RentEdge dashboard with revenue KPIs, overbooking risk banner and operational counters",
         "The same RentEdge dashboard in dark mode",
-        "Pricing rules screen listing the rules the engine evaluates",
-        "Offices and categories screen for a tenant",
+        "Pricing rules screen with the IF/THEN rule builder and the table of existing rules",
+        "Offices and categories screen with the change threshold, Slack alert channels and the new office form",
         "RentEdge login screen",
       ],
       es: [
         "Dashboard de RentEdge con KPIs de ingresos, alerta de overbooking y contadores operativos",
         "El mismo dashboard de RentEdge en modo oscuro",
-        "Pantalla de reglas de pricing con las reglas que evalúa el motor",
-        "Pantalla de oficinas y categorías de un tenant",
+        "Pantalla de reglas de pricing con el constructor SI/ENTONCES y la tabla de reglas existentes",
+        "Pantalla de oficinas y categorías con el umbral de cambio, los canales de alertas de Slack y el formulario de nueva oficina",
         "Pantalla de inicio de sesión de RentEdge",
       ],
     },
@@ -255,11 +255,11 @@ export const projects: Project[] = [
     galleryAlt: {
       en: [
         "AgendaBot chat where the agent books an appointment through WhatsApp-style messages",
-        "AgendaBot public demo page showing the chat next to the backend trace of tool calls",
+        "AgendaBot public demo page with the chat on the left and the backend ticket panel, still empty, on the right",
       ],
       es: [
         "Chat de AgendaBot donde el agente agenda una cita con mensajes estilo WhatsApp",
-        "Página de demo pública de AgendaBot con el chat junto a la traza de llamadas a herramientas del backend",
+        "Página de demo pública de AgendaBot con el chat a la izquierda y el panel de ticket del backend, aún vacío, a la derecha",
       ],
     },
     accentColor: "#1F55B5",
@@ -534,12 +534,12 @@ export const projects: Project[] = [
       en: [
         "ReservaYa landing page with a search box to find a sports court",
         "List of sports venues available to book",
-        "Detail page of one venue with its courts and time slots",
+        "Detail page of a tennis club with the hourly availability picker and the booking card",
       ],
       es: [
         "Página de inicio de ReservaYa con buscador para encontrar una cancha",
         "Lista de sedes deportivas disponibles para reservar",
-        "Detalle de una sede con sus canchas y horarios",
+        "Detalle de un club de tenis con el selector de horarios por hora y la tarjeta de reserva",
       ],
     },
     accentColor: "#0f9d70",
