@@ -9,7 +9,6 @@ import { dictionary } from "@/content/dictionary";
 import { useLanguage, t } from "@/lib/language-context";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { Terminal } from "@/components/ui/Terminal";
-import { CopyableEmailButton } from "@/components/ui/CopyableEmailButton";
 
 // Stagger for the CSS entrance (.hero-in in globals.css).
 const delay = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
@@ -24,11 +23,6 @@ export function Hero() {
       id="top"
       className="relative flex min-h-[90svh] w-full flex-col items-center justify-center overflow-hidden px-6 pt-24 lg:min-h-screen"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(255,138,76,0.16),transparent_70%)]"
-      />
-
       <div className="relative z-10 flex w-full max-w-3xl flex-col items-center text-center">
         {/* Desktop shows name + role in the sidebar; on mobile this is the only place. */}
         <p className="hero-in mb-5 flex flex-col items-center gap-1.5 lg:hidden">
@@ -66,19 +60,21 @@ export function Hero() {
           >
             <FileText size={16} /> {dict.hero.resume}
           </MagneticButton>
-          <MagneticButton
+        </div>
+
+        <p style={delay(230)} className="hero-in mt-5 flex items-center gap-5 text-sm text-foreground/70">
+          <a
             href={siteConfig.github}
             target="_blank"
             rel="noreferrer"
-            className="border border-border bg-surface hover:border-accent-text/30 hover:bg-surface-muted"
+            className="inline-flex items-center gap-1.5 underline-offset-4 hover:text-foreground hover:underline"
           >
-            <GithubIcon size={16} /> {dict.hero.github}
-          </MagneticButton>
-          <CopyableEmailButton
-            label={dict.hero.contact}
-            className="border border-border bg-surface hover:border-accent-text/30 hover:bg-surface-muted"
-          />
-        </div>
+            <GithubIcon size={15} /> {dict.hero.github}
+          </a>
+          <a href={`mailto:${siteConfig.email}`} className="underline-offset-4 hover:text-foreground hover:underline">
+            {siteConfig.email}
+          </a>
+        </p>
 
         <div style={delay(260)} className="hero-in mt-12 hidden w-full max-w-md sm:block">
           <Terminal />

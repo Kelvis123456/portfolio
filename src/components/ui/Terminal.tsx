@@ -7,16 +7,19 @@ import { useLanguage, t, type LocalizedText } from "@/lib/language-context";
 
 type LogLine = { label: string; detail: LocalizedText };
 
+// Every line is a number already stated in a case study (projects.ts), not a made-up log.
 const LOG_LINES: LogLine[] = [
-  { label: "rentedge — pricing-engine", detail: { en: "rules loaded", es: "reglas cargadas" } },
+  { label: "rentedge — backend", detail: { en: "1,260 tests (unit + e2e)", es: "1,260 tests (unit + e2e)" } },
+  {
+    label: "agendabot — sql server",
+    detail: { en: "8 in parallel, 1 committed", es: "8 en paralelo, 1 confirmada" },
+  },
   {
     label: "reservaya — postgres",
-    detail: { en: "overlap check passed", es: "verificación de solapamiento aprobada" },
+    detail: { en: "overlap rechecked under lock", es: "solapamiento revisado bajo lock" },
   },
-  { label: "connect5 — relay", detail: { en: "multiplayer connection stable", es: "conexión multijugador estable" } },
+  { label: "reservaya — api", detail: { en: "76 backend tests", es: "76 tests de backend" } },
   { label: "willforge — supabase", detail: { en: "auth + RLS active", es: "auth + RLS activos" } },
-  { label: "detective-game — case-engine", detail: { en: "evidence linked", es: "evidencia vinculada" } },
-  { label: "build — next.js", detail: { en: "0 errors, 0 warnings", es: "0 errores, 0 warnings" } },
 ];
 
 const TYPE_SPEED_MS = 18;
