@@ -1143,13 +1143,13 @@ export const projects: Project[] = [
     },
     architectureHighlights: {
       en: [
-        "The PDF mixes page headers, footnotes and a footnote number glued to the article number (\"Art. 7288\" is article 728 plus note 8). Each article number is validated against the expected sequence, and a test checks that all 738 come out in order",
+        'The PDF mixes page headers, footnotes and a footnote number glued to the article number ("Art. 7288" is article 728 plus note 8). Each article number is validated against the expected sequence, and a test checks that all 738 come out in order',
         "I wrote 21 questions and read the answering article for each in the text. Retrieval top-5: BM25 14 of 21, Gemini vectors 21 of 21, and fusing both (RRF) 20 of 21 with the right article first less often, so I kept vectors with BM25 only as a fallback",
         "The model client is an IChatClient, so the answer service is tested with a scripted fake and the CI needs no API key. Without a key the page still runs and falls back to word search",
         "POST /api/ask is rate limited per IP, rejects questions over 300 characters and never returns the provider's error message",
       ],
       es: [
-        "El PDF mezcla encabezados de página, notas al pie y un número de nota pegado al del artículo (\"Art. 7288\" es el artículo 728 más la nota 8). Cada número de artículo se valida contra la secuencia esperada, y un test comprueba que salen los 738 en orden",
+        'El PDF mezcla encabezados de página, notas al pie y un número de nota pegado al del artículo ("Art. 7288" es el artículo 728 más la nota 8). Cada número de artículo se valida contra la secuencia esperada, y un test comprueba que salen los 738 en orden',
         "Escribí 21 preguntas y leí en el texto el artículo que responde a cada una. Recuperación en el top 5: BM25 14 de 21, vectores de Gemini 21 de 21, y fusionar ambos (RRF) 20 de 21 con el artículo correcto primero menos veces, así que dejé vectores con BM25 solo de respaldo",
         "El cliente del modelo es un IChatClient, así que el servicio de respuesta se prueba con un modelo falso guionado y el CI no necesita clave. Sin clave la página sigue funcionando con búsqueda por palabras",
         "POST /api/ask tiene límite por IP, rechaza preguntas de más de 300 caracteres y nunca devuelve el mensaje de error del proveedor",
@@ -1166,8 +1166,12 @@ export const projects: Project[] = [
     ],
     gallery: ["/images/codigo-trabajo-rag/respuesta.png"],
     galleryAlt: {
-      en: ["Answer to whether a pregnant woman can be dismissed, citing article 233, followed by the full text of that article"],
-      es: ["Respuesta a si se puede despedir a una mujer embarazada, citando el artículo 233, seguida del texto completo de ese artículo"],
+      en: [
+        "Answer to whether a pregnant woman can be dismissed, citing article 233, followed by the full text of that article",
+      ],
+      es: [
+        "Respuesta a si se puede despedir a una mujer embarazada, citando el artículo 233, seguida del texto completo de ese artículo",
+      ],
     },
     links: [
       {
