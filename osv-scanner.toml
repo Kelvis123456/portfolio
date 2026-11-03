@@ -1,0 +1,12 @@
+# glob y minimatch llegan por @sentry/bundler-plugin-core, que solo se usa al subir source maps
+# en el build (withSentryConfig exige SENTRY_AUTH_TOKEN). No corren en el sitio publicado.
+# La corrección pide un salto mayor dentro del plugin de Sentry; se revisa cuando lo suba Sentry.
+[[IgnoredVulns]]
+id = "GHSA-3g3m-2fjr-6pw4"
+ignoreUntil = 2026-12-15
+reason = "glob 13 solo en el plugin de source maps del build, no en runtime"
+
+[[IgnoredVulns]]
+id = "GHSA-g3hv-75wg-m249"
+ignoreUntil = 2026-12-15
+reason = "minimatch 10 solo en el plugin de source maps del build, no en runtime"
