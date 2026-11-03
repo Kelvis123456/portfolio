@@ -532,7 +532,14 @@ export const projects: Project[] = [
       { label: { en: "Backend tests", es: "Tests de backend" }, value: "76 (unit + integration)" },
       { label: { en: "Frontend tests", es: "Tests de frontend" }, value: "24" },
     ],
-    links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/reservaya", icon: "github" }],
+    links: [
+      { label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/reservaya", icon: "github" },
+      {
+        label: { en: "Open the live app", es: "Abrir la app en vivo" },
+        href: "https://reservaya-frontend.onrender.com",
+        icon: "external",
+      },
+    ],
     gallery: ["/images/reservaya/home.png", "/images/reservaya/venues.png", "/images/reservaya/detail.png"],
     galleryAlt: {
       en: [
