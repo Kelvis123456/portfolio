@@ -1030,6 +1030,61 @@ export const projects: Project[] = [
     },
     accentColor: "#8B5CF6",
   },
+  {
+    slug: "dgii-helper",
+    title: "dgii-helper",
+    tagline: {
+      en: "API that validates Dominican tax identifiers and issues invoice numbers without duplicates",
+      es: "API que valida identificadores fiscales dominicanos y entrega números de comprobante sin duplicados",
+    },
+    kind: "software",
+    category: "software",
+    status: "in-development",
+    featured: false,
+    started: "2026-11",
+    stack: [".NET 10", "ASP.NET Core", "EF Core", "SQL Server", "xUnit", "Testcontainers", "Docker"],
+    role: { en: "Solo developer", es: "Desarrollador en solitario" },
+    summary: {
+      en: "An ASP.NET Core API for the two things any Dominican invoicing system needs: checking that an RNC, cédula, NCF or e-CF is well formed, and handing out NCF numbers so that none is ever repeated, even when many invoices arrive at once.",
+      es: "Una API en ASP.NET Core para las dos cosas que necesita cualquier sistema de facturación dominicano: comprobar que un RNC, una cédula, un NCF o un e-CF tienen forma válida, y entregar números de NCF sin que ninguno se repita aunque lleguen muchas facturas a la vez.",
+    },
+    problem: {
+      en: "Issuing the next invoice number by reading a counter and writing it back gives the same number to two requests that arrive together. A repeated NCF is a problem with the tax authority (DGII), not only a bug.",
+      es: "Entregar el siguiente número de factura leyendo un contador y escribiéndolo de nuevo da el mismo número a dos peticiones que llegan juntas. Un NCF repetido es un problema con la DGII, no solo un bug.",
+    },
+    solution: {
+      en: "Each authorized range hands out its next number with a single UPDATE ... OUTPUT: SQL Server locks the row, adds one and returns the previous value in the same statement. Registering a range runs in a serializable transaction that rejects overlaps and retries when SQL Server aborts one as a deadlock victim.",
+      es: "Cada rango autorizado entrega su siguiente número con un solo UPDATE ... OUTPUT: SQL Server bloquea la fila, suma uno y devuelve el valor anterior en la misma sentencia. Registrar un rango corre en una transacción serializable que rechaza solapes y reintenta cuando SQL Server aborta una por deadlock.",
+    },
+    architectureHighlights: {
+      en: [
+        "40 simultaneous requests on a 40-number range receive 40 distinct, consecutive numbers. On a smaller range the extra requests get a 409 and nobody receives a repeated number",
+        "RNC check digit is a weighted sum modulo 11, tested with hand-computed vectors. The cédula uses Luhn and is compared against an independent Luhn implementation over 20,000 numbers",
+        "Tests run against a real SQL Server with Testcontainers. I broke the implementation on purpose (read-then-write issuing, a lower isolation level, wrong weights) and the suite caught each one",
+        "Write endpoints need an API key compared in constant time, and the app refuses to start in production without one. There is a per-IP rate limit",
+        "A bug I found on the way: EF wraps the deadlock error two levels deep, so my first retry never ran. It now walks the whole exception chain",
+      ],
+      es: [
+        "40 peticiones simultáneas sobre un rango de 40 números reciben 40 números distintos y seguidos. En un rango más chico las que sobran reciben 409 y nadie recibe un número repetido",
+        "El dígito verificador del RNC es una suma ponderada módulo 11, probada con vectores calculados a mano. La cédula usa Luhn y se compara contra una implementación independiente de Luhn en 20 000 números",
+        "Los tests corren contra un SQL Server real con Testcontainers. Rompí la implementación a propósito (emitir leyendo y luego escribiendo, un aislamiento más bajo, pesos equivocados) y la suite detectó cada una",
+        "Los endpoints que escriben piden una clave de API comparada en tiempo constante, y la app no arranca en producción sin ella. Hay un límite de peticiones por IP",
+        "Un bug que encontré en el camino: EF envuelve el error de deadlock dos niveles adentro, así que mi primer reintento nunca corría. Ahora recorre toda la cadena de excepciones",
+      ],
+    },
+    notDoneYet: {
+      en: "Not deployed anywhere. It does not query the DGII registry, validate e-CF XML or sign and send documents; it only checks that identifiers have a valid form.",
+      es: "No está desplegado en ningún lado. No consulta el padrón de la DGII, no valida el XML de un e-CF ni firma y envía documentos; solo comprueba que los identificadores tengan forma válida.",
+    },
+    metrics: [{ label: { en: "Tests", es: "Tests" }, value: "104, against a real SQL Server" }],
+    links: [
+      {
+        label: SOURCE_LABEL,
+        href: "https://github.com/Kelvis123456/dgii-helper",
+        icon: "github",
+      },
+    ],
+  },
 ];
 
 export interface OtherWork {
