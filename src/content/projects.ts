@@ -309,12 +309,12 @@ export const projects: Project[] = [
     gallery: ["/images/automatizaciones/clasificador.png", "/images/automatizaciones/tasa-diaria.png"],
     galleryAlt: {
       en: [
-        "n8n workflow that classifies incoming messages with a language model and routes them by category",
-        "n8n workflow that fetches the daily exchange rate and stores it in PostgreSQL",
+        "n8n workflow that receives a message, validates it, asks Gemini to classify it and answers with a 200, 400 or 502 response",
+        "n8n workflow that fetches the daily USD to DOP rate, validates it, stores it in PostgreSQL and builds a 30-day summary",
       ],
       es: [
-        "Flujo de n8n que clasifica mensajes entrantes con un modelo de lenguaje y los enruta por categoría",
-        "Flujo de n8n que obtiene la tasa de cambio diaria y la guarda en PostgreSQL",
+        "Flujo de n8n que recibe un mensaje, lo valida, le pide a Gemini que lo clasifique y responde con un 200, 400 o 502",
+        "Flujo de n8n que obtiene la tasa diaria de USD a DOP, la valida, la guarda en PostgreSQL y arma un resumen de 30 días",
       ],
     },
     accentColor: "#EA4B71",
@@ -390,20 +390,20 @@ export const projects: Project[] = [
     galleryAlt: {
       en: [
         "WillForge home dashboard with the hunter's level, stats, daily quests and an active boss raid",
-        "WillForge animated splash screen",
+        "WillForge splash screen with the flaming fist logo and the tagline Rise and Conquer",
         "Avatar gallery where the player picks a character",
-        "Workout routine screen with exercises to complete",
+        "Workout library with the current Total Strength routine and today's Muscle Builder challenge",
         "Player profile with stats and rank",
-        "Achievements list with unlocked and locked badges",
+        "Achievements list with locked badges ranked from E to S and progress bars",
         "Boss raid screen where players attack a shared boss",
       ],
       es: [
         "Dashboard de WillForge con el nivel del cazador, estadísticas, misiones diarias y una raid activa",
-        "Pantalla de inicio animada de WillForge",
+        "Pantalla de inicio de WillForge con el logo del puño en llamas y el lema Rise and Conquer",
         "Galería de avatares donde el jugador elige un personaje",
-        "Pantalla de rutina de entrenamiento con ejercicios por completar",
+        "Biblioteca de entrenamientos con la rutina actual Total Strength y el reto de hoy Muscle Builder",
         "Perfil del jugador con estadísticas y rango",
-        "Lista de logros con insignias desbloqueadas y bloqueadas",
+        "Lista de logros bloqueados con rangos de E a S y barras de progreso",
         "Pantalla de raid contra un jefe compartido",
       ],
     },
@@ -432,12 +432,12 @@ export const projects: Project[] = [
     galleryAlt: {
       en: [
         "Aura Novel editor for writing a story with AI assistance",
-        "Aura Novel main menu",
-        "Settings screen to connect an OpenAI-compatible API",
+        "Aura Novel side menu with Characters and Lore Studio, My Projects and API Settings",
+        "API connection screen with endpoint, key and model fields and sliders for generation parameters",
       ],
       es: [
         "Editor de Aura Novel para escribir una historia con ayuda de IA",
-        "Menú principal de Aura Novel",
+        "Menú lateral de Aura Novel con Studio de Personajes y Lore, Mis Proyectos y Ajustes de API",
         "Pantalla para conectar una API compatible con OpenAI",
       ],
     },
@@ -573,8 +573,12 @@ export const projects: Project[] = [
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/pc-marketplace", icon: "github" }],
     gallery: ["/images/pc-marketplace/catalog.png"],
     galleryAlt: {
-      en: ["PC components marketplace catalog with product cards and filters"],
-      es: ["Catálogo del marketplace de componentes de PC con tarjetas de producto y filtros"],
+      en: [
+        "PC components catalog with a search box and cards showing price and stock for a GPU, CPU, RAM, SSD and PSU",
+      ],
+      es: [
+        "Catálogo de componentes de PC con buscador y tarjetas con precio y existencias de GPU, CPU, RAM, SSD y fuente",
+      ],
     },
     accentColor: "#3b82c4",
   },
@@ -622,8 +626,14 @@ export const projects: Project[] = [
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/connect5", icon: "github" }],
     gallery: ["/images/connect5/lobby.png", "/images/connect5/gameplay.png"],
     galleryAlt: {
-      en: ["Connect5 multiplayer lobby", "Connect5 board during a match"],
-      es: ["Lobby multijugador de Connect5", "Tablero de Connect5 durante una partida"],
+      en: [
+        "Connect5 main menu with Local, vs AI and Online modes",
+        "Connect5 ten-by-ten board with the first piece dropped and Player 2 to move",
+      ],
+      es: [
+        "Menú principal de Connect5 con los modos Local, vs IA y Online",
+        "Tablero de Connect5 de diez por diez con la primera ficha caída y turno del Jugador 2",
+      ],
     },
     accentColor: "#3568c9",
   },
@@ -686,13 +696,13 @@ export const projects: Project[] = [
     galleryAlt: {
       en: [
         "Brick Breaker boss fight",
-        "Brick Breaker with the fireball power-up active",
-        "Brick Breaker regular gameplay",
+        "Brick Breaker level 3 with flaming balls clearing bricks and a x7 combo",
+        "Brick Breaker level 1 with a FIREBALL! pickup, falling power-up capsules and a x5 combo",
       ],
       es: [
         "Pelea contra el jefe en Brick Breaker",
-        "Brick Breaker con el power-up de bola de fuego activo",
-        "Partida normal de Brick Breaker",
+        "Brick Breaker nivel 3 con bolas de fuego rompiendo ladrillos y un combo x7",
+        "Brick Breaker nivel 1 con un FIREBALL! recién recogido, cápsulas de power-up cayendo y un combo x5",
       ],
     },
     accentColor: "#7c5cff",
@@ -843,20 +853,20 @@ export const projects: Project[] = [
     ],
     galleryAlt: {
       en: [
-        "PHASE gameplay with the echo bullet-time ability",
-        "Mirror boss fight in PHASE",
-        "Zone 3, the Abyss, in PHASE",
-        "PHASE main menu",
-        "PHASE shop screen",
-        "PHASE options screen",
+        "PHASE level where the player jumps next to two colored echoes of past runs, with red barriers on the platform",
+        "PHASE level with several colored echoes and a white figure on a long platform with lever switches",
+        "PHASE level on a dark purple background with the player and two echoes beside a red barrier",
+        "PHASE main menu with the Play, Achievements, My Echoes and Quit options",
+        "PHASE My Echoes screen with skin slots for five echoes and a direct-purchase list",
+        "PHASE options screen with colorblind mode, echo bullet-time speed and charge time",
       ],
       es: [
-        "Partida de PHASE con la habilidad de eco y tiempo bala",
-        "Pelea contra el jefe espejo en PHASE",
-        "Zona 3, el Abismo, en PHASE",
-        "Menú principal de PHASE",
-        "Tienda de PHASE",
-        "Pantalla de opciones de PHASE",
+        "Nivel de PHASE donde el jugador salta junto a dos ecos de colores de intentos anteriores, con barreras rojas en la plataforma",
+        "Nivel de PHASE con varios ecos de colores y una figura blanca en una plataforma larga con palancas",
+        "Nivel de PHASE sobre fondo morado oscuro con el jugador y dos ecos junto a una barrera roja",
+        "Menú principal de PHASE con las opciones Jugar, Logros, Mis Ecos y Salir",
+        "Pantalla Mis Ecos de PHASE con ranuras de skin para cinco ecos y una lista de compra directa",
+        "Pantalla de opciones de PHASE con modo daltónico, velocidad de ecos en bullet-time y tiempo de carga",
       ],
     },
     accentColor: "#5b6b8c",
@@ -904,9 +914,13 @@ export const projects: Project[] = [
     coverFit: "contain",
     gallery: ["/images/skim/gameplay.png", "/images/skim/menu.png", "/images/skim/collection.png"],
     galleryAlt: {
-      en: ["SKIM gameplay with a stone skipping across the sea", "SKIM main menu", "SKIM stone collection screen"],
+      en: [
+        "SKIM at launch with the aiming ring on the water, the moon above and the score at 0",
+        "SKIM main menu",
+        "SKIM stone collection screen",
+      ],
       es: [
-        "Partida de SKIM con una piedra rebotando sobre el mar",
+        "SKIM al lanzar, con el aro de puntería sobre el agua, la luna arriba y el marcador en 0",
         "Menú principal de SKIM",
         "Pantalla de colección de piedras de SKIM",
       ],
