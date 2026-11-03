@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
   return {
     metadataBase: new URL(siteConfig.url),
-    title: `${siteConfig.name} — ${siteConfig.role[locale]}`,
+    title: `${siteConfig.name} | ${siteConfig.role[locale]}`,
     description: siteConfig.tagline[locale],
     alternates: {
       canonical: `${siteConfig.url}/${locale}`,
