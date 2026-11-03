@@ -355,6 +355,8 @@ export const projects: Project[] = [
         "18-illustration avatar gallery, freely pickable, decoupled from any other profile data",
         "Lifetime stat trend (sparkline + delta) computed from a real per-level-up snapshot table, not estimated",
         "Persistent training routines built from the real exercise catalog, picked from a gallery and kept active across sessions",
+        "Sessions with a set table, plate calculator, background-safe rest timer, suggested weights and a plateau note, plus supersets that alternate two exercises and save together",
+        "Progress screen with sets per muscle and estimated 1RM and volume trends; server-side cooldown, per-set duration and daily XP limits against farming, replayed as SQL attacks in CI",
       ],
       es: [
         "Sistema de guild con agregación real de XP semanal entre miembros y desafíos a nivel de guild",
@@ -364,11 +366,13 @@ export const projects: Project[] = [
         "Galería de 18 avatares ilustrados, de elección libre, independiente del resto de los datos del perfil",
         "Tendencia de stats de por vida (sparkline + delta) calculada desde una tabla real de snapshots por level-up, no estimada",
         "Rutinas de entrenamiento persistentes armadas con el catálogo real de ejercicios, elegidas de una galería y activas entre sesiones",
+        "Sesiones con tabla de series, calculadora de discos, temporizador de descanso que sobrevive al segundo plano, pesos sugeridos y aviso de estancamiento, más supersets que alternan dos ejercicios y se guardan juntos",
+        "Pantalla de progreso con series por músculo y tendencias de 1RM y volumen estimados; cooldown, duración por serie y tope diario de XP del lado del servidor contra el farming, repetidos como ataques SQL en CI",
       ],
     },
     metrics: [
-      { label: { en: "Lines of Dart", es: "Líneas de Dart" }, value: "~19,900" },
-      { label: { en: "Screens", es: "Pantallas" }, value: "23" },
+      { label: { en: "Lines of Dart", es: "Líneas de Dart" }, value: "~25,800" },
+      { label: { en: "Screens", es: "Pantallas" }, value: "26" },
     ],
     links: [
       {
