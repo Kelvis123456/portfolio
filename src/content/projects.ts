@@ -1115,6 +1115,72 @@ export const projects: Project[] = [
       },
     ],
   },
+  {
+    slug: "codigo-trabajo-rag",
+    title: "codigo-trabajo-rag",
+    tagline: {
+      en: "Ask the Dominican Labor Code a question and get an answer that cites its articles",
+      es: "Pregunta sobre el Código de Trabajo dominicano y recibe una respuesta que cita sus artículos",
+    },
+    kind: "software",
+    category: "software",
+    status: "in-development",
+    featured: false,
+    started: "2026-11",
+    stack: [".NET 10", "ASP.NET Core", "Microsoft.Extensions.AI", "Gemini", "xUnit"],
+    role: { en: "Solo developer", es: "Desarrollador en solitario" },
+    summary: {
+      en: "A retrieval-augmented question answering page over the 738 articles of the Dominican Labor Code (Law 16-92). Each answer cites the articles it came from, and a citation to an article the model was never given is flagged as unverified.",
+      es: "Una página de preguntas y respuestas con recuperación sobre los 738 artículos del Código de Trabajo dominicano (Ley 16-92). Cada respuesta cita los artículos de los que salió, y una cita a un artículo que el modelo nunca recibió se marca como sin verificar.",
+    },
+    problem: {
+      en: "A language model asked about a law answers from memory, mixes in other countries' rules and invents article numbers. For a legal text a confident wrong answer is worse than none.",
+      es: "Un modelo de lenguaje al que se le pregunta por una ley responde de memoria, mezcla reglas de otros países e inventa números de artículo. En un texto legal, una respuesta segura y equivocada es peor que ninguna.",
+    },
+    solution: {
+      en: "The official PDF is parsed into articles, each one is embedded with Gemini, and a question retrieves its five closest articles. The model only sees those five and must cite them as [Art. N]. The service then checks every cited number against the five it was given.",
+      es: "El PDF oficial se parte en artículos, cada uno se convierte en un vector con Gemini y una pregunta recupera sus cinco artículos más cercanos. El modelo solo ve esos cinco y debe citarlos como [Art. N]. El servicio comprueba después cada número citado contra los cinco que recibió.",
+    },
+    architectureHighlights: {
+      en: [
+        'The PDF mixes page headers, footnotes and a footnote number glued to the article number ("Art. 7288" is article 728 plus note 8). Each article number is validated against the expected sequence, and a test checks that all 738 come out in order',
+        "I wrote 21 questions and read the answering article for each in the text. Retrieval top-5: BM25 14 of 21, Gemini vectors 21 of 21, and fusing both (RRF) 20 of 21 with the right article first less often, so I kept vectors with BM25 only as a fallback",
+        "The model client is an IChatClient, so the answer service is tested with a scripted fake and the CI needs no API key. Without a key the page still runs and falls back to word search",
+        "POST /api/ask is rate limited per IP, rejects questions over 300 characters and never returns the provider's error message",
+      ],
+      es: [
+        'El PDF mezcla encabezados de página, notas al pie y un número de nota pegado al del artículo ("Art. 7288" es el artículo 728 más la nota 8). Cada número de artículo se valida contra la secuencia esperada, y un test comprueba que salen los 738 en orden',
+        "Escribí 21 preguntas y leí en el texto el artículo que responde a cada una. Recuperación en el top 5: BM25 14 de 21, vectores de Gemini 21 de 21, y fusionar ambos (RRF) 20 de 21 con el artículo correcto primero menos veces, así que dejé vectores con BM25 solo de respaldo",
+        "El cliente del modelo es un IChatClient, así que el servicio de respuesta se prueba con un modelo falso guionado y el CI no necesita clave. Sin clave la página sigue funcionando con búsqueda por palabras",
+        "POST /api/ask tiene límite por IP, rechaza preguntas de más de 300 caracteres y nunca devuelve el mensaje de error del proveedor",
+      ],
+    },
+    notDoneYet: {
+      en: "Not deployed. The eval measures retrieval, not whether the final answer is right, and it has only 21 questions. The citation check confirms an article was provided to the model, not that the sentence matches it. It is not legal advice, and the text may not include later reforms.",
+      es: "No está desplegado. La evaluación mide la recuperación, no si la respuesta final es correcta, y tiene solo 21 preguntas. La comprobación de citas confirma que el artículo se le entregó al modelo, no que la frase coincida con él. No es asesoría legal y el texto puede no incluir reformas posteriores.",
+    },
+    metrics: [
+      { label: { en: "Articles parsed", es: "Artículos parseados" }, value: "738" },
+      { label: { en: "Retrieval top-5 (vectors)", es: "Recuperación top 5 (vectores)" }, value: "21 of 21 questions" },
+      { label: { en: "Tests", es: "Tests" }, value: "28" },
+    ],
+    gallery: ["/images/codigo-trabajo-rag/respuesta.png"],
+    galleryAlt: {
+      en: [
+        "Answer to whether a pregnant woman can be dismissed, citing article 233, followed by the full text of that article",
+      ],
+      es: [
+        "Respuesta a si se puede despedir a una mujer embarazada, citando el artículo 233, seguida del texto completo de ese artículo",
+      ],
+    },
+    links: [
+      {
+        label: SOURCE_LABEL,
+        href: "https://github.com/Kelvis123456/codigo-trabajo-rag",
+        icon: "github",
+      },
+    ],
+  },
 ];
 
 export interface OtherWork {
