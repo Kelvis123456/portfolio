@@ -1076,7 +1076,7 @@ export const projects: Project[] = [
         "RNC check digit is a weighted sum modulo 11, tested with hand-computed vectors. The cédula uses Luhn and is compared against an independent Luhn implementation over 20,000 numbers",
         "Tests run against a real SQL Server with Testcontainers. I broke the implementation on purpose (read-then-write issuing, a lower isolation level, wrong weights) and the suite caught each one",
         "Write endpoints need an API key compared in constant time, and the app refuses to start in production without one. There is a per-IP rate limit",
-        "The Angular front end uses signals and standalone components, with 47 tests. I ran it in a browser against the real API: registered a 3-number range, issued all 3, saw the button switch to exhausted, and saw a wrong key produce the 401 message",
+        "The Angular front end uses signals and standalone components, with 52 tests. I ran it in a browser against the real API: registered a 3-number range, issued all 3, saw the button switch to exhausted, and saw a wrong key produce the 401 message",
         "A bug I found on the way: EF wraps the deadlock error two levels deep, so my first retry never ran. It now walks the whole exception chain",
       ],
       es: [
@@ -1084,7 +1084,7 @@ export const projects: Project[] = [
         "El dígito verificador del RNC es una suma ponderada módulo 11, probada con vectores calculados a mano. La cédula usa Luhn y se compara contra una implementación independiente de Luhn en 20 000 números",
         "Los tests corren contra un SQL Server real con Testcontainers. Rompí la implementación a propósito (emitir leyendo y luego escribiendo, un aislamiento más bajo, pesos equivocados) y la suite detectó cada una",
         "Los endpoints que escriben piden una clave de API comparada en tiempo constante, y la app no arranca en producción sin ella. Hay un límite de peticiones por IP",
-        "El front en Angular usa señales y componentes standalone, con 47 tests. Lo corrí en un navegador contra la API real: registré un rango de 3 números, entregué los 3, vi el botón pasar a agotado y vi que una clave incorrecta muestra el aviso de 401",
+        "El front en Angular usa señales y componentes standalone, con 52 tests. Lo corrí en un navegador contra la API real: registré un rango de 3 números, entregué los 3, vi el botón pasar a agotado y vi que una clave incorrecta muestra el aviso de 401",
         "Un bug que encontré en el camino: EF envuelve el error de deadlock dos niveles adentro, así que mi primer reintento nunca corría. Ahora recorre toda la cadena de excepciones",
       ],
     },
@@ -1093,8 +1093,8 @@ export const projects: Project[] = [
       es: "No está desplegado en ningún lado. No consulta el padrón de la DGII, no valida el XML de un e-CF ni firma y envía documentos; solo comprueba que los identificadores tengan forma válida.",
     },
     metrics: [
-      { label: { en: "API tests", es: "Tests de la API" }, value: "104, against a real SQL Server" },
-      { label: { en: "Front-end tests", es: "Tests del front" }, value: "47" },
+      { label: { en: "API tests", es: "Tests de la API" }, value: "113, against a real SQL Server" },
+      { label: { en: "Front-end tests", es: "Tests del front" }, value: "52" },
     ],
     gallery: ["/images/dgii-helper/validar.png", "/images/dgii-helper/rangos.png"],
     galleryAlt: {
@@ -1162,7 +1162,7 @@ export const projects: Project[] = [
     metrics: [
       { label: { en: "Articles parsed", es: "Artículos parseados" }, value: "738" },
       { label: { en: "Retrieval top-5 (vectors)", es: "Recuperación top 5 (vectores)" }, value: "21 of 21 questions" },
-      { label: { en: "Tests", es: "Tests" }, value: "28" },
+      { label: { en: "Tests", es: "Tests" }, value: "41" },
     ],
     gallery: ["/images/codigo-trabajo-rag/respuesta.png"],
     galleryAlt: {
@@ -1214,14 +1214,14 @@ export const projects: Project[] = [
     },
     architectureHighlights: {
       en: [
-        "ARIMA and ETS have about 11% more error than the naive at a 1-day horizon, and the interval excludes zero. At 7 and 30 days most intervals include zero, so with 83 origins they cannot be told apart from the naive",
-        "The harness is tested for look-ahead: a spy model records what it receives and it must equal the series prefix. I injected a one-day leak on purpose and three tests failed",
+        "ARIMA and ETS have about 10% more error than the naive at a 1-day horizon, and the interval excludes zero. At 7 and 30 days most intervals include zero, so with 83 origins they cannot be told apart from the naive",
+        "The harness is tested for look-ahead: a spy model records what it receives and it must equal the series prefix. I injected a one-day leak on purpose and five tests failed; an earlier review found that one of my look-ahead tests was not catching it, and a real leak from interpolating the one missing day, both now fixed",
         "Origins one week apart share most of a 30-day path, so a plain bootstrap would give intervals that are too narrow. I resample circular blocks of ceil(h/7) origins",
         "I did not clean the series. A centered median filter would look two days past each origin, and a backward-looking one cannot flag the most recent day",
       ],
       es: [
-        "ARIMA y ETS tienen cerca de 11 % más error que el naive a 1 día, y el intervalo excluye el cero. A 7 y 30 días casi todos los intervalos incluyen el cero, así que con 83 orígenes no se distinguen del naive",
-        "El arnés tiene tests contra mirar el futuro: un modelo espía guarda lo que recibe y debe ser igual al prefijo de la serie. Metí una fuga de un día a propósito y fallaron tres tests",
+        "ARIMA y ETS tienen cerca de 10 % más error que el naive a 1 día, y el intervalo excluye el cero. A 7 y 30 días casi todos los intervalos incluyen el cero, así que con 83 orígenes no se distinguen del naive",
+        "El arnés tiene tests contra mirar el futuro: un modelo espía guarda lo que recibe y debe ser igual al prefijo de la serie. Metí una fuga de un día a propósito y fallaron cinco tests; una revisión encontró que uno de mis tests contra mirar el futuro no la detectaba y una fuga real al interpolar el único día que falta, ya corregidas las dos",
         "Orígenes con una semana de distancia comparten casi todo un recorrido de 30 días, así que un bootstrap común daría intervalos demasiado estrechos. Remuestreo bloques circulares de ceil(h/7) orígenes",
         "No limpié la serie. Un filtro de mediana centrado miraría dos días más allá de cada origen, y uno hacia atrás no puede marcar el último día",
       ],
@@ -1233,7 +1233,7 @@ export const projects: Project[] = [
     metrics: [
       { label: { en: "Days of data", es: "Días de datos" }, value: "972" },
       { label: { en: "Rolling origins", es: "Orígenes móviles" }, value: "83" },
-      { label: { en: "Tests", es: "Tests" }, value: "11" },
+      { label: { en: "Tests", es: "Tests" }, value: "13" },
     ],
     gallery: ["/images/dop-usd-backtest/error-vs-naive.png"],
     galleryAlt: {
