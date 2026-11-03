@@ -2,9 +2,9 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Kelvis Guerrero — Portfolio",
+    name: "Kelvis Guerrero | Portfolio",
     short_name: "Kelvis Guerrero",
-    description: "Building SaaS platforms, mobile apps, and games — end to end.",
+    description: "Building SaaS platforms, mobile apps, and games, end to end.",
     start_url: "/",
     display: "standalone",
     background_color: "#faf8f5",

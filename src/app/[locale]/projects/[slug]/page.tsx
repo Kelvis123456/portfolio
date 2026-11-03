@@ -23,7 +23,7 @@ export async function generateMetadata({
   const project = projects.find((p) => p.slug === slug);
   if (!project) return {};
   return {
-    title: `${project.title} — Kelvis Guerrero`,
+    title: `${project.title} | Kelvis Guerrero`,
     description: project.tagline[locale],
     alternates: {
       canonical: `${siteConfig.url}/${locale}/projects/${slug}`,
