@@ -13,6 +13,14 @@ export function generateStaticParams() {
   return LOCALES.flatMap((locale) => projects.map((project) => ({ locale, slug: project.slug })));
 }
 
+// Entre 50 y 155 caracteres: el tagline solo se queda corto (40 en algunos proyectos) y Google rellena lo que falta.
+function metaDescription(tagline: string, summary: string): string {
+  const full = `${tagline.replace(/\.$/, "")}. ${summary}`;
+  if (full.length <= 155) return full;
+  const cut = full.slice(0, 155);
+  return `${cut.slice(0, cut.lastIndexOf(" ")).replace(/[.,;:]+$/, "")}…`;
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -24,7 +32,7 @@ export async function generateMetadata({
   if (!project) return {};
   return {
     title: `${project.title} | Kelvis Guerrero`,
-    description: project.tagline[locale],
+    description: metaDescription(project.tagline[locale], project.summary[locale]),
     alternates: {
       canonical: `${siteConfig.url}/${locale}/projects/${slug}`,
       languages: {
