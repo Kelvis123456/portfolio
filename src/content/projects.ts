@@ -1115,6 +1115,68 @@ export const projects: Project[] = [
       },
     ],
   },
+  {
+    slug: "dop-usd-backtest",
+    title: "dop-usd-backtest",
+    tagline: {
+      en: "An honest backtest of USD to DOP forecasts: five models against repeating the last value",
+      es: "Un backtest honesto de pronósticos USD a DOP: cinco modelos contra repetir el último valor",
+    },
+    kind: "software",
+    category: "software",
+    status: "in-development",
+    featured: false,
+    started: "2026-11",
+    stack: ["Python", "pandas", "statsmodels", "pytest", "uv"],
+    role: { en: "Solo developer", es: "Desarrollador en solitario" },
+    summary: {
+      en: "A rolling-origin backtest of five forecasters (naive, drift, ETS, ARIMA, 5-day median) on two years of daily USD to DOP rates. The result is that nothing beats repeating the last value, and the project shows how that was measured.",
+      es: "Un backtest con origen móvil de cinco pronosticadores (naive, drift, ETS, ARIMA, mediana de 5 días) sobre dos años de tasas diarias USD a DOP. El resultado es que nada le gana a repetir el último valor, y el proyecto muestra cómo se midió.",
+    },
+    problem: {
+      en: "It is easy to fit an ARIMA and plot a convincing curve. The hard part of forecasting is checking that the model beats doing nothing, without leaking the future into the history it sees.",
+      es: "Es fácil ajustar un ARIMA y dibujar una curva convincente. Lo difícil de pronosticar es comprobar que el modelo le gana a no hacer nada, sin filtrar el futuro en el historial que ve.",
+    },
+    solution: {
+      en: "At each of 83 weekly origins the model receives only the data up to that day and is scored against the value 1, 7 and 30 days later. Every model is reported as its error difference against the naive forecast, with a block bootstrap confidence interval.",
+      es: "En cada uno de 83 orígenes semanales el modelo recibe solo los datos hasta ese día y se mide contra el valor 1, 7 y 30 días después. Cada modelo se reporta como su diferencia de error contra el naive, con un intervalo de confianza por bootstrap de bloques.",
+    },
+    architectureHighlights: {
+      en: [
+        "ARIMA and ETS have about 11% more error than the naive at a 1-day horizon, and the interval excludes zero. At 7 and 30 days most intervals include zero, so with 83 origins they cannot be told apart from the naive",
+        "The harness is tested for look-ahead: a spy model records what it receives and it must equal the series prefix. I injected a one-day leak on purpose and three tests failed",
+        "Origins one week apart share most of a 30-day path, so a plain bootstrap would give intervals that are too narrow. I resample circular blocks of ceil(h/7) origins",
+        "I did not clean the series. A centered median filter would look two days past each origin, and a backward-looking one cannot flag the most recent day",
+      ],
+      es: [
+        "ARIMA y ETS tienen cerca de 11 % más error que el naive a 1 día, y el intervalo excluye el cero. A 7 y 30 días casi todos los intervalos incluyen el cero, así que con 83 orígenes no se distinguen del naive",
+        "El arnés tiene tests contra mirar el futuro: un modelo espía guarda lo que recibe y debe ser igual al prefijo de la serie. Metí una fuga de un día a propósito y fallaron tres tests",
+        "Orígenes con una semana de distancia comparten casi todo un recorrido de 30 días, así que un bootstrap común daría intervalos demasiado estrechos. Remuestreo bloques circulares de ceil(h/7) orígenes",
+        "No limpié la serie. Un filtro de mediana centrado miraría dos días más allá de cada origen, y uno hacia atrás no puede marcar el último día",
+      ],
+    },
+    notDoneYet: {
+      en: "One series, two years, 83 origins. The data comes from a free aggregator, not the Central Bank rate, and has isolated glitches such as 57.72 on 2026-09-29 between days near 59.5. There are no models with external variables, and it is not financial advice.",
+      es: "Una serie, dos años, 83 orígenes. Los datos vienen de un agregador gratuito, no de la tasa del Banco Central, y tienen errores sueltos como 57.72 el 2026-09-29 entre días cercanos a 59.5. No hay modelos con variables externas y no es una recomendación financiera.",
+    },
+    metrics: [
+      { label: { en: "Days of data", es: "Días de datos" }, value: "972" },
+      { label: { en: "Rolling origins", es: "Orígenes móviles" }, value: "83" },
+      { label: { en: "Tests", es: "Tests" }, value: "11" },
+    ],
+    gallery: ["/images/dop-usd-backtest/error-vs-naive.png"],
+    galleryAlt: {
+      en: ["Three bar charts, one per forecast horizon, showing each model's error versus the naive forecast with confidence intervals; ARIMA, ETS and the 5-day median are worse at one day"],
+      es: ["Tres gráficos de barras, uno por horizonte, con el error de cada modelo contra el naive y sus intervalos de confianza; ARIMA, ETS y la mediana de 5 días son peores a un día"],
+    },
+    links: [
+      {
+        label: SOURCE_LABEL,
+        href: "https://github.com/Kelvis123456/dop-usd-backtest",
+        icon: "github",
+      },
+    ],
+  },
 ];
 
 export interface OtherWork {
