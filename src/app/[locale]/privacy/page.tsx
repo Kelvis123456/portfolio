@@ -62,7 +62,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: `${CONTENT[locale].title} | Kelvis Guerrero`,
     description:
-      locale === "es" ? "Qué datos recopila este portafolio y para qué." : "What data this portfolio collects and why.",
+      locale === "es"
+        ? "Qué datos recopila este portafolio, con qué herramientas y para qué se usan."
+        : "What data this portfolio collects, with which tools and what it is used for.",
     alternates: {
       canonical: `${siteConfig.url}/${locale}/privacy`,
       languages: {

@@ -23,11 +23,14 @@ export function Footer() {
             href={siteConfig.github}
             target="_blank"
             rel="noreferrer"
-            className="hover:text-foreground transition-colors"
+            className="inline-flex min-h-10 items-center hover:text-foreground transition-colors"
           >
             {dict.footer.github}
           </a>
-          <Link href={`/${locale}/privacy`} className="hover:text-foreground transition-colors">
+          <Link
+            href={`/${locale}/privacy`}
+            className="inline-flex min-h-10 items-center hover:text-foreground transition-colors"
+          >
             {dict.footer.privacy}
           </Link>
         </div>

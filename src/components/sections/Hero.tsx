@@ -67,11 +67,14 @@ export function Hero() {
             href={siteConfig.github}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-1.5 underline-offset-4 hover:text-foreground hover:underline"
+            className="inline-flex min-h-10 items-center gap-1.5 underline-offset-4 hover:text-foreground hover:underline"
           >
             <GithubIcon size={15} /> {dict.hero.github}
           </a>
-          <a href={`mailto:${siteConfig.email}`} className="underline-offset-4 hover:text-foreground hover:underline">
+          <a
+            href={`mailto:${siteConfig.email}`}
+            className="inline-flex min-h-10 items-center underline-offset-4 hover:text-foreground hover:underline"
+          >
             {siteConfig.email}
           </a>
         </p>
