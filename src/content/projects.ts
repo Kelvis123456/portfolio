@@ -125,11 +125,13 @@ export const projects: Project[] = [
         items: {
           en: [
             "gitleaks, Semgrep, OSV-Scanner and Trivy found an AES-GCM auth-tag-length gap in 2FA secret decryption (Node accepted 4-byte tags) and an exception-filter ordering bug that turned every domain validation error into a 500 in production",
+            "A backtest of the ML occupancy forecast against the deterministic pickup model, on synthetic history because there are no real clients yet. The deterministic model is about twice as accurate on clean data and OLS wins on noisy data, so the ML stays a suggestion and does not set prices",
             "Nightly Postgres backups to Cloudflare R2, with the restore itself exercised in CI, not just the backup",
             "Two audit rounds closed the last rules-engine gaps (seasonal demand index and competitor price deltas became first-class rule facts) and fixed all 17 findings of a UX/accessibility audit, including WCAG contrast on every status badge, ARIA tabs with roving tabindex and visible keyboard focus",
           ],
           es: [
             "gitleaks, Semgrep, OSV-Scanner y Trivy encontraron un hueco en el largo del tag AES-GCM al descifrar secretos 2FA (Node aceptaba tags de 4 bytes) y un bug de orden de filtros de excepción que convertía cada error de validación de dominio en un 500 en producción",
+            "Un backtest del forecast de ocupación con ML contra el pickup model determinista, sobre historia sintética porque todavía no hay clientes reales. El modelo determinista acierta casi el doble con datos limpios y el OLS gana con datos ruidosos, así que el ML sigue siendo una sugerencia y no fija precios",
             "Backups nocturnos de Postgres a Cloudflare R2, con el restore ejercitado en CI, no solo el backup",
             "Dos rondas de auditoría cerraron los últimos huecos del motor de reglas (el índice de demanda estacional y los deltas de precio de la competencia pasaron a ser facts de primera clase) y corrigieron los 17 hallazgos de una auditoría de UX/accesibilidad, incluyendo contraste WCAG en cada badge de estado, pestañas ARIA con roving tabindex y foco de teclado visible",
           ],
