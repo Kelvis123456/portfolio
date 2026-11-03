@@ -1156,8 +1156,8 @@ export const projects: Project[] = [
       ],
     },
     notDoneYet: {
-      en: "Not deployed. The eval measures retrieval, not whether the final answer is right, and it has only 21 questions. The citation check confirms an article was provided to the model, not that the sentence matches it. It is not legal advice, and the text may not include later reforms.",
-      es: "No está desplegado. La evaluación mide la recuperación, no si la respuesta final es correcta, y tiene solo 21 preguntas. La comprobación de citas confirma que el artículo se le entregó al modelo, no que la frase coincida con él. No es asesoría legal y el texto puede no incluir reformas posteriores.",
+      en: "Only a static demo is online: it searches by words in the browser, with no model and no server. The answering API is not deployed. The eval measures retrieval, not whether the final answer is right, and it has only 21 questions. The citation check confirms an article was provided to the model, not that the sentence matches it. It is not legal advice, and the text may not include later reforms.",
+      es: "Solo hay una demo estática en línea: busca por palabras en el navegador, sin modelo ni servidor. La API que redacta las respuestas no está desplegada. La evaluación mide la recuperación, no si la respuesta final es correcta, y tiene solo 21 preguntas. La comprobación de citas confirma que el artículo se le entregó al modelo, no que la frase coincida con él. No es asesoría legal y el texto puede no incluir reformas posteriores.",
     },
     metrics: [
       { label: { en: "Articles parsed", es: "Artículos parseados" }, value: "738" },
@@ -1178,6 +1178,11 @@ export const projects: Project[] = [
         label: SOURCE_LABEL,
         href: "https://github.com/Kelvis123456/codigo-trabajo-rag",
         icon: "github",
+      },
+      {
+        label: { en: "Try the search demo", es: "Probar la demo de búsqueda" },
+        href: "https://kelvis123456.github.io/codigo-trabajo-rag/",
+        icon: "external",
       },
     ],
   },
