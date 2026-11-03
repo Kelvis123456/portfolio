@@ -1056,11 +1056,11 @@ export const projects: Project[] = [
     status: "in-development",
     featured: false,
     started: "2026-11",
-    stack: [".NET 10", "ASP.NET Core", "EF Core", "SQL Server", "xUnit", "Testcontainers", "Docker"],
+    stack: [".NET 10", "ASP.NET Core", "EF Core", "SQL Server", "Angular 21", "xUnit", "Testcontainers", "Docker"],
     role: { en: "Solo developer", es: "Desarrollador en solitario" },
     summary: {
-      en: "An ASP.NET Core API for the two things any Dominican invoicing system needs: checking that an RNC, cédula, NCF or e-CF is well formed, and handing out NCF numbers so that none is ever repeated, even when many invoices arrive at once.",
-      es: "Una API en ASP.NET Core para las dos cosas que necesita cualquier sistema de facturación dominicano: comprobar que un RNC, una cédula, un NCF o un e-CF tienen forma válida, y entregar números de NCF sin que ninguno se repita aunque lleguen muchas facturas a la vez.",
+      en: "An ASP.NET Core API for the two things any Dominican invoicing system needs: checking that an RNC, cédula, NCF or e-CF is well formed, and handing out NCF numbers so that none is ever repeated, even when many invoices arrive at once. It includes an Angular front end to validate identifiers and to register ranges and issue their numbers.",
+      es: "Una API en ASP.NET Core para las dos cosas que necesita cualquier sistema de facturación dominicano: comprobar que un RNC, una cédula, un NCF o un e-CF tienen forma válida, y entregar números de NCF sin que ninguno se repita aunque lleguen muchas facturas a la vez. Incluye un front en Angular para validar identificadores y para registrar rangos y entregar sus números.",
     },
     problem: {
       en: "Issuing the next invoice number by reading a counter and writing it back gives the same number to two requests that arrive together. A repeated NCF is a problem with the tax authority (DGII), not only a bug.",
@@ -1076,6 +1076,7 @@ export const projects: Project[] = [
         "RNC check digit is a weighted sum modulo 11, tested with hand-computed vectors. The cédula uses Luhn and is compared against an independent Luhn implementation over 20,000 numbers",
         "Tests run against a real SQL Server with Testcontainers. I broke the implementation on purpose (read-then-write issuing, a lower isolation level, wrong weights) and the suite caught each one",
         "Write endpoints need an API key compared in constant time, and the app refuses to start in production without one. There is a per-IP rate limit",
+        "The Angular front end uses signals and standalone components, with 47 tests. I ran it in a browser against the real API: registered a 3-number range, issued all 3, saw the button switch to exhausted, and saw a wrong key produce the 401 message",
         "A bug I found on the way: EF wraps the deadlock error two levels deep, so my first retry never ran. It now walks the whole exception chain",
       ],
       es: [
@@ -1083,6 +1084,7 @@ export const projects: Project[] = [
         "El dígito verificador del RNC es una suma ponderada módulo 11, probada con vectores calculados a mano. La cédula usa Luhn y se compara contra una implementación independiente de Luhn en 20 000 números",
         "Los tests corren contra un SQL Server real con Testcontainers. Rompí la implementación a propósito (emitir leyendo y luego escribiendo, un aislamiento más bajo, pesos equivocados) y la suite detectó cada una",
         "Los endpoints que escriben piden una clave de API comparada en tiempo constante, y la app no arranca en producción sin ella. Hay un límite de peticiones por IP",
+        "El front en Angular usa señales y componentes standalone, con 47 tests. Lo corrí en un navegador contra la API real: registré un rango de 3 números, entregué los 3, vi el botón pasar a agotado y vi que una clave incorrecta muestra el aviso de 401",
         "Un bug que encontré en el camino: EF envuelve el error de deadlock dos niveles adentro, así que mi primer reintento nunca corría. Ahora recorre toda la cadena de excepciones",
       ],
     },
@@ -1090,7 +1092,21 @@ export const projects: Project[] = [
       en: "Not deployed anywhere. It does not query the DGII registry, validate e-CF XML or sign and send documents; it only checks that identifiers have a valid form.",
       es: "No está desplegado en ningún lado. No consulta el padrón de la DGII, no valida el XML de un e-CF ni firma y envía documentos; solo comprueba que los identificadores tengan forma válida.",
     },
-    metrics: [{ label: { en: "Tests", es: "Tests" }, value: "104, against a real SQL Server" }],
+    metrics: [
+      { label: { en: "API tests", es: "Tests de la API" }, value: "104, against a real SQL Server" },
+      { label: { en: "Front-end tests", es: "Tests del front" }, value: "47" },
+    ],
+    gallery: ["/images/dgii-helper/validar.png", "/images/dgii-helper/rangos.png"],
+    galleryAlt: {
+      en: [
+        "dgii-helper validation screen rejecting an RNC because the check digit does not match the other eight",
+        "dgii-helper ranges screen after issuing all three numbers of a range: the button reads exhausted and the issued NCFs are listed",
+      ],
+      es: [
+        "Pantalla de validación de dgii-helper rechazando un RNC porque el dígito verificador no coincide con los otros ocho",
+        "Pantalla de rangos de dgii-helper tras entregar los tres números de un rango: el botón dice agotado y se listan los NCF entregados",
+      ],
+    },
     links: [
       {
         label: SOURCE_LABEL,
