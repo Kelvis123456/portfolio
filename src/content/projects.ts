@@ -1292,6 +1292,64 @@ export const projects: Project[] = [
       },
     ],
   },
+  {
+    slug: "webhook-inbox",
+    title: "webhook-inbox",
+    tagline: {
+      en: "A Stripe webhook receiver that survives duplicate, out-of-order and failing events",
+      es: "Un receptor de webhooks de Stripe que aguanta eventos repetidos, desordenados y que fallan",
+    },
+    kind: "software",
+    category: "software",
+    status: "in-development",
+    featured: false,
+    started: "2026-11",
+    stack: ["TypeScript", "NestJS", "PostgreSQL", "Vitest", "Testcontainers", "Docker"],
+    role: { en: "Solo developer", es: "Desarrollador en solitario" },
+    summary: {
+      en: "A NestJS service that verifies a Stripe signature, stores each event before processing it, applies it in order, retries failures with backoff and keeps the ones that cannot be processed in a queue you can inspect and replay.",
+      es: "Un servicio en NestJS que verifica la firma de Stripe, guarda cada evento antes de procesarlo, lo aplica en orden, reintenta los fallos con espera creciente y deja los que no se pueden procesar en una cola que se puede revisar y reenviar.",
+    },
+    problem: {
+      en: "A webhook endpoint that works in a tutorial fails quietly in production: Stripe retries, so the same event arrives twice; it does not guarantee order, so a refund can arrive before the payment it refunds; and a slow endpoint makes Stripe send it all again.",
+      es: "Un endpoint de webhooks que funciona en un tutorial falla en silencio en producción: Stripe reintenta, así que el mismo evento llega dos veces; no garantiza el orden, así que un reembolso puede llegar antes del pago que reembolsa; y un endpoint lento hace que Stripe lo mande todo otra vez.",
+    },
+    solution: {
+      en: "The endpoint only checks the signature over the raw body, inserts the event keyed by its Stripe id and answers 200. A worker claims ready events with UPDATE ... FOR UPDATE SKIP LOCKED and applies each one in the same transaction that marks it done. Each order remembers the date of the last event it applied, so an older one is discarded.",
+      es: "El endpoint solo comprueba la firma sobre el cuerpo crudo, inserta el evento con su id de Stripe como clave y responde 200. Un worker toma los eventos listos con UPDATE ... FOR UPDATE SKIP LOCKED y aplica cada uno en la misma transacción que lo marca como hecho. Cada pedido recuerda la fecha del último evento que aplicó, así que uno más viejo se descarta.",
+    },
+    architectureHighlights: {
+      en: [
+        "20 simultaneous deliveries of the same event leave one row and exactly one response reporting it as new. Removing ON CONFLICT breaks both duplicate tests",
+        "A refund processed before its payment still ends as refunded, and events in the same second are resolved by state so the result does not depend on arrival order. Removing the ordering guard breaks three tests",
+        "Retries wait 5 s times 2 to the attempt, capped at one hour with full jitter, and after 6 attempts the event goes to a dead queue behind a token-protected endpoint that can replay it",
+        "I removed SKIP LOCKED to check my tests and the three-worker test still passed: uniqueness comes from the UPDATE re-evaluating its WHERE, and SKIP LOCKED only avoids waiting. I fixed my own code comment and added a test with a row held by another transaction, which does fail without it",
+        "31 tests run against a real PostgreSQL container, because ON CONFLICT, SKIP LOCKED and transactions are database behavior a mock cannot show",
+      ],
+      es: [
+        "20 entregas simultáneas del mismo evento dejan una fila y una sola respuesta que lo marca como nuevo. Quitar ON CONFLICT rompe las dos pruebas de duplicados",
+        "Un reembolso procesado antes que su pago termina igual como reembolsado, y los eventos del mismo segundo se resuelven por estado para que el resultado no dependa del orden de llegada. Quitar la guarda de orden rompe tres pruebas",
+        "Los reintentos esperan 5 s por 2 elevado al intento, con tope de una hora y jitter completo, y a los 6 intentos el evento pasa a una cola de muertos detrás de un endpoint con token que puede reenviarlo",
+        "Quité SKIP LOCKED para comprobar mis pruebas y la de tres workers siguió pasando: la unicidad la da el UPDATE al reevaluar su WHERE, y SKIP LOCKED solo evita esperar. Corregí mi propio comentario y agregué una prueba con una fila retenida por otra transacción, que sí falla sin él",
+        "31 pruebas corren contra un contenedor real de PostgreSQL, porque ON CONFLICT, SKIP LOCKED y las transacciones son comportamiento de la base que un mock no muestra",
+      ],
+    },
+    notDoneYet: {
+      en: "It was never connected to a real Stripe account: signatures in the tests and the simulator come from the SDK's helper with a test secret. It handles three event types, the orders table is a stand-in, I did not measure throughput and there are no metrics or traces.",
+      es: "Nunca se conectó a una cuenta real de Stripe: las firmas de las pruebas y del simulador salen del helper del SDK con un secreto de prueba. Maneja tres tipos de evento, la tabla de pedidos es un pretexto, no medí el rendimiento y no hay métricas ni trazas.",
+    },
+    metrics: [
+      { label: { en: "Tests, against real PostgreSQL", es: "Tests, contra PostgreSQL real" }, value: "31" },
+      { label: { en: "Event types handled", es: "Tipos de evento" }, value: "3" },
+    ],
+    links: [
+      {
+        label: SOURCE_LABEL,
+        href: "https://github.com/Kelvis123456/webhook-inbox",
+        icon: "github",
+      },
+    ],
+  },
 ];
 
 export interface OtherWork {
