@@ -1350,6 +1350,69 @@ export const projects: Project[] = [
       },
     ],
   },
+  {
+    slug: "transfer-ledger",
+    title: "transfer-ledger",
+    tagline: {
+      en: "A double-entry ledger where moving money cannot be done twice or by mistake",
+      es: "Un libro mayor de partida doble donde mover dinero no se puede hacer dos veces ni por error",
+    },
+    kind: "software",
+    category: "software",
+    status: "in-development",
+    featured: false,
+    started: "2026-11",
+    stack: [".NET 10", "ASP.NET Core", "PostgreSQL", "Npgsql", "xUnit", "Testcontainers"],
+    role: { en: "Solo developer", es: "Desarrollador en solitario" },
+    summary: {
+      en: "A .NET API over PostgreSQL with accounts addressed by alias (a phone number or an email), double-entry bookkeeping, idempotency keys and a reconciliation endpoint that checks the numbers add up. It is inspired by the idea of instant payments by alias and does not follow any real payment system's specification.",
+      es: "Una API en .NET sobre PostgreSQL con cuentas identificadas por alias (un teléfono o un correo), contabilidad de partida doble, claves de idempotencia y un endpoint de conciliación que comprueba que los números cuadran. Está inspirada en la idea de los pagos instantáneos por alias y no sigue la especificación de ningún sistema de pagos real.",
+    },
+    problem: {
+      en: "Code that moves money has to survive a client that retries, a thousand requests at once and a bug in its own checks. A balance column that is updated and nothing else gives you nothing to compare against when the numbers stop adding up.",
+      es: "El código que mueve dinero tiene que aguantar a un cliente que reintenta, mil peticiones a la vez y un bug en sus propias comprobaciones. Una columna de saldo que solo se actualiza no deja nada con qué comparar cuando los números dejan de cuadrar.",
+    },
+    solution: {
+      en: "Every transfer writes two entries that sum to zero, and a deposit is a transfer from a bank account that may go negative. The idempotency key is inserted in the same transaction as the transfer, so a repeated request waits on the unique index and gets the stored answer. The database also refuses what does not add up: a check on negative balances, a deferred trigger on entries that do not sum to zero, and append-only tables.",
+      es: "Cada transferencia escribe dos asientos que suman cero, y un depósito es una transferencia desde una cuenta del banco que puede quedar en negativo. La clave de idempotencia se inserta en la misma transacción que la transferencia, así que una petición repetida espera en el índice único y recibe la respuesta guardada. La base también rechaza lo que no cuadra: un chequeo contra saldos negativos, un trigger diferido sobre asientos que no suman cero y tablas de solo inserción.",
+    },
+    architectureHighlights: {
+      en: [
+        "60 concurrent transfers against a balance that covers 30: exactly 30 succeed, the balance never goes negative and the reconciliation stays clean. Without the row lock the test fails",
+        "40 simultaneous requests with the same idempotency key leave one transfer. Without the ON CONFLICT on the key, five idempotency tests fail",
+        "Reconciliation reads only the data: all entries must sum to zero and each balance must equal the sum of its entries. A test edits a balance by hand and the check flags exactly that account",
+        "The database is the last defense: a deferred trigger rejects entries that do not sum to zero at commit, and UPDATE or DELETE on entries and transfers fail",
+        "Removing the ORDER BY id on the account lock changed nothing in my cross-transfer test, because Postgres scans rows in a stable order. I kept it as an explicit defense and wrote that in the code instead of claiming a test proves it",
+        "Running the tests the first time exposed two of my own bugs: my validation rejected the bank account's own alias, so no deposit worked, and SUM of bigint returns numeric in Postgres",
+      ],
+      es: [
+        "60 transferencias concurrentes contra un saldo que cubre 30: pasan exactamente 30, el saldo nunca es negativo y la conciliación sigue limpia. Sin el bloqueo de fila la prueba falla",
+        "40 peticiones simultáneas con la misma clave de idempotencia dejan una sola transferencia. Sin el ON CONFLICT de la clave fallan cinco pruebas de idempotencia",
+        "La conciliación lee solo los datos: todos los asientos deben sumar cero y cada saldo debe ser igual a la suma de los suyos. Una prueba altera un saldo a mano y el chequeo señala justo esa cuenta",
+        "La base es la última defensa: un trigger diferido rechaza al confirmar asientos que no suman cero, y UPDATE o DELETE sobre asientos y transferencias fallan",
+        "Quitar el ORDER BY id del bloqueo de cuentas no cambió nada en mi prueba de transferencias cruzadas, porque Postgres recorre las filas en un orden estable. Lo dejé como defensa explícita y lo escribí en el código en vez de afirmar que una prueba lo demuestra",
+        "Correr las pruebas por primera vez dejó al descubierto dos errores míos: mi validación rechazaba el alias de la propia cuenta del banco, así que ningún depósito funcionaba, y SUM de bigint devuelve numeric en Postgres",
+      ],
+    },
+    notDoneYet: {
+      en: "It follows no real payment specification, has one currency, no fees, limits, fraud checks or verified identity behind an alias, and one shared API key instead of users. Idempotency keys never expire, I did not measure throughput and it is not deployed.",
+      es: "No sigue ninguna especificación de pagos real, tiene una sola moneda, no hay comisiones, límites, detección de fraude ni identidad verificada detrás de un alias, y usa una clave de API compartida en vez de usuarios. Las claves de idempotencia no caducan, no medí el rendimiento y no está desplegado.",
+    },
+    metrics: [
+      { label: { en: "Tests, against real PostgreSQL", es: "Tests, contra PostgreSQL real" }, value: "38" },
+      {
+        label: { en: "Concurrent transfers in one test", es: "Transferencias concurrentes en una prueba" },
+        value: "60",
+      },
+    ],
+    links: [
+      {
+        label: SOURCE_LABEL,
+        href: "https://github.com/Kelvis123456/transfer-ledger",
+        icon: "github",
+      },
+    ],
+  },
 ];
 
 export interface OtherWork {
