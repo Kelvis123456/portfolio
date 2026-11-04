@@ -328,8 +328,12 @@ export const projects: Project[] = [
     },
     kind: "software",
     category: "software",
-    status: "live",
+    status: "in-development",
     visibility: "private",
+    notDoneYet: {
+      en: "There is no public download: the app is not published on any store. The backend is a real Supabase project and the source is private, so the walkthrough is the screenshots here and a demo on request.",
+      es: "No hay descarga pública: la app no está publicada en ninguna tienda. El backend es un proyecto real de Supabase y el código es privado, así que el recorrido son las capturas de aquí y una demo bajo solicitud.",
+    },
     featured: false,
     started: "2026-07",
     stack: ["Flutter", "Riverpod", "Supabase", "PostgreSQL", "go_router"],
