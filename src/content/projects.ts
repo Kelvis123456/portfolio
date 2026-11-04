@@ -465,7 +465,14 @@ export const projects: Project[] = [
       en: "A recipe browsing and search app built to explore React 19 and Tailwind v4 together, with Framer Motion powering the transitions.",
       es: "Una app para explorar y buscar recetas, construida para probar React 19 y Tailwind v4 juntos, con Framer Motion en las transiciones.",
     },
-    links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/recetas-app", icon: "github" }],
+    links: [
+      { label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/recetas-app", icon: "github" },
+      {
+        label: { en: "Open the live app", es: "Abrir la app en vivo" },
+        href: "https://recetas-app.vercel.app",
+        icon: "external",
+      },
+    ],
     gallery: ["/images/recetas-app/home.png"],
     galleryAlt: {
       en: ["Recipes app home screen with recipe cards"],
@@ -581,7 +588,14 @@ export const projects: Project[] = [
       en: "Each side owns its own domain model and validation. The Python `Marketplace` class checks accumulated stock across every item before committing an order; the TypeScript port re-derives that same rule independently, with a full UI on top (catalog, order placement, order history with cancellation that returns stock, a stock gauge).",
       es: "Cada lado tiene su propio modelo de dominio y su propia validación. La clase `Marketplace` en Python verifica el stock acumulado de cada item antes de confirmar un pedido; el port en TypeScript re-implementa esa misma regla de forma independiente, con una UI completa encima (catálogo, registro de pedidos, historial con cancelación que devuelve el stock, y un indicador de stock).",
     },
-    links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/pc-marketplace", icon: "github" }],
+    links: [
+      { label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/pc-marketplace", icon: "github" },
+      {
+        label: { en: "Open the live app", es: "Abrir la app en vivo" },
+        href: "https://pc-marketplace.vercel.app",
+        icon: "external",
+      },
+    ],
     gallery: ["/images/pc-marketplace/catalog.png"],
     galleryAlt: {
       en: [
@@ -634,7 +648,10 @@ export const projects: Project[] = [
       ],
     },
     metrics: [{ label: { en: "C# scripts", es: "Scripts C#" }, value: "50" }],
-    links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/connect5", icon: "github" }],
+    links: [
+      { label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/connect5", icon: "github" },
+      { label: { en: "Play it", es: "Jugar" }, href: "https://connect5.vercel.app", icon: "external" },
+    ],
     gallery: ["/images/connect5/lobby.png", "/images/connect5/gameplay.png"],
     galleryAlt: {
       en: [
