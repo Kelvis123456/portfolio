@@ -1417,6 +1417,67 @@ export const projects: Project[] = [
       },
     ],
   },
+  {
+    slug: "dominican-tools-mcp",
+    title: "dominican-tools-mcp",
+    tagline: {
+      en: "An MCP server with Dominican tax and labor-law tools, and evals that check a model uses them well",
+      es: "Un servidor MCP con herramientas fiscales y laborales dominicanas, y evaluaciones que comprueban que un modelo las usa bien",
+    },
+    kind: "software",
+    category: "software",
+    status: "in-development",
+    featured: false,
+    started: "2026-11",
+    stack: [".NET 10", "MCP C# SDK", "xUnit", "Microsoft.Extensions.AI", "Gemini"],
+    role: { en: "Solo developer", es: "Desarrollador en solitario" },
+    summary: {
+      en: "A Model Context Protocol server with five read-only tools: validate a Dominican RNC, cédula or NCF, search the Labor Code and read an article. It reuses the code from my dgii-helper and Labor Code projects, plus a set of evaluations that measure whether the tools return the right thing and whether a model uses them correctly.",
+      es: "Un servidor del Model Context Protocol con cinco herramientas de solo lectura: validar un RNC, una cédula o un NCF dominicanos, buscar en el Código de Trabajo y leer un artículo. Reutiliza el código de mis proyectos dgii-helper y del Código de Trabajo, más un conjunto de evaluaciones que miden si las herramientas devuelven lo correcto y si un modelo las usa bien.",
+    },
+    problem: {
+      en: "Wiring a tool to a model is the easy part. The hard part is checking that the tool answers correctly, that its description is enough for the model to pick it, and that the model does not invent what the tool never said.",
+      es: "Conectar una herramienta a un modelo es lo fácil. Lo difícil es comprobar que la herramienta responde bien, que su descripción basta para que el modelo la elija y que el modelo no inventa lo que la herramienta no dijo.",
+    },
+    solution: {
+      en: "Each tool is read-only, has bounded inputs and a description that states what it does not do. Two kinds of evaluation sit on top: a deterministic one against known answers that runs in CI, and one that gives prompts to Gemini with the real tools and checks tool choice and answer content. The server and a real MCP client are tested connected in memory, so the protocol is exercised and not just the methods.",
+      es: "Cada herramienta es de solo lectura, tiene entradas acotadas y una descripción que dice lo que no hace. Encima hay dos tipos de evaluación: una determinista contra respuestas conocidas que corre en el CI, y otra que le da prompts a Gemini con las herramientas reales y comprueba qué herramienta elige y qué contiene la respuesta. El servidor y un cliente MCP real se prueban conectados en memoria, así que se ejercita el protocolo y no solo los métodos.",
+    },
+    architectureHighlights: {
+      en: [
+        "42 tests run the real server against a real MCP client over in-memory pipes. Removing the input length limit or changing the RNC check-digit weights breaks three tests each",
+        "An invalid identifier is a normal answer (valid: false and why); a misuse such as a 65-character value or top = 0 is a tool error. The validators never echo the input back, so a hostile string does not return to the model as if it were an instruction",
+        "The tool descriptions say what the tools do not do (for instance that RNC validation does not query the tax authority), and a test requires it, because the description is what the model reads when choosing",
+        "The deterministic eval has 50 cases: 43 pass and 7 are marked as known misses of the keyword search, such as the notice-period article. If a change fixes one, the report flags the improvement and exits non-zero until the mark is removed",
+        "The Gemini eval ran 20 prompts: the right tool in 19 of 19 valid runs, the expected content in 19 of 19, and one false alarm from my own number-grounding check (the article writes the figure in words and the model wrote 100%). I kept the check as it was instead of tuning it to zero",
+        "The first run was cut after 8 prompts by the free-tier quota. I added pacing and retries and kept both result files",
+      ],
+      es: [
+        "42 pruebas ejecutan el servidor real contra un cliente MCP real por tuberías en memoria. Quitar el tope de longitud de entrada o cambiar los pesos del dígito verificador del RNC rompe tres pruebas cada vez",
+        "Un identificador inválido es una respuesta normal (valid: false y por qué); un uso incorrecto como un valor de 65 caracteres o top = 0 es un error de la herramienta. Los validadores nunca repiten la entrada, así que una cadena hostil no vuelve al modelo como si fuera una instrucción",
+        "Las descripciones dicen lo que las herramientas no hacen (por ejemplo que validar un RNC no consulta a la DGII), y una prueba lo exige, porque la descripción es lo que el modelo lee al elegir",
+        "La evaluación determinista tiene 50 casos: 43 pasan y 7 están marcados como fallos conocidos de la búsqueda por palabras, como el artículo del preaviso. Si un cambio arregla uno, el reporte avisa de la mejora y sale con código distinto de cero hasta quitar la marca",
+        "La evaluación con Gemini corrió 20 prompts: la herramienta correcta en 19 de 19 corridas válidas, el contenido esperado en 19 de 19, y una falsa alarma de mi propia comprobación de números (el artículo escribe la cifra en palabras y el modelo puso 100 %). Dejé la comprobación como estaba en vez de ajustarla hasta que diera cero",
+        "La primera corrida se cortó a los 8 prompts por la cuota del plan gratis. Añadí espera y reintentos y conservé los dos archivos de resultados",
+      ],
+    },
+    notDoneYet: {
+      en: "The Gemini eval is 20 prompts I wrote, one small model, one run and text checks instead of a judge, so it shows that the descriptions did not confuse that model and says nothing about others. The search is keyword-based and misses 7 of 21 test questions. The code is copied from two other repos, not shared. It queries no external service, runs only over stdio and I did not try it with a desktop MCP client.",
+      es: "La evaluación con Gemini son 20 prompts que escribí yo, un modelo pequeño, una corrida y comprobaciones de texto en vez de un juez: muestra que las descripciones no confundieron a ese modelo y no dice nada de otros. La búsqueda es por palabras y falla 7 de las 21 preguntas de prueba. El código está copiado de otros dos repos, no compartido. No consulta ningún servicio externo, corre solo por stdio y no lo probé con ningún cliente MCP de escritorio.",
+    },
+    metrics: [
+      { label: { en: "Tests, real server and client", es: "Tests, servidor y cliente reales" }, value: "42" },
+      { label: { en: "Eval cases with known answers", es: "Casos de evaluación con respuesta conocida" }, value: "50" },
+      { label: { en: "Agent eval prompts", es: "Prompts de la evaluación del agente" }, value: "20" },
+    ],
+    links: [
+      {
+        label: SOURCE_LABEL,
+        href: "https://github.com/Kelvis123456/dominican-tools-mcp",
+        icon: "github",
+      },
+    ],
+  },
 ];
 
 export interface OtherWork {
