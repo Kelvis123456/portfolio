@@ -276,7 +276,6 @@ export const projects: Project[] = [
     kind: "software",
     category: "software",
     status: "in-development",
-    visibility: "private",
     featured: false,
     started: "2026-11",
     stack: ["TypeScript", "MCP SDK", "Vitest", "GitHub Actions"],
@@ -299,12 +298,14 @@ export const projects: Project[] = [
         "A call that never answers is reported as a timeout and never counts as an expected failure. There is a test with a server that hangs on purpose",
         "The tests start a small real MCP server and a second one that exits during the handshake, instead of mocking the client",
         "The example runs against the official reference server pinned to one version with install scripts disabled: 11 checks, all passing. That says the reference server behaves as the probe expects, not that the probe found bugs in it",
+        "An independent audit found false passes in my own tool: a typo in the YAML or in a tool name counted as success, and the server inherited the whole parent environment. All fixed with tests that failed first, and the probe files are now strict",
       ],
       es: [
         "Una llamada fallida puede ser un error de protocolo lanzado o un resultado con isError según el servidor, y la herramienta acepta ambos, así que no falla servidores que están bien",
         "Una llamada que nunca responde se informa como timeout y nunca cuenta como fallo esperado. Hay una prueba con un servidor que se cuelga a propósito",
         "Las pruebas arrancan un pequeño servidor MCP real y otro que sale durante el handshake, en vez de simular el cliente",
         "El ejemplo corre contra el servidor de referencia oficial fijado a una versión y con los scripts de instalación desactivados: 11 comprobaciones, todas pasan. Eso dice que el servidor de referencia se comporta como la herramienta espera, no que encontró errores en él",
+        "Una auditoría independiente encontró falsos aciertos en mi propia herramienta: un typo en el YAML o en el nombre de una herramienta contaba como éxito, y el servidor heredaba todo el entorno del proceso padre. Todo corregido con pruebas que fallaron primero, y los archivos de sondeo ahora son estrictos",
       ],
     },
     notDoneYet: {
@@ -312,12 +313,17 @@ export const projects: Project[] = [
       es: "Solo stdio y solo herramientas: sin transporte HTTP, recursos ni prompts. Compara el primer bloque de texto, no la salida estructurada. No valida cada mensaje contra el esquema del protocolo y no está publicada en npm.",
     },
     metrics: [
-      { label: { en: "Tests, against a real MCP server", es: "Tests, contra un servidor MCP real" }, value: "8" },
+      { label: { en: "Tests, against a real MCP server", es: "Tests, contra un servidor MCP real" }, value: "32" },
       { label: { en: "Checks in the reference-server example", es: "Comprobaciones en el ejemplo" }, value: "11" },
     ],
     links: [
       {
-        label: PRIVATE_LABEL,
+        label: { en: "Live site", es: "Sitio en vivo" },
+        href: "https://kelvis-mcp-probe.vercel.app",
+        icon: "external",
+      },
+      {
+        label: SOURCE_LABEL,
         href: "https://github.com/Kelvis123456/mcp-probe",
         icon: "github",
       },
@@ -333,14 +339,13 @@ export const projects: Project[] = [
     kind: "software",
     category: "software",
     status: "in-development",
-    visibility: "private",
     featured: false,
     started: "2026-11",
     stack: [".NET 10", "EF Core", "PostgreSQL", "xUnit", "Testcontainers"],
     role: { en: "Solo developer", es: "Desarrollador en solitario" },
     summary: {
-      en: "A small .NET library for the transactional outbox on EF Core and PostgreSQL, plus an idempotent consumer. About 150 lines, with tests that prove its guarantees against a real database, including one that kills the process mid-dispatch.",
-      es: "Una biblioteca pequeña de .NET para el outbox transaccional sobre EF Core y PostgreSQL, más un consumidor idempotente. Unas 150 líneas, con pruebas que demuestran sus garantías contra una base real, una de ellas matando el proceso a mitad del envío.",
+      en: "A small .NET library for the transactional outbox on EF Core and PostgreSQL, plus an idempotent consumer. About 300 lines, with tests that prove its guarantees against a real database, including one that kills the process mid-dispatch.",
+      es: "Una biblioteca pequeña de .NET para el outbox transaccional sobre EF Core y PostgreSQL, más un consumidor idempotente. Unas 300 líneas, con pruebas que demuestran sus garantías contra una base real, una de ellas matando el proceso a mitad del envío.",
     },
     problem: {
       en: "Saving a change and then publishing a message are two steps. If the process dies between them, the change exists and nobody was told. Swap them and a message goes out for a change that never committed.",
@@ -355,13 +360,15 @@ export const projects: Project[] = [
         "The chaos test runs a second process and ends it with Environment.FailFast between publish and commit. Nothing is marked processed, a second worker finishes: all 20 messages are processed and the broker saw 23 publishes, three of them duplicates",
         "A consumer that replays every one of those publishes twice applies each effect exactly once. At-least-once from the outbox plus the inbox gives one effect per message",
         "Three dispatchers at once publish each of 40 messages exactly once, and a poison message is retried then parked without blocking the rest",
-        "I publish inside the locking transaction on purpose: a crash always rolls back to a clean state, at the cost of a long transaction when the broker is slow",
+        "I publish inside the locking transaction on purpose: a crash before the commit rolls back every mark made in that run, at the cost of a long transaction when the broker is slow. There is no ordering guarantee at all",
+        "An independent audit found a real bug in my first version: a publisher timeout was never counted as an attempt, so a message could be republished forever and never parked. Fixed, with the dispatcher no longer touching the caller's change tracker, and 16 more tests",
       ],
       es: [
         "La prueba de caos corre un segundo proceso y lo termina con Environment.FailFast entre publicar y confirmar. Nada queda marcado como procesado, un segundo worker termina: los 20 mensajes se procesan y el broker vio 23 publicaciones, tres duplicadas",
         "Un consumidor que repite cada una de esas publicaciones dos veces aplica cada efecto exactamente una vez. At-least-once del outbox más el inbox da un efecto por mensaje",
         "Tres despachadores a la vez publican cada uno de 40 mensajes exactamente una vez, y un mensaje venenoso se reintenta y se aparta sin bloquear al resto",
-        "Publico dentro de la transacción que bloquea a propósito: un fallo siempre vuelve a un estado limpio, a costa de una transacción larga si el broker es lento",
+        "Publico dentro de la transacción que bloquea a propósito: un fallo antes de confirmar deshace todas las marcas de esa ejecución, a costa de una transacción larga si el broker es lento. No hay ninguna garantía de orden",
+        "Una auditoría independiente encontró un error real en mi primera versión: un timeout del publicador nunca contaba como intento, así que un mensaje podía republicarse sin fin y nunca apartarse. Corregido, y el despachador ya no toca el change tracker del llamador, con 16 pruebas más",
       ],
     },
     notDoneYet: {
@@ -369,12 +376,17 @@ export const projects: Project[] = [
       es: "Solo PostgreSQL. Sin garantía de orden cuando un mensaje falla, sin limpieza de filas procesadas y sin métricas. No la medí, así que no afirmo ningún rendimiento. No está publicada en NuGet.",
     },
     metrics: [
-      { label: { en: "Tests, against real PostgreSQL", es: "Tests, contra PostgreSQL real" }, value: "9" },
+      { label: { en: "Tests, against real PostgreSQL", es: "Tests, contra PostgreSQL real" }, value: "25" },
       { label: { en: "Crash test: messages lost", es: "Prueba de caos: mensajes perdidos" }, value: "0" },
     ],
     links: [
       {
-        label: PRIVATE_LABEL,
+        label: { en: "Live site", es: "Sitio en vivo" },
+        href: "https://kelvis-outbox-kit.vercel.app",
+        icon: "external",
+      },
+      {
+        label: SOURCE_LABEL,
         href: "https://github.com/Kelvis123456/outbox-kit",
         icon: "github",
       },
@@ -390,7 +402,6 @@ export const projects: Project[] = [
     kind: "software",
     category: "software",
     status: "in-development",
-    visibility: "private",
     featured: false,
     started: "2026-11",
     stack: ["Python", "pytest", "GitHub Actions"],
@@ -404,20 +415,22 @@ export const projects: Project[] = [
       es: 'Los cambios de prompt y de recuperador suelen mezclarse con "se ve bien en los tres ejemplos que probé". Quería para la calidad de las respuestas lo mismo que una suite de pruebas da al código.',
     },
     solution: {
-      en: "The repo ships a small reference RAG app (an original 25-passage corpus, a stdlib BM25 retriever and an extractive answerer) with 41 eval questions, 7 of which have no answer in the corpus. Metrics are deterministic and offline: hit@k, MRR, citation correctness, whether the answer contains the fact, and abstention accuracy. The gate prints a table with baseline, current, delta and tolerance per metric.",
-      es: "El repo incluye una pequeña app RAG de referencia (un corpus original de 25 pasajes, un recuperador BM25 en la biblioteca estándar y un respondedor extractivo) con 41 preguntas de evaluación, 7 sin respuesta en el corpus. Las métricas son deterministas y sin conexión: hit@k, MRR, corrección de citas, si la respuesta contiene el dato y precisión al abstenerse. La puerta imprime una tabla con línea base, actual, diferencia y tolerancia por métrica.",
+      en: "The repo ships a small reference RAG app (an original 25-passage corpus, a stdlib BM25 retriever and an extractive answerer) with 41 eval questions, 7 of which have no answer in the corpus. Metrics are deterministic and offline: hit@k, MRR, citation correctness, citation precision, whether the answer contains the fact, and abstention accuracy. The gate prints a table with baseline, current, delta and tolerance per metric.",
+      es: "El repo incluye una pequeña app RAG de referencia (un corpus original de 25 pasajes, un recuperador BM25 en la biblioteca estándar y un respondedor extractivo) con 41 preguntas de evaluación, 7 sin respuesta en el corpus. Las métricas son deterministas y sin conexión: hit@k, MRR, corrección de citas, precisión de citas, si la respuesta contiene el dato y precisión al abstenerse. La puerta imprime una tabla con línea base, actual, diferencia y tolerancia por métrica.",
     },
     architectureHighlights: {
       en: [
         "Degrading the reference app on purpose fails the gate with a readable diff: the whitespace tokenizer drops citation correctness from 0.94 to 0.50, and top_k=1 drops hit@k from 1.00 to 0.97. Real output is in the repo",
         "A metric that goes up is not a failure: abstention accuracy rose under the whitespace tokenizer, and the report shows it instead of hiding it",
-        "87 tests assert exact numbers and cover empty corpus, unicode, ties in ranking, tolerance boundaries, a missing baseline and malformed lines reported with their line number",
+        "146 tests assert exact numbers and cover empty corpus, unicode, ties in ranking, tolerance boundaries, a missing baseline, NaN and infinity, and malformed lines reported with their line number",
+        "An independent audit showed the gate could be passed by citing every passage, by deleting eval questions or by --tolerance inf. Fixed: a citation precision metric, an answer length cap, the eval set hash stored in the baseline and finite-number checks. Exit code 1 now means only a regression",
         "The LLM-judge metric is only an interface and an example stub, off by default and not used in CI. I did not wire a real vendor",
       ],
       es: [
         "Degradar la app de referencia a propósito hace fallar la puerta con una diferencia legible: el tokenizador por espacios baja la corrección de citas de 0,94 a 0,50 y top_k=1 baja hit@k de 1,00 a 0,97. La salida real está en el repo",
         "Una métrica que sube no es un fallo: la precisión al abstenerse subió con el tokenizador por espacios, y el informe la muestra en vez de ocultarla",
-        "87 pruebas verifican números exactos y cubren corpus vacío, unicode, empates en el ranking, límites de tolerancia, línea base ausente y líneas mal formadas con su número de línea",
+        "146 pruebas verifican números exactos y cubren corpus vacío, unicode, empates en el ranking, límites de tolerancia, línea base ausente, NaN e infinito, y líneas mal formadas con su número de línea",
+        "Una auditoría independiente mostró que la puerta se podía pasar citando todos los pasajes, borrando preguntas del conjunto de evaluación o con --tolerance inf. Corregido: una métrica de precisión de citas, un tope de longitud de respuesta, el hash del conjunto guardado en la línea base y comprobaciones de números finitos. El código de salida 1 ahora significa solo una regresión",
         "La métrica con un LLM como juez es solo una interfaz y un ejemplo, desactivada por defecto y sin usarse en CI. No conecté ningún proveedor real",
       ],
     },
@@ -426,12 +439,17 @@ export const projects: Project[] = [
       es: "El corpus y las preguntas son míos y pequeños, así que los números dicen que la puerta funciona, no que una app real sea buena. La precisión de abstención de la línea base es 0,71, que es baja y la dejé así. No está publicada en PyPI.",
     },
     metrics: [
-      { label: { en: "Tests", es: "Tests" }, value: "87" },
+      { label: { en: "Tests", es: "Tests" }, value: "146" },
       { label: { en: "Eval questions", es: "Preguntas de evaluación" }, value: "41" },
     ],
     links: [
       {
-        label: PRIVATE_LABEL,
+        label: { en: "Documentation", es: "Documentación" },
+        href: "https://kelvis-evalgate.vercel.app",
+        icon: "external",
+      },
+      {
+        label: SOURCE_LABEL,
         href: "https://github.com/Kelvis123456/evalgate",
         icon: "github",
       },
@@ -568,7 +586,6 @@ export const projects: Project[] = [
     kind: "software",
     category: "software",
     status: "concept",
-    visibility: "private",
     featured: false,
     started: "2026-11",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "SVG"],
@@ -609,7 +626,12 @@ export const projects: Project[] = [
     ],
     links: [
       {
-        label: PRIVATE_LABEL,
+        label: { en: "Live site", es: "Sitio en vivo" },
+        href: "https://kelvis-hornilla.vercel.app",
+        icon: "external",
+      },
+      {
+        label: SOURCE_LABEL,
         href: "https://github.com/Kelvis123456/cafe-concept",
         icon: "github",
       },
