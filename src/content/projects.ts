@@ -1330,7 +1330,7 @@ export const projects: Project[] = [
       en: [
         "PHASE level where the player jumps next to two colored echoes of past runs, with red barriers on the platform",
         "Prototype of the first boss room, El Espejo Fragmentado: mirror panels each with a lever in front of it, three colored echoes and the white player figure on a long platform",
-        "Prototype of Zone 3, the Abyss, on a black and purple background: the player and two echoes next to a red barrier",
+        "Prototype of Zone 3, the Abyss, on a black and purple background: three colored echoes on a short platform, one of them standing on top of a red barrier, and a lever on the left",
         "PHASE main menu with the Play, Achievements, My Echoes and Quit options",
         "PHASE My Echoes screen with skin slots for five echoes and a direct-purchase list",
         "PHASE options screen with colorblind mode, echo bullet-time speed and charge time",
@@ -1338,7 +1338,7 @@ export const projects: Project[] = [
       es: [
         "Nivel de PHASE donde el jugador salta junto a dos ecos de colores de intentos anteriores, con barreras rojas en la plataforma",
         "Prototipo de la sala del primer jefe, El Espejo Fragmentado: paneles de espejo con una palanca delante de cada uno, tres ecos de colores y la figura blanca del jugador en una plataforma larga",
-        "Prototipo de la Zona 3, el Abismo, sobre fondo negro y morado: el jugador y dos ecos junto a una barrera roja",
+        "Prototipo de la Zona 3, el Abismo, sobre fondo negro y morado: tres ecos de colores en una plataforma corta, uno de ellos encima de una barrera roja, y una palanca a la izquierda",
         "Menú principal de PHASE con las opciones Jugar, Logros, Mis Ecos y Salir",
         "Pantalla Mis Ecos de PHASE con ranuras de skin para cinco ecos y una lista de compra directa",
         "Pantalla de opciones de PHASE con modo daltónico, velocidad de ecos en bullet-time y tiempo de carga",
