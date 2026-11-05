@@ -6,14 +6,14 @@ This is my personal site — where I put up real, working case studies of the th
 
 - **Next.js 16 (App Router, Turbopack) + TypeScript.** No surprises here — App Router gives me static generation for the project detail pages (`/projects/[slug]` via `generateStaticParams`) without needing a server for content that never changes at runtime.
 - **Tailwind v4**, using the new CSS-first `@theme` instead of a `tailwind.config.*` file — simpler for a project this size, no config file to keep in sync with the CSS.
-- **No CMS.** Content lives as typed data in `src/content/` (`projects.ts`, the skills list, the EN/ES dictionary). For ~9 projects and two languages, a headless CMS would've been more infrastructure than the problem needed — a typed object is easier to review in a diff and doesn't need a network call to render.
+- **No CMS.** Content lives as typed data in `src/content/` (`projects.ts`, the skills list, the EN/ES dictionary). For about 30 projects and two languages, a headless CMS would've been more infrastructure than the problem needed — a typed object is easier to review in a diff and doesn't need a network call to render.
 - **A hand-rolled i18n context (`src/lib/language-context.tsx`)** instead of `next-intl`. I went this way because the only thing I actually needed was a dictionary lookup plus `/en`/`/es` URL routing (`src/proxy.ts`) — pulling in a full i18n library felt like solving a problem I didn't have. If this site grew to real plural rules, date/number formatting, or way more locales, I'd swap it for a real library at that point rather than keep hand-rolling.
 - **`motion` (Framer Motion)** for the scroll reveals, hover-preview panel, and page transitions (`next-view-transitions`). This is a portfolio — the interaction polish is part of what I'm trying to demonstrate, not decoration for its own sake.
 - **Vercel Analytics + Speed Insights**, because I wanted real visitor/performance numbers instead of guessing.
 
 ## What's _not_ here, on purpose
 
-No test suite, no linter/formatter config, no CI. This is a solo static-ish site with no backend logic to regression-test — for changes here I lean on `tsc --noEmit`, `next build`, and a manual/Playwright smoke pass rather than pretending a test suite would be pulling real weight on a project like this.
+No unit test suite and no ESLint config. This is a solo static-ish site with no backend logic to regression-test, so I don't pretend a test suite would be pulling real weight here. What does run: Prettier, `tsc --noEmit` and `next build` in CI on every pull request, plus a security workflow (gitleaks, semgrep, osv-scanner, bandit, zizmor). For visual changes I take Playwright screenshots at 1280 and 400 px and look at them, and I measure with Lighthouse. Mobile performance is the weak spot: about 73 locally against a goal of 90, and most of what is left is the React, Next and motion runtime.
 
 ## Structure
 
@@ -30,7 +30,9 @@ src/
 │  └─ ui/                    — Section, StatusBadge, MagneticButton, ThemeToggle,
 │                              CommandPalette (⌘K), Lightbox, GradientCanvas (WebGL
 │                              background), CursorSpotlight, Terminal, Marquee
-├─ content/                  — typed project/skills/site data + the EN/ES dictionary
+├─ content/                  — typed project/skills/site data + the EN/ES dictionary.
+│                              projects-lite.ts is the short list the home page ships to the
+│                              client, so the full case-study data stays out of the JS bundle
 ├─ hooks/                    — useScrollSpy
 └─ lib/                      — cn(), shared motion variants, language-context, scroll-lock
 ```
