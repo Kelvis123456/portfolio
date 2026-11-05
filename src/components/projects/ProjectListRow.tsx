@@ -2,7 +2,7 @@
 
 import { Link } from "next-view-transitions";
 import { ArrowUpRight } from "lucide-react";
-import type { Project } from "@/content/projects";
+import type { ProjectLite } from "@/content/projects-lite";
 import { ProjectMeta } from "@/components/projects/ProjectMeta";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { useLanguage, t } from "@/lib/language-context";
@@ -14,7 +14,7 @@ export function ProjectListRow({
   active,
   onActivate,
 }: {
-  project: Project;
+  project: ProjectLite;
   index: number;
   active?: boolean;
   onActivate?: () => void;

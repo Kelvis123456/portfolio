@@ -1,6 +1,6 @@
 "use client";
 
-import type { Project } from "@/content/projects";
+import type { ProjectLite } from "@/content/projects-lite";
 import { dictionary } from "@/content/dictionary";
 import { useLanguage } from "@/lib/language-context";
 import { cn } from "@/lib/cn";
@@ -13,7 +13,7 @@ const MONTHS = {
 };
 
 /** "Solo · Since Jul 2026 · Private repo": who built it, since when, whether the code can be checked. */
-export function ProjectMeta({ project, className }: { project: Project; className?: string }) {
+export function ProjectMeta({ project, className }: { project: ProjectLite; className?: string }) {
   const { locale } = useLanguage();
   const d = dictionary[locale].detail;
   const [year, month] = project.started.split("-").map(Number);

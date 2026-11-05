@@ -4,13 +4,13 @@ import { AnimatePresence, m, useReducedMotion } from "motion/react";
 import { EASE_OUT } from "@/lib/motion-variants";
 import { Link } from "next-view-transitions";
 import { ArrowRight } from "lucide-react";
-import type { Project } from "@/content/projects";
+import type { ProjectLite } from "@/content/projects-lite";
 import { ProjectCover } from "@/components/ui/ProjectCover";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { dictionary } from "@/content/dictionary";
 import { useLanguage, t } from "@/lib/language-context";
 
-export function ProjectPreviewPane({ project }: { project: Project | undefined }) {
+export function ProjectPreviewPane({ project }: { project: ProjectLite | undefined }) {
   const shouldReduceMotion = useReducedMotion();
   const { locale } = useLanguage();
   const dict = dictionary[locale];

@@ -7,7 +7,7 @@ import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { siteConfig } from "@/content/siteConfig";
 import { dictionary } from "@/content/dictionary";
-import { useLanguage, t } from "@/lib/language-context";
+import { useLanguage, t, type LocalizedText } from "@/lib/language-context";
 import { staggerContainer, fadeUp } from "@/lib/motion-variants";
 
 // Starts at the real value so the server HTML (and anyone with reduced
@@ -38,7 +38,9 @@ function AnimatedNumber({ value, locale }: { value: number; locale: string }) {
   return <span ref={ref}>{display.toLocaleString(locale)}</span>;
 }
 
-export function About() {
+type Metric = { label: LocalizedText; value: number; suffix: string };
+
+export function About({ metrics }: { metrics: Metric[] }) {
   const { locale } = useLanguage();
   const dict = dictionary[locale];
   const initials = siteConfig.name
@@ -76,7 +78,7 @@ export function About() {
             </p>
           </m.div>
 
-          {siteConfig.metrics.map((metric) => (
+          {metrics.map((metric) => (
             <m.div
               key={metric.label.en}
               variants={fadeUp}

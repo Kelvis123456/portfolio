@@ -7,17 +7,18 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { ProjectListRow } from "@/components/projects/ProjectListRow";
 import { ProjectPreviewPane } from "@/components/projects/ProjectPreviewPane";
-import { projects, otherWork, type ProjectCategory } from "@/content/projects";
+import type { ProjectCategory } from "@/content/projects";
+import type { ProjectLite } from "@/content/projects-lite";
+import { otherWork } from "@/content/other-work";
 import { dictionary } from "@/content/dictionary";
 import { useLanguage, t } from "@/lib/language-context";
 import { EASE_OUT, fadeUp } from "@/lib/motion-variants";
 import { cn } from "@/lib/cn";
 
-const featuredProjects = projects.filter((p) => p.featured);
-const restProjects = projects.filter((p) => !p.featured && p.market !== "local");
-const localProjects = projects.filter((p) => !p.featured && p.market === "local");
-
-export function Projects() {
+export function Projects({ projects }: { projects: ProjectLite[] }) {
+  const featuredProjects = useMemo(() => projects.filter((p) => p.featured), [projects]);
+  const restProjects = useMemo(() => projects.filter((p) => !p.featured && p.market !== "local"), [projects]);
+  const localProjects = useMemo(() => projects.filter((p) => !p.featured && p.market === "local"), [projects]);
   const [filter, setFilter] = useState<ProjectCategory | "all">("all");
   const { locale } = useLanguage();
   const dict = dictionary[locale];
@@ -28,7 +29,10 @@ export function Projects() {
     { label: dict.projects.filterGameDesign, value: "game" },
   ];
 
-  const filtered = useMemo(() => restProjects.filter((p) => filter === "all" || p.category === filter), [filter]);
+  const filtered = useMemo(
+    () => restProjects.filter((p) => filter === "all" || p.category === filter),
+    [filter, restProjects],
+  );
 
   const [activeSlug, setActiveSlug] = useState<string | undefined>(filtered[0]?.slug);
   const activeProject = filtered.find((p) => p.slug === activeSlug) ?? filtered[0];

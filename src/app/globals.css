@@ -121,10 +121,12 @@ button:focus-visible {
 
 /* Hero entrance in CSS instead of motion: the text is in the server HTML at
    full opacity for no-JS/crawlers/slow hydration, and only animates once the
-   stylesheet applies. Delay per element via --d. */
+   stylesheet applies. Delay per element via --d. Starts at 0.01, not 0: Chrome
+   never counts an element that first paints at opacity 0 as LCP, so the h1
+   was skipped and the largest paint became a heading revealed after hydration. */
 @keyframes hero-in {
   from {
-    opacity: 0;
+    opacity: 0.01;
     transform: translateY(12px);
   }
 }
