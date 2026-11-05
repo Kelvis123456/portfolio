@@ -316,6 +316,17 @@ export const projects: Project[] = [
       { label: { en: "Tests, against a real MCP server", es: "Tests, contra un servidor MCP real" }, value: "32" },
       { label: { en: "Checks in the reference-server example", es: "Comprobaciones en el ejemplo" }, value: "11" },
     ],
+    gallery: ["/images/mcp-probe/home.png", "/images/mcp-probe/probe-and-report.png"],
+    galleryAlt: {
+      en: [
+        "Landing page of mcp-probe: the heading Scripted checks for MCP servers, a clone-and-run snippet and the console output of a run where all 11 checks pass",
+        "A failing run with one FAIL line for a golden value that does not match, followed by the section that lists what the tool checks by default",
+      ],
+      es: [
+        "Página de mcp-probe: el título Scripted checks for MCP servers, un fragmento para clonar y ejecutar y la salida de consola de una corrida donde pasan las 11 comprobaciones",
+        "Una corrida que falla, con una línea FAIL por un valor de referencia que no coincide, seguida de la sección que lista lo que la herramienta comprueba por defecto",
+      ],
+    },
     links: [
       {
         label: { en: "Live site", es: "Sitio en vivo" },
@@ -379,6 +390,17 @@ export const projects: Project[] = [
       { label: { en: "Tests, against real PostgreSQL", es: "Tests, contra PostgreSQL real" }, value: "25" },
       { label: { en: "Crash test: messages lost", es: "Prueba de caos: mensajes perdidos" }, value: "0" },
     ],
+    gallery: ["/images/outbox-kit/home.png", "/images/outbox-kit/diagram.png"],
+    galleryAlt: {
+      en: [
+        "Landing page of outbox-kit: the heading Commit the change and the message together, a code snippet where the process dies between saving and publishing, and two buttons",
+        "The animated diagram at step 7 of 9: the timeline with the outbox, a crash between publish and commit and a second worker publishing the row again, next to the step list",
+      ],
+      es: [
+        "Página de outbox-kit: el título Commit the change and the message together, un fragmento de código donde el proceso muere entre guardar y publicar, y dos botones",
+        "El diagrama animado en el paso 7 de 9: la línea de tiempo con el outbox, una caída entre publicar y confirmar y un segundo worker que publica la fila otra vez, junto a la lista de pasos",
+      ],
+    },
     links: [
       {
         label: { en: "Live site", es: "Sitio en vivo" },
@@ -442,6 +464,17 @@ export const projects: Project[] = [
       { label: { en: "Tests", es: "Tests" }, value: "146" },
       { label: { en: "Eval questions", es: "Preguntas de evaluación" }, value: "41" },
     ],
+    gallery: ["/images/evalgate/home.png", "/images/evalgate/concepts.png"],
+    galleryAlt: {
+      en: [
+        "Home page of the evalgate documentation with the title, a short description and the real output of a degraded run in which several metrics are marked FAIL",
+        "The Baseline and tolerance page of the docs, showing the committed baseline.json with the metrics of the reference app",
+      ],
+      es: [
+        "Página de inicio de la documentación de evalgate con el título, una descripción corta y la salida real de una corrida degradada en la que varias métricas aparecen como FAIL",
+        "La página Baseline and tolerance de la documentación, con el baseline.json guardado y las métricas de la app de referencia",
+      ],
+    },
     links: [
       {
         label: { en: "Documentation", es: "Documentación" },
@@ -624,6 +657,19 @@ export const projects: Project[] = [
       { label: { en: "Pages", es: "Páginas" }, value: "6" },
       { label: { en: "Photos used", es: "Fotos usadas" }, value: "0" },
     ],
+    gallery: ["/images/hornilla/home.png", "/images/hornilla/cafe.png", "/images/hornilla/reservar.png"],
+    galleryAlt: {
+      en: [
+        "Home page of Hornilla: the headline Tostamos los jueves. Lo tomas el viernes. and a hand-drawn red coffee sack",
+        "The menu page: the heading La carta, en pesos, a roast legend and the first two coffees with their prices in pesos",
+        "The reservation page: a form to book a seat at the bar or order for pickup, with a note that it is a demo and sends nothing",
+      ],
+      es: [
+        "Página de inicio de Hornilla: el titular Tostamos los jueves. Lo tomas el viernes. y una bolsa de café roja dibujada a mano",
+        "La página del café: el título La carta, en pesos, una leyenda de tuestes y los dos primeros cafés con su precio en pesos",
+        "La página de reserva: un formulario para reservar un lugar en la barra o pedir para recoger, con una nota que dice que es una demo y no envía nada",
+      ],
+    },
     links: [
       {
         label: { en: "Live site", es: "Sitio en vivo" },
