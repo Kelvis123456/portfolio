@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Code2, Gamepad2 } from "lucide-react";
-import type { Project } from "@/content/projects";
+import type { ProjectLite } from "@/content/projects-lite";
 import { dictionary } from "@/content/dictionary";
 import { useLanguage } from "@/lib/language-context";
 import { cn } from "@/lib/cn";
@@ -31,7 +31,7 @@ export function ProjectCover({
   fit = "cover",
   className,
 }: {
-  project: Project;
+  project: ProjectLite;
   priority?: boolean;
   sizes?: string;
   quality?: number;

@@ -2,14 +2,14 @@
 
 import { Link } from "next-view-transitions";
 import { m, useReducedMotion } from "motion/react";
-import type { Project } from "@/content/projects";
+import type { ProjectLite } from "@/content/projects-lite";
 import { ProjectMeta } from "@/components/projects/ProjectMeta";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { ProjectCover } from "@/components/ui/ProjectCover";
 import { useLanguage, t } from "@/lib/language-context";
 import { cn } from "@/lib/cn";
 
-export function ProjectCard({ project, large = false }: { project: Project; large?: boolean }) {
+export function ProjectCard({ project, large = false }: { project: ProjectLite; large?: boolean }) {
   const { locale } = useLanguage();
   const shouldReduceMotion = useReducedMotion();
 

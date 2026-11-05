@@ -9,6 +9,7 @@ import { Sidebar } from "@/components/layout/Sidebar";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { siteConfig } from "@/content/siteConfig";
+import { homeProjects } from "@/content/projects-lite";
 
 const LOCALES: Locale[] = ["en", "es"];
 
@@ -85,7 +86,7 @@ export default async function LocaleLayout({
             {children}
             <Footer />
           </div>
-          <CommandPalette />
+          <CommandPalette projects={homeProjects} />
         </CommandPaletteProvider>
       </LanguageProvider>
     </>

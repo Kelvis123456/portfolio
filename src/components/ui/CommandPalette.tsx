@@ -9,7 +9,7 @@ import { useTheme } from "next-themes";
 import { Search, User, FolderGit2, Code2, Gamepad2, Wrench, Mail, Sun, Moon, Download } from "lucide-react";
 import { LinkedinIcon } from "@/components/ui/LinkedinIcon";
 import { GithubIcon } from "@/components/ui/GithubIcon";
-import { projects } from "@/content/projects";
+import type { ProjectLite } from "@/content/projects-lite";
 import { siteConfig } from "@/content/siteConfig";
 import { dictionary } from "@/content/dictionary";
 import { useLanguage, t } from "@/lib/language-context";
@@ -29,7 +29,11 @@ const SECTION_ICONS: Record<
   contact: Mail,
 };
 
-export function CommandPalette() {
+export function CommandPalette({
+  projects,
+}: {
+  projects: Pick<ProjectLite, "slug" | "title" | "tagline" | "stack" | "kind">[];
+}) {
   const { open, setOpen } = useCommandPalette();
   const { locale } = useLanguage();
   const dict = dictionary[locale];
