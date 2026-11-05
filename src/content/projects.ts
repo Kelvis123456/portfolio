@@ -276,7 +276,6 @@ export const projects: Project[] = [
     kind: "software",
     category: "software",
     status: "in-development",
-    visibility: "private",
     featured: false,
     started: "2026-11",
     stack: ["TypeScript", "MCP SDK", "Vitest", "GitHub Actions"],
@@ -319,7 +318,7 @@ export const projects: Project[] = [
     ],
     links: [
       {
-        label: PRIVATE_LABEL,
+        label: SOURCE_LABEL,
         href: "https://github.com/Kelvis123456/mcp-probe",
         icon: "github",
       },
@@ -335,7 +334,6 @@ export const projects: Project[] = [
     kind: "software",
     category: "software",
     status: "in-development",
-    visibility: "private",
     featured: false,
     started: "2026-11",
     stack: [".NET 10", "EF Core", "PostgreSQL", "xUnit", "Testcontainers"],
@@ -378,7 +376,7 @@ export const projects: Project[] = [
     ],
     links: [
       {
-        label: PRIVATE_LABEL,
+        label: SOURCE_LABEL,
         href: "https://github.com/Kelvis123456/outbox-kit",
         icon: "github",
       },
@@ -394,7 +392,6 @@ export const projects: Project[] = [
     kind: "software",
     category: "software",
     status: "in-development",
-    visibility: "private",
     featured: false,
     started: "2026-11",
     stack: ["Python", "pytest", "GitHub Actions"],
@@ -437,7 +434,7 @@ export const projects: Project[] = [
     ],
     links: [
       {
-        label: PRIVATE_LABEL,
+        label: SOURCE_LABEL,
         href: "https://github.com/Kelvis123456/evalgate",
         icon: "github",
       },
@@ -574,7 +571,6 @@ export const projects: Project[] = [
     kind: "software",
     category: "software",
     status: "concept",
-    visibility: "private",
     featured: false,
     started: "2026-11",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "SVG"],
@@ -615,7 +611,7 @@ export const projects: Project[] = [
     ],
     links: [
       {
-        label: PRIVATE_LABEL,
+        label: SOURCE_LABEL,
         href: "https://github.com/Kelvis123456/cafe-concept",
         icon: "github",
       },
