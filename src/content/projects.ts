@@ -318,6 +318,11 @@ export const projects: Project[] = [
     ],
     links: [
       {
+        label: { en: "Live site", es: "Sitio en vivo" },
+        href: "https://kelvis-mcp-probe.vercel.app",
+        icon: "external",
+      },
+      {
         label: SOURCE_LABEL,
         href: "https://github.com/Kelvis123456/mcp-probe",
         icon: "github",
@@ -376,6 +381,11 @@ export const projects: Project[] = [
     ],
     links: [
       {
+        label: { en: "Live site", es: "Sitio en vivo" },
+        href: "https://kelvis-outbox-kit.vercel.app",
+        icon: "external",
+      },
+      {
         label: SOURCE_LABEL,
         href: "https://github.com/Kelvis123456/outbox-kit",
         icon: "github",
@@ -433,6 +443,11 @@ export const projects: Project[] = [
       { label: { en: "Eval questions", es: "Preguntas de evaluación" }, value: "41" },
     ],
     links: [
+      {
+        label: { en: "Documentation", es: "Documentación" },
+        href: "https://kelvis-evalgate.vercel.app",
+        icon: "external",
+      },
       {
         label: SOURCE_LABEL,
         href: "https://github.com/Kelvis123456/evalgate",
@@ -610,6 +625,11 @@ export const projects: Project[] = [
       { label: { en: "Photos used", es: "Fotos usadas" }, value: "0" },
     ],
     links: [
+      {
+        label: { en: "Live site", es: "Sitio en vivo" },
+        href: "https://kelvis-hornilla.vercel.app",
+        icon: "external",
+      },
       {
         label: SOURCE_LABEL,
         href: "https://github.com/Kelvis123456/cafe-concept",
