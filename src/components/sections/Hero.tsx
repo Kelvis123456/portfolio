@@ -1,8 +1,8 @@
 "use client";
 
-import type { CSSProperties } from "react";
+import { useState, type CSSProperties } from "react";
 import { m, useReducedMotion } from "motion/react";
-import { ArrowDown, FileText } from "lucide-react";
+import { ArrowDown, Check, FileText, Mail } from "lucide-react";
 import { GithubIcon } from "@/components/ui/GithubIcon";
 import { siteConfig } from "@/content/siteConfig";
 import { dictionary } from "@/content/dictionary";
@@ -11,12 +11,27 @@ import { MagneticButton } from "@/components/ui/MagneticButton";
 import { Terminal } from "@/components/ui/Terminal";
 
 // Stagger for the CSS entrance (.hero-in in globals.css).
+const pill = "min-h-11 border border-border bg-surface hover:border-accent-text/30 hover:bg-surface-muted";
+
 const delay = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
 
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
   const { locale } = useLanguage();
   const dict = dictionary[locale];
+  const [copied, setCopied] = useState(false);
+
+  // Many visitors have no desktop mail client, so mailto does nothing for them:
+  // copy the address, and fall back to mailto when the clipboard is blocked.
+  async function copyEmail() {
+    try {
+      await navigator.clipboard.writeText(siteConfig.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch {
+      window.location.href = `mailto:${siteConfig.email}`;
+    }
+  }
 
   return (
     <section
@@ -49,35 +64,27 @@ export function Hero() {
         </p>
 
         <div style={delay(200)} className="hero-in mt-10 flex flex-wrap items-center justify-center gap-4">
-          <MagneticButton href="#projects" className="bg-foreground text-background hover:bg-foreground/88">
+          <MagneticButton href="#projects" className="min-h-11 bg-foreground text-background hover:bg-foreground/88">
             {dict.hero.viewProjects}
           </MagneticButton>
           <MagneticButton
             href={locale === "es" ? "/resume-es.pdf" : "/resume-en.pdf"}
             target="_blank"
             rel="noreferrer"
-            className="border border-border bg-surface hover:border-accent-text/30 hover:bg-surface-muted"
+            className={pill}
           >
             <FileText size={16} /> {dict.hero.resume}
           </MagneticButton>
+          <MagneticButton href={siteConfig.github} target="_blank" rel="noreferrer" className={pill}>
+            <GithubIcon size={16} /> {dict.hero.github}
+          </MagneticButton>
+          <MagneticButton onClick={copyEmail} className={pill}>
+            {copied ? <Check size={16} /> : <Mail size={16} />} {copied ? dict.hero.emailCopied : dict.hero.email}
+          </MagneticButton>
+          <span role="status" className="sr-only">
+            {copied ? `${dict.hero.emailCopied}: ${siteConfig.email}` : ""}
+          </span>
         </div>
-
-        <p style={delay(230)} className="hero-in mt-5 flex items-center gap-5 text-sm text-foreground/70">
-          <a
-            href={siteConfig.github}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex min-h-10 items-center gap-1.5 underline-offset-4 hover:text-foreground hover:underline"
-          >
-            <GithubIcon size={15} /> {dict.hero.github}
-          </a>
-          <a
-            href={`mailto:${siteConfig.email}`}
-            className="inline-flex min-h-10 items-center underline-offset-4 hover:text-foreground hover:underline"
-          >
-            {siteConfig.email}
-          </a>
-        </p>
 
         <div style={delay(260)} className="hero-in mt-12 hidden w-full max-w-md sm:block">
           <Terminal />
