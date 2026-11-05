@@ -264,6 +264,18 @@ export const projects: Project[] = [
         "Página de demo pública de AgendaBot con el chat a la izquierda y el panel de ticket del backend, aún vacío, a la derecha",
       ],
     },
+    video: {
+      src: "/videos/agendabot-demo.webm",
+      poster: "/images/agendabot/demo-poster.jpg",
+      caption: {
+        en: "78-second recording of the built-in demo chat, in Spanish, no audio. A customer asks for a haircut tomorrow after 4, the agent checks availability, proposes a slot and books it only after the customer says yes. The ticket on the right prints each tool the agent called and what the server answered.",
+        es: "Grabación de 78 segundos del chat de demostración incluido, sin audio. Un cliente pide un corte para mañana después de las 4, el agente consulta la disponibilidad, propone un horario y solo agenda cuando el cliente confirma. El ticket de la derecha imprime cada herramienta que usó el agente y lo que respondió el servidor.",
+      },
+    },
+    notDoneYet: {
+      en: "There is no hosted demo. The agent needs SQL Server and a Gemini key, and I found no free place to run both, so the recording on this page is the demo. You can run the same chat locally with docker compose and the sample barbershop seed.",
+      es: "No hay una demo en línea. El agente necesita SQL Server y una clave de Gemini, y no encontré un lugar gratuito para correr ambos, así que la grabación de esta página es la demo. Puedes correr el mismo chat en local con docker compose y los datos de la barbería de ejemplo.",
+    },
     accentColor: "#1F55B5",
   },
   {
