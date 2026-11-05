@@ -24,6 +24,8 @@ export interface Project {
   status: ProjectStatus;
   visibility?: "public" | "private";
   featured: boolean;
+  /** "local": built around Dominican rules or data. Listed under its own heading with a one-line why. */
+  market?: "local";
   /** First-commit month of the project's repo, "YYYY-MM". Shown as "since". */
   started: string;
   stack: string[];
@@ -263,6 +265,177 @@ export const projects: Project[] = [
       ],
     },
     accentColor: "#1F55B5",
+  },
+  {
+    slug: "mcp-probe",
+    title: "mcp-probe",
+    tagline: {
+      en: "Scripted checks for MCP servers: describe the calls in YAML, get pass/fail in CI",
+      es: "Pruebas guionadas para servidores MCP: describes las llamadas en YAML y obtienes pasa/falla en CI",
+    },
+    kind: "software",
+    category: "software",
+    status: "in-development",
+    visibility: "private",
+    featured: false,
+    started: "2026-11",
+    stack: ["TypeScript", "MCP SDK", "Vitest", "GitHub Actions"],
+    role: { en: "Solo developer", es: "Desarrollador en solitario" },
+    summary: {
+      en: "A command-line tool that starts an MCP server over stdio, talks to it like a client and reports which checks passed. It exits non-zero when something breaks, so it can gate a pull request.",
+      es: "Una herramienta de línea de comandos que arranca un servidor MCP por stdio, habla con él como un cliente e informa qué comprobaciones pasaron. Sale con código distinto de cero si algo falla, así que puede bloquear un pull request.",
+    },
+    problem: {
+      en: "I kept shipping MCP tools and had no cheap way to notice that a refactor changed a tool's output or stopped rejecting bad input. A hung tool is the worst case: a client that only waits for a failure cannot tell it from a clean error.",
+      es: "Yo seguía publicando herramientas MCP y no tenía una forma barata de notar que un refactor cambió la salida de una herramienta o dejó de rechazar entradas malas. Una herramienta colgada es el peor caso: un cliente que solo espera un fallo no la distingue de un error limpio.",
+    },
+    solution: {
+      en: "A YAML file names the server command and the calls to make, each with an expectation: it must succeed or fail, and optionally its text must contain a string, match a pattern or equal a golden value. Built-in checks cover the handshake, tool schemas, unknown tools and whether the server still answers at the end. A timeout is its own failure, so an expected error cannot be satisfied by a hang.",
+      es: "Un archivo YAML nombra el comando del servidor y las llamadas a hacer, cada una con una expectativa: debe funcionar o fallar y, opcionalmente, su texto debe contener una cadena, cumplir un patrón o ser igual a un valor de referencia. Las comprobaciones incluidas cubren el handshake, los esquemas de las herramientas, las herramientas desconocidas y si el servidor sigue respondiendo al final. Un timeout es un fallo propio, así que un error esperado no se cumple con un cuelgue.",
+    },
+    architectureHighlights: {
+      en: [
+        "A failed call can be a thrown protocol error or an isError result depending on the server, and the probe accepts both, so it does not fail servers that are correct",
+        "A call that never answers is reported as a timeout and never counts as an expected failure. There is a test with a server that hangs on purpose",
+        "The tests start a small real MCP server and a second one that exits during the handshake, instead of mocking the client",
+        "The example runs against the official reference server pinned to one version with install scripts disabled: 11 checks, all passing. That says the reference server behaves as the probe expects, not that the probe found bugs in it",
+      ],
+      es: [
+        "Una llamada fallida puede ser un error de protocolo lanzado o un resultado con isError según el servidor, y la herramienta acepta ambos, así que no falla servidores que están bien",
+        "Una llamada que nunca responde se informa como timeout y nunca cuenta como fallo esperado. Hay una prueba con un servidor que se cuelga a propósito",
+        "Las pruebas arrancan un pequeño servidor MCP real y otro que sale durante el handshake, en vez de simular el cliente",
+        "El ejemplo corre contra el servidor de referencia oficial fijado a una versión y con los scripts de instalación desactivados: 11 comprobaciones, todas pasan. Eso dice que el servidor de referencia se comporta como la herramienta espera, no que encontró errores en él",
+      ],
+    },
+    notDoneYet: {
+      en: "stdio only and tools only: no HTTP transport, resources or prompts. It compares the first text block, not structured output. It does not validate every message against the protocol schema and it is not published to npm.",
+      es: "Solo stdio y solo herramientas: sin transporte HTTP, recursos ni prompts. Compara el primer bloque de texto, no la salida estructurada. No valida cada mensaje contra el esquema del protocolo y no está publicada en npm.",
+    },
+    metrics: [
+      { label: { en: "Tests, against a real MCP server", es: "Tests, contra un servidor MCP real" }, value: "8" },
+      { label: { en: "Checks in the reference-server example", es: "Comprobaciones en el ejemplo" }, value: "11" },
+    ],
+    links: [
+      {
+        label: PRIVATE_LABEL,
+        href: "https://github.com/Kelvis123456/mcp-probe",
+        icon: "github",
+      },
+    ],
+  },
+  {
+    slug: "outbox-kit",
+    title: "outbox-kit",
+    tagline: {
+      en: "Change the database and tell another system, without one happening and the other not",
+      es: "Cambia la base de datos y avisa a otro sistema, sin que ocurra una cosa y la otra no",
+    },
+    kind: "software",
+    category: "software",
+    status: "in-development",
+    visibility: "private",
+    featured: false,
+    started: "2026-11",
+    stack: [".NET 10", "EF Core", "PostgreSQL", "xUnit", "Testcontainers"],
+    role: { en: "Solo developer", es: "Desarrollador en solitario" },
+    summary: {
+      en: "A small .NET library for the transactional outbox on EF Core and PostgreSQL, plus an idempotent consumer. About 150 lines, with tests that prove its guarantees against a real database, including one that kills the process mid-dispatch.",
+      es: "Una biblioteca pequeña de .NET para el outbox transaccional sobre EF Core y PostgreSQL, más un consumidor idempotente. Unas 150 líneas, con pruebas que demuestran sus garantías contra una base real, una de ellas matando el proceso a mitad del envío.",
+    },
+    problem: {
+      en: "Saving a change and then publishing a message are two steps. If the process dies between them, the change exists and nobody was told. Swap them and a message goes out for a change that never committed.",
+      es: "Guardar un cambio y luego publicar un mensaje son dos pasos. Si el proceso muere entre ambos, el cambio existe y nadie se enteró. Si los inviertes, sale un mensaje de un cambio que nunca se confirmó.",
+    },
+    solution: {
+      en: "The message is a row written in the same SaveChanges as the change, so both commit or neither does. A dispatcher locks a batch with FOR UPDATE SKIP LOCKED, publishes and marks rows in one transaction. The consumer records the message id and runs its handler in one transaction, so a redelivery is skipped.",
+      es: "El mensaje es una fila escrita en el mismo SaveChanges que el cambio, así que se confirman los dos o ninguno. Un despachador bloquea un lote con FOR UPDATE SKIP LOCKED, publica y marca las filas en una transacción. El consumidor registra el id del mensaje y ejecuta su manejador en una transacción, así que un reenvío se omite.",
+    },
+    architectureHighlights: {
+      en: [
+        "The chaos test runs a second process and ends it with Environment.FailFast between publish and commit. Nothing is marked processed, a second worker finishes: all 20 messages are processed and the broker saw 23 publishes, three of them duplicates",
+        "A consumer that replays every one of those publishes twice applies each effect exactly once. At-least-once from the outbox plus the inbox gives one effect per message",
+        "Three dispatchers at once publish each of 40 messages exactly once, and a poison message is retried then parked without blocking the rest",
+        "I publish inside the locking transaction on purpose: a crash always rolls back to a clean state, at the cost of a long transaction when the broker is slow",
+      ],
+      es: [
+        "La prueba de caos corre un segundo proceso y lo termina con Environment.FailFast entre publicar y confirmar. Nada queda marcado como procesado, un segundo worker termina: los 20 mensajes se procesan y el broker vio 23 publicaciones, tres duplicadas",
+        "Un consumidor que repite cada una de esas publicaciones dos veces aplica cada efecto exactamente una vez. At-least-once del outbox más el inbox da un efecto por mensaje",
+        "Tres despachadores a la vez publican cada uno de 40 mensajes exactamente una vez, y un mensaje venenoso se reintenta y se aparta sin bloquear al resto",
+        "Publico dentro de la transacción que bloquea a propósito: un fallo siempre vuelve a un estado limpio, a costa de una transacción larga si el broker es lento",
+      ],
+    },
+    notDoneYet: {
+      en: "PostgreSQL only. No ordering guarantee once a message fails, no cleanup of processed rows and no metrics. I did not benchmark it, so I make no throughput claim. It is not published to NuGet.",
+      es: "Solo PostgreSQL. Sin garantía de orden cuando un mensaje falla, sin limpieza de filas procesadas y sin métricas. No la medí, así que no afirmo ningún rendimiento. No está publicada en NuGet.",
+    },
+    metrics: [
+      { label: { en: "Tests, against real PostgreSQL", es: "Tests, contra PostgreSQL real" }, value: "9" },
+      { label: { en: "Crash test: messages lost", es: "Prueba de caos: mensajes perdidos" }, value: "0" },
+    ],
+    links: [
+      {
+        label: PRIVATE_LABEL,
+        href: "https://github.com/Kelvis123456/outbox-kit",
+        icon: "github",
+      },
+    ],
+  },
+  {
+    slug: "evalgate",
+    title: "evalgate",
+    tagline: {
+      en: "A CI gate for RAG and LLM apps: a number that moves when answer quality breaks",
+      es: "Una puerta de CI para apps RAG y LLM: un número que se mueve cuando se rompe la calidad de las respuestas",
+    },
+    kind: "software",
+    category: "software",
+    status: "in-development",
+    visibility: "private",
+    featured: false,
+    started: "2026-11",
+    stack: ["Python", "pytest", "GitHub Actions"],
+    role: { en: "Solo developer", es: "Desarrollador en solitario" },
+    summary: {
+      en: "A versioned eval set, a committed baseline and a command that exits non-zero when quality drops past a tolerance. It runs with no API keys and gives the same result every time, so it can run on every pull request.",
+      es: "Un conjunto de evaluación versionado, una línea base guardada y un comando que sale con código distinto de cero cuando la calidad cae más de una tolerancia. Corre sin claves de API y da el mismo resultado siempre, así que puede correr en cada pull request.",
+    },
+    problem: {
+      en: 'Prompt and retriever changes tend to merge with "looks fine on the three examples I tried". I wanted the same check for answer quality that a test suite gives for code.',
+      es: 'Los cambios de prompt y de recuperador suelen mezclarse con "se ve bien en los tres ejemplos que probé". Quería para la calidad de las respuestas lo mismo que una suite de pruebas da al código.',
+    },
+    solution: {
+      en: "The repo ships a small reference RAG app (an original 25-passage corpus, a stdlib BM25 retriever and an extractive answerer) with 41 eval questions, 7 of which have no answer in the corpus. Metrics are deterministic and offline: hit@k, MRR, citation correctness, whether the answer contains the fact, and abstention accuracy. The gate prints a table with baseline, current, delta and tolerance per metric.",
+      es: "El repo incluye una pequeña app RAG de referencia (un corpus original de 25 pasajes, un recuperador BM25 en la biblioteca estándar y un respondedor extractivo) con 41 preguntas de evaluación, 7 sin respuesta en el corpus. Las métricas son deterministas y sin conexión: hit@k, MRR, corrección de citas, si la respuesta contiene el dato y precisión al abstenerse. La puerta imprime una tabla con línea base, actual, diferencia y tolerancia por métrica.",
+    },
+    architectureHighlights: {
+      en: [
+        "Degrading the reference app on purpose fails the gate with a readable diff: the whitespace tokenizer drops citation correctness from 0.94 to 0.50, and top_k=1 drops hit@k from 1.00 to 0.97. Real output is in the repo",
+        "A metric that goes up is not a failure: abstention accuracy rose under the whitespace tokenizer, and the report shows it instead of hiding it",
+        "87 tests assert exact numbers and cover empty corpus, unicode, ties in ranking, tolerance boundaries, a missing baseline and malformed lines reported with their line number",
+        "The LLM-judge metric is only an interface and an example stub, off by default and not used in CI. I did not wire a real vendor",
+      ],
+      es: [
+        "Degradar la app de referencia a propósito hace fallar la puerta con una diferencia legible: el tokenizador por espacios baja la corrección de citas de 0,94 a 0,50 y top_k=1 baja hit@k de 1,00 a 0,97. La salida real está en el repo",
+        "Una métrica que sube no es un fallo: la precisión al abstenerse subió con el tokenizador por espacios, y el informe la muestra en vez de ocultarla",
+        "87 pruebas verifican números exactos y cubren corpus vacío, unicode, empates en el ranking, límites de tolerancia, línea base ausente y líneas mal formadas con su número de línea",
+        "La métrica con un LLM como juez es solo una interfaz y un ejemplo, desactivada por defecto y sin usarse en CI. No conecté ningún proveedor real",
+      ],
+    },
+    notDoneYet: {
+      en: "The corpus and questions are mine and small, so the scores say the gate works, not that any real app is good. The baseline abstention accuracy is 0.71, which is low and left as it is. It is not published to PyPI.",
+      es: "El corpus y las preguntas son míos y pequeños, así que los números dicen que la puerta funciona, no que una app real sea buena. La precisión de abstención de la línea base es 0,71, que es baja y la dejé así. No está publicada en PyPI.",
+    },
+    metrics: [
+      { label: { en: "Tests", es: "Tests" }, value: "87" },
+      { label: { en: "Eval questions", es: "Preguntas de evaluación" }, value: "41" },
+    ],
+    links: [
+      {
+        label: PRIVATE_LABEL,
+        href: "https://github.com/Kelvis123456/evalgate",
+        icon: "github",
+      },
+    ],
   },
   {
     slug: "webhook-inbox",
@@ -1220,6 +1393,7 @@ export const projects: Project[] = [
     category: "software",
     status: "in-development",
     featured: false,
+    market: "local",
     started: "2026-11",
     stack: [".NET 10", "ASP.NET Core", "EF Core", "SQL Server", "Angular 21", "xUnit", "Testcontainers", "Docker"],
     role: { en: "Solo developer", es: "Desarrollador en solitario" },
@@ -1291,6 +1465,7 @@ export const projects: Project[] = [
     category: "software",
     status: "in-development",
     featured: false,
+    market: "local",
     started: "2026-11",
     stack: [".NET 10", "ASP.NET Core", "Microsoft.Extensions.AI", "Gemini", "xUnit"],
     role: { en: "Solo developer", es: "Desarrollador en solitario" },
@@ -1362,6 +1537,7 @@ export const projects: Project[] = [
     category: "software",
     status: "in-development",
     featured: false,
+    market: "local",
     started: "2026-11",
     stack: ["Python", "pandas", "statsmodels", "pytest", "uv"],
     role: { en: "Solo developer", es: "Desarrollador en solitario" },
@@ -1428,6 +1604,7 @@ export const projects: Project[] = [
     category: "software",
     status: "in-development",
     featured: false,
+    market: "local",
     started: "2026-11",
     stack: [".NET 10", "MCP C# SDK", "xUnit", "Microsoft.Extensions.AI", "Gemini"],
     role: { en: "Solo developer", es: "Desarrollador en solitario" },

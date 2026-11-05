@@ -14,7 +14,8 @@ import { EASE_OUT, fadeUp } from "@/lib/motion-variants";
 import { cn } from "@/lib/cn";
 
 const featuredProjects = projects.filter((p) => p.featured);
-const restProjects = projects.filter((p) => !p.featured);
+const restProjects = projects.filter((p) => !p.featured && p.market !== "local");
+const localProjects = projects.filter((p) => !p.featured && p.market === "local");
 
 export function Projects() {
   const [filter, setFilter] = useState<ProjectCategory | "all">("all");
@@ -125,6 +126,18 @@ export function Projects() {
             <ProjectPreviewPane project={activeProject} />
           </div>
         </div>
+
+        {localProjects.length > 0 && (
+          <m.div variants={fadeUp} className="mt-16">
+            <h3 className="font-display text-2xl font-semibold tracking-tight">{dict.projects.localHeading}</h3>
+            <p className="mt-2 max-w-2xl text-sm text-foreground/70">{dict.projects.localIntro}</p>
+            <div className="mt-6 flex flex-col gap-3">
+              {localProjects.map((project, index) => (
+                <ProjectListRow key={project.slug} project={project} index={index} />
+              ))}
+            </div>
+          </m.div>
+        )}
 
         <m.div variants={fadeUp} className="mt-16">
           <h3 className="text-sm font-medium uppercase tracking-widest text-foreground/65">

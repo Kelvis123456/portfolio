@@ -18,6 +18,9 @@ export const dictionary = {
       filterSoftware: "Software",
       filterGameDesign: "Games",
       moreProjects: "More projects",
+      localHeading: "Local market",
+      localIntro:
+        "Built around Dominican rules and data: tax identifiers, labor law, exchange rates. The engineering is the same as anywhere else; the hard part is the domain.",
       moreWork: "More work",
       backToProjects: "Back to projects",
       emptyFilter: "No projects in this category yet.",
@@ -109,6 +112,9 @@ export const dictionary = {
       filterSoftware: "Software",
       filterGameDesign: "Videojuegos",
       moreProjects: "Más proyectos",
+      localHeading: "Mercado local",
+      localIntro:
+        "Hechos alrededor de reglas y datos dominicanos: identificadores fiscales, derecho laboral, tasas de cambio. La ingeniería es la misma que en cualquier lugar; lo difícil es el dominio.",
       moreWork: "Más trabajo",
       backToProjects: "Volver a proyectos",
       emptyFilter: "Aún no hay proyectos en esta categoría.",

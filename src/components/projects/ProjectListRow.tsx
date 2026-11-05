@@ -16,8 +16,8 @@ export function ProjectListRow({
 }: {
   project: Project;
   index: number;
-  active: boolean;
-  onActivate: () => void;
+  active?: boolean;
+  onActivate?: () => void;
 }) {
   const { locale } = useLanguage();
 
