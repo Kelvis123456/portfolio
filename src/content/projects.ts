@@ -265,6 +265,127 @@ export const projects: Project[] = [
     accentColor: "#1F55B5",
   },
   {
+    slug: "webhook-inbox",
+    title: "webhook-inbox",
+    tagline: {
+      en: "A Stripe webhook receiver that survives duplicate, out-of-order and failing events",
+      es: "Un receptor de webhooks de Stripe que aguanta eventos repetidos, desordenados y que fallan",
+    },
+    kind: "software",
+    category: "software",
+    status: "in-development",
+    featured: false,
+    started: "2026-11",
+    stack: ["TypeScript", "NestJS", "PostgreSQL", "Vitest", "Testcontainers", "Docker"],
+    role: { en: "Solo developer", es: "Desarrollador en solitario" },
+    summary: {
+      en: "A NestJS service that verifies a Stripe signature, stores each event before processing it, applies it in order, retries failures with backoff and keeps the ones that cannot be processed in a queue you can inspect and replay.",
+      es: "Un servicio en NestJS que verifica la firma de Stripe, guarda cada evento antes de procesarlo, lo aplica en orden, reintenta los fallos con espera creciente y deja los que no se pueden procesar en una cola que se puede revisar y reenviar.",
+    },
+    problem: {
+      en: "A webhook endpoint that works in a tutorial fails quietly in production: Stripe retries, so the same event arrives twice; it does not guarantee order, so a refund can arrive before the payment it refunds; and a slow endpoint makes Stripe send it all again.",
+      es: "Un endpoint de webhooks que funciona en un tutorial falla en silencio en producción: Stripe reintenta, así que el mismo evento llega dos veces; no garantiza el orden, así que un reembolso puede llegar antes del pago que reembolsa; y un endpoint lento hace que Stripe lo mande todo otra vez.",
+    },
+    solution: {
+      en: "The endpoint only checks the signature over the raw body, inserts the event keyed by its Stripe id and answers 200. A worker claims ready events with UPDATE ... FOR UPDATE SKIP LOCKED and applies each one in the same transaction that marks it done. Each order remembers the date of the last event it applied, so an older one is discarded.",
+      es: "El endpoint solo comprueba la firma sobre el cuerpo crudo, inserta el evento con su id de Stripe como clave y responde 200. Un worker toma los eventos listos con UPDATE ... FOR UPDATE SKIP LOCKED y aplica cada uno en la misma transacción que lo marca como hecho. Cada pedido recuerda la fecha del último evento que aplicó, así que uno más viejo se descarta.",
+    },
+    architectureHighlights: {
+      en: [
+        "20 simultaneous deliveries of the same event leave one row and exactly one response reporting it as new. Removing ON CONFLICT breaks both duplicate tests",
+        "A refund processed before its payment still ends as refunded, and events in the same second are resolved by state so the result does not depend on arrival order. Removing the ordering guard breaks three tests",
+        "Retries wait 5 s times 2 to the attempt, capped at one hour with full jitter, and after 6 attempts the event goes to a dead queue behind a token-protected endpoint that can replay it",
+        "I removed SKIP LOCKED to check my tests and the three-worker test still passed: uniqueness comes from the UPDATE re-evaluating its WHERE, and SKIP LOCKED only avoids waiting. I fixed my own code comment and added a test with a row held by another transaction, which does fail without it",
+        "31 tests run against a real PostgreSQL container, because ON CONFLICT, SKIP LOCKED and transactions are database behavior a mock cannot show",
+      ],
+      es: [
+        "20 entregas simultáneas del mismo evento dejan una fila y una sola respuesta que lo marca como nuevo. Quitar ON CONFLICT rompe las dos pruebas de duplicados",
+        "Un reembolso procesado antes que su pago termina igual como reembolsado, y los eventos del mismo segundo se resuelven por estado para que el resultado no dependa del orden de llegada. Quitar la guarda de orden rompe tres pruebas",
+        "Los reintentos esperan 5 s por 2 elevado al intento, con tope de una hora y jitter completo, y a los 6 intentos el evento pasa a una cola de muertos detrás de un endpoint con token que puede reenviarlo",
+        "Quité SKIP LOCKED para comprobar mis pruebas y la de tres workers siguió pasando: la unicidad la da el UPDATE al reevaluar su WHERE, y SKIP LOCKED solo evita esperar. Corregí mi propio comentario y agregué una prueba con una fila retenida por otra transacción, que sí falla sin él",
+        "31 pruebas corren contra un contenedor real de PostgreSQL, porque ON CONFLICT, SKIP LOCKED y las transacciones son comportamiento de la base que un mock no muestra",
+      ],
+    },
+    notDoneYet: {
+      en: "It was never connected to a real Stripe account: signatures in the tests and the simulator come from the SDK's helper with a test secret. It handles three event types, the orders table is a stand-in, I did not measure throughput and there are no metrics or traces.",
+      es: "Nunca se conectó a una cuenta real de Stripe: las firmas de las pruebas y del simulador salen del helper del SDK con un secreto de prueba. Maneja tres tipos de evento, la tabla de pedidos es un pretexto, no medí el rendimiento y no hay métricas ni trazas.",
+    },
+    metrics: [
+      { label: { en: "Tests, against real PostgreSQL", es: "Tests, contra PostgreSQL real" }, value: "31" },
+      { label: { en: "Event types handled", es: "Tipos de evento" }, value: "3" },
+    ],
+    links: [
+      {
+        label: SOURCE_LABEL,
+        href: "https://github.com/Kelvis123456/webhook-inbox",
+        icon: "github",
+      },
+    ],
+  },
+  {
+    slug: "transfer-ledger",
+    title: "transfer-ledger",
+    tagline: {
+      en: "A double-entry ledger where moving money cannot be done twice or by mistake",
+      es: "Un libro mayor de partida doble donde mover dinero no se puede hacer dos veces ni por error",
+    },
+    kind: "software",
+    category: "software",
+    status: "in-development",
+    featured: false,
+    started: "2026-11",
+    stack: [".NET 10", "ASP.NET Core", "PostgreSQL", "Npgsql", "xUnit", "Testcontainers"],
+    role: { en: "Solo developer", es: "Desarrollador en solitario" },
+    summary: {
+      en: "A .NET API over PostgreSQL with accounts addressed by alias (a phone number or an email), double-entry bookkeeping, idempotency keys and a reconciliation endpoint that checks the numbers add up. It is inspired by the idea of instant payments by alias and does not follow any real payment system's specification.",
+      es: "Una API en .NET sobre PostgreSQL con cuentas identificadas por alias (un teléfono o un correo), contabilidad de partida doble, claves de idempotencia y un endpoint de conciliación que comprueba que los números cuadran. Está inspirada en la idea de los pagos instantáneos por alias y no sigue la especificación de ningún sistema de pagos real.",
+    },
+    problem: {
+      en: "Code that moves money has to survive a client that retries, a thousand requests at once and a bug in its own checks. A balance column that is updated and nothing else gives you nothing to compare against when the numbers stop adding up.",
+      es: "El código que mueve dinero tiene que aguantar a un cliente que reintenta, mil peticiones a la vez y un bug en sus propias comprobaciones. Una columna de saldo que solo se actualiza no deja nada con qué comparar cuando los números dejan de cuadrar.",
+    },
+    solution: {
+      en: "Every transfer writes two entries that sum to zero, and a deposit is a transfer from a bank account that may go negative. The idempotency key is inserted in the same transaction as the transfer, so a repeated request waits on the unique index and gets the stored answer. The database also refuses what does not add up: a check on negative balances, a deferred trigger on entries that do not sum to zero, and append-only tables.",
+      es: "Cada transferencia escribe dos asientos que suman cero, y un depósito es una transferencia desde una cuenta del banco que puede quedar en negativo. La clave de idempotencia se inserta en la misma transacción que la transferencia, así que una petición repetida espera en el índice único y recibe la respuesta guardada. La base también rechaza lo que no cuadra: un chequeo contra saldos negativos, un trigger diferido sobre asientos que no suman cero y tablas de solo inserción.",
+    },
+    architectureHighlights: {
+      en: [
+        "60 concurrent transfers against a balance that covers 30: exactly 30 succeed, the balance never goes negative and the reconciliation stays clean. Without the row lock the test fails",
+        "40 simultaneous requests with the same idempotency key leave one transfer. Without the ON CONFLICT on the key, five idempotency tests fail",
+        "Reconciliation reads only the data: all entries must sum to zero and each balance must equal the sum of its entries. A test edits a balance by hand and the check flags exactly that account",
+        "The database is the last defense: a deferred trigger rejects entries that do not sum to zero at commit, and UPDATE or DELETE on entries and transfers fail",
+        "Removing the ORDER BY id on the account lock changed nothing in my cross-transfer test, because Postgres scans rows in a stable order. I kept it as an explicit defense and wrote that in the code instead of claiming a test proves it",
+        "Running the tests the first time exposed two of my own bugs: my validation rejected the bank account's own alias, so no deposit worked, and SUM of bigint returns numeric in Postgres",
+      ],
+      es: [
+        "60 transferencias concurrentes contra un saldo que cubre 30: pasan exactamente 30, el saldo nunca es negativo y la conciliación sigue limpia. Sin el bloqueo de fila la prueba falla",
+        "40 peticiones simultáneas con la misma clave de idempotencia dejan una sola transferencia. Sin el ON CONFLICT de la clave fallan cinco pruebas de idempotencia",
+        "La conciliación lee solo los datos: todos los asientos deben sumar cero y cada saldo debe ser igual a la suma de los suyos. Una prueba altera un saldo a mano y el chequeo señala justo esa cuenta",
+        "La base es la última defensa: un trigger diferido rechaza al confirmar asientos que no suman cero, y UPDATE o DELETE sobre asientos y transferencias fallan",
+        "Quitar el ORDER BY id del bloqueo de cuentas no cambió nada en mi prueba de transferencias cruzadas, porque Postgres recorre las filas en un orden estable. Lo dejé como defensa explícita y lo escribí en el código en vez de afirmar que una prueba lo demuestra",
+        "Correr las pruebas por primera vez dejó al descubierto dos errores míos: mi validación rechazaba el alias de la propia cuenta del banco, así que ningún depósito funcionaba, y SUM de bigint devuelve numeric en Postgres",
+      ],
+    },
+    notDoneYet: {
+      en: "It follows no real payment specification, has one currency, no fees, limits, fraud checks or verified identity behind an alias, and one shared API key instead of users. Idempotency keys never expire, I did not measure throughput and it is not deployed.",
+      es: "No sigue ninguna especificación de pagos real, tiene una sola moneda, no hay comisiones, límites, detección de fraude ni identidad verificada detrás de un alias, y usa una clave de API compartida en vez de usuarios. Las claves de idempotencia no caducan, no medí el rendimiento y no está desplegado.",
+    },
+    metrics: [
+      { label: { en: "Tests, against real PostgreSQL", es: "Tests, contra PostgreSQL real" }, value: "38" },
+      {
+        label: { en: "Concurrent transfers in one test", es: "Transferencias concurrentes en una prueba" },
+        value: "60",
+      },
+    ],
+    links: [
+      {
+        label: SOURCE_LABEL,
+        href: "https://github.com/Kelvis123456/transfer-ledger",
+        icon: "github",
+      },
+    ],
+  },
+  {
     slug: "automatizaciones",
     title: "Automatizaciones",
     tagline: {
@@ -1292,127 +1413,6 @@ export const projects: Project[] = [
       {
         label: SOURCE_LABEL,
         href: "https://github.com/Kelvis123456/dop-usd-backtest",
-        icon: "github",
-      },
-    ],
-  },
-  {
-    slug: "webhook-inbox",
-    title: "webhook-inbox",
-    tagline: {
-      en: "A Stripe webhook receiver that survives duplicate, out-of-order and failing events",
-      es: "Un receptor de webhooks de Stripe que aguanta eventos repetidos, desordenados y que fallan",
-    },
-    kind: "software",
-    category: "software",
-    status: "in-development",
-    featured: false,
-    started: "2026-11",
-    stack: ["TypeScript", "NestJS", "PostgreSQL", "Vitest", "Testcontainers", "Docker"],
-    role: { en: "Solo developer", es: "Desarrollador en solitario" },
-    summary: {
-      en: "A NestJS service that verifies a Stripe signature, stores each event before processing it, applies it in order, retries failures with backoff and keeps the ones that cannot be processed in a queue you can inspect and replay.",
-      es: "Un servicio en NestJS que verifica la firma de Stripe, guarda cada evento antes de procesarlo, lo aplica en orden, reintenta los fallos con espera creciente y deja los que no se pueden procesar en una cola que se puede revisar y reenviar.",
-    },
-    problem: {
-      en: "A webhook endpoint that works in a tutorial fails quietly in production: Stripe retries, so the same event arrives twice; it does not guarantee order, so a refund can arrive before the payment it refunds; and a slow endpoint makes Stripe send it all again.",
-      es: "Un endpoint de webhooks que funciona en un tutorial falla en silencio en producción: Stripe reintenta, así que el mismo evento llega dos veces; no garantiza el orden, así que un reembolso puede llegar antes del pago que reembolsa; y un endpoint lento hace que Stripe lo mande todo otra vez.",
-    },
-    solution: {
-      en: "The endpoint only checks the signature over the raw body, inserts the event keyed by its Stripe id and answers 200. A worker claims ready events with UPDATE ... FOR UPDATE SKIP LOCKED and applies each one in the same transaction that marks it done. Each order remembers the date of the last event it applied, so an older one is discarded.",
-      es: "El endpoint solo comprueba la firma sobre el cuerpo crudo, inserta el evento con su id de Stripe como clave y responde 200. Un worker toma los eventos listos con UPDATE ... FOR UPDATE SKIP LOCKED y aplica cada uno en la misma transacción que lo marca como hecho. Cada pedido recuerda la fecha del último evento que aplicó, así que uno más viejo se descarta.",
-    },
-    architectureHighlights: {
-      en: [
-        "20 simultaneous deliveries of the same event leave one row and exactly one response reporting it as new. Removing ON CONFLICT breaks both duplicate tests",
-        "A refund processed before its payment still ends as refunded, and events in the same second are resolved by state so the result does not depend on arrival order. Removing the ordering guard breaks three tests",
-        "Retries wait 5 s times 2 to the attempt, capped at one hour with full jitter, and after 6 attempts the event goes to a dead queue behind a token-protected endpoint that can replay it",
-        "I removed SKIP LOCKED to check my tests and the three-worker test still passed: uniqueness comes from the UPDATE re-evaluating its WHERE, and SKIP LOCKED only avoids waiting. I fixed my own code comment and added a test with a row held by another transaction, which does fail without it",
-        "31 tests run against a real PostgreSQL container, because ON CONFLICT, SKIP LOCKED and transactions are database behavior a mock cannot show",
-      ],
-      es: [
-        "20 entregas simultáneas del mismo evento dejan una fila y una sola respuesta que lo marca como nuevo. Quitar ON CONFLICT rompe las dos pruebas de duplicados",
-        "Un reembolso procesado antes que su pago termina igual como reembolsado, y los eventos del mismo segundo se resuelven por estado para que el resultado no dependa del orden de llegada. Quitar la guarda de orden rompe tres pruebas",
-        "Los reintentos esperan 5 s por 2 elevado al intento, con tope de una hora y jitter completo, y a los 6 intentos el evento pasa a una cola de muertos detrás de un endpoint con token que puede reenviarlo",
-        "Quité SKIP LOCKED para comprobar mis pruebas y la de tres workers siguió pasando: la unicidad la da el UPDATE al reevaluar su WHERE, y SKIP LOCKED solo evita esperar. Corregí mi propio comentario y agregué una prueba con una fila retenida por otra transacción, que sí falla sin él",
-        "31 pruebas corren contra un contenedor real de PostgreSQL, porque ON CONFLICT, SKIP LOCKED y las transacciones son comportamiento de la base que un mock no muestra",
-      ],
-    },
-    notDoneYet: {
-      en: "It was never connected to a real Stripe account: signatures in the tests and the simulator come from the SDK's helper with a test secret. It handles three event types, the orders table is a stand-in, I did not measure throughput and there are no metrics or traces.",
-      es: "Nunca se conectó a una cuenta real de Stripe: las firmas de las pruebas y del simulador salen del helper del SDK con un secreto de prueba. Maneja tres tipos de evento, la tabla de pedidos es un pretexto, no medí el rendimiento y no hay métricas ni trazas.",
-    },
-    metrics: [
-      { label: { en: "Tests, against real PostgreSQL", es: "Tests, contra PostgreSQL real" }, value: "31" },
-      { label: { en: "Event types handled", es: "Tipos de evento" }, value: "3" },
-    ],
-    links: [
-      {
-        label: SOURCE_LABEL,
-        href: "https://github.com/Kelvis123456/webhook-inbox",
-        icon: "github",
-      },
-    ],
-  },
-  {
-    slug: "transfer-ledger",
-    title: "transfer-ledger",
-    tagline: {
-      en: "A double-entry ledger where moving money cannot be done twice or by mistake",
-      es: "Un libro mayor de partida doble donde mover dinero no se puede hacer dos veces ni por error",
-    },
-    kind: "software",
-    category: "software",
-    status: "in-development",
-    featured: false,
-    started: "2026-11",
-    stack: [".NET 10", "ASP.NET Core", "PostgreSQL", "Npgsql", "xUnit", "Testcontainers"],
-    role: { en: "Solo developer", es: "Desarrollador en solitario" },
-    summary: {
-      en: "A .NET API over PostgreSQL with accounts addressed by alias (a phone number or an email), double-entry bookkeeping, idempotency keys and a reconciliation endpoint that checks the numbers add up. It is inspired by the idea of instant payments by alias and does not follow any real payment system's specification.",
-      es: "Una API en .NET sobre PostgreSQL con cuentas identificadas por alias (un teléfono o un correo), contabilidad de partida doble, claves de idempotencia y un endpoint de conciliación que comprueba que los números cuadran. Está inspirada en la idea de los pagos instantáneos por alias y no sigue la especificación de ningún sistema de pagos real.",
-    },
-    problem: {
-      en: "Code that moves money has to survive a client that retries, a thousand requests at once and a bug in its own checks. A balance column that is updated and nothing else gives you nothing to compare against when the numbers stop adding up.",
-      es: "El código que mueve dinero tiene que aguantar a un cliente que reintenta, mil peticiones a la vez y un bug en sus propias comprobaciones. Una columna de saldo que solo se actualiza no deja nada con qué comparar cuando los números dejan de cuadrar.",
-    },
-    solution: {
-      en: "Every transfer writes two entries that sum to zero, and a deposit is a transfer from a bank account that may go negative. The idempotency key is inserted in the same transaction as the transfer, so a repeated request waits on the unique index and gets the stored answer. The database also refuses what does not add up: a check on negative balances, a deferred trigger on entries that do not sum to zero, and append-only tables.",
-      es: "Cada transferencia escribe dos asientos que suman cero, y un depósito es una transferencia desde una cuenta del banco que puede quedar en negativo. La clave de idempotencia se inserta en la misma transacción que la transferencia, así que una petición repetida espera en el índice único y recibe la respuesta guardada. La base también rechaza lo que no cuadra: un chequeo contra saldos negativos, un trigger diferido sobre asientos que no suman cero y tablas de solo inserción.",
-    },
-    architectureHighlights: {
-      en: [
-        "60 concurrent transfers against a balance that covers 30: exactly 30 succeed, the balance never goes negative and the reconciliation stays clean. Without the row lock the test fails",
-        "40 simultaneous requests with the same idempotency key leave one transfer. Without the ON CONFLICT on the key, five idempotency tests fail",
-        "Reconciliation reads only the data: all entries must sum to zero and each balance must equal the sum of its entries. A test edits a balance by hand and the check flags exactly that account",
-        "The database is the last defense: a deferred trigger rejects entries that do not sum to zero at commit, and UPDATE or DELETE on entries and transfers fail",
-        "Removing the ORDER BY id on the account lock changed nothing in my cross-transfer test, because Postgres scans rows in a stable order. I kept it as an explicit defense and wrote that in the code instead of claiming a test proves it",
-        "Running the tests the first time exposed two of my own bugs: my validation rejected the bank account's own alias, so no deposit worked, and SUM of bigint returns numeric in Postgres",
-      ],
-      es: [
-        "60 transferencias concurrentes contra un saldo que cubre 30: pasan exactamente 30, el saldo nunca es negativo y la conciliación sigue limpia. Sin el bloqueo de fila la prueba falla",
-        "40 peticiones simultáneas con la misma clave de idempotencia dejan una sola transferencia. Sin el ON CONFLICT de la clave fallan cinco pruebas de idempotencia",
-        "La conciliación lee solo los datos: todos los asientos deben sumar cero y cada saldo debe ser igual a la suma de los suyos. Una prueba altera un saldo a mano y el chequeo señala justo esa cuenta",
-        "La base es la última defensa: un trigger diferido rechaza al confirmar asientos que no suman cero, y UPDATE o DELETE sobre asientos y transferencias fallan",
-        "Quitar el ORDER BY id del bloqueo de cuentas no cambió nada en mi prueba de transferencias cruzadas, porque Postgres recorre las filas en un orden estable. Lo dejé como defensa explícita y lo escribí en el código en vez de afirmar que una prueba lo demuestra",
-        "Correr las pruebas por primera vez dejó al descubierto dos errores míos: mi validación rechazaba el alias de la propia cuenta del banco, así que ningún depósito funcionaba, y SUM de bigint devuelve numeric en Postgres",
-      ],
-    },
-    notDoneYet: {
-      en: "It follows no real payment specification, has one currency, no fees, limits, fraud checks or verified identity behind an alias, and one shared API key instead of users. Idempotency keys never expire, I did not measure throughput and it is not deployed.",
-      es: "No sigue ninguna especificación de pagos real, tiene una sola moneda, no hay comisiones, límites, detección de fraude ni identidad verificada detrás de un alias, y usa una clave de API compartida en vez de usuarios. Las claves de idempotencia no caducan, no medí el rendimiento y no está desplegado.",
-    },
-    metrics: [
-      { label: { en: "Tests, against real PostgreSQL", es: "Tests, contra PostgreSQL real" }, value: "38" },
-      {
-        label: { en: "Concurrent transfers in one test", es: "Transferencias concurrentes en una prueba" },
-        value: "60",
-      },
-    ],
-    links: [
-      {
-        label: SOURCE_LABEL,
-        href: "https://github.com/Kelvis123456/transfer-ledger",
         icon: "github",
       },
     ],
