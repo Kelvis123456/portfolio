@@ -559,6 +559,63 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "hornilla",
+    title: "Hornilla",
+    tagline: {
+      en: "A concept website for a fictional coffee roaster in Santo Domingo, drawn without photos",
+      es: "Un sitio conceptual para una tostadora de café ficticia en Santo Domingo, dibujado sin fotos",
+    },
+    kind: "software",
+    category: "software",
+    status: "concept",
+    visibility: "private",
+    featured: false,
+    started: "2026-11",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "SVG"],
+    role: { en: "Solo developer and designer", es: "Desarrollador y diseñador en solitario" },
+    summary: {
+      en: "Six static pages in Spanish: home, coffee with prices in pesos, a reservation form, opening hours with a drawn street map, about, and a custom 404. The sack, the roast curve, the beans and the map are hand-built SVG.",
+      es: "Seis páginas estáticas en español: inicio, café con precios en pesos, un formulario de reserva, horarios con un mapa de calles dibujado, nosotros y un 404 propio. La bolsa, la curva de tueste, los granos y el mapa son SVG hechos a mano.",
+    },
+    problem: {
+      en: "I wanted a finished small-business site as proof of design work, without borrowed photos or invented customers. A concept has to say it is a concept, so it carries that label in the footer and the README.",
+      es: "Quería un sitio terminado de negocio pequeño como prueba de diseño, sin fotos prestadas ni clientes inventados. Un concepto tiene que decir que lo es, así que lleva esa etiqueta en el pie y en el README.",
+    },
+    solution: {
+      en: "A coffee-sack stencil identity: condensed capitals, cherry red on grey-green paper and square corners. The reservation form validates every field, shows an error summary that takes focus and ends in a confirmation, and says plainly that it sends nothing.",
+      es: "Una identidad de estarcido de saco de café: mayúsculas condensadas, rojo cereza sobre papel gris verdoso y esquinas rectas. El formulario de reserva valida cada campo, muestra un resumen de errores que recibe el foco y termina en una confirmación, y dice con claridad que no envía nada.",
+    },
+    architectureHighlights: {
+      en: [
+        "Every text and background pair passes WCAG AA, checked with real contrast math: ink on paper 14.25, cherry on paper 6.37, form border on paper 4.61",
+        "Unique title, description and canonical per page, JSON-LD for a coffee shop, a generated OG image, sitemap, robots and one h1 per page",
+        "I took screenshots of all six pages at 400 and 1280 px, looked at them and fixed a menu button that did not hide on desktop, text overflowing the sack and curve labels colliding",
+        "No horizontal overflow on any page at either width, and the form works with the keyboard alone",
+      ],
+      es: [
+        "Cada par de texto y fondo pasa WCAG AA, comprobado con cálculo real de contraste: tinta sobre papel 14,25, cereza sobre papel 6,37, borde del formulario sobre papel 4,61",
+        "Título, descripción y canonical únicos por página, JSON-LD de cafetería, imagen OG generada, sitemap, robots y un solo h1 por página",
+        "Tomé capturas de las seis páginas a 400 y 1280 px, las miré y corregí un botón de menú que no se ocultaba en escritorio, texto que desbordaba la bolsa y etiquetas de la curva que chocaban",
+        "Sin desborde horizontal en ninguna página a ningún ancho, y el formulario funciona solo con teclado",
+      ],
+    },
+    notDoneYet: {
+      en: "The business, its prices and its hours are invented, and the name may collide with a real one I did not find. The form sends nothing. I did not run Lighthouse and only tested in Chrome.",
+      es: "El negocio, sus precios y sus horarios son inventados, y el nombre puede coincidir con uno real que no encontré. El formulario no envía nada. No corrí Lighthouse y solo probé en Chrome.",
+    },
+    metrics: [
+      { label: { en: "Pages", es: "Páginas" }, value: "6" },
+      { label: { en: "Photos used", es: "Fotos usadas" }, value: "0" },
+    ],
+    links: [
+      {
+        label: PRIVATE_LABEL,
+        href: "https://github.com/Kelvis123456/cafe-concept",
+        icon: "github",
+      },
+    ],
+  },
+  {
     slug: "automatizaciones",
     title: "Automatizaciones",
     tagline: {
