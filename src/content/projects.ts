@@ -832,12 +832,12 @@ export const projects: Project[] = [
     ],
     galleryAlt: {
       en: [
-        "WillForge home dashboard with the hunter's level, stats, daily quests and an active boss raid",
+        "WillForge home dashboard with the hunter's level, stats, daily quests and a boss raid card marked as ended",
         "WillForge splash screen with the flaming fist logo and the tagline Rise and Conquer",
         "Avatar gallery where the player picks a character",
         "Workout library with the current Total Strength routine and today's Muscle Builder challenge",
         "Active session in superset mode: Chin-Up is the second exercise, with the set counter, last-time reps and a suggested target",
-        "Superset rest timer after a full round, with the set table showing Push-Up reps logged against the previous session",
+        "Superset rest timer after the first set of Push-Up, with the set table showing Push-Up reps logged against the previous session",
         "Progress screen with sets per muscle group for the last seven days and an estimated one-rep max for Bench Press",
         "Training history with the two exercises of a superset tagged and the XP earned for each",
         "Player profile with stats and rank",
@@ -845,12 +845,12 @@ export const projects: Project[] = [
         "Boss raid screen where players attack a shared boss",
       ],
       es: [
-        "Dashboard de WillForge con el nivel del cazador, estadísticas, misiones diarias y una raid activa",
+        "Dashboard de WillForge con el nivel del cazador, estadísticas, misiones diarias y una tarjeta de raid marcada como terminada",
         "Pantalla de inicio de WillForge con el logo del puño en llamas y el lema Rise and Conquer",
         "Galería de avatares donde el jugador elige un personaje",
         "Biblioteca de entrenamientos con la rutina actual Total Strength y el reto de hoy Muscle Builder",
         "Sesión activa en modo superset: Chin-Up es el segundo ejercicio, con el contador de series, las repeticiones de la última vez y un objetivo sugerido",
-        "Temporizador de descanso del superset tras una ronda completa, con la tabla de series que compara las repeticiones de Push-Up con la sesión anterior",
+        "Temporizador de descanso del superset tras la primera serie de Push-Up, con la tabla de series que compara las repeticiones de Push-Up con la sesión anterior",
         "Pantalla de progreso con series por grupo muscular de los últimos siete días y el 1RM estimado de Bench Press",
         "Historial de entrenamientos con los dos ejercicios de un superset marcados y la XP ganada por cada uno",
         "Perfil del jugador con estadísticas y rango",
@@ -882,14 +882,14 @@ export const projects: Project[] = [
     gallery: ["/images/aura-novel/editor.png", "/images/aura-novel/menu.png", "/images/aura-novel/api.png"],
     galleryAlt: {
       en: [
-        "Aura Novel editor for writing a story with AI assistance",
+        "Aura Novel editor with a short paragraph in Spanish about a lighthouse and a quick-instruction box at the bottom",
         "Aura Novel side menu with Characters and Lore Studio, My Projects and API Settings",
         "API connection screen with endpoint, key and model fields and sliders for generation parameters",
       ],
       es: [
-        "Editor de Aura Novel para escribir una historia con ayuda de IA",
+        "Editor de Aura Novel con un párrafo corto en español sobre un faro y un cuadro de instrucción rápida abajo",
         "Menú lateral de Aura Novel con Studio de Personajes y Lore, Mis Proyectos y Ajustes de API",
-        "Pantalla para conectar una API compatible con OpenAI",
+        "Pantalla de conexión de API con campos de endpoint, clave y modelo y deslizadores de parámetros de generación",
       ],
     },
     accentColor: "#dc143c",
@@ -922,8 +922,12 @@ export const projects: Project[] = [
     ],
     gallery: ["/images/recetas-app/home.png"],
     galleryAlt: {
-      en: ["Recipes app home screen with recipe cards"],
-      es: ["Pantalla de inicio de la app de recetas con tarjetas de recetas"],
+      en: [
+        "Recipes app home with a featured spaghetti carbonara recipe, a Trending This Week row and a Categories panel",
+      ],
+      es: [
+        "Inicio de la app de recetas con una receta destacada de espagueti carbonara, una fila de tendencias de la semana y un panel de categorías",
+      ],
     },
     accentColor: "#b5793f",
   },
@@ -998,12 +1002,12 @@ export const projects: Project[] = [
     galleryAlt: {
       en: [
         "ReservaYa landing page with a search box to find a sports court",
-        "List of sports venues available to book",
+        "Venue list with a search box, a sport filter and three cards: a tennis club, a basketball venue and a soccer field, each with a price per hour",
         "Detail page of a tennis club with the hourly availability picker and the booking card",
       ],
       es: [
         "Página de inicio de ReservaYa con buscador para encontrar una cancha",
-        "Lista de sedes deportivas disponibles para reservar",
+        "Lista de canchas con buscador, filtro de deporte y tres tarjetas: un club de tenis, un polideportivo de baloncesto y una cancha de fútbol, cada una con su precio por hora",
         "Detalle de un club de tenis con el selector de horarios por hora y la tarjeta de reserva",
       ],
     },
@@ -1170,12 +1174,12 @@ export const projects: Project[] = [
     ],
     galleryAlt: {
       en: [
-        "Brick Breaker boss fight",
+        "Brick Breaker level 6 boss fight with a purple boss at the top, its health bar and a few bricks left",
         "Brick Breaker level 3 with flaming balls clearing bricks and a x7 combo",
         "Brick Breaker level 1 with a FIREBALL! pickup, falling power-up capsules and a x5 combo",
       ],
       es: [
-        "Pelea contra el jefe en Brick Breaker",
+        "Brick Breaker nivel 6 con la pelea contra el jefe: un jefe morado arriba, su barra de vida y unos pocos ladrillos",
         "Brick Breaker nivel 3 con bolas de fuego rompiendo ladrillos y un combo x7",
         "Brick Breaker nivel 1 con un FIREBALL! recién recogido, cápsulas de power-up cayendo y un combo x5",
       ],
@@ -1251,18 +1255,18 @@ export const projects: Project[] = [
     ],
     galleryAlt: {
       en: [
-        "Digital forensics puzzle in the detective game",
-        "Evidence connections board linking clues",
-        "Interrogation scene with dialogue choices",
-        "Crime scene with clickable evidence",
-        "Detective game main menu",
+        "Digital forensics screen of The Red Diamond case showing a phone chat with a private collector, with a forensic note that the deleted conversation was recovered",
+        "Connections board where two pieces of evidence are linked with red threads to suspects",
+        "Interrogation room with a suspect card for Marco Delgado, his answer to the detective and a list of five available questions",
+        "Crime scene map with marked hotspots, the details of a jewelry supplies receipt open on the right and a list of suspects",
+        "Detective game main menu with the title Detective Agency and a Start Investigation button",
       ],
       es: [
-        "Puzzle de forense digital en el juego de detectives",
-        "Tablero de conexiones que une pistas de evidencia",
-        "Escena de interrogatorio con opciones de diálogo",
-        "Escena del crimen con evidencia seleccionable",
-        "Menú principal del juego de detectives",
+        "Pantalla de forense digital del caso The Red Diamond con un chat de teléfono con un coleccionista privado y una nota forense de que la conversación borrada se recuperó",
+        "Tablero de conexiones donde dos pruebas están unidas con hilos rojos a sospechosos",
+        "Sala de interrogatorio con la ficha del sospechoso Marco Delgado, su respuesta al detective y una lista de cinco preguntas disponibles",
+        "Mapa de la escena del crimen con puntos marcados, el detalle de un recibo de suministros de joyería abierto a la derecha y una lista de sospechosos",
+        "Menú principal del juego de detectives con el título Detective Agency y un botón de iniciar investigación",
       ],
     },
     accentColor: "#8a6a3a",
@@ -1391,13 +1395,13 @@ export const projects: Project[] = [
     galleryAlt: {
       en: [
         "SKIM at launch with the aiming ring on the water, the moon above and the score at 0",
-        "SKIM main menu",
-        "SKIM stone collection screen",
+        "SKIM main menu with the current weather, the best throw, a daily challenge to travel 100m in one throw and a launch button",
+        "SKIM stone collection screen with one equipped stone and three locked ones that unlock at 1,000m, 4,000m and 8,000m",
       ],
       es: [
         "SKIM al lanzar, con el aro de puntería sobre el agua, la luna arriba y el marcador en 0",
-        "Menú principal de SKIM",
-        "Pantalla de colección de piedras de SKIM",
+        "Menú principal de SKIM con el clima actual, la mejor tirada, un desafío diario de recorrer 100m en una sola tirada y un botón de lanzar",
+        "Pantalla de colección de piedras de SKIM con una piedra equipada y tres bloqueadas que se desbloquean a 1,000m, 4,000m y 8,000m",
       ],
     },
     accentColor: "#00c4cc",
@@ -1449,8 +1453,16 @@ export const projects: Project[] = [
     coverFit: "contain",
     gallery: ["/images/neon-tether/gameplay.png", "/images/neon-tether/menu.png", "/images/neon-tether/shop.png"],
     galleryAlt: {
-      en: ["Neon Tether gameplay", "Neon Tether main menu", "Neon Tether shop"],
-      es: ["Partida de Neon Tether", "Menú principal de Neon Tether", "Tienda de Neon Tether"],
+      en: [
+        "Neon Tether gameplay with two glowing dots joined by a line among neon rectangles and green diamonds, showing 126m and a 2.3x multiplier",
+        "Neon Tether main menu with Play, Tutorial Protocol, Shop, Logs, Events and Config buttons",
+        "Neon Tether grid shop with Tethers, Cores and Upgrades tabs and four tethers: one active, two priced in gems and one at $0.99",
+      ],
+      es: [
+        "Partida de Neon Tether con dos puntos brillantes unidos por una línea entre rectángulos de neón y diamantes verdes, con 126m y un multiplicador de 2.3x",
+        "Menú principal de Neon Tether con los botones Play, Tutorial Protocol, Shop, Logs, Events y Config",
+        "Tienda de Neon Tether con pestañas Tethers, Cores y Upgrades y cuatro tethers: uno activo, dos con precio en gemas y uno a $0.99",
+      ],
     },
     accentColor: "#d6266e",
   },
@@ -1508,13 +1520,13 @@ export const projects: Project[] = [
     galleryAlt: {
       en: [
         "Nocturni home with a featured-title hero banner and a Popular Movies row",
-        "Title details modal in Nocturni",
-        "Movies browsing page in Nocturni",
+        "Details modal of the title El final de Oak Street in Nocturni with its synopsis, rating, genres and Play and My List buttons",
+        "Movies page in Nocturni with Popular, Top Rated and Now Playing tabs, genre filters and a grid of posters",
       ],
       es: [
         "Inicio de Nocturni con un banner de título destacado y una fila de películas populares",
-        "Modal de detalle de un título en Nocturni",
-        "Página de exploración de películas en Nocturni",
+        "Modal de detalle del título El final de Oak Street en Nocturni con su sinopsis, calificación, géneros y botones de reproducir y Mi Lista",
+        "Página de películas de Nocturni con pestañas de populares, mejor valoradas y en cartelera, filtros por género y una cuadrícula de pósters",
       ],
     },
     accentColor: "#8B5CF6",
