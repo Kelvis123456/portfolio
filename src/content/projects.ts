@@ -879,7 +879,14 @@ export const projects: Project[] = [
       es: "Una app Android para escribir novelas con IA. El asistente escribe capítulos enteros escena por escena, investiga temas para la historia y lanza 35 herramientas de oficio (prosa, diálogo, trama, continuidad, construcción de mundos, notas al margen). Cada proyecto guarda su perfil de escritura con una muestra de la voz del autor, sus fichas de personajes y lore con un mapa de relaciones, un tablero de capítulos por etapa e hilo de la trama, una línea de tiempo con calendario inventado y un mapa con pines. Revisa cada capítulo contra el lore en busca de contradicciones y exporta una wiki estática que oculta lo que un lector, en cierto capítulo, aún no debería saber. El modelo puede ser un servidor compatible con OpenAI o Gemma 3 corriendo en el teléfono con llama.cpp. Las reescrituras llegan como una comparación palabra por palabra que el autor acepta o rechaza cambio por cambio, y el editor lleva una meta diaria de palabras con su racha. Los capítulos se exportan a TXT, PDF, EPUB o DOCX con formato de manuscrito, y todo vive en SQLite local con copia de seguridad en JSON.",
     },
     links: [{ label: SOURCE_LABEL, href: "https://github.com/Kelvis123456/aura-novel", icon: "github" }],
-    gallery: ["/images/aura-novel/asistente.png", "/images/aura-novel/editor.png", "/images/aura-novel/mundo.png", "/images/aura-novel/relaciones.png", "/images/aura-novel/tablero.png", "/images/aura-novel/proyectos.png"],
+    gallery: [
+      "/images/aura-novel/asistente.png",
+      "/images/aura-novel/editor.png",
+      "/images/aura-novel/mundo.png",
+      "/images/aura-novel/relaciones.png",
+      "/images/aura-novel/tablero.png",
+      "/images/aura-novel/proyectos.png",
+    ],
     galleryAlt: {
       en: [
         "The writing assistant in dark mode showing a request for chapter 3 and the start of the chapter the model wrote, in a serif typeface",
