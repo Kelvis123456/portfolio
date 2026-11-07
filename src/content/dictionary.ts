@@ -11,7 +11,7 @@ export const dictionary = {
       email: "Copy email",
       emailCopied: "Copied",
       contact: "Contact",
-      available: "Open to full-time developer roles, remote (LatAm) or on-site in Santo Domingo",
+      available: "Open to full-time developer roles, remote (worldwide) or on-site in Santo Domingo",
     },
     about: { heading: "About", basedIn: "Based in" },
     projects: {
@@ -107,7 +107,8 @@ export const dictionary = {
       email: "Copiar correo",
       emailCopied: "Copiado",
       contact: "Contacto",
-      available: "Disponible para puestos full-time de desarrollo, remoto (LatAm) o presencial en Santo Domingo",
+      available:
+        "Disponible para puestos full-time de desarrollo, remoto (cualquier país) o presencial en Santo Domingo",
     },
     about: { heading: "Sobre mí", basedIn: "Ubicado en" },
     projects: {
