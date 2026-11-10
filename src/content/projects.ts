@@ -1544,19 +1544,22 @@ export const projects: Project[] = [
     gallery: [
       "/images/nocturni/play.png",
       "/images/nocturni/donde-ver.png",
+      "/images/nocturni/live.png",
       "/images/nocturni/home.png",
       "/images/nocturni/movies.png",
     ],
     galleryAlt: {
       en: [
-        "Nocturni Play page showing 16,053 verified titles with a row of classic series and a row of films, each card tagged En Nocturni",
+        "Nocturni Play page showing 16,080 verified titles with a row of classic series and a row of films, each card tagged En Nocturni",
         "Watch page for The Matrix in Nocturni saying the title has no internal source, with a Where to watch section that lists HBO Max for the Dominican Republic and a JustWatch attribution",
+        "Live TV page in Nocturni with search and country and category filters, and a Featured row of international broadcasters such as Bloomberg, Red Bull TV, DW, CNN en Español and Euronews",
         "Nocturni home with a featured-title hero banner and a Popular Movies row",
         "Movies page in Nocturni with Popular, Top Rated and Now Playing tabs, genre filters and a grid of posters",
       ],
       es: [
-        "Página de Nocturni Play con 16.053 títulos verificados, una fila de series clásicas y una de películas, cada tarjeta con la etiqueta En Nocturni",
+        "Página de Nocturni Play con 16.080 títulos verificados, una fila de series clásicas y una de películas, cada tarjeta con la etiqueta En Nocturni",
         "Página de reproducción de Matrix en Nocturni que dice que el título no tiene fuente interna, con una sección Dónde ver que lista HBO Max para República Dominicana y la atribución a JustWatch",
+        "Página de TV en vivo de Nocturni con búsqueda y filtros por país y categoría, y una fila de destacados con emisoras internacionales como Bloomberg, Red Bull TV, DW, CNN en Español y Euronews",
         "Inicio de Nocturni con un banner de título destacado y una fila de películas populares",
         "Página de películas de Nocturni con pestañas de populares, mejor valoradas y en cartelera, filtros por género y una cuadrícula de pósters",
       ],
