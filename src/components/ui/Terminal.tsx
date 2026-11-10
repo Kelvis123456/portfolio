@@ -9,7 +9,7 @@ type LogLine = { label: string; detail: LocalizedText };
 
 // Every line is a number already stated in a case study (projects.ts), not a made-up log.
 const LOG_LINES: LogLine[] = [
-  { label: "rentedge — backend", detail: { en: "1,260 tests (unit + e2e)", es: "1,260 tests (unit + e2e)" } },
+  { label: "rentedge — backend", detail: { en: "1,445 tests (unit + e2e)", es: "1,445 tests (unit + e2e)" } },
   {
     label: "agendabot — sql server",
     detail: { en: "8 in parallel, 1 committed", es: "8 en paralelo, 1 confirmada" },
