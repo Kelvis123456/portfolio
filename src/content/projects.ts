@@ -130,12 +130,14 @@ export const projects: Project[] = [
             "A backtest of the ML occupancy forecast against the deterministic pickup model, on synthetic history because there are no real clients yet. The deterministic model is about twice as accurate on clean data and OLS wins on noisy data, so the ML stays a suggestion and does not set prices",
             "Nightly Postgres backups to Cloudflare R2, with the restore itself exercised in CI, not just the backup",
             "Two audit rounds closed the last rules-engine gaps (seasonal demand index and competitor price deltas became first-class rule facts) and fixed all 17 findings of a UX/accessibility audit, including WCAG contrast on every status badge, ARIA tabs with roving tabindex and visible keyboard focus",
+            "A k6 load test against a local API with a synthetic tenant (81 categories, 405k bookings) showed that one dashboard request ran about 500 queries. The indexes were fine, so the cost was the round trips and the 54k booking rows read into Node. After batching the queries, aggregating occupancy in SQL and letting simultaneous requests share one computation, p95 with 20 users went from 32.8 s to 3.4 s and the response stayed the same. One machine ran everything and the data is synthetic",
           ],
           es: [
             "gitleaks, Semgrep, OSV-Scanner y Trivy encontraron un hueco en el largo del tag AES-GCM al descifrar secretos 2FA (Node aceptaba tags de 4 bytes) y un bug de orden de filtros de excepción que convertía cada error de validación de dominio en un 500 en producción",
             "Un backtest del forecast de ocupación con ML contra el pickup model determinista, sobre historia sintética porque todavía no hay clientes reales. El modelo determinista acierta casi el doble con datos limpios y el OLS gana con datos ruidosos, así que el ML sigue siendo una sugerencia y no fija precios",
             "Backups nocturnos de Postgres a Cloudflare R2, con el restore ejercitado en CI, no solo el backup",
             "Dos rondas de auditoría cerraron los últimos huecos del motor de reglas (el índice de demanda estacional y los deltas de precio de la competencia pasaron a ser facts de primera clase) y corrigieron los 17 hallazgos de una auditoría de UX/accesibilidad, incluyendo contraste WCAG en cada badge de estado, pestañas ARIA con roving tabindex y foco de teclado visible",
+            "Una prueba de carga con k6 contra una API local, con un tenant sintético (81 categorías y 405 mil reservas), mostró que una sola petición del dashboard ejecutaba unas 500 consultas. Los índices estaban bien: el costo eran los viajes a la base y las 54 mil reservas leídas en Node. Tras agrupar las consultas, agregar la ocupación en SQL y dejar que las peticiones simultáneas compartan un cálculo, el p95 con 20 usuarios bajó de 32.8 s a 3.4 s y la respuesta quedó igual. Todo corrió en una sola máquina y los datos son sintéticos",
           ],
         },
       },
@@ -145,8 +147,8 @@ export const projects: Project[] = [
       es: "Todavía no hay usuarios en producción ni demo pública: la plataforma está construida hacia un piloto con una empresa de rent-a-car que aún no empieza. El servicio de ML solo da sugerencias.",
     },
     metrics: [
-      { label: { en: "Backend tests", es: "Tests de backend" }, value: "1,260 (unit + e2e)" },
-      { label: { en: "Frontend tests", es: "Tests de frontend" }, value: "344 unit + 99 Playwright (3 devices)" },
+      { label: { en: "Backend tests", es: "Tests de backend" }, value: "1,445 (unit + e2e)" },
+      { label: { en: "Frontend tests", es: "Tests de frontend" }, value: "363 unit + 120 Playwright (3 devices)" },
       { label: { en: "Services", es: "Servicios" }, value: "API + Web + 2 Python microservices" },
     ],
     links: [

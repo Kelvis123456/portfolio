@@ -63,7 +63,7 @@ export const homeMetrics = [
   },
   {
     label: { en: "Automated tests in RentEdge", es: "Tests automatizados en RentEdge" },
-    value: 1700,
+    value: 1900,
     suffix: "+",
   },
 ];
