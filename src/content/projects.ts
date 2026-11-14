@@ -1842,4 +1842,57 @@ export const projects: Project[] = [
       },
     ],
   },
+  {
+    slug: "colmado-desk",
+    title: "Colmado Desk",
+    tagline: {
+      en: "A support inbox for a corner-store POS that classifies each message with a model and checks it with plain rules",
+      es: "Una bandeja de soporte para el POS de un colmado que clasifica cada mensaje con un modelo y lo revisa con reglas simples",
+    },
+    kind: "software",
+    category: "software",
+    status: "in-development",
+    visibility: "private",
+    featured: false,
+    started: "2026-10",
+    stack: ["TypeScript", "Next.js", "Vercel AI SDK", "Zod", "Vitest", "Gemini"],
+    role: { en: "Solo developer", es: "Desarrollador en solitario" },
+    summary: {
+      en: "A customer writes that the card reader stopped working at the register. The app answers with a category, an urgency and a one-line summary. I built it for a course module on adding AI to an app, with a single feature on purpose, because calling a model is the easy part.",
+      es: "Un cliente escribe que el lector de tarjetas dejó de funcionar en caja. La app responde con una categoría, una urgencia y un resumen de una línea. La hice para un módulo de un curso sobre integrar IA en una app, con una sola función a propósito, porque llamar a un modelo es la parte fácil.",
+    },
+    architectureHighlights: {
+      en: [
+        "The Zod schema goes inside the request, so the response arrives with a guaranteed shape instead of being parsed afterwards",
+        "A valid shape is not a true answer: a broken card reader filed as billing / low urgency passes the schema. Server rules fix only that kind of clear mistake and never lower an urgency",
+        "My first rules fired whenever a message named the equipment, and a new employee needing a cashier-only account became hardware. The eval caught it. The rules now require a failure word, and there is a test",
+        "The model name lives in an environment variable. When one model took 12 to 19 s per message and hit the free quota, I switched to a lighter one without changing code",
+        "The log keeps model, time and tokens per call but never the message text, which can carry customer data. A test checks it",
+        "The endpoint costs money per call and is public, so it has a per-IP limit and a global cap per instance. The cost is that someone with enough traffic can exhaust the cap for everyone for a minute",
+      ],
+      es: [
+        "El esquema de Zod va dentro de la petición, así que la respuesta llega con la forma garantizada en vez de interpretarse después",
+        "Una forma válida no es una respuesta cierta: un lector de tarjetas roto clasificado como cobro / urgencia baja cumple el esquema. Las reglas del servidor corrigen solo ese tipo de error claro y nunca bajan una urgencia",
+        "Mis primeras reglas disparaban con solo nombrar el equipo, y un empleado nuevo que necesitaba usuario solo de caja pasó a hardware. Lo detectó el eval. Ahora exigen una palabra de falla, y hay una prueba",
+        "El nombre del modelo vive en una variable de entorno. Cuando un modelo tardó de 12 a 19 s por mensaje y topó con la cuota gratis, pasé a uno más ligero sin tocar código",
+        "El log guarda modelo, tiempo y tokens por llamada, pero nunca el texto del mensaje, que puede traer datos del cliente. Una prueba lo comprueba",
+        "El endpoint cuesta dinero por llamada y es público, así que tiene límite por IP y un tope global por instancia. El costo: alguien con mucho tráfico puede agotar el tope de todos durante un minuto",
+      ],
+    },
+    notDoneYet: {
+      en: "The rate limit is in memory per instance, and the rules are Spanish and English keywords, not a classifier. The eval has 10 cases and scored 10 of 10 with the model alone and with the rules, so on that run the rules corrected nothing. It is not deployed and has no users.",
+      es: "El límite de peticiones está en memoria por instancia, y las reglas son palabras clave en español e inglés, no un clasificador. El eval tiene 10 casos y dio 10 de 10 con el modelo solo y con las reglas, así que en esa corrida las reglas no corrigieron nada. No está desplegada y no tiene usuarios.",
+    },
+    metrics: [
+      { label: { en: "Tests, model mocked", es: "Tests, modelo simulado" }, value: "30" },
+      { label: { en: "Eval cases, real model", es: "Casos de eval, modelo real" }, value: "10 / 10" },
+    ],
+    links: [
+      {
+        label: PRIVATE_LABEL,
+        href: "mailto:kelvisguerrero03@gmail.com?subject=Colmado%20Desk%20repo%20access",
+        icon: "external",
+      },
+    ],
+  },
 ];
